@@ -1,6 +1,6 @@
 # Workload identities API
 
-The workload identities API lets you manage the workload identities that your Buildkite organization uses for [workload identity federation](/docs/apis/workload-identity-federation). A workload identity lets a trusted workload, such as a job running on a Buildkite agent, exchange the OpenID Connect (OIDC) token that its platform issues for a short-lived API access token. The API access token can only reach the pipelines and scopes that the workload identity allows.
+The workload identities API lets you manage the workload identities that your Buildkite organization uses for [workload identity federation](/docs/apis/workload-identity-federation). A workload identity lets a trusted workload, such as a job running on a Buildkite agent, exchange the OpenID Connect (OIDC) token that its platform issues for a short-lived API access token. The API access token can only reach the resources and scopes that the workload identity allows.
 
 > 📘 Required permissions
 > These endpoints require both an API access token scope and organization administrator access for the user who owns the token:
@@ -81,7 +81,7 @@ Workload identity endpoints return objects with the following fields:
   </tr>
   <tr>
     <th><code>resource_grants</code></th>
-    <td>Array of the pipelines that API access tokens can reach. Learn more in <a href="#workload-identity-data-model-resource-grants">Resource grants</a>.</td>
+    <td>Array of resource access grants. Learn more in <a href="#workload-identity-data-model-resource-grants">Resource grants</a>.</td>
   </tr>
   <tr>
     <th><code>enabled</code></th>
@@ -137,26 +137,56 @@ For example, this workload identity accepts OIDC tokens from jobs in one pipelin
 
 ### Resource grants
 
-The `resource_grants` array holds one object for pipeline access, with the following fields. When the array is empty, API access tokens can't reach any pipelines.
+The `resource_grants` array holds at most one object per resource type, with the following fields. An omitted type grants no access to that type. An empty array grants no resource access. Organization scopes grant organization-wide access regardless of these grants.
 
 <table class="responsive-table">
 <tbody>
   <tr>
     <th><code>type</code></th>
-    <td>The resource type. Must be <code>pipeline</code>.</td>
+    <td>The resource type: <code>pipeline</code> for pipelines, <code>team</code> for teams, or <code>cluster</code> for agents in those clusters. A cluster grant doesn't enable cluster management or include unclustered agents.</td>
   </tr>
   <tr>
     <th><code>access</code></th>
-    <td><code>none</code> for no pipelines, <code>selected</code> for the pipelines in <code>ids</code>, or <code>all</code> for every pipeline in your Buildkite organization, including pipelines created later.</td>
+    <td><code>none</code> for no resources of this type, <code>selected</code> for the resources in <code>ids</code>, or <code>all</code> for every resource of this type in your Buildkite organization, including resources created later.</td>
   </tr>
   <tr>
     <th><code>ids</code></th>
-    <td>UUIDs of up to 10 pipelines in your Buildkite organization. Required when <code>access</code> is <code>selected</code>, with at least one UUID, and not allowed otherwise.</td>
+    <td>UUIDs of up to 10 resources in your Buildkite organization, matching <code>type</code>. The limit applies to each grant separately. Required when <code>access</code> is <code>selected</code>, with at least one UUID, and not allowed otherwise.</td>
   </tr>
 </tbody>
 </table>
 
-These fields match the **Resource Access** setting in the Buildkite interface. Learn more in [Choose pipeline access](/docs/apis/workload-identity-federation#choose-pipeline-access).
+These fields match the **Resource Access** setting in the Buildkite interface. Learn more in [Choose resource access](/docs/apis/workload-identity-federation#choose-resource-access). Grants don't replace the required scopes or enable every operation. See [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints).
+
+For example, include these fields when creating or updating a workload identity to allow read access to two selected pipelines, all teams, and agents in one selected cluster:
+
+```json
+{
+  "grantable_token_scopes": ["read_pipelines", "read_teams", "read_agents"],
+  "default_token_scopes": ["read_pipelines", "read_teams", "read_agents"],
+  "resource_grants": [
+    {
+      "type": "pipeline",
+      "access": "selected",
+      "ids": [
+        "00000000-0000-4000-8000-000000000002",
+        "00000000-0000-4000-8000-000000000003"
+      ]
+    },
+    {
+      "type": "team",
+      "access": "all"
+    },
+    {
+      "type": "cluster",
+      "access": "selected",
+      "ids": ["00000000-0000-4000-8000-000000000004"]
+    }
+  ]
+}
+```
+
+Replace the example UUIDs with resources from your Buildkite organization. The team grant doesn't add access to other pipelines. The cluster grant doesn't enable cluster management. Setting a grant's `access` to `none`, or omitting the grant, denies access to that resource type.
 
 ## List workload identities
 
@@ -309,7 +339,7 @@ Required [request body properties](/docs/apis/rest-api#request-body-properties):
   </tr>
   <tr>
     <th><code>grantable_token_scopes</code></th>
-    <td>Array of the maximum scopes that an API access token can have. Must include at least one scope. The available scopes are <code>read_pipelines</code>, <code>write_pipelines</code>, <code>read_builds</code>, <code>write_builds</code>, <code>retry_builds</code>, <code>read_job_env</code>, <code>read_build_logs</code>, <code>write_build_logs</code>, <code>read_artifacts</code>, <code>write_artifacts</code>, <code>read_organizations</code>, and <code>write_organizations</code>.</td>
+    <td>Array of the maximum scopes that an API access token can have. Must include at least one scope. The available scopes are <code>read_pipelines</code>, <code>write_pipelines</code>, <code>read_builds</code>, <code>write_builds</code>, <code>retry_builds</code>, <code>read_job_env</code>, <code>read_build_logs</code>, <code>write_build_logs</code>, <code>read_artifacts</code>, <code>write_artifacts</code>, <code>read_organizations</code>, <code>write_organizations</code>, <code>read_teams</code>, <code>write_teams</code>, <code>read_agents</code>, and <code>write_agents</code>.</td>
   </tr>
 </tbody>
 </table>
@@ -336,7 +366,7 @@ Optional [request body properties](/docs/apis/rest-api#request-body-properties):
   </tr>
   <tr>
     <th><code>resource_grants</code></th>
-    <td>Array of the pipelines that API access tokens can reach. Learn more in <a href="#workload-identity-data-model-resource-grants">Resource grants</a>.<p class="Docs__api-param-eg"><em>Default:</em> <code>[]</code>, which reaches no pipelines</p></td>
+    <td>Array of resource access grants. Learn more in <a href="#workload-identity-data-model-resource-grants">Resource grants</a>.<p class="Docs__api-param-eg"><em>Default:</em> <code>[]</code>, which grants no resource access</p></td>
   </tr>
   <tr>
     <th><code>max_token_ttl_seconds</code></th>
@@ -361,7 +391,7 @@ Required scope: `write_workload_identities`
 
 Success response: `201 Created`
 
-Error response: `422 Unprocessable Entity` when the request has an unknown field, a value of the wrong type, or settings that Buildkite rejects, such as an unavailable scope, an invalid claim or claim condition, or a pipeline from another Buildkite organization. The response message describes each problem.
+Error response: `422 Unprocessable Entity` when the request has an unknown field, a value of the wrong type, or settings that Buildkite rejects, such as an unavailable scope, an invalid claim or claim condition, or a resource from another Buildkite organization. The response message describes each problem.
 
 ## Update a workload identity
 
@@ -383,7 +413,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 The request body accepts the same properties as [create a workload identity](#create-a-workload-identity), and all of them are optional.
 
-Set `enabled` to `false` to disable the workload identity. Buildkite stops accepting its token exchange requests, and revokes its active API access tokens shortly afterwards. Set `enabled` to `true` to accept token exchange requests again. Other changes only apply to new token exchanges. API access tokens that the workload identity already minted keep their pipeline access, scopes, IP restrictions, and expiry.
+Set `enabled` to `false` to disable the workload identity. Buildkite stops accepting its token exchange requests, and revokes its active API access tokens shortly afterwards. Set `enabled` to `true` to accept token exchange requests again. Other changes only apply to new token exchanges. API access tokens that the workload identity already minted keep their resource access, scopes, IP restrictions, and expiry.
 
 Required scope: `write_workload_identities`
 

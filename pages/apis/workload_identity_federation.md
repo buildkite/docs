@@ -2,7 +2,7 @@
 
 _Workload identity federation_ lets a workload, such as a job running on a Buildkite agent or a workload on AWS, call the [Buildkite REST API](/docs/apis/rest-api) without a stored API access token. The workload exchanges the [OpenID Connect (OIDC)](https://openid.net/developers/how-connect-works/) token from your identity provider for a short-lived [Buildkite API access token](/docs/apis/managing-api-tokens). There's no secret to create, store, rotate, or leak.
 
-Access is denied by default. An administrator creates a _workload identity_, which works as a rule: OIDC tokens from this issuer, with claims that match these conditions, can reach these pipelines with these scopes. A new workload identity's tokens can't reach any pipelines until an administrator [selects them](#choose-pipeline-access).
+Access is denied by default. An administrator creates a _workload identity_, which works as a rule: OIDC tokens from this issuer, with claims that match these conditions, can reach these resources with these scopes. A new workload identity's tokens can't reach any resources until an administrator [chooses resource access](#choose-resource-access).
 
 Workload identity federation is only as secure as the identity provider that signs the OIDC tokens and the workload identity that accepts them.
 
@@ -21,7 +21,7 @@ An administrator [creates a workload identity](#create-a-workload-identity) befo
 1. The workload sends the workload identity's client ID and the OIDC token to the Buildkite token exchange endpoint, `https://buildkite.com/oauth/token`.
 1. Buildkite checks the token against the workload identity, as described in [OIDC token requirements](#oidc-token-requirements), and returns a short-lived API access token. The access token acts as the workload identity, not as a person.
 1. The workload uses the access token to call the Buildkite REST API.
-1. Buildkite returns the API response if the token's [pipeline access](#choose-pipeline-access) and scopes allow the request.
+1. Buildkite returns the API response if the token's [resource access](#choose-resource-access) and scopes allow the request.
 
 ## Create a workload identity
 
@@ -45,7 +45,7 @@ To create a workload identity:
 
     **Note:** A trust policy that's too broad is a serious security risk, because it lets workloads that you didn't intend mint API access tokens for your Buildkite organization. Make the **OIDC subject** as restrictive as possible, and use claims and claim conditions to narrow it further.
 
-1. In **Resource Access**, select **Edit** in the **Pipelines** row. Choose **None**, **Selected**, or **All**, then select **Done** to apply the selection to the form. By default, tokens can't reach any pipelines. Learn more in [Choose pipeline access](#choose-pipeline-access).
+1. In **Resource Access**, select **Edit** for each resource type you want the workload to access. Choose **None**, **Selected**, or **All**, then select **Done** to apply the selection to the form. By default, tokens can't reach any resources. Learn more in [Choose resource access](#choose-resource-access).
 1. Expand **Grantable Scopes**, and select the maximum [REST API scopes](/docs/apis/managing-api-tokens#token-scopes) that a token can have. A token exchange request can ask for any subset of these scopes. **Resource Access** doesn't limit the `read_organizations` and `write_organizations` scopes, which let a token read your Buildkite organization and manage its members.
 1. Expand **Default Scopes**, and select the scopes that a token gets when the request doesn't specify any. Default scopes must be a subset of the grantable scopes.
 1. In **Security**, set the following:
@@ -112,23 +112,33 @@ Buildkite won't save an expression that:
 - Is longer than 4,096 bytes
 - Reads any variable other than `claims`
 - Uses a macro that loops over a list, such as `all()`, `exists()`, `map()`, or `filter()`
-- Returns something other than a boolean
+- Returns something other than a boolean when Buildkite can determine this without a token
 - Returns `true` for a token with no claims, such as `true` or `!has(claims.environment)`
 
-## Choose pipeline access
+<a id="choose-pipeline-access"></a>
 
-The **Pipelines** setting in **Resource Access** limits which pipelines a workload identity's tokens can reach:
+## Choose resource access
 
-- **None:** No pipelines. A new workload identity starts with this option.
-- **Selected:** Up to 10 pipelines that you choose.
-- **All:** Every pipeline in your Buildkite organization, including pipelines created later.
+**Resource Access** limits which resources a workload identity's tokens can reach. Configure each row separately:
 
-To change access, select **Edit** in the **Pipelines** row, choose an option, and select **Done**. Select **Cancel** or press Escape to discard changes in the popup. Selecting **Done** only updates the form. Submit the form to save the workload identity.
+- **Pipelines:** Pipelines and their builds, jobs, and artifacts
+- **Teams:** Teams, their members, and their pipeline assignments. Reading a team's pipeline assignments also requires access to those pipelines.
+- **Clusters:** Agents in the selected clusters, not the clusters or their settings. Unclustered agents are never included.
 
-For other pipelines, the REST API returns `404 Not Found`. A token keeps the pipeline access that the workload identity had when the token was minted. To remove access from existing tokens, disable the workload identity, which revokes them.
+Each row has three options:
+
+- **None:** No resources of that type. A new workload identity starts with this option.
+- **Selected:** Up to 10 resources of that type per grant.
+- **All:** Every resource of that type in your Buildkite organization, including resources created later.
+
+To change access, select **Edit** in the resource's row, choose an option, and select **Done**. Select **Cancel** or press Escape to discard changes in the popup. Selecting **Done** only updates the form. Submit the form to save the workload identity.
+
+To configure access through the REST API, see the [resource grants example](/docs/apis/rest-api/organizations/workload-identities#workload-identity-data-model-resource-grants).
+
+For resources outside the token's access, the REST API returns `404 Not Found`. A token keeps the resource access that the workload identity had when the token was minted. To remove access from existing tokens, disable the workload identity, which revokes them.
 
 > 🚧 Limited API support
-> Workload identity federation currently supports Buildkite Pipelines only, with a subset of REST API endpoints and scopes. See [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints) for the supported operations, including organization access. Support for additional endpoints and scopes is being added.
+> Workload identity federation supports a subset of REST API endpoints and scopes. Resource access doesn't enable every operation on a resource. See [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints) for the supported operations.
 
 ## Exchange an OIDC token
 
