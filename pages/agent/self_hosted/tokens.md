@@ -259,7 +259,18 @@ Agent tokens can be revoked by a [cluster maintainer](/docs/pipelines/security/c
 
 For these API requests, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
 
-Once a token is revoked, no new agents will be able to start with that token. Revoking a token does not affect any connected agents.
+Revoking a token offers two levels of revocation:
+
+- **Revoke token**: the default option. No new agents can start with this token, but agents that are already connected keep running, and their jobs keep their existing Buildkite access.
+- **Revoke token and agent access**: additionally rejects the session and job credentials derived from this token, including credentials issued through [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens). Use this option when responding to a compromised token, rather than for routine rotation.
+
+Agents generally shut down shortly after their access is revoked, stopping any running jobs, but neither outcome is guaranteed. Some older agent versions may keep running without being able to accept new work, consuming resources until you stop them manually. After revoking agent access, check directly in your infrastructure that affected agents and jobs have stopped, and stop any that remain running. Agents with revoked access can't report their status to Buildkite, so the Buildkite interface may temporarily show them as connected even after they've stopped. Jobs that lose their Buildkite access will be marked as lost after a short time.
+
+Revocation doesn't invalidate [OIDC tokens](/docs/pipelines/security/oidc) already issued to jobs or external credentials already obtained using those tokens, such as cloud provider credentials. These remain usable until they expire or the external provider invalidates them. Revocation also doesn't affect other externally issued credentials, requests already authorized before it takes effect, or presigned storage URLs.
+
+Agent access revocation is processed in the background, so it can take a short time before every agent associated with the token is affected. This action can't be undone.
+
+A token that has only been revoked (without revoking agent access) can later be escalated to also revoke its agent access.
 
 ### Using the Buildkite interface
 
@@ -268,7 +279,12 @@ To revoke a cluster's agent token using the Buildkite interface:
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster containing the agent token to revoke.
 1. Select **Agent Tokens** and on this page, expand the agent token to revoke.
-1. Select **Revoke** > **Revoke Token** in the confirmation message.
+1. Select **Revoke**.
+1. Choose **Revoke token** to only stop new agents from connecting, or **Revoke token and agent access** to also reject existing agents' session and job credentials.
+1. If you chose **Revoke token and agent access**, select the checkbox confirming that you understand jobs will be disrupted and that you may need to clean up resources manually.
+1. Select **Revoke Token**, or **Revoke Token and Agent Access** if you chose that option.
+
+To revoke agent access for a token that was already revoked, select **Include revoked tokens** on the **Agent Tokens** page, expand the revoked token, then select **Revoke Agent Access** and confirm.
 
 ### Using the REST API
 
@@ -288,6 +304,15 @@ where:
 <%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
 
 <%= render_markdown partial: 'apis/descriptions/rest_agent_token_id' %>
+
+To additionally [revoke the token's agent access](/docs/apis/rest-api/clusters/agent-tokens#revoke-a-tokens-agent-access), run the following example `curl` command:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}/agent-access-revocation"
+```
+
+This request also revokes the token itself if it hasn't already been revoked. It's safe to retry, including after agent access has already been revoked. The response's `agent_access_revocation_completed_at` field is `null` until the background revocation has finished for every agent sourced from the token.
 
 ### Using the GraphQL API
 
