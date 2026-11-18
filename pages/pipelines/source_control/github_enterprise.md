@@ -2,18 +2,20 @@
 
 Connect Buildkite Pipelines to your GitHub Enterprise Server using a [GitHub App](#github-app) to trigger builds from repository events and report commit statuses. Create and install the App from your Buildkite organization's **Repository Providers** settings. This guide also covers [GitHub Enterprise Cloud with data residency](#github-app-github-enterprise-cloud-with-data-residency), where your enterprise is hosted at `<subdomain>.ghe.com`. If your GitHub Enterprise Cloud organization is hosted on github.com, use the [GitHub](/docs/pipelines/source-control/github) integration instead.
 
-The GitHub Enterprise Server integration is available on [Enterprise](https://buildkite.com/pricing) plans.
+> 📘 Buildkite plan availability and GitHub Enterprise version
+> GitHub Enterprise Server is available on [Enterprise](https://buildkite.com/pricing) plans.
+> The OAuth app registration instructions are based on GitHub Enterprise Server version 2.16.3. Earlier or later versions may have different menus and headings. All of the Buildkite settings remain the same.
+
+For proxy and firewall setups, see [Firewalled installs](#firewalled-installs).
 
 > 📘 Accessing private repositories
 > Connecting your GitHub Enterprise Server to Buildkite configures webhooks and commit statuses. With the GitHub App integration and code access enabled, checkout credentials are included automatically for [Buildkite hosted agents](/docs/agent/buildkite-hosted). For self-hosted agents, enable [GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on the queue to use temporary, read-only credentials. If you use the OAuth App integration or need SSH-based checkout, store an SSH key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it with [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) in your pipeline YAML.
-
-For proxy and firewall setups, see [Firewalled installs](#firewalled-installs).
 
 ## GitHub App
 
 With the GitHub App integration, Buildkite creates a [GitHub App](https://docs.github.com/en/apps) on your GitHub Enterprise Server or GHE.com enterprise that receives webhooks to trigger builds and reports commit statuses back to your repositories and pull requests. You can optionally grant it code access so hosted agents and [self-hosted queues with token checkout enabled](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) can clone private repositories.
 
-For GitHub Enterprise Server, the App integration also supports [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows). Enable **Code Read Access** and install the App for the repositories whose workflows you want to run. The legacy OAuth integration doesn't support this workflow execution path.
+For GitHub Enterprise Server, the App integration also supports [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows). Select **GitHub Actions compatibility** during setup and install the App for the repositories whose workflows you want to run. This capability includes code read access and requests access to GitHub Actions environments and variables. The legacy OAuth integration doesn't support this workflow execution path.
 
 ### Set up the GitHub App
 
@@ -24,7 +26,8 @@ You must be a Buildkite organization administrator and have permission to create
 1. Enter your settings:
     - **URL**: the URL of the GitHub Enterprise Server to connect, for example `https://github.example.com`.
     - **GitHub Enterprise Organization**: the organization on GitHub Enterprise Server to create the app in. For example, to create the app in `https://github.example.com/acme`, enter `acme`.
-    - **Code Read Access**: select this to grant the app read-only repository contents permission (unchecked by default). This is required for GitHub Actions Compatibility, hosted agents or self-hosted queues using GitHub App token checkout to clone private repositories, and branch, tag, and release webhook events.
+    - **Code Read Access**: select this to grant the app read-only repository contents permission (unchecked by default). This is required for hosted agents or self-hosted queues using GitHub App token checkout to clone private repositories, and branch, tag, and release webhook events.
+    - **GitHub Actions compatibility**: select this to request access to GitHub Actions environments and variables. This option also selects **Code Read Access**.
     - If Buildkite reaches your GitHub Enterprise Server through a proxy, open **Advanced API settings** and set the **Public API URL**. See [Firewalled installs](#firewalled-installs) for the network configuration. For GHE.com, set the **Public API URL** to your enterprise's API host instead. See [GitHub Enterprise Cloud with data residency](#github-app-github-enterprise-cloud-with-data-residency).
 1. Select **Create**. Buildkite sends you to your GitHub Enterprise Server to create the app from a manifest. This step runs against your GitHub Enterprise Server URL directly, so you need browser access to it.
 1. On your GitHub Enterprise Server, review the app details and create the app. Your GitHub Enterprise Server will return you to Buildkite, which registers the provider and opens its settings page.
@@ -55,7 +58,7 @@ To refresh the repository list, open your Buildkite organization's **Settings**,
 
 ### Known limitations for additional webhook events
 
-The GitHub App manifest subscribes to the `create`, `delete`, and `release` webhook events. GitHub only delivers these events when the app has `contents: read` permission, which the manifest includes only when you select **Code read access** during setup.
+The GitHub App manifest subscribes to the `create`, `delete`, and `release` webhook events. GitHub only delivers these events when the app has `contents: read` permission, which the manifest includes when you select **Code Read Access** or **GitHub Actions compatibility** during setup.
 
 This means installations without code access don't receive `create`, `delete`, or `release` events, so the corresponding pipeline settings (branch and tag creation and release triggers) have no effect. The `cancel_deleted_branch_builds` setting is not affected, because branch deletion is also detected through `push` events.
 
@@ -64,11 +67,9 @@ This means installations without code access don't receive `create`, `delete`, o
 
 ## OAuth App
 
-The OAuth App integration, shown as **GitHub Enterprise Server (legacy)**, is deprecated. Use the [GitHub App integration](#github-app) for new connections. The following instructions remain available for existing OAuth connections. Creating a GitHub App connection does not automatically migrate existing OAuth connections or pipelines.
+The OAuth App integration, shown as **GitHub Enterprise Server** with a **Legacy** badge, is deprecated. Use the [GitHub App integration](#github-app) for new connections. The following instructions remain available for existing OAuth connections. Creating a GitHub App connection does not automatically migrate existing OAuth connections or pipelines.
 
 ### Step 1: Register Buildkite as an OAuth app
-
-These OAuth registration instructions are based on GitHub Enterprise Server 2.16.3. Other versions may have different menus and headings.
 
 In your GitHub Enterprise organization settings, select **OAuth Apps** under **Developer Settings**:
 
@@ -95,7 +96,7 @@ Make a note of your Client ID and Client Secret, you will need those to connect 
 ### Step 2: Update your Buildkite organization settings
 
 1. Open your Buildkite organization's **Settings** and choose [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers).
-1. Select **GitHub Enterprise Server (legacy)**.
+1. Select **GitHub Enterprise Server** with the **Legacy** badge.
 1. Enter your settings:
     - The URL and public proxy URL of your GitHub Enterprise Server
     - The Client ID and Client Secret from the GitHub OAuth App you created in Step 1
