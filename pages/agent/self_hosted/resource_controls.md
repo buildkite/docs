@@ -99,7 +99,7 @@ These settings work as follows:
 > 🚧 One job that runs out of memory can stop every worker on the host
 > By default, systemd stops a service when any of its processes is killed for running out of memory. Without `OOMPolicy=continue`, one OOM kill after the agent and its jobs reach `MemoryMax` stops the whole `buildkite-agent` service. The agent then stops gracefully: every worker stops accepting jobs and waits for its running job to finish before the agent exits. After that, systemd restarts the service, but the host doesn't accept new jobs until the longest-running job finishes.
 
-The `MemoryMax`, `MemorySwapMax`, and `AllowedCPUs` settings require the unified cgroup hierarchy (cgroup v2), which is the default on current Debian, Ubuntu, and Red Hat Enterprise Linux releases. For all available settings, see the [systemd.resource-control](https://www.freedesktop.org/software/systemd/man/latest/systemd.resource-control.html) documentation.
+The `MemorySwapMax` and `AllowedCPUs` settings require the unified cgroup hierarchy (cgroup v2), which is the default on current Debian, Ubuntu, and Red Hat Enterprise Linux releases. On cgroup v1, systemd applies `MemoryMax` as the legacy memory limit but doesn't apply `MemorySwapMax`, so jobs can still use swap. For all available settings, see the [systemd.resource-control](https://www.freedesktop.org/software/systemd/man/latest/systemd.resource-control.html) documentation.
 
 ### Set limits for each agent
 
@@ -184,7 +184,11 @@ set -euo pipefail
 # Minimum free space on the build path filesystem, in kilobytes (10 GiB)
 min_free_kb=$((10 * 1024 * 1024))
 
-free_kb=$(df -Pk "$BUILDKITE_BUILD_PATH" | awk 'NR==2 {print $4}')
+# Use the nearest existing directory if the build path doesn't exist yet
+dir="$BUILDKITE_BUILD_PATH"
+while [[ ! -d "$dir" ]]; do dir=$(dirname "$dir"); done
+
+free_kb=$(df -Pk "$dir" | awk 'NR==2 {print $4}')
 
 if (( free_kb < min_free_kb )); then
   echo "^^^ +++"
@@ -199,7 +203,7 @@ Pair a free-space check with cleanup. Without cleanup, the check can keep failin
 
 ### Clean up after jobs
 
-The following agent [`pre-exit` hook](/docs/agent/hooks#job-lifecycle-hooks) runs the same `git clean` that the agent runs before the next checkout, but runs it as soon as the job finishes. This frees disk space sooner without changing which files are kept between jobs:
+The following agent [`pre-exit` hook](/docs/agent/hooks#job-lifecycle-hooks) runs the same `git clean` commands that the agent runs in the checkout and its submodules before the next checkout, but runs them as soon as the job finishes. This frees disk space sooner without changing which files are kept between jobs:
 
 ```bash
 #!/bin/bash
@@ -209,6 +213,8 @@ set -euo pipefail
 checkout="${BUILDKITE_BUILD_CHECKOUT_PATH:-}"
 clean_flags="${BUILDKITE_GIT_CLEAN_FLAGS:--ffxdq}"
 if [[ -d "$checkout/.git" ]]; then
+  # Clean submodules too, as the agent does before each checkout
+  git -C "$checkout" submodule foreach --recursive "git clean $clean_flags"
   # xargs splits the flags like the agent does, including quoted values
   printf '%s' "$clean_flags" | xargs git -C "$checkout" clean
 fi
