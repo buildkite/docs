@@ -245,9 +245,9 @@ Error response: `404 Not Found` when no pipeline trigger matches the given ID fo
 
 Pipeline trigger filters use [Common Expression Language (CEL)](https://cel.dev/). A filter must evaluate to `true` for an incoming webhook delivery to create a build.
 
-GitHub Actions triggers don't accept a `filter` configuration and match supported workflow `on` declarations instead. See [GitHub Actions pipeline setup](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-trigger-builds-from-workflow-events) for matching behavior and limitations.
+The REST API supports filter configuration for `webhook`, `github`, and `linear` triggers. GitHub Actions triggers don't accept a `filter` configuration through this API. Configure supported workflow `on` declarations instead. See [supported GitHub Actions events and filters](/docs/pipelines/migration/run-github-actions-workflows/compatibility#events-and-triggers).
 
-Filter configuration is available only to organizations with webhook filtering enabled. Filter expressions have the following constraints:
+Filter expressions have the following constraints:
 
 - Expressions can contain a maximum of 256 bytes.
 - Expressions can only reference the `webhook` variable.
@@ -280,10 +280,11 @@ The `webhook` variable contains the following values:
 For example, the following expression creates builds only for GitHub pull request events with an `opened` action:
 
 ```text
-webhook.headers["HTTP_X_GITHUB_EVENT"] == "pull_request" && webhook.payload.action == "opened"
+webhook.headers["HTTP_X_GITHUB_EVENT"] == "pull_request" &&
+  webhook.payload.action == "opened"
 ```
 
-Use the [pipeline trigger deliveries API](/docs/apis/rest-api/pipeline-trigger-deliveries) to inspect whether a delivery matched its filter.
+For more examples and troubleshooting, see how to [filter webhook deliveries](/docs/apis/webhooks/incoming/pipeline-triggers#filter-webhook-deliveries). Use the [pipeline trigger deliveries API](/docs/apis/rest-api/pipeline-trigger-deliveries) to inspect whether a delivery matched its filter.
 
 ## Create a pipeline trigger
 
@@ -391,7 +392,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>filter</code></th>
-    <td>Filter with a required <code>expression</code> value that controls which deliveries create a build. Requires webhook filtering to be enabled for the organization. See <a href="#filter-webhook-deliveries">Filter webhook deliveries</a> for the expression contract.
+    <td>Filter with a required <code>expression</code> value that controls which deliveries create a build. Supported for <code>webhook</code>, <code>github</code>, and <code>linear</code> triggers. See <a href="#filter-webhook-deliveries">Filter webhook deliveries</a> for the expression contract.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "expression": "webhook.payload.action == \"opened\"" }</code></p></td>
   </tr>
   <tr>
@@ -457,7 +458,7 @@ This request requires `write_pipelines` and **Full Access** to the pipeline, lik
 
 Updates a pipeline trigger. Attributes omitted from the request body are left unchanged.
 
-GitHub Actions triggers don't accept `build` or `filter` updates. Configure supported workflow `on` declarations instead.
+GitHub Actions triggers don't accept `build` or `filter` updates through this API. Configure supported workflow `on` declarations instead. See [supported GitHub Actions events and filters](/docs/pipelines/migration/run-github-actions-workflows/compatibility#events-and-triggers).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

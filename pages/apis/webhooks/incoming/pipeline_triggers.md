@@ -24,7 +24,7 @@ Buildkite's pipeline triggers feature supports the following types of incoming w
 
 ## Create a new pipeline trigger
 
-For a **GitHub Actions** trigger, use [GitHub Actions pipeline setup](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline) or the [REST API](/docs/apis/rest-api/pipeline-triggers#create-a-pipeline-trigger-create-a-github-actions-pipeline-trigger). Setup provisions the trigger's signed GitHub repository webhook. GitHub Actions triggers derive build attributes from matched events and don't accept custom build fields or trigger filters.
+For a **GitHub Actions** trigger, use [GitHub Actions pipeline setup](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline) or the [REST API](/docs/apis/rest-api/pipeline-triggers#create-a-pipeline-trigger-create-a-github-actions-pipeline-trigger). Setup provisions the trigger's signed GitHub repository webhook. GitHub Actions triggers derive build attributes from matched events and don't accept custom build fields. Configure supported workflow `on` declarations to select events. See [supported GitHub Actions events and filters](/docs/pipelines/migration/run-github-actions-workflows/compatibility#events-and-triggers).
 
 To create a **Webhook**, **GitHub**, or **Linear** pipeline trigger using the Buildkite interface:
 
@@ -77,6 +77,8 @@ To create a **Webhook**, **GitHub**, or **Linear** pipeline trigger using the Bu
 
     1. Expand the **Security** section and select **Validate/Verify webhook deliveries**.
     1. In the **Secret/Signing secret** field, enter the webhook secret/token that you configured in your GitHub or Linear webhook settings.
+
+1. Optionally, expand **Filters** and enter a **Filter expression** to create builds only for matching deliveries. See [Filter webhook deliveries](#filter-webhook-deliveries) for examples.
 
 1. After completing these fields, select **Create Trigger** to create the pipeline trigger.
 
@@ -139,6 +141,57 @@ Buildkite pipeline triggers with verification enabled will ensure that all their
 - **Linear**: HMAC-SHA256 signatures in the `Linear-Signature` header.
 
 Be aware that this verification feature is not available for generic incoming webhooks (that is, the **Webhook** pipeline trigger option).
+
+## Filter webhook deliveries
+
+Use a filter expression to create builds only when an incoming webhook's payload or headers match your criteria. You can configure filters for **Webhook**, **GitHub**, and **Linear** triggers using the Buildkite interface or REST API. For **GitHub Actions** triggers, configure supported workflow `on` declarations instead. See [supported GitHub Actions events and filters](/docs/pipelines/migration/run-github-actions-workflows/compatibility#events-and-triggers).
+
+To add, change, or remove a filter in the Buildkite interface:
+
+1. Select your pipeline's **Settings** > **Triggers**.
+1. Create a trigger, or select an existing trigger and select **Edit**.
+1. Expand **Filters** and enter a [Common Expression Language (CEL)](https://cel.dev/) expression in **Filter expression**. Clear the field to remove the filter.
+1. Select **Create Trigger** or **Update Trigger**, as appropriate.
+
+For REST API configuration, set `filter.expression` when [creating](/docs/apis/rest-api/pipeline-triggers#create-a-pipeline-trigger) or [updating](/docs/apis/rest-api/pipeline-triggers#update-a-pipeline-trigger) a supported trigger. Set `filter` to `null` to remove an existing filter.
+
+The expression can reference `webhook.payload` for the parsed JSON payload and `webhook.headers` for HTTP headers. Header names use Rack-style keys: for example, `X-GitHub-Event` becomes `HTTP_X_GITHUB_EVENT`. The delivery identifier and receipt time are also available as `webhook.id` and `webhook.created_at`. See the [filter variable reference](/docs/apis/rest-api/pipeline-triggers#filter-webhook-deliveries) for details.
+
+### Filter examples
+
+To create builds only for GitHub pull request events with an `opened` action:
+
+```text
+webhook.headers["HTTP_X_GITHUB_EVENT"] == "pull_request" &&
+  webhook.payload.action == "opened"
+```
+
+To create builds only when a generic webhook payload contains a `status` field set to `resolved`:
+
+```text
+has(webhook.payload.status) && webhook.payload.status == "resolved"
+```
+
+The `has` check avoids an evaluation error when the payload doesn't contain `status`.
+
+To compare a payload's elapsed time, such as `"6m"`, with a duration:
+
+```text
+duration(webhook.payload.elapsed) > duration("5m")
+```
+
+### Evaluation and limits
+
+A filter must evaluate to the Boolean value `true` before the delivery can create a build. A result of `false` skips build creation. An expression that returns a non-Boolean value or fails to evaluate is an evaluation error and doesn't create a build. For example, `duration("5m")` alone isn't a Boolean result, but comparing two durations is valid.
+
+Expressions can contain a maximum of 256 bytes and can only reference the `webhook` variable. CEL comprehensions, such as `all`, `exists`, `exists_one`, `map`, and `filter`, aren't supported. Invalid expressions are rejected when saving the trigger. Evaluation errors can still occur for individual deliveries, for example, when a payload field is missing or has an unexpected type.
+
+Inspect **Recent Deliveries** on the trigger's page for the reason a delivery didn't create a build. The [pipeline trigger deliveries API](/docs/apis/rest-api/pipeline-trigger-deliveries#delivery-reason-codes) reports `filter_mismatch` for a `false` result and `filter_evaluation_failed` for an evaluation error.
+
+Without a filter, **Webhook**, **GitHub**, and **Linear** triggers don't restrict builds by payload or header content.
+
+> 🚧 Filtering is not signature verification
+> Filters select which deliveries can create builds. Filters don't authenticate the sender or provide HMAC signature verification. Generic **Webhook** triggers still don't support [webhook signature verification](#webhook-verification).
 
 ## Invoke a pipeline trigger
 
@@ -221,7 +274,7 @@ Be aware that pipeline triggers have the following limitations:
 - Custom webhook triggers do not support webhook signature verification (for example, HMAC signatures).
 - A pipeline trigger's URL cannot be rotated. If the trigger's `bktr_` value has been compromised, you'll need to delete and re-[create](#create-a-new-pipeline-trigger) a new trigger with the same attributes.
 - For **Webhook**, **GitHub**, and **Linear** triggers, the **Commit** and **Branch** build attributes use the values defined in the trigger when it was [created](#create-a-new-pipeline-trigger) or last edited. These values cannot be mapped from fields of the incoming webhook's JSON payload. **GitHub Actions** triggers derive these attributes from matched workflow events instead.
-- By default, a successful POST request to a **Webhook**, **GitHub**, or **Linear** trigger creates a build. Organizations with webhook filtering enabled can use a [filter expression](/docs/apis/rest-api/pipeline-triggers#filter-webhook-deliveries) to create builds only for matching payloads or headers. **GitHub Actions** triggers use supported workflow `on` declarations instead of trigger filters and create one build per matching workflow per event.
+- By default, a successful POST request to a **Webhook**, **GitHub**, or **Linear** trigger creates a build. Use a [filter expression](#filter-webhook-deliveries) to create builds only for matching payloads or headers. **GitHub Actions** triggers also require matching workflow `on` declarations and create one build per matching workflow per event.
 - Unlike JSON payloads, HTTP headers are not accessible to pipelines in requests to pipeline triggers.
 - A pipeline trigger's webhook cannot be restricted by IP address.
 - A pipeline trigger's JSON payload is limited to a maximum size of 5MB.
