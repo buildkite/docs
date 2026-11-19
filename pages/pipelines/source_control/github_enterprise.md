@@ -101,7 +101,7 @@ Make a note of your Client ID and Client Secret, you will need those to connect 
     - The URL and public proxy URL of your GitHub Enterprise Server
     - The Client ID and Client Secret from the GitHub OAuth App you created in Step 1
     - If you're using self-signed certificates, make sure the **Verify TLS Certificate** checkbox is not selected.
-1. Select **Save GitHub Enterprise Settings** to save your settings. After saving, the **Secret** field appears blank. Buildkite has saved it, and will not display it.
+1. Select **Save Settings** to save your settings. After saving, the **Secret** field appears blank. Buildkite has saved it, and will not display it.
 
     <%= image "buildkite-github-enterprise-settings.png", width:1942/2, height:1260/2, alt:"Screenshot of the GitHub Enterprise settings section in Buildkite" %>
 

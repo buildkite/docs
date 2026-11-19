@@ -1,6 +1,6 @@
 # Buildkite hosted agents code access
 
-Buildkite hosted agents can access private repositories in GitHub, GitHub Enterprise Server, Origin, and Code Storage natively when you authorize Buildkite to access the repositories. [Entire repositories](/docs/pipelines/source-control/entire) also use managed credentials, with an additional checkout plugin. To access private repositories from another provider, you can use the [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) pipeline configuration to supply an SSH key from [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets), or the [Git SSH Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/git-ssh-checkout-buildkite-plugin/) plugin as an alternative.
+Buildkite hosted agents can access private repositories in GitHub, GitHub Enterprise Server, Origin, and Code Storage natively when you authorize Buildkite to access the repositories. To access private repositories from another provider, you can use the [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) pipeline configuration to supply an SSH key from [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets), or the [Git SSH Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/git-ssh-checkout-buildkite-plugin/) plugin as an alternative.
 
 To learn more about changes that may need to be completed at an individual pipeline level, see [Pipeline migration](/docs/agent/buildkite-hosted/pipeline-migration).
 
