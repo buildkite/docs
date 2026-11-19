@@ -9,7 +9,7 @@ Buildkite Pipelines integrates with source control providers to create builds fr
 ## Connect a source control provider
 
 - [GitHub](/docs/pipelines/source-control/github)
-- [GitHub Enterprise Server using a GitHub App](/docs/pipelines/source-control/github-enterprise#github-app)
+- [GitHub Enterprise Server](/docs/pipelines/source-control/github-enterprise)
 - [GitLab](/docs/pipelines/source-control/gitlab)
 - [Bitbucket](/docs/pipelines/source-control/bitbucket)
 - [Bitbucket Server](/docs/pipelines/source-control/bitbucket-server)
