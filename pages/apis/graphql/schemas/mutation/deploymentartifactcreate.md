@@ -25,7 +25,7 @@ toc: false
 <!-- vale on -->
 
 
-Register a Releases catalog artifact with an immutable name.
+Register a Releases catalog artifact.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

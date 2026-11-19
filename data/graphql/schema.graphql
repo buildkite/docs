@@ -6297,7 +6297,7 @@ type Mutation {
   ): DeploymentArtifactArchivePayload
 
   """
-  Register a Releases catalog artifact with an immutable name.
+  Register a Releases catalog artifact.
   """
   deploymentArtifactCreate(
     """
@@ -6727,7 +6727,7 @@ type Mutation {
   ): ReleaseComponentInstanceArchivePayload
 
   """
-  Register a catalog Component on an active Target. The Instance name and Component are immutable.
+  Register a catalog Component on an active Target. The Target and Component bindings are immutable.
   """
   releaseComponentInstanceCreate(
     """
