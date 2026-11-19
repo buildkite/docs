@@ -8,7 +8,7 @@ A pipeline is a template of the steps you want to run. There are many types of s
 
 ## Is this only for running tests and deploying code?
 
-Not at all! You can do all kinds of exciting things with pipelines, like generating static sites, running data imports, provisioning servers, and automating app store submissions. You can even use pipelines to [create other pipelines](/docs/pipelines/uploading-pipelines) 😱
+Not at all! You can do all kinds of exciting things with pipelines, like generating static sites, running data imports, provisioning servers, and automating app store submissions. You can even use pipelines to [create other pipelines](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) 😱
 
 ## Where's the best place to start?
 
