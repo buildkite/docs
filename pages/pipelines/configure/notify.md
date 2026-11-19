@@ -262,6 +262,42 @@ Step-level GitHub commit status notifications happen at the following [events](/
 - `step.failing`
 - `step.finished`
 
+### Report only failures and recoveries
+
+If your builds pass most of the time, you can reduce the number of commit statuses Buildkite Pipelines sends to GitHub by only reporting failed builds and the first passing build after a failure. This can help if you're reaching [GitHub API rate limits](/docs/pipelines/source-control/github#github-api-rate-limits).
+
+```yaml
+notify:
+  - github_commit_status:
+      context: "ci/tests"
+    if: build.state == "failed" || pipeline.started_passing
+```
+{: codeblock-file="pipeline.yml"}
+
+`pipeline.started_passing` works with build-level `github_commit_status` notifications, whether the `notify` attribute is defined in your pipeline settings or in an uploaded pipeline.
+
+With this conditional:
+
+- A failed build reports a `failure` status.
+- The first passing build after a failed build on the same branch reports a `success` status. A build waiting on a [block step](/docs/pipelines/configure/step-types/block-step) counts as passing if its `blocked_state` is `passed` or isn't set.
+- A build waiting on a block step with `blocked_state: failed` reports no status, because its `build.state` is `blocked`, not `failed`.
+- Other passing builds report no status.
+- A canceled build reports no status.
+- No `pending` status is reported while a build is running.
+- A job that fails and then passes using [automatic retries](/docs/pipelines/configure/retry#retry-attributes-automatic-retry-attributes) doesn't cause a `failure` status, because the build doesn't fail. The build is treated like any other passing build.
+
+To avoid also sending automatic statuses, select **Pipelines** > your pipeline > **Settings** > **GitHub**, and turn off **Update commit statuses**. This also stops the statuses created by **Create a status for each job**. See [Customizing commit statuses](/docs/pipelines/source-control/github#customizing-commit-statuses).
+
+> 🚧 Recovering a failed commit
+> `pipeline.started_passing` is a transition between builds, not a per-job retry flag. It's true only when a build passes and the most recent earlier build in the same pipeline and branch that passed or failed is a failed one. For this comparison, blocked builds count as passed or failed according to their `blocked_state`, which defaults to `passed`. Canceled builds, running builds, and builds blocked with `blocked_state: running` are ignored. A commit's `failure` status is only replaced when a build for that commit passes and meets this condition.
+> A build's own earlier failure isn't part of this comparison. If you retry failed jobs until a build passes, and the previous build on the branch passed, the commit keeps its `failure` status. A **Rebuild** after that retry also keeps the `failure` status, because the retried build now counts as the previous passing build.
+> To recover a failed commit, **Rebuild** the failed build instead of retrying its jobs, and do it before another build on the same branch passes.
+
+> 🚧 Required status checks
+> If the status `context` is a [required status check](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-status-checks-before-merging) in GitHub, pull requests can't be merged until that status is reported. Because this conditional doesn't report a status for most passing builds, don't use it for a required status check.
+
+Using `if: build.state != "passed"` on its own isn't recommended. It doesn't report builds in the `passed` state, so a commit that fails and later passes keeps a `failure` or `pending` status. If the `notify` attribute is defined in your pipeline settings, it also reports `pending` whenever a build starts, so it doesn't reduce API usage much.
+
 ## GitHub check
 
 > 📘 Requirements
@@ -864,7 +900,7 @@ notify:
 
 See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
-You can use `pipeline.started_passing` and `pipeline.started_failing` in your `if` statements when you are using the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service. These conditionals are not supported by the legacy [Slack](/docs/pipelines/integrations/notifications/slack) notification service.
+You can use `pipeline.started_passing` and `pipeline.started_failing` in your `if` statements when you are using the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service. These conditionals are not supported by the legacy [Slack](/docs/pipelines/integrations/notifications/slack) notification service. They can also be used with build-level [GitHub commit status](#github-commit-status-report-only-failures-and-recoveries) notifications.
 
 Build-level Slack notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
 
