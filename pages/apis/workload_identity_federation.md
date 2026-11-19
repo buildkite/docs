@@ -123,7 +123,7 @@ Buildkite won't save an expression that:
 
 - **Pipelines:** Pipelines and their builds, jobs, and artifacts
 - **Teams:** Teams, their members, and their pipeline assignments. Reading a team's pipeline assignments also requires access to those pipelines.
-- **Clusters:** Agents in the selected clusters, not the clusters or their settings. Unclustered agents are never included.
+- **Clusters:** Clusters and their resources, such as queues, agent tokens, maintainers, and agents. Unclustered agents are never included.
 
 Each row has three options:
 
@@ -135,7 +135,7 @@ To change access, select **Edit** in the resource's row, choose an option, and s
 
 To configure access through the REST API, see the [resource grants example](/docs/apis/rest-api/organizations/workload-identities#workload-identity-data-model-resource-grants).
 
-For resources outside the token's access, the REST API returns `404 Not Found`. A token keeps the resource access that the workload identity had when the token was minted. To remove access from existing tokens, disable the workload identity, which revokes them.
+For resources outside the token's access, the REST API returns `404 Not Found`. A token keeps the resource access that the workload identity had when the token was minted. To remove access from existing tokens, disable the workload identity, which revokes them. Disabling a workload identity doesn't revoke agent tokens or remove cluster maintainers that its tokens created. Learn more in [Cluster management limitations](/docs/apis/workload-identity-federation/supported-endpoints#cluster-management-limitations).
 
 > 🚧 Limited API support
 > Workload identity federation supports a subset of REST API endpoints and scopes. Resource access doesn't enable every operation on a resource. See [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints) for the supported operations.

@@ -4,7 +4,7 @@ An agent token is used to [connect agents to a Buildkite cluster](/docs/pipeline
 
 Use [scoped agent tokens](/docs/agent/self-hosted/scoped-agent-tokens) to limit the Agent API actions agents can perform and the queues where they can register and explicitly acquire jobs.
 
-Authenticate these requests with a personal [API access token](/docs/apis/managing-api-tokens), using the `read_clusters` scope for reads or `write_clusters` for writes. Your user must have the `manage_cluster` permission for the cluster. Creating a token also requires `see_cluster_tokens`. These management permissions are separate from the agent token's `permissions` array.
+Authenticate these requests with an [API access token](/docs/apis/managing-api-tokens), using the `read_clusters` scope for reads or `write_clusters` for writes. With a personal API access token, your user must have the `manage_cluster` permission for the cluster. Creating a token also requires `see_cluster_tokens`. These management permissions are separate from the agent token's `permissions` array. A [workload identity](/docs/apis/workload-identity-federation) token needs access to the cluster instead. Learn more in [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints).
 
 ## Token data model
 
