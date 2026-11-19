@@ -19,6 +19,8 @@ Create a pipeline from your existing GitHub repository, add the secrets your wor
 
 Connect your repository using the full-access [**GitHub** repository provider](/docs/pipelines/source-control/github#github-repository-provider-options) or a [GitHub Enterprise Server (GHES) GitHub App](/docs/pipelines/source-control/github-enterprise#github-app) with **Code Read Access** enabled. GitHub Actions Compatibility supports both providers. **GitHub (Limited Access)** and the legacy GHES OAuth integration aren't supported for workflow execution.
 
+For GHES environment and variable lookups, select **GitHub Actions compatibility** when setting up the App. This capability also enables **Code Read Access**. See [GHES requirements](/docs/pipelines/migration/run-github-actions-workflows/compatibility#credentials-and-deployments-repositories-github-enterprise-server-execution) for permissions and runtime versions.
+
 1. From the Buildkite dashboard, select **New Pipeline**.
 1. Under **Git scope**, select your GitHub account or organization. Then select your repository.
 1. When Buildkite Pipelines detects your workflows, it selects **Run GitHub Actions workflows on Buildkite** automatically. Expand the workflow count to review workflow names, paths, and triggers. If you previously switched to regular setup, select **Use workflows**.
@@ -53,7 +55,7 @@ Don't copy `GITHUB_TOKEN` into a Buildkite secret. Buildkite Pipelines issues th
 
 ### Run a workflow manually
 
-Native manual runs and rebuilds aren't supported for GHES pipelines. Use a matching GitHub event instead.
+For GitHub Enterprise Server pipelines, you can't start a workflow from **New Build** or rebuild a workflow build. Push a commit or trigger another matching event in GitHub Enterprise Server instead.
 
 For GitHub.com pipelines, manual runs currently require a workflow that declares `push` without `workflow_dispatch`. Its branch or tag filters must match the selected ref.
 
@@ -289,9 +291,9 @@ Important differences include:
 
 ### Deployment environments and variables
 
-GitHub environments and `vars` aren't supported for GHES pipelines. The following support applies to GitHub.com.
+Top-level jobs can declare a literal GitHub deployment `environment` on GitHub.com and GHES. Buildkite Pipelines reads its protection rules, secret names, and variables from GitHub. The GitHub App installation needs **Actions: read** and **Environments: read** for environments and their variables, plus **Variables: read** for repository and organization variables.
 
-Top-level jobs can declare a literal GitHub deployment `environment`. Buildkite Pipelines reads its protection rules, secret names, and variables from GitHub. The GitHub App installation needs **Actions: read** and **Environments: read**, plus **Variables: read** to resolve variables. If your installation predates these permissions, a GitHub organization owner must approve them.
+On GitHub.com, a GitHub organization owner must approve any newly requested permissions for the Buildkite GitHub App installation. For a new GHES App, select the **GitHub Actions compatibility** capability described above. For an existing GHES App, the App owner must add any missing permissions to the App registration, then installation administrators must approve them for each installation.
 
 Required reviewers become a Buildkite Pipelines [block step](/docs/pipelines/configure/step-types/block-step). Any user who can unblock the pipeline can approve it. GitHub reviewer lists and self-review prevention aren't enforced. Unsupported wait timers, deployment branch policies, and custom protection rules cause compilation to fail. Builds don't create GitHub deployment records.
 

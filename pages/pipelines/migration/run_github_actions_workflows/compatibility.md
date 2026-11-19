@@ -137,7 +137,7 @@ When a `missing_queue` diagnostic identifies an absent hosted preset queue, **Se
 1. Select **Set up queue** in the diagnostic.
 1. Review the required queue, which is selected automatically if it is still missing and allowed by your organization's current plan and policy. Other recommendations remain unselected.
 1. Select **Create 1 queue**.
-1. Return to the build and rebuild it to run workflow preparation again. For GitHub Enterprise Server pipelines, use a matching workflow event instead; [native rebuilds are not supported](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-run-a-workflow-manually).
+1. Return to the build and rebuild it to run workflow preparation again. For GitHub Enterprise Server pipelines, you can't rebuild a workflow build. [Push a commit or trigger another matching event in GitHub Enterprise Server instead](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-run-a-workflow-manually).
 
 Creating the queue does not resume or retry the failed diagnostic job. The setup link is not a remedy for unsupported runner labels, incompatible existing queues, or invalid explicit mappings. Correct those separately using the diagnostics above.
 
@@ -719,12 +719,16 @@ Alternate checkout repositories and private actions are unsupported. Approved pr
 
 GHES workflow execution requires a [GHES GitHub App connection](/docs/pipelines/source-control/github-enterprise#github-app) with **Code Read Access** enabled and access to the pipeline repository. For custom importers, use `buildkite-gha` v0.109.1 or later.
 
+For [environment](#credentials-and-deployments-deployment-environments) and [`vars`](#job-syntax-repository-and-organization-variables) lookups, select **GitHub Actions compatibility** when setting up the App. This capability includes **Code Read Access** and requests **Actions: read**, **Environments: read**, and **Variables: read**. Environments and their variables require `actions: read` and `environments: read`; repository and organization variables require `actions_variables: read`. Existing Apps need these permissions added, and each installation must approve the new permissions. Custom importers require [buildkite-gha v0.111.0](https://github.com/buildkite/buildkite-gha/releases/tag/v0.111.0) or later for these lookups.
+
 The selected App connection supplies the protected `GITHUB_SERVER_URL`; don't set this variable yourself. Checkout uses the exact GHES event repository and commit. Runtime server, REST API, and GraphQL API URLs use that instance, with `/api/v3` and `/api/graphql` for the APIs. Workflow tokens remain bound to the job, repository, App installation, and immutable top-level workflow permissions. There is no personal access token fallback.
+
+GHES workflows that use a token may need App permissions beyond the defaults, such as `packages: write` in top-level `permissions`; a permission the installation hasn't granted fails the job during token preparation with "GitHub rejected token permissions" instead of being dropped. Add these permissions when creating the App or [change the App's permissions in GHES](https://docs.github.com/en/enterprise-server@latest/apps/maintaining-github-apps/modifying-a-github-app-registration#changing-the-permissions-of-a-github-app), then have each installation approve them.
 
 These limits apply:
 
 - Public action sources remain on `github.com`; GHES-hosted remote actions and private reusable sources are unsupported. Repository-local reusable workflows remain supported. GHES workflow tokens aren't sent to public action sources.
-- GHES environments, `vars`, native manual runs, and rebuilds aren't supported.
+- For GitHub Enterprise Server pipelines, you can't start a workflow from **New Build** or rebuild a workflow build. Push a commit or trigger another matching event in GitHub Enterprise Server instead.
 - Existing trigger, ref, path-filter, and [token security](/docs/pipelines/migration/run-github-actions-workflows/security#credential-boundaries-github-token) restrictions still apply. GHES support doesn't imply compatibility with every GHES version or GitHub service.
 
 <a id="repositories-credentials-and-github-services-github-token"></a>
@@ -820,9 +824,9 @@ Endpoint variables are lifecycle-invocation scoped: shell steps, Docker actions,
 
 ### Deployment environments
 
-Literal environment names are supported on top-level workflow jobs, with optional `url`. Expression names and reusable-workflow job environments are rejected. Inside a Buildkite job, `upload` and `compile` resolve GitHub.com protection rules, secret names, and variables through the job-scoped Agent API. Only configuration and names reach the importer, not GitHub credentials or secret values. The pipeline repository is the only source.
+Literal environment names are supported on top-level workflow jobs, with optional `url`. Expression names and reusable-workflow job environments are rejected. Inside a Buildkite job, `upload` and `compile` resolve GitHub.com and GHES protection rules, secret names, and variables through the job-scoped Agent API. Only configuration and names reach the importer, not GitHub credentials or secret values. The pipeline repository is the only source. See [GHES requirements](#credentials-and-deployments-repositories-github-enterprise-server-execution) for App permissions and runtime versions.
 
-Resolution fails closed, including outside a Buildkite job or on GitHub Enterprise Server. One upload batches distinct environments, at most 20 per request, subject to backend per-job and per-installation hourly budgets. Backend rejection fails compilation; there is no unprotected fallback or user-supplied GitHub token option.
+Resolution fails closed, including outside a Buildkite job or when required App permissions are missing. One upload batches distinct environments, at most 20 per request, subject to backend per-job and per-installation hourly budgets. Backend rejection fails compilation; there is no unprotected fallback or user-supplied GitHub token option.
 
 | Environment feature | Behavior |
 | --- | --- |
@@ -1045,7 +1049,7 @@ Use `validate` or `compile --format ir-json` to inspect the graph; `compile --fo
 
 ### Repository and organization variables
 
-`${{ vars.NAME }}` reads configuration, not secrets. Within a Buildkite job, applicable workflows, reusable calls, and action input defaults that reference `vars` trigger one repository/organization lookup per upload. Providers other than GitHub.com don't make that request; GHES variables aren't supported. The backend uses its own repository-restricted credentials.
+`${{ vars.NAME }}` reads configuration, not secrets. Within a Buildkite job, applicable workflows, reusable calls, and action input defaults that reference `vars` trigger one repository/organization lookup per upload for GitHub.com and GHES. Other providers don't make that request. The backend uses its own repository-restricted credentials. See [GHES requirements](#credentials-and-deployments-repositories-github-enterprise-server-execution) for App permissions and runtime versions.
 
 | Position | Precedence |
 | --- | --- |
