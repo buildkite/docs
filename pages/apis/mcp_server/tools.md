@@ -496,6 +496,8 @@ These MCP tools are used to retrieve details about [jobs](/docs/apis/rest-api/jo
 
 These MCP tools are used to process the logs of [jobs](#available-mcp-tools-jobs), for the benefit of your AI tool or agent. These MCP tools leverage the [Buildkite Logs Search & Query Library](https://github.com/buildkite/buildkite-logs?tab=readme-ov-file#buildkite-logs-search--query-library) (used by the Buildkite MCP server), which converts the complex Buildkite logs returned by the Buildkite platform into [Parquet file](https://parquet.apache.org/docs/file-format/) versions of these log files, making the logs more consumable for AI tools, agents and large language models (LLMs).
 
+The `read_logs`, `tail_logs`, and `search_logs` tools can access a job's logs even after the job has been retried. To inspect the original job's logs, use the job ID from the retry job's `retry_source.job_id` field returned by `get_build`.
+
 For improved performance, these Parquet log files are also cached and stored. Learn more about this in [Smart caching and storage](#smart-caching-and-storage).
 
 <table>
