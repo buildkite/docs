@@ -2,7 +2,7 @@
 
 The API settings endpoints let you read and update an organization's API security settings, mirroring the **Security > API settings** page in the Buildkite UI.
 
-These endpoints require a `read_organization_settings` or `write_organization_settings` [access token scope](/docs/apis/managing-api-tokens#token-scopes), and the authenticated user must be a Buildkite organization administrator.
+These endpoints require a `read_organization_settings` or `write_organization_settings` [access token scope](/docs/apis/managing-api-tokens#token-scopes), and the authenticated user must be a Buildkite organization administrator. A [workload identity](/docs/apis/workload-identity-federation) token doesn't need an administrator. Learn more in [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints).
 
 ## Get API settings
 

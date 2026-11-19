@@ -2,7 +2,7 @@
 
 The pipeline settings API endpoint lets organization administrators read and update organization-level pipeline settings. These settings correspond to the options available in the Buildkite **Pipeline Settings** page for your organization.
 
-Both read and write operations require organization administrator privileges (the `change_organization` permission).
+Both read and write operations require organization administrator privileges (the `change_organization` permission). A [workload identity](/docs/apis/workload-identity-federation) token doesn't need an administrator. Learn more in [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints).
 
 ## Get pipeline settings
 

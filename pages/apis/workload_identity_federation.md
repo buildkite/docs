@@ -46,7 +46,7 @@ To create a workload identity:
     **Note:** A trust policy that's too broad is a serious security risk, because it lets workloads that you didn't intend mint API access tokens for your Buildkite organization. Make the **OIDC subject** as restrictive as possible, and use claims and claim conditions to narrow it further.
 
 1. In **Resource Access**, select **Edit** for each resource type you want the workload to access. Choose **None**, **Selected**, or **All**, then select **Done** to apply the selection to the form. By default, tokens can't reach any resources. Learn more in [Choose resource access](#choose-resource-access).
-1. Expand **Grantable Scopes**, and select the maximum [REST API scopes](/docs/apis/managing-api-tokens#token-scopes) that a token can have. A token exchange request can ask for any subset of these scopes. **Resource Access** doesn't limit the `read_organizations` and `write_organizations` scopes, which let a token read your Buildkite organization and manage its members.
+1. Expand **Grantable Scopes**, and select the maximum [REST API scopes](/docs/apis/managing-api-tokens#token-scopes) that a token can have. A token exchange request can ask for any subset of these scopes. **Resource Access** doesn't limit the `read_organizations` and `write_organizations` scopes, which let a token read your Buildkite organization and manage its members, or the `read_organization_settings` and `write_organization_settings` scopes, which let a token read and change organization settings.
 1. Expand **Default Scopes**, and select the scopes that a token gets when the request doesn't specify any. Default scopes must be a subset of the grantable scopes.
 1. In **Security**, set the following:
     * **Maximum token lifetime (seconds):** From 30 to 3,600 seconds (one hour), which is the default. A token can expire sooner. Learn more in [Token lifetime](#exchange-an-oidc-token-token-lifetime).
@@ -123,7 +123,7 @@ Buildkite won't save an expression that:
 
 - **Pipelines:** Pipelines and their builds, jobs, and artifacts
 - **Teams:** Teams, their members, and their pipeline assignments. Reading a team's pipeline assignments also requires access to those pipelines.
-- **Clusters:** Agents in the selected clusters, not the clusters or their settings. Unclustered agents are never included.
+- **Clusters:** Clusters and their resources, such as queues, agent tokens, maintainers, and agents. Unclustered agents are never included.
 
 Each row has three options:
 
@@ -135,7 +135,7 @@ To change access, select **Edit** in the resource's row, choose an option, and s
 
 To configure access through the REST API, see the [resource grants example](/docs/apis/rest-api/organizations/workload-identities#workload-identity-data-model-resource-grants).
 
-For resources outside the token's access, the REST API returns `404 Not Found`. A token keeps the resource access that the workload identity had when the token was minted. To remove access from existing tokens, disable the workload identity, which revokes them.
+For resources outside the token's access, the REST API returns `404 Not Found`. A token keeps the resource access that the workload identity had when the token was minted. To remove access from existing tokens, disable the workload identity, which revokes them. Disabling a workload identity doesn't revoke agent tokens or remove cluster maintainers that its tokens created. Learn more in [Cluster management limitations](/docs/apis/workload-identity-federation/supported-endpoints#cluster-management-limitations).
 
 > 🚧 Limited API support
 > Workload identity federation supports a subset of REST API endpoints and scopes. Resource access doesn't enable every operation on a resource. See [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints) for the supported operations.

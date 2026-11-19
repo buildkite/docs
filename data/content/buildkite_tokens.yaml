@@ -20,7 +20,7 @@ tokens:
     url: /docs/apis/workload-identity-federation
     prefix: bkwi_
     usage: Workloads, such as jobs running on Buildkite agents, workloads on AWS, and GitHub Actions jobs, exchange an OIDC token for a token, and call the REST API as the workload identity.
-    scope: The requested scopes, limited to the workload identity's grantable scopes, for the pipelines that the workload identity's **Resource Access** setting allows.
+    scope: The requested scopes, limited to the workload identity's grantable scopes, for the resources that the workload identity's **Resource Access** setting allows.
     lifetime: Up to the workload identity's **Maximum token lifetime (seconds)**, which defaults to one hour and can be set between 30 seconds and one hour. A token never outlives the OIDC token that it was exchanged for.
   - key: agent_token
     name: Agent token

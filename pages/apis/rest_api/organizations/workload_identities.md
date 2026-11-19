@@ -143,7 +143,7 @@ The `resource_grants` array holds at most one object per resource type, with the
 <tbody>
   <tr>
     <th><code>type</code></th>
-    <td>The resource type: <code>pipeline</code> for pipelines, <code>team</code> for teams, or <code>cluster</code> for agents in those clusters. A cluster grant doesn't enable cluster management or include unclustered agents.</td>
+    <td>The resource type: <code>pipeline</code> for pipelines, <code>team</code> for teams, or <code>cluster</code> for clusters and their resources, such as queues, agent tokens, and agents. A cluster grant doesn't include unclustered agents.</td>
   </tr>
   <tr>
     <th><code>access</code></th>
@@ -158,12 +158,12 @@ The `resource_grants` array holds at most one object per resource type, with the
 
 These fields match the **Resource Access** setting in the Buildkite interface. Learn more in [Choose resource access](/docs/apis/workload-identity-federation#choose-resource-access). Grants don't replace the required scopes or enable every operation. See [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints).
 
-For example, include these fields when creating or updating a workload identity to allow read access to two selected pipelines, all teams, and agents in one selected cluster:
+For example, include these fields when creating or updating a workload identity to allow read access to two selected pipelines, all teams, and one selected cluster and its agents:
 
 ```json
 {
-  "grantable_token_scopes": ["read_pipelines", "read_teams", "read_agents"],
-  "default_token_scopes": ["read_pipelines", "read_teams", "read_agents"],
+  "grantable_token_scopes": ["read_pipelines", "read_teams", "read_clusters", "read_agents"],
+  "default_token_scopes": ["read_pipelines", "read_teams", "read_clusters", "read_agents"],
   "resource_grants": [
     {
       "type": "pipeline",
@@ -186,7 +186,7 @@ For example, include these fields when creating or updating a workload identity 
 }
 ```
 
-Replace the example UUIDs with resources from your Buildkite organization. The team grant doesn't add access to other pipelines. The cluster grant doesn't enable cluster management. Setting a grant's `access` to `none`, or omitting the grant, denies access to that resource type.
+Replace the example UUIDs with resources from your Buildkite organization. The team grant doesn't add access to other pipelines. Setting a grant's `access` to `none`, or omitting the grant, denies access to that resource type.
 
 ## List workload identities
 
@@ -339,7 +339,7 @@ Required [request body properties](/docs/apis/rest-api#request-body-properties):
   </tr>
   <tr>
     <th><code>grantable_token_scopes</code></th>
-    <td>Array of the maximum scopes that an API access token can have. Must include at least one scope. The available scopes are <code>read_pipelines</code>, <code>write_pipelines</code>, <code>read_builds</code>, <code>write_builds</code>, <code>retry_builds</code>, <code>read_job_env</code>, <code>read_build_logs</code>, <code>write_build_logs</code>, <code>read_artifacts</code>, <code>write_artifacts</code>, <code>read_organizations</code>, <code>write_organizations</code>, <code>read_teams</code>, <code>write_teams</code>, <code>read_agents</code>, and <code>write_agents</code>.</td>
+    <td>Array of the maximum scopes that an API access token can have. Must include at least one scope. The available scopes are <code>read_pipelines</code>, <code>write_pipelines</code>, <code>read_builds</code>, <code>write_builds</code>, <code>retry_builds</code>, <code>read_job_env</code>, <code>read_build_logs</code>, <code>write_build_logs</code>, <code>read_artifacts</code>, <code>write_artifacts</code>, <code>read_organizations</code>, <code>write_organizations</code>, <code>read_organization_settings</code>, <code>write_organization_settings</code>, <code>read_teams</code>, <code>write_teams</code>, <code>read_agents</code>, <code>write_agents</code>, <code>read_clusters</code>, and <code>write_clusters</code>.</td>
   </tr>
 </tbody>
 </table>

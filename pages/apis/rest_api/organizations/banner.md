@@ -5,7 +5,7 @@ The organization banner API lets you manage the [system banner](/docs/platform/t
 > 📘 Enterprise plan feature
 > The system banners feature is only available to Buildkite customers on [Enterprise](https://buildkite.com/pricing) plans.
 
-These endpoints require a `read_organization_settings` or `write_organization_settings` [access token scope](/docs/apis/managing-api-tokens#token-scopes), and the authenticated user must be a Buildkite organization administrator on a plan that includes system banners.
+These endpoints require a `read_organization_settings` or `write_organization_settings` [access token scope](/docs/apis/managing-api-tokens#token-scopes), and the authenticated user must be a Buildkite organization administrator on a plan that includes system banners. A [workload identity](/docs/apis/workload-identity-federation) token doesn't need an administrator. Learn more in [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints).
 
 ## Banner data model
 
