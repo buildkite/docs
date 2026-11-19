@@ -339,7 +339,7 @@ Required [request body properties](/docs/apis/rest-api#request-body-properties):
   </tr>
   <tr>
     <th><code>grantable_token_scopes</code></th>
-    <td>Array of the maximum scopes that an API access token can have. Must include at least one scope. The available scopes are <code>read_pipelines</code>, <code>write_pipelines</code>, <code>read_builds</code>, <code>write_builds</code>, <code>retry_builds</code>, <code>read_job_env</code>, <code>read_build_logs</code>, <code>write_build_logs</code>, <code>read_artifacts</code>, <code>write_artifacts</code>, <code>read_organizations</code>, <code>write_organizations</code>, <code>read_teams</code>, <code>write_teams</code>, <code>read_agents</code>, <code>write_agents</code>, <code>read_clusters</code>, and <code>write_clusters</code>.</td>
+    <td>Array of the maximum scopes that an API access token can have. Must include at least one scope. The available scopes are <code>read_pipelines</code>, <code>write_pipelines</code>, <code>read_builds</code>, <code>write_builds</code>, <code>retry_builds</code>, <code>read_job_env</code>, <code>read_build_logs</code>, <code>write_build_logs</code>, <code>read_artifacts</code>, <code>write_artifacts</code>, <code>read_organizations</code>, <code>write_organizations</code>, <code>read_organization_settings</code>, <code>write_organization_settings</code>, <code>read_teams</code>, <code>write_teams</code>, <code>read_agents</code>, <code>write_agents</code>, <code>read_clusters</code>, and <code>write_clusters</code>.</td>
   </tr>
 </tbody>
 </table>

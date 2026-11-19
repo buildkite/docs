@@ -31,10 +31,11 @@ API reference | Supported scopes | Workload identity limitations
 [Agent images](/docs/apis/rest-api/clusters/agent-images), [Network ranges](/docs/apis/rest-api/clusters/network-ranges), and [Cache volumes](/docs/apis/rest-api/clusters/cache-volumes) | `read_clusters`, `write_clusters` | Granted clusters only.
 [Organizations API](/docs/apis/rest-api/organizations), [Organization usage API](/docs/apis/rest-api/organizations/usage), and [Rate limits](/docs/apis/rest-api/rate-limits) | `read_organizations` | Own organization only. Not restricted by pipeline access.
 [Organization members API](/docs/apis/rest-api/organizations/members) | `read_organizations`, `write_organizations` | Own organization only. Can read members, update roles and SSO mode, and remove members. Listing and getting members require teams to be enabled. The organization must retain at least one administrator.
+[API settings](/docs/apis/rest-api/organizations/api-settings), [Pipeline settings API](/docs/apis/rest-api/organizations/pipeline-settings), and [Organization banner API](/docs/apis/rest-api/organizations/banner) | `read_organization_settings`, `write_organization_settings` | Own organization only. Plan requirements still apply. Can't change security settings, such as two-factor authentication requirements.
 [Access token API](/docs/apis/rest-api/access-token) | No additional scope | Can inspect or revoke the token used for the request.
 {: class="responsive-table"}
 
-Organization scopes grant organization-wide access regardless of **Resource Access**. Grant them only when the workload needs that access.
+Organization and organization settings scopes grant organization-wide access regardless of **Resource Access**. Grant them only when the workload needs that access.
 
 Choose the required scopes in **Grantable Scopes**, then select a subset in **Default Scopes** or request a subset during token exchange. See [Create a workload identity](/docs/apis/workload-identity-federation#create-a-workload-identity).
 
@@ -57,6 +58,6 @@ A cluster grant covers every queue in the cluster. You can't grant access to ind
 
 ## Unsupported APIs and scopes
 
-GraphQL, Buildkite Test Engine, and Buildkite Package Registries aren't supported. Neither are secrets, pipeline templates, rules, organization settings, or workload identity management. Their scopes aren't available to workload identities.
+GraphQL, Buildkite Test Engine, and Buildkite Package Registries aren't supported. Neither are secrets, pipeline templates, rules, or workload identity management. Their scopes aren't available to workload identities.
 
 The `write_build_logs` and `write_artifacts` scopes can be configured on a workload identity, but don't currently enable log or artifact deletion. An available scope doesn't guarantee access to every operation that accepts it.
