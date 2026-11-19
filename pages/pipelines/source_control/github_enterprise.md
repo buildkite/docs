@@ -26,7 +26,7 @@ You must be a Buildkite organization administrator and have permission to create
 1. Enter your settings:
     - **URL**: the URL of the GitHub Enterprise Server to connect, for example `https://github.example.com`.
     - **GitHub Enterprise Organization**: the organization on GitHub Enterprise Server to create the app in. For example, to create the app in `https://github.example.com/acme`, enter `acme`.
-    - **Code Read Access**: select this to grant the app read-only repository contents permission (unchecked by default). This is required for hosted agents or self-hosted queues using GitHub App token checkout to clone private repositories, and branch, tag, and release webhook events.
+    - **Code Read Access**: select this to grant the app read-only repository contents permission (unchecked by default). This is required for hosted agents or self-hosted queues using GitHub App token checkout to clone private repositories.
     - **GitHub Actions compatibility**: select this to request access to GitHub Actions environments and variables. This option also selects **Code Read Access**.
     - If Buildkite reaches your GitHub Enterprise Server through a proxy, open **Advanced API settings** and set the **Public API URL**. See [Firewalled installs](#firewalled-installs) for the network configuration. For GHE.com, set the **Public API URL** to your enterprise's API host instead. See [GitHub Enterprise Cloud with data residency](#github-app-github-enterprise-cloud-with-data-residency).
 1. Select **Create**. Buildkite sends you to your GitHub Enterprise Server to create the app from a manifest. This step runs against your GitHub Enterprise Server URL directly, so you need browser access to it.
@@ -55,15 +55,6 @@ If your GHE.com enterprise uses an [IP allow list](https://docs.github.com/en/en
 When repository access for an existing GitHub App installation changes in GitHub Enterprise Server (for example, when repositories are added to or removed from the installation's access), Buildkite may not show the updated list immediately.
 
 To refresh the repository list, open your Buildkite organization's **Settings**, choose [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers), select the GitHub Enterprise Server provider, and select **Synchronize installations**. Buildkite clears the cached repository list and re-fetches it. The updated repositories appear in the new pipeline repository picker shortly after.
-
-### Known limitations for additional webhook events
-
-The GitHub App manifest subscribes to the `create`, `delete`, and `release` webhook events. GitHub only delivers these events when the app has `contents: read` permission, which the manifest includes when you select **Code Read Access** or **GitHub Actions compatibility** during setup.
-
-This means installations without code access don't receive `create`, `delete`, or `release` events, so the corresponding pipeline settings (branch and tag creation and release triggers) have no effect. The `cancel_deleted_branch_builds` setting is not affected, because branch deletion is also detected through `push` events.
-
-> 📘 Enabling additional webhook events
-> To enable these events, reinstall the GitHub App with code access enabled. See the [GitHub integration docs](/docs/pipelines/source-control/github#running-builds-on-additional-github-events) for details on additional webhook events.
 
 ## OAuth App
 
@@ -305,7 +296,7 @@ If the canonical GHES URL is not reachable from the browser during setup, App cr
 
 ## Multiple GitHub Enterprise integrations
 
-You can set up multiple GitHub Enterprise Server integrations with your Buildkite organization using the [GitHub App setup](#github-app-set-up-the-github-app).
+You can [connect multiple GitHub Apps](#github-app-set-up-the-github-app) to the same GitHub Enterprise Server with different permissions and non-overlapping sets of selected repositories. For example, enable **Code Read Access** for one App and leave it disabled for another.
 
 For legacy OAuth integrations, each integration must be configured by a unique user due to the OAuth installation requirements. Each user must possess admin permissions in both Buildkite and GitHub.
 
