@@ -398,6 +398,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/builds?exclude_jobs=true"
 ```
 
+Deep pages of this endpoint (where `page × per_page` is greater than 1,000) are subject to an additional [deep builds list rate limit](/docs/platform/limits#platform-and-organization-level-limits). Narrow your query using filters such as `created_from`, `branch`, or `state` instead of paging deeply.
+
 Optional [query string parameters](/docs/api#query-string-parameters):
 
 <%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
