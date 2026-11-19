@@ -311,10 +311,6 @@ The following providers can be created using the REST API:
     <th><code>open_telemetry_tracing</code></th>
     <td>Settings: <code>endpoint</code> (required), <code>service_name</code>, <code>headers</code>, <code>resource_attributes</code>, and <code>tracestate</code> when available for the organization. Map values must be strings.</td>
   </tr>
-  <tr>
-    <th><code>event_log_api</code></th>
-    <td>Available only when enabled for the organization. Settings: <code>events</code>.</td>
-  </tr>
 </tbody>
 </table>
 

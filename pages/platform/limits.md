@@ -80,7 +80,6 @@ Cache size for hosted agents | The maximum cache size for hosted agents. | 128 G
 Artifact Create/Update API calls | The number of Create or Update requests for artifacts per minute per organization. | 600
 Slack services per organization | The maximum number of Slack services that can be added to an organization. | 50 services
 Webhook services per organization | The maximum number of Webhook services that can be added to an organization. | 15 services
-Event Log API services per organization | The maximum number of Event Log API services that can be added to an organization. | 15 services
 OpenTelemetry Tracing services per organization | The maximum number of OpenTelemetry Tracing services that can be added to an organization. | 5 services
 Datadog Pipeline Visibility services per organization | The maximum number of Datadog Pipeline Visibility services that can be added to an organization. | 5 services
 AWS EventBridge services per organization | The maximum number of AWS EventBridge services that can be added to an organization. | 1 service
