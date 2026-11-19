@@ -25,7 +25,7 @@ toc: false
 <!-- vale on -->
 
 
-Register a catalog Component on an active Target. The Instance name and Component are immutable.
+Register a catalog Component on an active Target. The Target and Component bindings are immutable.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
