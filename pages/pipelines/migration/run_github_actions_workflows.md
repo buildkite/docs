@@ -71,7 +71,9 @@ Before the pipeline's first build, you can also select a workflow and use **Run 
 
 Buildkite Pipelines discovers workflows at the selected commit. For a tag run, enter `refs/tags/<tag>` in **Branch** and provide a full commit SHA in **Commit** instead of `HEAD`.
 
-You can also rebuild a workflow build while its original repository, workflow file, and commit remain available. Rebuilds retain the verified workflow selection. Events that require an original webhook payload still require that payload.
+You can also rebuild a workflow build while its original repository, workflow file, and commit remain available. Rebuilds retain the verified workflow selection. Merge-queue builds can't be rebuilt. Re-queue the pull request in GitHub instead.
+
+For events that require the original linked webhook payload, rebuilds fail if that payload is unavailable. See [Event identity and fallback](/docs/pipelines/migration/run-github-actions-workflows/compatibility#events-and-triggers-event-identity-and-fallback) for the affected events and validation requirements.
 
 > 🚧 Manual dispatch limitation
 > With the released `buildkite-gha` v0.105.3 runtime, native manual runs that select `workflow_dispatch` fail during workflow preparation. The server selects this event whenever the workflow declares it, even if it also declares `push`. A matching GitHub push can still run the workflow as a `push` event.
