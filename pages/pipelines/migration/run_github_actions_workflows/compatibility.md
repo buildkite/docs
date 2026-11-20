@@ -22,7 +22,7 @@ Use this table to identify migration work, then check the linked restrictions an
 | --- | --- | --- | --- |
 | Runners and tools | Linux x86-64/arm64, macOS arm64, Windows Server 2022 x86-64 | Agent v3.129+ and a compatible queue. Labels don't reproduce GitHub images or tools. | [Runners and tools](#runners-and-tools) |
 | Events and filters | Listed events and bounded filters | Native manual runs require matching `push` without `workflow_dispatch`. Delivery can require backend support and webhook setup. Path filters need linked data and local history. | [Events and triggers](#events-and-triggers) |
-| Actions | Local and public JavaScript/composite actions; Linux Docker actions | Private actions and direct workflow `docker://` calls are unsupported. Admission doesn't guarantee GitHub service access. | [Action sources and runtimes](#actions-artifacts-and-caching-action-sources-and-runtimes) |
+| Actions | Local and public JavaScript/composite actions; Linux Docker actions, including direct public `docker://` images | Private actions and private images are unsupported. Docker actions require a Docker daemon. Admission doesn't guarantee GitHub service access. | [Action sources and runtimes](#actions-artifacts-and-caching-action-sources-and-runtimes) |
 | Checkout | Native adapter for the event repository | Pull requests default to the head, not a merge. No alternate repositories or persisted credentials. | [Checkout action](#actions-artifacts-and-caching-checkout-action) |
 | Artifacts | Native ZIP upload and download | Downloads require verified direct `needs` producers; no cross-run/repository or GitHub artifact API access. | [Upload](#actions-artifacts-and-caching-upload-artifact-action), [download](#actions-artifacts-and-caching-download-artifact-action) |
 | Caching | Admitted cache-v2 clients use Buildkite Results | Client versions and tools matter. Cache mode is best-effort, not authorization. | [Cache action](#actions-artifacts-and-caching-cache-action) |
@@ -441,7 +441,7 @@ Native checkout, upload, and download adapters skip input validation when the wh
 | JavaScript | `node16`, `node20`, or `node24`, with pre/main/post, inputs, outputs, state, and LIFO posts. |
 | Composite | Supported shell steps and locked local/public children; literal `continue-on-error`. |
 | Docker | Verified Dockerfile or public prebuilt-image metadata on Linux only. |
-| Workflow `uses: docker://...` | Unsupported. |
+| Workflow `uses: docker://...` | Public Linux images only, with a Docker daemon. See [direct Docker image steps](#step-syntax-direct-docker-image-steps). |
 | Top-level action metadata `env` | Accepted, no effect. Not evaluated or injected and grants no credentials. Other unknown metadata fields remain errors. |
 {: class="responsive-table"}
 
@@ -497,7 +497,7 @@ Dangling links, chains, absolute or escaping targets, hardlinks, special files, 
 
 ### Checkout action
 
-`actions/checkout` uses a native adapter, not upstream JavaScript. Checkout remains detached at the workspace root or a fresh nested directory in the event repository, including [GHES repositories](#credentials-and-deployments-repositories-github-enterprise-server-execution). Alternate checkout repositories, persisted credentials, and existing-directory reuse are unsupported. See [checkout security](/docs/pipelines/migration/run-github-actions-workflows/security#checkout-and-submodules).
+GitHub.com `actions/checkout` uses a native adapter, not upstream JavaScript. Checkout remains detached at the workspace root or a fresh nested directory in the event repository. [GHES source restrictions](#credentials-and-deployments-repositories-github-enterprise-server-execution) also apply to checkout. Alternate checkout repositories, persisted credentials, and existing-directory reuse are unsupported. See [checkout security](/docs/pipelines/migration/run-github-actions-workflows/security#checkout-and-submodules).
 
 Inputs must exist in the selected commit's contract before the following restrictions apply:
 
@@ -727,7 +727,9 @@ GHES workflows that use a token may need App permissions beyond the defaults, su
 
 These limits apply:
 
-- Public action sources remain on `github.com`; GHES-hosted remote actions and private reusable sources are unsupported. Repository-local reusable workflows remain supported. GHES workflow tokens aren't sent to public action sources.
+- From [buildkite-gha v0.122.0](https://github.com/buildkite/buildkite-gha/releases/tag/v0.122.0), remote `owner/repo[/path]@ref` actions and reusable workflows download from the event's GHES host. References resolve to immutable commits, and source caches are separated by host. There is no GitHub.com or GitHub Connect fallback.
+- Remote sources must be readable without authentication. Sources that require authentication, including private repositories and public repositories on restricted GHES instances, aren't supported. Repository-local reusable workflows remain supported, subject to these action-source limits. Workflow tokens and GitHub.com source credentials aren't used to download GHES sources.
+- Same-name GHES mirrors don't receive GitHub.com's native action adapters, including checkout, or cache-version substitutions.
 - [Manual workflow runs and rebuilds](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-run-a-workflow-manually) require a code-access App connection with access to the original workflow source.
 - Existing trigger, ref, path-filter, and [token security](/docs/pipelines/migration/run-github-actions-workflows/security#credential-boundaries-github-token) restrictions still apply. GHES support doesn't imply compatibility with every GHES version or GitHub service.
 
@@ -1049,7 +1051,7 @@ Use `validate` or `compile --format ir-json` to inspect the graph; `compile --fo
 
 ### Repository and organization variables
 
-`${{ vars.NAME }}` reads configuration, not secrets. Within a Buildkite job, applicable workflows, reusable calls, and action input defaults that reference `vars` trigger one repository/organization lookup per upload for GitHub.com and GHES. Other providers don't make that request. The backend uses its own repository-restricted credentials. See [GHES requirements](#credentials-and-deployments-repositories-github-enterprise-server-execution) for App permissions and runtime versions.
+`${{ vars.NAME }}` reads repository and organization configuration variables, not secrets, on GitHub.com and GHES. The GitHub App needs **Variables: read**. See [GHES requirements](#credentials-and-deployments-repositories-github-enterprise-server-execution) for App setup and runtime versions.
 
 | Position | Precedence |
 | --- | --- |
@@ -1060,9 +1062,7 @@ Use `validate` or `compile --format ir-json` to inspect the graph; `compile --fo
 
 These are the runtime's supported scopes; don't assume environment values affect pre-job selection. Names match case-insensitively. Missing names are empty strings, including in compile-time fallbacks. Dynamic indexing, projections, and `toJSON(vars)` use the same scope. Matrix instances share their job's scope; reusable jobs don't have environment scope.
 
-The lookup accepts at most 500 repository and 1,000 organization names, 48 KiB per value, and 256 KiB combined. Rate limits, including ten requests per job per hour, and outages fail workflows using `vars`; other workflows can still upload. `E_VARIABLE_RESOLUTION` retains specific backend errors and any retry delay. A generic resolution error needs support investigation, not an assumed installation or permission fix.
-
-A missing endpoint or organization opt-out returns empty scopes on 404. Outside a Buildkite job, runtime references are empty and compile-time references fail for lack of a source. This differs from declared environments, which fail closed.
+The lookup accepts at most 500 repository and 1,000 organization names, 48 KiB per value, and 256 KiB combined. Rate limits, including ten requests per job per hour, and outages fail workflows using `vars`; other workflows can still upload.
 
 ```yaml
 jobs:
@@ -1270,7 +1270,39 @@ steps:
     run: go test ./...
 ```
 
-`uses` accepts supported local and public actions with expression-valued `with` inputs. Direct workflow `uses: docker://...` is rejected; prebuilt images belong in locked action metadata. See [action sources and runtimes](#actions-artifacts-and-caching-action-sources-and-runtimes) and [self-repository actions](#actions-artifacts-and-caching-self-repository-actions) for source verification and access restrictions.
+`uses` accepts supported local and public actions with expression-valued `with` inputs, and direct public Docker image steps. See [action sources and runtimes](#actions-artifacts-and-caching-action-sources-and-runtimes) and [self-repository actions](#actions-artifacts-and-caching-self-repository-actions) for source verification and access restrictions.
+
+### Direct Docker image steps
+
+From v0.137.0, use `uses: docker://IMAGE` to run a public Linux image without an `action.yml` file. The job must run on Linux with a Docker daemon. macOS, Windows, and private images aren't supported.
+
+```yaml
+steps:
+  - name: Print a greeting
+    uses: docker://alpine:3.22
+    with:
+      entrypoint: /bin/echo
+      args: 'Hello "from a container"'
+```
+
+This example runs `/bin/echo` with two arguments, `Hello` and `from a container`.
+
+| Input | Behavior |
+| --- | --- |
+| `with.args` | A command-line string, not an array. Spaces and tabs separate arguments; double quotes group text into one argument. Single quotes and newlines are literal. No shell evaluation, variable expansion, pipes, or redirects. |
+| `with.entrypoint` | One executable, not a command with arguments. Use `with.args` for its arguments. |
+| Other `with` keys | Passed as `INPUT_*` environment variables. They don't configure Docker options. |
+{: class="responsive-table"}
+
+For multiline `with.args`, use YAML `>-` to fold ordinary line breaks into spaces and omit the trailing newline. Using `|` preserves newlines, including the trailing newline, in the arguments.
+
+With no effective overrides, the image's `ENTRYPOINT` and `CMD` defaults remain intact. Empty `with.args` or a value containing only spaces and tabs doesn't override image defaults. An empty `with.entrypoint` also preserves defaults. Nonempty arguments replace `CMD` while retaining `ENTRYPOINT`. A nonempty `with.entrypoint` replaces `ENTRYPOINT` and clears `CMD`, even when arguments are omitted.
+
+Direct image steps reuse the Docker action workspace, file-command mounts, environment path translation, and job service network. They can read and write the shared workspace and use file commands such as `GITHUB_ENV` and `GITHUB_OUTPUT`. They don't receive a Docker socket or privileged mode, and `with` inputs can't request either. See the [image pull security boundary](/docs/pipelines/migration/run-github-actions-workflows/security#repository-data-does-not-grant-authority) for anonymous pulls and image pinning.
+
+Docker actions always use `HOME=/github/home`, shared with other Docker actions and the job container in the same job. The image's `USER` remains unchanged. Environment values, including `INPUT_*`, translate mounted paths only when the value equals a mount's source path or starts with that path followed by `/`. Arguments aren't translated.
+
+Docker actions retain the image's `PATH` unless an explicit environment value or `GITHUB_ENV` sets it. `GITHUB_PATH` additions affect shell and JavaScript steps, not Docker actions. Like other environment values, `PATH` translates as a whole value, not component by component: a leading workspace path translates, but a workspace path after `/usr/bin:` doesn't.
 
 ### Background and parallel steps
 

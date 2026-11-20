@@ -248,6 +248,7 @@
   agent/self-hosted/configure/job-dispatch: "How self-hosted agents receive jobs, comparing the default polling-based dispatch with streaming job dispatch (available from agent version 3.122.0). Covers opting in via the streaming endpoint, the --ping-mode option (auto, poll-only, stream-only), and fallback behavior."
   agent/self-hosted/pausing-and-resuming: "Pausing and resuming individual agents to prevent job dispatch during maintenance or debugging."
   agent/self-hosted/prioritization: "How Buildkite assigns jobs to agents based on priority values, success history, and queue targeting."
+  agent/self-hosted/resource-controls: "Which resource controls Buildkite Pipelines and the agent provide for self-hosted agents and which belong to your infrastructure. Covers limiting concurrent jobs with spawn, systemd CPU, memory, and OOM settings for the agent service and per-agent template instances, bounded build filesystems, free-space checks and cleanup hooks, and resource limits for Docker, Kubernetes, and the Elastic CI Stack."
   agent/self-hosted/monitoring-and-observability: "Agent health checks, HTTP status endpoints, and Prometheus metrics for monitoring self-hosted agents."
   agent/self-hosted/monitoring-and-observability/tracing: "Setting up distributed tracing for the Buildkite agent using Datadog APM or OpenTelemetry."
   agent/self-hosted/security: "Security hardening for self-hosted agents: secrets storage, SSH keyscan, command evaluation, plugin controls."
