@@ -1051,7 +1051,7 @@ Use `validate` or `compile --format ir-json` to inspect the graph; `compile --fo
 
 ### Repository and organization variables
 
-`${{ vars.NAME }}` reads configuration, not secrets. Within a Buildkite job, applicable workflows, reusable calls, and action input defaults that reference `vars` trigger one repository/organization lookup per upload for GitHub.com and GHES. Other providers don't make that request. The backend uses its own repository-restricted credentials. See [GHES requirements](#credentials-and-deployments-repositories-github-enterprise-server-execution) for App permissions and runtime versions.
+`${{ vars.NAME }}` reads repository and organization configuration variables, not secrets, on GitHub.com and GHES. The GitHub App needs **Variables: read**. See [GHES requirements](#credentials-and-deployments-repositories-github-enterprise-server-execution) for App setup and runtime versions.
 
 | Position | Precedence |
 | --- | --- |
@@ -1062,9 +1062,7 @@ Use `validate` or `compile --format ir-json` to inspect the graph; `compile --fo
 
 These are the runtime's supported scopes; don't assume environment values affect pre-job selection. Names match case-insensitively. Missing names are empty strings, including in compile-time fallbacks. Dynamic indexing, projections, and `toJSON(vars)` use the same scope. Matrix instances share their job's scope; reusable jobs don't have environment scope.
 
-The lookup accepts at most 500 repository and 1,000 organization names, 48 KiB per value, and 256 KiB combined. Rate limits, including ten requests per job per hour, and outages fail workflows using `vars`; other workflows can still upload. `E_VARIABLE_RESOLUTION` retains specific backend errors and any retry delay. A generic resolution error needs support investigation, not an assumed installation or permission fix.
-
-A missing endpoint or organization opt-out returns empty scopes on 404. Outside a Buildkite job, runtime references are empty and compile-time references fail for lack of a source. This differs from declared environments, which fail closed.
+The lookup accepts at most 500 repository and 1,000 organization names, 48 KiB per value, and 256 KiB combined. Rate limits, including ten requests per job per hour, and outages fail workflows using `vars`; other workflows can still upload.
 
 ```yaml
 jobs:
