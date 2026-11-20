@@ -25,7 +25,7 @@ toc: false
 <!-- vale on -->
 
 
-Replace an active target's entire label map. Omit labels to leave them unchanged; an empty map clears them.
+Rename a target or replace its entire label map. Archived targets accept only a name-only update. Omit labels to leave them unchanged; an empty map clears them.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

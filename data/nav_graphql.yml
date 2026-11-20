@@ -108,6 +108,8 @@
     path: apis/graphql/schemas/mutation/deploymentartifactcreate
   - name: deploymentArtifactUnarchive
     path: apis/graphql/schemas/mutation/deploymentartifactunarchive
+  - name: deploymentArtifactUpdate
+    path: apis/graphql/schemas/mutation/deploymentartifactupdate
   - name: deploymentArtifactVersionPublish
     path: apis/graphql/schemas/mutation/deploymentartifactversionpublish
   - name: deploymentArtifactVersionYank
@@ -190,8 +192,12 @@
     path: apis/graphql/schemas/mutation/releasecomponentinstancecreate
   - name: releaseComponentInstanceUnarchive
     path: apis/graphql/schemas/mutation/releasecomponentinstanceunarchive
+  - name: releaseComponentInstanceUpdate
+    path: apis/graphql/schemas/mutation/releasecomponentinstanceupdate
   - name: releaseComponentUnarchive
     path: apis/graphql/schemas/mutation/releasecomponentunarchive
+  - name: releaseComponentUpdate
+    path: apis/graphql/schemas/mutation/releasecomponentupdate
   - name: releaseObservationsReport
     path: apis/graphql/schemas/mutation/releaseobservationsreport
   - name: releaseTargetArchive
@@ -458,6 +464,8 @@
     path: apis/graphql/schemas/object/deploymentartifactedge
   - name: DeploymentArtifactUnarchivePayload
     path: apis/graphql/schemas/object/deploymentartifactunarchivepayload
+  - name: DeploymentArtifactUpdatePayload
+    path: apis/graphql/schemas/object/deploymentartifactupdatepayload
   - name: DeploymentArtifactVersion
     path: apis/graphql/schemas/object/deploymentartifactversion
   - name: DeploymentArtifactVersionConnection
@@ -774,8 +782,12 @@
     path: apis/graphql/schemas/object/releasecomponentinstancestatusedge
   - name: ReleaseComponentInstanceUnarchivePayload
     path: apis/graphql/schemas/object/releasecomponentinstanceunarchivepayload
+  - name: ReleaseComponentInstanceUpdatePayload
+    path: apis/graphql/schemas/object/releasecomponentinstanceupdatepayload
   - name: ReleaseComponentUnarchivePayload
     path: apis/graphql/schemas/object/releasecomponentunarchivepayload
+  - name: ReleaseComponentUpdatePayload
+    path: apis/graphql/schemas/object/releasecomponentupdatepayload
   - name: ReleaseObservation
     path: apis/graphql/schemas/object/releaseobservation
   - name: ReleaseObservationConnection
@@ -1270,6 +1282,8 @@
     path: apis/graphql/schemas/input-object/deploymentartifactcreateinput
   - name: DeploymentArtifactUnarchiveInput
     path: apis/graphql/schemas/input-object/deploymentartifactunarchiveinput
+  - name: DeploymentArtifactUpdateInput
+    path: apis/graphql/schemas/input-object/deploymentartifactupdateinput
   - name: DeploymentArtifactVersionPublishInput
     path: apis/graphql/schemas/input-object/deploymentartifactversionpublishinput
   - name: DeploymentArtifactVersionYankInput
@@ -1384,8 +1398,12 @@
     path: apis/graphql/schemas/input-object/releasecomponentinstancecreateinput
   - name: ReleaseComponentInstanceUnarchiveInput
     path: apis/graphql/schemas/input-object/releasecomponentinstanceunarchiveinput
+  - name: ReleaseComponentInstanceUpdateInput
+    path: apis/graphql/schemas/input-object/releasecomponentinstanceupdateinput
   - name: ReleaseComponentUnarchiveInput
     path: apis/graphql/schemas/input-object/releasecomponentunarchiveinput
+  - name: ReleaseComponentUpdateInput
+    path: apis/graphql/schemas/input-object/releasecomponentupdateinput
   - name: ReleaseObservationInput
     path: apis/graphql/schemas/input-object/releaseobservationinput
   - name: ReleaseObservationsReportInput
