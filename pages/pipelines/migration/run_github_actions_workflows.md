@@ -55,7 +55,7 @@ Don't copy `GITHUB_TOKEN` into a Buildkite secret. Buildkite Pipelines issues th
 
 ### Run a workflow manually
 
-Manual runs are available for GitHub.com and GitHub Enterprise Server App pipelines. They currently require a workflow that declares `push` without `workflow_dispatch`. Its branch or tag filters must match the selected ref.
+For GitHub.com and GitHub Enterprise Server App pipelines, manual runs currently require a workflow that declares `push` without `workflow_dispatch`. Its branch or tag filters must match the selected ref.
 
 To run a matching workflow without waiting for a GitHub event:
 
