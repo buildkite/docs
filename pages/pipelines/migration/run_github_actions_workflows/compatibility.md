@@ -497,7 +497,7 @@ Dangling links, chains, absolute or escaping targets, hardlinks, special files, 
 
 ### Checkout action
 
-`actions/checkout` uses a native adapter, not upstream JavaScript. Checkout remains detached at the workspace root or a fresh nested directory in the event repository, including [GHES repositories](#credentials-and-deployments-repositories-github-enterprise-server-execution). Alternate checkout repositories, persisted credentials, and existing-directory reuse are unsupported. See [checkout security](/docs/pipelines/migration/run-github-actions-workflows/security#checkout-and-submodules).
+GitHub.com `actions/checkout` uses a native adapter, not upstream JavaScript. Checkout remains detached at the workspace root or a fresh nested directory in the event repository. [GHES source restrictions](#credentials-and-deployments-repositories-github-enterprise-server-execution) also apply to checkout. Alternate checkout repositories, persisted credentials, and existing-directory reuse are unsupported. See [checkout security](/docs/pipelines/migration/run-github-actions-workflows/security#checkout-and-submodules).
 
 Inputs must exist in the selected commit's contract before the following restrictions apply:
 
@@ -727,7 +727,9 @@ GHES workflows that use a token may need App permissions beyond the defaults, su
 
 These limits apply:
 
-- Public action sources remain on `github.com`; GHES-hosted remote actions and private reusable sources are unsupported. Repository-local reusable workflows remain supported. GHES workflow tokens aren't sent to public action sources.
+- From [buildkite-gha v0.122.0](https://github.com/buildkite/buildkite-gha/releases/tag/v0.122.0), remote `owner/repo[/path]@ref` actions and reusable workflows download from the event's GHES host. References resolve to immutable commits, and source caches are separated by host. There is no GitHub.com or GitHub Connect fallback.
+- Remote sources must be readable without authentication. Sources that require authentication, including private repositories and public repositories on restricted GHES instances, aren't supported. Repository-local reusable workflows remain supported, subject to these action-source limits. Workflow tokens and GitHub.com source credentials aren't used to download GHES sources.
+- Same-name GHES mirrors don't receive GitHub.com's native action adapters, including checkout, or cache-version substitutions.
 - For GitHub Enterprise Server pipelines, you can't start a workflow from **New Build** or rebuild a workflow build. Push a commit or trigger another matching event in GitHub Enterprise Server instead.
 - Existing trigger, ref, path-filter, and [token security](/docs/pipelines/migration/run-github-actions-workflows/security#credential-boundaries-github-token) restrictions still apply. GHES support doesn't imply compatibility with every GHES version or GitHub service.
 
