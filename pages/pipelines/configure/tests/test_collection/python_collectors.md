@@ -31,6 +31,8 @@ See the [Tests Buildkite plugin page](https://buildkite.com/resources/plugins/bu
 pytest is a testing framework for Python.
 If you're already using pytest, then you can install `buildkite-test-collector` to collect test results into your Test Engine dashboard.
 
+See a [working pytest example](https://github.com/buildkite/test-engine-client-examples/tree/main/pytest#readme).
+
 Before you start, make sure pytest runs with access to [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments).
 
 To get started with `buildkite-test-collector`:
@@ -77,6 +79,8 @@ If you don't see branch names, build numbers, or commit hashes in Test Engine, t
 ### Collecting pytest tests with OpenTelemetry
 
 The Python collector can send pytest results to Buildkite Test Engine as [OpenTelemetry spans](/docs/pipelines/configure/tests/test-collection/opentelemetry). Each test execution becomes a root span. Optional child spans show operations inside the test, such as HTTP requests and database queries.
+
+See a [working pytest OpenTelemetry example](https://github.com/buildkite/test-engine-client-examples/tree/main/pytest-otel#readme).
 
 Use Python 3.10 or later, pytest 7 or later, and `buildkite-test-collector` version `1.10.0` or higher. OpenTelemetry collection is disabled by default. This integration supports suites that do not already configure OpenTelemetry.
 

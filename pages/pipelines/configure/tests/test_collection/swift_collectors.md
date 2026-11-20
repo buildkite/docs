@@ -14,6 +14,8 @@ You can also upload test results by importing [JSON](/docs/pipelines/configure/t
 
 [XCTest](https://developer.apple.com/documentation/xctest) is a test framework to write unit tests for your Xcode projects.
 
+See a working example for [SwiftPM XCTest](https://github.com/buildkite/test-engine-client-examples/tree/main/swift-xctest#readme) or [Xcode unit and UI tests with OpenTelemetry](https://github.com/buildkite/test-engine-client-examples/tree/main/swift-xcuitest#readme).
+
 Before you start, make sure XCTest runs with access to [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments).
 
 1. [Create a test suite](/docs/pipelines/configure/tests) and copy the test suite API token.

@@ -2,6 +2,8 @@
 
 This page provides instructions on how to install the Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) using [installers](#installation) provided by Buildkite, as well as [configure and use bktec](#using-bktec).
 
+See a [working RSpec example](https://github.com/buildkite/test-engine-client-examples/tree/main/rspec#readme) with a pipeline step you can adapt for your test suite.
+
 ## Installation
 
 bktec is supported on both Linux ([Debian](#installation-debian) and [Red Hat](#installation-red-hat)) and [macOS](#installation-macos), as well as in [Docker](#installation-docker), for 64-bit ARM and AMD architectures. You can install the client using the following installers.

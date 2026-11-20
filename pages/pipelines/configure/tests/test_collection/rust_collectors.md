@@ -10,6 +10,8 @@ To use Buildkite Test Engine with your [Rust](https://www.rust-lang.org/) projec
 
 You can also upload test results by importing [JSON](/docs/pipelines/configure/tests/test-collection/importing-json) or [JUnit XML](/docs/pipelines/configure/tests/test-collection/importing-junit-xml).
 
+For an alternative without a test collector, see a [working Rust example](https://github.com/buildkite/test-engine-client-examples/tree/main/rust#readme) that uses bktec to split tests and upload JUnit results.
+
 Before you start, make sure Rust runs with access to [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments).
 
 1. Create a [test suite](/docs/pipelines/configure/tests/test-suites) and copy the API token that it gives you.

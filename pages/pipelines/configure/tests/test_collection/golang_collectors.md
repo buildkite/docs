@@ -6,6 +6,8 @@ To use Buildkite Test Engine with your [Go](https://go.dev/) language projects, 
 
 ## Tests Buildkite plugin example for Go test
 
+See a [working Go test example](https://github.com/buildkite/test-engine-client-examples/tree/main/go#readme).
+
 The following step uses the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/tests-buildkite-plugin/) to run `gotestsum` through bktec. The plugin downloads bktec, requests an OIDC token, ensures the test suite exists, and exports the environment variables that bktec expects, so the step's command only needs to invoke `bktec run`:
 
 ```yaml

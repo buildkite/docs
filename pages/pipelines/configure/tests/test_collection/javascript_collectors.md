@@ -67,6 +67,8 @@ With the test collector installed, you need to configure it in the test framewor
 
 If you're already using Jest, you can add `buildkite-test-collector/jest/reporter` to the list of reporters to collect test results into your Test Engine dashboard.
 
+See a [working Jest example](https://github.com/buildkite/test-engine-client-examples/tree/main/jest#readme).
+
 To configure Jest:
 
 1. Make sure Jest runs with access to [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments).
@@ -83,6 +85,8 @@ To configure Jest:
 ### Collecting Jest tests with OpenTelemetry
 
 The JavaScript collector can send Jest results to Buildkite Test Engine as [OpenTelemetry spans](/docs/pipelines/configure/tests/test-collection/opentelemetry). Each test execution becomes a root span. Optional child spans show operations inside the test, such as HTTP requests and database queries.
+
+See a [working Jest OpenTelemetry example](https://github.com/buildkite/test-engine-client-examples/tree/main/jest-otel#readme).
 
 Use Jest 29 or later with the default `jest-circus` runner. OpenTelemetry collection requires `buildkite-test-collector` version `1.13.0` or later. The setup below uses version `1.14.0`. OpenTelemetry collection is disabled by default.
 
@@ -191,6 +195,9 @@ To configure Mocha:
     ```
 
 ### Cypress
+
+See a [working Cypress example](https://github.com/buildkite/test-engine-client-examples/tree/main/cypress#readme).
+
 To configure Cypress:
 
 1. Make sure Cypress runs with access to [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments).
@@ -218,6 +225,8 @@ To configure Cypress:
 
 If you're already using Playwright, you can add `buildkite-test-collector/playwright/reporter` to the list of reporters to collect test results into your Test Engine dashboard.
 
+See a [working Playwright example](https://github.com/buildkite/test-engine-client-examples/tree/main/playwright#readme).
+
 To configure Playwright:
 
 1. Make sure Playwright runs with access to [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments).
@@ -236,6 +245,8 @@ To configure Playwright:
 ### Collecting Playwright tests with OpenTelemetry
 
 The JavaScript collector can send Playwright results to Buildkite Test Engine as OpenTelemetry spans. Each test attempt, including retries and skipped tests, becomes a root span. Playwright steps, hooks, fixtures, assertions, and actions become nested child spans.
+
+See a [working Playwright OpenTelemetry example](https://github.com/buildkite/test-engine-client-examples/tree/main/playwright-otel#readme).
 
 OpenTelemetry collection requires `buildkite-test-collector` version `1.14.0` or later and is disabled by default.
 
@@ -280,6 +291,8 @@ See the [collector's OpenTelemetry guide](https://github.com/buildkite/bktest/bl
 
 If you are already using Vitest, you can add `buildkite-test-collector/vitest/reporter` to the list of reporters to collect test results in your Test Engine dashboard.
 
+See a working example for [Vitest 5](https://github.com/buildkite/test-engine-client-examples/tree/main/vitest#readme) or [Vitest 4](https://github.com/buildkite/test-engine-client-examples/tree/main/vitest-4#readme).
+
 To configure Vitest:
 
 Update your [Vitest configuration](https://vitest.dev/config/):
@@ -317,6 +330,8 @@ test: {
 ### Collecting Vitest tests with OpenTelemetry
 
 The JavaScript collector can send Vitest results to Buildkite Test Engine as OpenTelemetry spans. Each test becomes a root span, with hook phases, HTTP requests, and custom instrumentation recorded as child spans.
+
+See a [working Vitest OpenTelemetry example](https://github.com/buildkite/test-engine-client-examples/tree/main/vitest-otel#readme).
 
 OpenTelemetry collection requires `buildkite-test-collector` version `1.14.0` or later and is disabled by default. Use Vitest 4.0.11 or later to collect child spans. Vitest 5 requires Node.js 22.12 or later.
 

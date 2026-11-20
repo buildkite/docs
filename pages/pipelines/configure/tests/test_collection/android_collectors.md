@@ -12,6 +12,8 @@ You can also upload test results by importing [JSON](/docs/pipelines/configure/t
 
 ## Android
 
+See a [working Android JVM unit test example](https://github.com/buildkite/test-engine-client-examples/tree/main/android#readme).
+
 Before you start, make sure your tests run with access to [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments).
 
 1. [Create a test suite](/docs/pipelines/configure/tests) and copy the test suite API token.

@@ -28,6 +28,8 @@ See the [Tests Buildkite plugin page](https://buildkite.com/resources/plugins/bu
 [RSpec](https://rspec.info/) is a behavior-driven development library for Ruby.
 If you're already using RSpec for your tests, add the `buildkite-test_collector` gem to your code to collect your test results into your Test Engine dashboard.
 
+See a [working RSpec example](https://github.com/buildkite/test-engine-client-examples/tree/main/rspec#readme).
+
 Before you start, make sure RSpec runs with access to [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments).
 
 1. Create a new branch:
@@ -96,6 +98,8 @@ To mitigate this issue and ensure the reliability of Test Engine, it's advisable
 
 The Ruby collector can send RSpec results to Buildkite Test Engine as [OpenTelemetry](https://opentelemetry.io/) spans. Each test execution becomes a root span, and optional instrumentation adds child spans for operations such as database queries and HTTP requests.
 
+See a [working RSpec OpenTelemetry example](https://github.com/buildkite/test-engine-client-examples/tree/main/rspec-otel#readme).
+
 > 🚧 Experimental RSpec support
 > OpenTelemetry collection is experimental and disabled by default. It supports RSpec only, not minitest. Use Ruby 3.3 or later. Suites that already configure OpenTelemetry are not yet supported by this experimental integration.
 
@@ -151,6 +155,8 @@ The collector installs registered instrumentation when the RSpec suite starts. W
 ## minitest collector
 
 [minitest](https://github.com/minitest/minitest) provides a complete suite of testing facilities supporting TDD, BDD, mocking, and benchmarking.
+
+See a [working minitest example](https://github.com/buildkite/test-engine-client-examples/tree/main/ruby-minitest#readme).
 
 If you're already using minitest for your tests, add the `buildkite-test_collector` gem to your code to collect your test results into your Test Engine dashboard.
 
