@@ -79,7 +79,11 @@ This design reuses ambient importer Git authority instead of minting a workflow-
 
 Digests and immutable source locks detect changed code. They don't make code trusted or grant credentials.
 
-Prebuilt Docker action metadata can name a public `docker://` image. The action source lock protects the image declaration, but a mutable image tag can resolve to different content when each job starts. Use an image digest when content immutability matters. Image pulls use an empty private Docker configuration and never receive action secrets, registry credentials, or ambient Docker authority. Private images are unsupported.
+Prebuilt Docker action metadata and direct workflow `uses: docker://...` steps can name a public Linux image. The action source lock protects an action metadata image declaration; direct steps declare the image in the workflow. Neither pins the content behind a mutable image tag. The tag can resolve to different content when each job starts. Use an image digest when content immutability matters.
+
+Image pulls use an empty private Docker configuration. They don't use ambient Docker credentials, `GITHUB_TOKEN`, or service-container registry credentials as an authentication fallback. Action secrets aren't passed to image pulls. Private images are unsupported.
+
+Direct image steps share the Docker action workspace, file-command mounts, and job service network. They don't receive a Docker socket or privileged mode. Inputs can't request Docker options or additional host mounts; an argument such as `--privileged` remains an argument to the image's executable. These restrictions don't make image code trusted or isolate it from other steps in the job.
 
 ### Source and event checks
 
