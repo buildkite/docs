@@ -34,6 +34,20 @@ class Page
     end
 
     def image(name, args = {})
+      extension = File.extname(name)
+      dark_name = "#{name.delete_suffix(extension)}-dark#{extension}"
+      explicit_theme = (args[:class].to_s.split & %w[light-only dark-only]).any?
+
+      if !explicit_theme && File.file?(Rails.root.join('images', @image_path, dark_name))
+        safe_join([['light-only', name], ['dark-only', dark_name]].map do |theme, filename|
+          content_tag :div, render_image(filename, args.merge(loading: 'lazy')), class: theme
+        end)
+      else
+        render_image(name, args)
+      end
+    end
+
+    def render_image(name, args)
       align = args.delete(:align)&.to_s
 
       # Support the same :size that the standard Rails helper supports
@@ -59,6 +73,7 @@ class Page
         @view_helpers.image_tag(image_path(name), args)
       end
     end
+    private :render_image
 
     def image_path(name)
       stripped_image_path = @image_path.sub(%r{\Adocs/}, '')

@@ -164,6 +164,8 @@ Note: the leading underscore and `.md` extension are omitted in the partial path
 
 Image files are stored in `images/docs/` in a subdirectory matching the page's path including its filename. For example, images for `pages/pipelines/insights/queue_metrics.md` go in `images/docs/pipelines/insights/queue_metrics/`. Images must be PNG format with even pixel dimensions for both width and height. Use `width/2, height/2` for retina screenshots.
 
+- For optional screenshot regeneration recipes, see the [screenshot recipe convention](styleguides/working-with-docs-site.md#screenshot-recipes).
+
 ### Key data files
 
 - `data/nav.yml`: Main site navigation. Every new page needs an entry here to appear in the docs. Each entry is a YAML map with: `name` (required, display text), `path` (URL path after `/docs/`, using hyphens), `children` (nested entries), `pill` (status badge: `beta`, `new`, `coming-soon`, `deprecated`, `preview`), `type` (`dropdown`, `link`, or `divider`), and `start_expanded` (boolean). Omitting `path` creates a section toggle.

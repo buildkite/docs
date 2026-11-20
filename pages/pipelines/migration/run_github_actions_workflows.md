@@ -256,7 +256,7 @@ For iOS workflows, choose a queue base image that includes the required macOS, X
 1. Choose a compatible image and **Xcode version**.
 1. Select **Save base image**.
 
-<%= image "xcode-version.png", width: 2230/2, height: 960/2, alt: "Queue Base image tab with macOS version set to Tahoe, Xcode version set to 27, and the Save base image button" %>
+<%= image "xcode-version.png", width: 1702/2, height: 600/2, alt: "Base Image form with macOS version set to Tahoe, Xcode version set to 27, and the Save base image button" %>
 
 See the [macOS hosted agent images and software](/docs/agent/buildkite-hosted/macos#macos-instance-software-support) for available versions. If a workflow needs custom labels or queue mappings, contact the Buildkite Support team rather than editing the generated jobs or adding plugin configuration.
 

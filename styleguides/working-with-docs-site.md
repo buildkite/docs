@@ -221,20 +221,41 @@ If no keywords are provided it falls back to comma-separated URL path segments.
 
 This information was aggregated by going over the existing screenshots in the documentation repo. Feel free to change or expand it.
 
+### Screenshot recipes
+
+Screenshot recipes are an optional way to make captures repeatable for contributors and browser agents. To use one, add a Markdown recipe beside the screenshot with the same name, replacing `.png` with `.md`. For example, `images/docs/pipelines/source_control/github/github-default-status.png` has a recipe at `images/docs/pipelines/source_control/github/github-default-status.md`. Other screenshot workflows remain valid; existing screenshots do not need recipes.
+
+Agents can use the repository-local [regenerating screenshots skill](../.agents/skills/regenerating-screenshots/SKILL.md) for this workflow.
+
+For light and dark pairs, the page continues to reference `foo.png`. When `foo-dark.png` exists beside it, the image helper renders both variants and follows the documentation site's **Light**, **Dark**, or **System** theme selection. Both variants use lazy loading; browsers can still revalidate a previously loaded hidden image.
+
+Write the recipe as instructions that a contributor or browser agent can follow:
+
+- Link to the documentation section and explain what the screenshot demonstrates.
+- State the required product access, permissions, a working example source, and setup steps. Refer to a development environment or a dedicated integration test environment, not a specific private lab or account. Link to a verified public fixture when one is available.
+- Describe how to reach the required UI state, including any setup and cleanup. Use UI labels rather than browser selectors.
+- Specify the viewport, pixel density, capture area, and any cropping or annotations.
+- State whether a dark capture applies. For pairs, keep `foo.png` as the light image and save `foo-dark.png` beside it, using the same recipe for both. Match viewport, zoom, scroll, cleanup, crop, content, and dimensions; only colors should differ.
+- Describe what must be visible and what must be excluded to accept the result.
+
+Keep shared image requirements in this guide. Keep credentials, private URLs, and internal environment details out of recipes because this repository is mirrored publicly. Capture the real UI; do not recreate it or change labels or results to fit an example. Unrelated UI, such as other check rows, can be hidden in the browser DOM before capture. Verify the subject first, preserve its real labels, results, and summary counts, and record the cleanup in the recipe. Prefer example data and cropping over redaction.
+
+Read the recipe before refreshing its screenshot. Inspect the new image and preview its documentation page, then update the image dimensions and alt text if needed. Update the recipe when the capture procedure changes. When a UI change affects a documented screen, review its screenshot too. A recipe makes a screenshot reproducible; it does not automatically detect when the image is out of date.
+
 ### Taking and processing screenshots
 
-* **Format:** PNG
-* **Ratio:** arbitrary, but **strictly even number of pixels** for both height and width. Recommended size `width: 1024px, height: 880px` when you're taking a full-width screen
-* **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina or high-resolution display/screen. Recommended dimension is `width: 2048/2, height: 880/2` to get the best possible view across different screen sizes.
-* **No feature flag:** please remember to turn off all experimental features when taking screenshots
-* **Border:** no border
-* **Drop shadow:** no
-* **Cursor:** include when relevant
-* **Area highlight selection:** subtract overlay
-* **Blur:** use to obscure sensitive info like passwords or real email addresses; even, non-pixelated
-* **User info:** blur out everything except for the name
-* **Dummy data:** use Acme Inc as dummy company title
-* **Naming screenshots:** lowercase, words separated by hyphens; number after the title, for example, "installation-1"
+- **Format:** PNG
+- **Ratio:** arbitrary, but **strictly even number of pixels** for both height and width. Recommended size `width: 1024px, height: 880px` when you're taking a full-width screen
+- **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina or high-resolution display/screen. Recommended dimension is `width: 2048/2, height: 880/2` to get the best possible view across different screen sizes.
+- **No feature flag:** please remember to turn off all experimental features when taking screenshots
+- **Border:** no border
+- **Drop shadow:** no
+- **Cursor:** include when relevant
+- **Area highlight selection:** subtract overlay
+- **Blur:** use to obscure sensitive info like passwords or real email addresses; even, non-pixelated
+- **User info:** blur out everything except for the name
+- **Dummy data:** use Acme Inc as dummy company title
+- **Naming screenshots:** lowercase, words separated by hyphens; number after the title, for example, "installation-1"
 
 ### Adding screenshots or other images
 

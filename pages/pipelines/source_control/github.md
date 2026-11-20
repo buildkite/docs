@@ -356,7 +356,7 @@ For example, if you select **Update commit statuses** in the **GitHub Commit Sta
 
 Your checks will appear on your pull request as **buildkite/your-pipeline-name**:
 
-<%= image "github-default-status.png", alt: "Screenshot of the resulting GitHub pull request statuses" %>
+<%= image "github-default-status.png", width: 1598/2, height: 266/2, alt: "GitHub pull request checks showing a successful default Buildkite commit status" %>
 
 You can customize the commit statuses, for example, to reuse the same pipeline for multiple components in a monorepo, at both the build and step level, using the [`notify`](/docs/pipelines/configure/notify) attribute in your `pipeline.yml`.
 
