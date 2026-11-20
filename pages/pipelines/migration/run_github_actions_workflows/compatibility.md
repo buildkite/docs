@@ -137,7 +137,7 @@ When a `missing_queue` diagnostic identifies an absent hosted preset queue, **Se
 1. Select **Set up queue** in the diagnostic.
 1. Review the required queue, which is selected automatically if it is still missing and allowed by your organization's current plan and policy. Other recommendations remain unselected.
 1. Select **Create 1 queue**.
-1. Return to the build and rebuild it to run workflow preparation again. For GitHub Enterprise Server pipelines, you can't rebuild a workflow build. [Push a commit or trigger another matching event in GitHub Enterprise Server instead](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-run-a-workflow-manually).
+1. Return to the build and rebuild it to run workflow preparation again.
 
 Creating the queue does not resume or retry the failed diagnostic job. The setup link is not a remedy for unsupported runner labels, incompatible existing queues, or invalid explicit mappings. Correct those separately using the diagnostics above.
 
@@ -728,7 +728,7 @@ GHES workflows that use a token may need App permissions beyond the defaults, su
 These limits apply:
 
 - Public action sources remain on `github.com`; GHES-hosted remote actions and private reusable sources are unsupported. Repository-local reusable workflows remain supported. GHES workflow tokens aren't sent to public action sources.
-- For GitHub Enterprise Server pipelines, you can't start a workflow from **New Build** or rebuild a workflow build. Push a commit or trigger another matching event in GitHub Enterprise Server instead.
+- [Manual workflow runs and rebuilds](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-run-a-workflow-manually) require a code-access App connection with access to the original workflow source.
 - Existing trigger, ref, path-filter, and [token security](/docs/pipelines/migration/run-github-actions-workflows/security#credential-boundaries-github-token) restrictions still apply. GHES support doesn't imply compatibility with every GHES version or GitHub service.
 
 <a id="repositories-credentials-and-github-services-github-token"></a>

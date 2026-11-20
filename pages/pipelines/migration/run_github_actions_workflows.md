@@ -55,9 +55,7 @@ Don't copy `GITHUB_TOKEN` into a Buildkite secret. Buildkite Pipelines issues th
 
 ### Run a workflow manually
 
-For GitHub Enterprise Server pipelines, you can't start a workflow from **New Build** or rebuild a workflow build. Push a commit or trigger another matching event in GitHub Enterprise Server instead.
-
-For GitHub.com pipelines, manual runs currently require a workflow that declares `push` without `workflow_dispatch`. Its branch or tag filters must match the selected ref.
+Manual runs are available for GitHub.com and GitHub Enterprise Server App pipelines. They currently require a workflow that declares `push` without `workflow_dispatch`. Its branch or tag filters must match the selected ref.
 
 To run a matching workflow without waiting for a GitHub event:
 
@@ -72,6 +70,8 @@ Before the pipeline's first build, you can also select a workflow and use **Run 
 <%= image "workflow-picker.png", width: 1250/2, height: 500/2, alt: "First-build workflow selector listing Docs Lint, iOS Build and Test, and SwiftLint with their file paths beside the Run workflow button" %>
 
 Buildkite Pipelines discovers workflows at the selected commit. For a tag run, enter `refs/tags/<tag>` in **Branch** and provide a full commit SHA in **Commit** instead of `HEAD`.
+
+You can also rebuild a workflow build while its original repository, workflow file, and commit remain available. Rebuilds retain the verified workflow selection. Events that require an original webhook payload still require that payload.
 
 > 🚧 Manual dispatch limitation
 > With the released `buildkite-gha` v0.105.3 runtime, native manual runs that select `workflow_dispatch` fail during workflow preparation. The server selects this event whenever the workflow declares it, even if it also declares `push`. A matching GitHub push can still run the workflow as a `push` event.
