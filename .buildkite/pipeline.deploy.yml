@@ -90,7 +90,7 @@ steps:
             enabled: false
           github:
             changes-enabled: true
-      - docker-compose#v5.16.0:
+      - docker-compose#v5.17.0:
           run: helm-deploy
           config: .buildkite/docker-compose.helm-deploy.yml
           mount-checkout: true
