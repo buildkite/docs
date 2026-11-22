@@ -151,7 +151,7 @@ COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
 # make sense to us.
 #
 
-FROM raviqqe/muffet:2.11.8 AS muffet-scratch
+FROM raviqqe/muffet:2.11.9 AS muffet-scratch
 FROM trusted-ruby AS muffet
 
 RUN apt-get update && \
