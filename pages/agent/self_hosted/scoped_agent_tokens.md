@@ -31,7 +31,7 @@ Use a dedicated token and queue for trusted jobs that run `buildkite-agent pipel
 
 Give lint, test, or documentation agents a separate token without `upload_steps` or `write_steps`. Those jobs cannot upload new steps or update existing steps through the Agent API. Bind each token to its intended queues, and keep the trusted token and its infrastructure inaccessible to restricted jobs.
 
-<%= image "restricted-permissions.png", width: 1746/2, height: 1480/2, alt: "Token permissions with Run jobs, Write build metadata, and Code repository access selected, and Upload steps and Write steps cleared" %>
+<%= image "restricted-permissions.png", width: 1430/2, height: 1504/2, alt: "Token permissions with Run jobs, Write build metadata, and Code repository access selected, and Upload steps and Write steps cleared" %>
 
 **Run jobs** remains selected; **Upload steps** and **Write steps** are cleared. This example also allows repository access and checkout metadata. Add the artifact, secret, cache, or other permissions your workload needs.
 
