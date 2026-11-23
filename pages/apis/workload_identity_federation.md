@@ -135,20 +135,14 @@ To change access, select **Edit** in the resource's row, choose an option, and s
 
 To configure access through the REST API, see the [resource grants example](/docs/apis/rest-api/organizations/workload-identities#workload-identity-data-model-resource-grants).
 
-For resources outside the token's access, the REST API returns `404 Not Found`. A token keeps the resource access that the workload identity had when the token was minted. To remove access from existing tokens, disable the workload identity, which revokes them. Disabling a workload identity doesn't revoke agent tokens, remove cluster maintainers, or stop schedules that its tokens created. Learn more in [Access that outlives the token](/docs/apis/workload-identity-federation/supported-endpoints#agents-and-clusters-access-that-outlives-the-token) and [Pipelines and builds](/docs/apis/workload-identity-federation/supported-endpoints#pipelines-and-builds).
+For resources outside the token's access, the REST API returns `404 Not Found`. A token keeps the resource access that the workload identity had when the token was minted. To remove access from existing tokens, disable the workload identity, which revokes them. Disabling a workload identity doesn't revoke agent tokens, remove cluster maintainers, or stop schedules that its tokens created. Learn more in [Access that outlives the token](/docs/apis/workload-identity-federation/supported-endpoints#access-that-outlives-the-token).
 
 > 🚧 Limited API support
 > Workload identity federation supports a subset of REST API endpoints and scopes. Resource access doesn't enable every operation on a resource. See [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints) for the supported operations.
 
 ## Review issued tokens
 
-A workload identity's page has three tabs:
-
-- **Details:** The values that a workload needs to exchange tokens, the trust policy, and the security settings.
-- **Access:** The grantable and default scopes, and the resource access.
-- **Tokens:** The API access tokens that the workload identity issued in the last 24 hours, newest first. Each token shows its status, scopes, when it was issued, when and from which IP address it was last used, and when it expires. The tab's badge counts the tokens that haven't expired.
-
-You can't revoke individual tokens from the **Tokens** tab. To revoke a workload identity's tokens, disable or delete the workload identity.
+The **Tokens** tab of a workload identity's page lists the API access tokens that it issued in the last 24 hours, with their scopes, when and from which IP address they were last used, and when they expire. To revoke the tokens, disable or delete the workload identity.
 
 ## Exchange an OIDC token
 
@@ -225,13 +219,7 @@ Buildkite identifies OIDC tokens by their `jti` (JWT ID) claim. Buildkite agent,
 
 ### Rate limit
 
-Buildkite accepts up to 50 token exchange requests per minute for each workload identity. One workload identity reaching its limit doesn't affect any others. Over the limit, Buildkite returns `429 Too Many Requests` until the minute ends, with these headers:
-
-- `RateLimit-WorkloadIdentityTokenExchange-Limit`: The number of requests allowed each minute.
-- `RateLimit-WorkloadIdentityTokenExchange-Remaining`: The number of requests left in the current minute.
-- `RateLimit-WorkloadIdentityTokenExchange-Reset`: The number of seconds until the limit resets.
-
-Buildkite checks the limit before it verifies the OIDC token, so a rejected request doesn't use up the OIDC token. Because the **Client ID** isn't a secret, anyone who knows it can use up the workload identity's limit. Cache and reuse API access tokens to keep well under it.
+Buildkite accepts up to 50 token exchange requests per minute for each workload identity. Over the limit, Buildkite returns `429 Too Many Requests`, and the `RateLimit-WorkloadIdentityTokenExchange-Reset` header gives the number of seconds until the limit resets. Because the **Client ID** isn't a secret, anyone who knows it can use up this limit. Cache and reuse API access tokens instead of exchanging a token for every request.
 
 ## OIDC token requirements
 
