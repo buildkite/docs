@@ -170,11 +170,14 @@ Success response: `200 OK`
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X POST "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}" \
+  -X PATCH "https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "my registry",
     "description": "registry containing ruby gems",
+    "emoji": "🌻",
+    "color": "#f0ccff",
+    "visibility": "public",
     "oidc_policy": [
       {
         "iss": "https://agent.buildkite.com",
@@ -193,16 +196,17 @@ curl -H "Authorization: Bearer $TOKEN" \
 {
   "id": "0191df84-85e4-77aa-83ba-6579084728eb",
   "graphql_id": "UmVnaXN0cnktLS0wMTkxZGY4NC04NWU0LTc3YWEtODNiYS02NTc5MDg0NzI4ZWI=",
+  "type": "source",
   "slug": "my-registry",
   "url": "https://api.buildkite.com/v2/packages/organizations/my-org/registries/my-registry",
   "web_url": "https://buildkite.com/organizations/my-org/registries/my-registry",
   "name": "my registry",
   "ecosystem": "ruby",
   "description": "registry containing ruby gems",
-  "emoji": null,
-  "color": null,
-  "public": false,
-  "oidc_policy": null,
+  "emoji": "🌻",
+  "color": "#f0ccff",
+  "public": true,
+  "oidc_policy": "[\n  {\n    \"iss\": \"https://agent.buildkite.com\",\n    \"claims\": {\n      \"organization_slug\": \"my-org\",\n      \"pipeline_slug\": {\n        \"in\": [\n          \"my-pipeline\"\n        ]\n      }\n    }\n  }\n]",
   "team_ids": [
     "team-one-uuid",
     "team-two-uuid"
@@ -223,13 +227,33 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>Description of the registry.<br><em>Example:</em> <code>registry containing ruby gems</code>.</td>
   </tr>
   <tr>
+    <th><code>emoji</code></th>
+    <td>Emoji for the registry using the <a href="/docs/apis/rest-api/emojis">emoji syntax</a>. Set to <code>null</code> to clear it.</td>
+  </tr>
+  <tr>
+    <th><code>color</code></th>
+    <td>Color hex code for the registry. Set to <code>null</code> to clear it.</td>
+  </tr>
+  <tr>
     <th><code>oidc_policy</code></th>
-    <td>A policy matching a <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-basic-oidc-policy-format">basic</a> or <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example">more complex</a> OIDC policy format. Can be either stringified YAML, or a JSON array of policy statements. Be aware that if you are modifying an existing OIDC policy, the entire revised OIDC policy needs to be re-posted in this update request.<br><em>Default value:</em> <code>null</code>.</td>
+    <td>The full replacement <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-basic-oidc-policy-format">basic</a> or <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example">complex</a> OIDC policy, as a YAML string or a JSON array of policy statements. Set to <code>null</code> to clear it.</td>
+  </tr>
+  <tr>
+    <th><code>visibility</code></th>
+    <td>Accepts <code>"public"</code> or <code>"private"</code> for <a href="/docs/package-registries/registries/manage#create-a-source-registry">source registries</a> only. Omit this property to keep the current visibility.</td>
   </tr>
 </tbody>
 </table>
 
+Send only the properties you want to change.
+
+Making a registry public also makes its organization visible to people outside it. Other private registries and pipelines stay private.
+
+When you make a public registry private, its organization stays public if it still has a public registry or a public pipeline. Otherwise, the organization becomes private.
+
 Required scope: `write_registries`
+
+If teams are enabled, you must be an organization administrator or belong to a team with [**Full Access** to the registry](/docs/package-registries/security/permissions#manage-teams-and-permissions-registry-level-permissions).
 
 Success response: `200 OK`
 
