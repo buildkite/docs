@@ -11,7 +11,7 @@ Product area | Resource access | Scopes
 [Pipelines and builds](#pipelines-and-builds) | Pipelines | `read_pipelines`, `write_pipelines`, `read_builds`, `write_builds`, `retry_builds`, `read_job_env`, `read_job_errors`, `read_build_logs`, `read_artifacts`, `read_pipeline_templates`, `write_pipeline_templates`, `read_rules`, `write_rules`
 [Agents and clusters](#agents-and-clusters) | Clusters | `read_agents`, `write_agents`, `read_clusters`, `write_clusters`
 [Teams](#teams) | Teams | `read_teams`, `write_teams`
-[Test Engine](#test-engine) | Suites | `read_suites`, `write_suites`, `read_test_plan`, `write_test_plan`, `read_test_pool`
+[Test Engine](#test-engine) | Test suites | `read_suites`, `write_suites`, `read_test_plan`, `write_test_plan`, `read_test_pool`
 [Organization administration](#organization-administration) | Not limited | `read_organizations`, `write_organizations`, `read_organization_settings`, `write_organization_settings`, `read_notification_services`, `write_notification_services`, `read_audit_events`, `read_organization_invitations`, `read_api_request_logs`, `read_organization_repository_connections`, `read_portals`
 {: class="responsive-table"}
 
@@ -35,11 +35,9 @@ With team access, a token can read and manage those teams and their pipeline ass
 
 ## Test Engine
 
-With suite access, a token can read and manage those suites' data in Buildkite Test Engine: list and show suites, and read their runs, tests, flaky tests, uploads, traces, span aggregates, test files, commits, workflows, and test plan. With `write_suites`, a token can also update and delete a suite, create, update, and delete its workflows, skip, mute, enable, and label its tests, replace execution tags, and get presigned commit-metadata uploads. With `write_test_plan`, a token can create test plans and post test plan metadata. Learn more in the [Suites](/docs/apis/rest-api/test-engine/suites), [Runs](/docs/apis/rest-api/test-engine/runs), [Tests](/docs/apis/rest-api/test-engine/tests), and [Workflows](/docs/apis/rest-api/test-engine/workflows) API references.
+With test suite access, a token can work with those suites in Buildkite Test Engine: read their runs, tests, and test plans, and with `write_suites`, update and delete the suites, manage their workflows, and change test states, such as muting or skipping tests. With `write_test_plan`, it can create test plans. Learn more in the [Suites API](/docs/apis/rest-api/test-engine/suites) reference.
 
-A suite outside the token's access, or in another Buildkite organization, returns `404 Not Found`, even with **All** suite access. Reading a build's tests, a pipeline's suites, or a suite's test pools also requires access to the build's pipeline. Changes that a token makes to a suite are audited under the identity's owner.
-
-A token can't read or set a suite's API token or webhook endpoints, even with `write_suites`. Requests with `show_api_token` return `403 Forbidden`, and webhook endpoints in workflow responses stay masked.
+Reads that start from a build or pipeline, such as a build's tests or test pools, also require access to that pipeline. A token can't create test suites, assign them to teams, or see a suite's API token or webhook endpoints.
 
 ## Organization administration
 
@@ -54,8 +52,9 @@ Some changes that a token makes stay in place after the token expires or the wor
 - Agent tokens that it creates keep working, and their agents can run jobs from any pipeline that uses the cluster.
 - Users and teams that it adds as cluster maintainers keep their access.
 - Schedules that it creates keep running builds.
+- Workflows that it adds to a test suite keep sending notifications.
 
-Remove these separately when you no longer need them, and grant `write_clusters` and `write_pipelines` only to workloads that you trust.
+Remove these separately when you no longer need them, and grant `write_clusters`, `write_pipelines`, and `write_suites` only to workloads that you trust.
 
 ## Unsupported APIs and scopes
 

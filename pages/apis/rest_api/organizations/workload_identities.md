@@ -143,7 +143,7 @@ The `resource_grants` array holds at most one object per resource type, with the
 <tbody>
   <tr>
     <th><code>type</code></th>
-    <td>The resource type: <code>pipeline</code> for pipelines, <code>team</code> for teams, <code>cluster</code> for clusters and their resources, such as queues, agent tokens, and agents, or <code>suite</code> for Buildkite Test Engine suites. A cluster grant doesn't include unclustered agents.</td>
+    <td>The resource type: <code>pipeline</code> for pipelines, <code>team</code> for teams, <code>cluster</code> for clusters and their resources, such as queues, agent tokens, and agents, or <code>suite</code> for Buildkite Test Engine test suites and their runs, tests, test plans, and workflows. A cluster grant doesn't include unclustered agents.</td>
   </tr>
   <tr>
     <th><code>access</code></th>
