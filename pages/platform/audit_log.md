@@ -178,6 +178,15 @@ ORGANIZATION_MEMBER_UPDATED
 ORGANIZATION_BUILD_EXPORT_UPDATED
 ```
 
+### API request log exports
+
+```
+ORGANIZATION_API_REQUEST_LOG_EXPORT_CREATED
+ORGANIZATION_API_REQUEST_LOG_EXPORT_DOWNLOADED
+```
+
+Records [API request log export](/docs/apis/rest-api/organizations/api-request-log-exports) creation and requests for download links, including the export's dataset, format, and period.
+
 ### Buildkite subscriptions
 
 ```

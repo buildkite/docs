@@ -236,6 +236,12 @@ A token's REST API scopes are granular, and you can select some or all of the fo
         key: "read_audit_events",
         description: "List and retrieve details of [audit log](/docs/platform/audit-log) events (Enterprise plan only).",
         read: true, write: false, delete: false
+      },
+      {
+        name: "API Request Logs",
+        key: "read_api_request_logs",
+        description: "Create, poll, and download [API request log exports](/docs/apis/rest-api/organizations/api-request-log-exports) (organization administrators only).",
+        read: true, write: false, delete: false
       }
     ].each do |scope| %>
       <tr>

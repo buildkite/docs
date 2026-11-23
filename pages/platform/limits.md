@@ -46,6 +46,8 @@ Remote MCP server rate limit per user | The number of REST API requests a user c
 GraphQL query complexity | The maximum complexity score for GraphQL queries. | 50,000
 GraphQL query depth | The maximum nesting depth for GraphQL queries. | 15 levels
 Audit search terms | The maximum number of search terms for audit logs. | 3 terms
+API request log exports per day | The maximum number of accepted [API request log exports](/docs/apis/rest-api/organizations/api-request-log-exports) per organization in a rolling 24-hour period, including completed and failed exports. | 60 exports per day
+API request log exports in progress | The maximum number of [API request log exports](/docs/apis/rest-api/organizations/api-request-log-exports) that a single organization can have pending or running at once. | 5 exports
 IP addresses per token | The maximum number of IP allowlist entries per token. | 24 addresses
 Maximum OIDC lifetime | The default maximum lifetime for OIDC. | 2 hours
 {: class="responsive-table"}
