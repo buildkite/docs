@@ -33,6 +33,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 {
   "id": "0191df84-85e4-77aa-83ba-6579084728eb",
   "graphql_id": "UmVnaXN0cnktLS0wMTkxZGY4NC04NWU0LTc3YWEtODNiYS02NTc5MDg0NzI4ZWI=",
+  "type": "source",
   "slug": "my-registry",
   "url": "https://api.buildkite.com/v2/packages/organizations/my-org/registries/my-registry",
   "web_url": "https://buildkite.com/organizations/my-org/registries/my-registry",
@@ -110,6 +111,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   {
     "id": "0191df84-85e4-77aa-83ba-6579084728eb",
     "graphql_id": "UmVnaXN0cnktLS0wMTkxZGY4NC04NWU0LTc3YWEtODNiYS02NTc5MDg0NzI4ZWI=",
+    "type": "source",
     "slug": "my-registry",
     "url": "https://api.buildkite.com/v2/packages/organizations/my-org/registries/my-registry",
     "web_url": "https://buildkite.com/organizations/my-org/packages/registries/my-registry",
@@ -145,6 +147,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 {
   "id": "0191df84-85e4-77aa-83ba-6579084728eb",
   "graphql_id": "UmVnaXN0cnktLS0wMTkxZGY4NC04NWU0LTc3YWEtODNiYS02NTc5MDg0NzI4ZWI=",
+  "type": "source",
   "slug": "my-registry",
   "url": "https://api.buildkite.com/v2/packages/organizations/my-org/registries/my-registry",
   "web_url": "https://buildkite.com/organizations/my-org/registries/my-registry",
