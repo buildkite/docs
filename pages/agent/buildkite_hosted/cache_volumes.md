@@ -160,9 +160,11 @@ To enable container cache volumes feature for Buildkite hosted agents on your cl
 
 1. Select **Enable container caching**, then select **Save cache settings** to enable container caching for the selected hosted cluster.
 
-Once enabled, container cache volumes will be used for all Buildkite hosted agent jobs in that cluster. A separate volume is created for each pipeline, and is done so upon the pipeline being built for the first time.
+Once enabled, container cache volumes will be used for all Linux hosted agent jobs in that cluster. A separate volume is created for each pipeline, and is done so upon the pipeline being built for the first time.
 
-<%= image "hosted-agents-container-caching.png", width: 1760, height: 436, alt: "Hosted agents container cache setting displayed in the Buildkite UI" %>
+<%= image "hosted-agents-container-caching.png", width: 1912/2, height: 934/2, alt: "Cached Storage Settings showing Enable container caching selected, both cache options, and Save cache settings" %>
+
+Although the **Enable container caching** help text mentions macOS, container cache volumes are only available to Linux hosted agents.
 
 A container cache volume's name is based on your pipeline's slug followed by a slash, then "container-cache". For example, **pipeline-slug/container-cache**.
 
@@ -186,7 +188,7 @@ To enable Git mirror volumes feature for Buildkite hosted agents on your cluster
 
 Once enabled, Git mirror volumes will be used for all Buildkite hosted agent jobs using Git repositories in that cluster. A separate volume is created for each repository, and is done so upon the first pipeline (whose source is the repository) being built for the first time.
 
-<%= image "hosted-agents-git-mirror.png", width: 1760, height: 436, alt: "Hosted agents git mirror setting displayed in the Buildkite UI" %>
+<%= image "hosted-agents-git-mirror.png", width: 1912/2, height: 934/2, alt: "Cached Storage Settings showing Enable Git mirror selected, both cache options, and Save cache settings" %>
 
 A Git mirror volume's name is based on your cloud-based Git service's account and repository name, and begins with "buildkite-git-mirror-". For example, **buildkite-git-mirror-my-account-my-repository**.
 

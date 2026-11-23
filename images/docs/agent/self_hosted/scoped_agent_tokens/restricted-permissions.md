@@ -1,0 +1,12 @@
+# Restricted agent token permissions
+
+Recreate the permissions example shown in [Separate pipeline uploaders from other jobs](/docs/agent/self-hosted/scoped-agent-tokens#separate-pipeline-uploaders-from-other-jobs), following the [shared screenshot guidance](../../../../../styleguides/working-with-docs-site.md#screenshots).
+
+Use an existing cluster in a dedicated integration test organization. You need permission to open the new agent token form, such as cluster maintainer access. Never create, edit, or expose an actual token.
+
+1. Use Chrome for Testing 158 on macOS with a 1040 × 900 CSS-pixel viewport, 100% zoom, and pixel density two. Use **System** appearance, set browser color-scheme emulation to light, and verify the product renders in light mode. Wait for `document.fonts.ready` and verify the actual rendered labels and help text use the native system font (`.SF NS` in Chromium).
+1. Select **Agents** > your cluster > **Agent Tokens** > **New Token**. Note the token count and verify the fresh form has **All queues** and **Full agent access by default**. Expand **Permissions**. Leave only **Run jobs**, **Write build metadata**, and **Code repository access** selected. Clear every other permission, including **Upload steps** and **Write steps**. Verify that the summary says **Custom permissions**. Leave all other form fields unchanged.
+1. Scroll until the top of **Permissions** is at y≈94 CSS pixels. Wait for the disclosure arrow to finish rotating. Crop the viewport from (282, 86) at 715 × 752 CSS pixels. Include the complete expanded section from **Permissions** through **Operate stacks** with balanced padding. Crop out other form fields, **Create Token**, navigation, and cluster identity. Do not hide or restyle elements. Move the pointer off the subject and clear focus styling.
+1. Save `restricted-permissions.png`. Leave without selecting **Create Token**. Verify the token count is unchanged and a fresh **New Token** form has the defaults again. Repeat from fresh navigation with dark color-scheme emulation, verifying the actual dark product theme, and save `restricted-permissions-dark.png`. Match the viewport, zoom, scroll, selections, and crop. Discard the form again.
+
+Accept two 1430 × 1504 PNGs intended to display at 715 × 752 CSS pixels. Check that the complete permission groups, **Custom permissions**, and the **Run jobs** help are legible. Only the three intended permissions are checked. Exclude token details or credentials, all other form fields, the pointer, and hover or focus styling.
