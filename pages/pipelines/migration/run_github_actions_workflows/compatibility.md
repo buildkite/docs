@@ -145,7 +145,7 @@ Creating the queue does not resume or retry the failed diagnostic job. The setup
 
 ### Runner tools
 
-Host tools come from the selected queue/image, not the label alone. macOS and Windows must provide shell tools and compatible native dependencies. Generated Linux jobs use a dedicated `runner` user. If you manage a custom execution environment, see the [runtime bootstrap requirements](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-run-linux-jobs-as-a-non-root-user).
+Host tools come from the selected queue/image, not the label alone. Generated Linux jobs use a dedicated `runner` user. If you manage a custom execution environment, see the [runtime bootstrap requirements](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-run-linux-jobs-as-a-non-root-user).
 
 From v0.105.2, host shell, JavaScript, and composite steps inherit host `JAVA_HOME` when set. Explicit workflow/job/step values and `GITHUB_ENV`, including empty values, override it. This doesn't add `JAVA_HOME` to the expression `env` context, forward it to containers, select/install Java, or inherit version-specific or Java option variables such as `JAVA_TOOL_OPTIONS`.
 
@@ -159,7 +159,7 @@ On native Namespace runners, the runtime enables `default-load=true` for stored 
 
 ### Windows jobs
 
-`windows-latest` and `windows-2022` support Windows Server 2022 x86-64 through an explicit queue mapping or automatic Agent API routing. Automatic routing requires a plan that includes Windows hosted agents. There is no local Windows preset or silent Linux fallback. The queue must provide PowerShell 7 (`pwsh`) and Git on `PATH`. [Buildkite hosted Windows queues](/docs/agent/buildkite-hosted/windows) are available on Trial, Pro, and Enterprise plans.
+`windows-latest` and `windows-2022` support Windows Server 2022 x86-64 through an explicit queue mapping or automatic Agent API routing. Automatic routing requires a plan that includes Windows hosted agents. There is no local Windows preset or silent Linux fallback. The queue must provide Git on `PATH`. [Buildkite hosted Windows queues](/docs/agent/buildkite-hosted/windows) are available on Trial, Pro, and Enterprise plans.
 
 When your plan includes Windows hosted agents, `windows-2025` and Depot `depot-windows-2025` labels, including `-4`, `-8`, `-16`, `-32`, and `-64`, can resolve through the Agent API to the same `windows-medium` queue. A warning explains that execution may use Server 2022 and doesn't preserve Depot hardware, caches, or networking. These aliases require an eligible existing hosted queue and Agent API resolution; they have no local preset or explicit Windows mapping. Native Server 2025 and Windows arm64 execution remain unsupported.
 
@@ -1252,7 +1252,7 @@ steps:
 
 ### Commands and actions
 
-Linux and macOS support `bash`, `sh`, `pwsh`, `powershell`, `python`, and custom templates such as `Rscript {0}`, `julia --color=yes {0}`, or `bash -l {0}`. The interpreter must already be installed and on `PATH`; PowerShell, R, and Julia aren't installed automatically. Named PowerShell shells use their exact executable without fallback. Unsupported shells fail during compilation when known, or before their step when resolved at runtime.
+Linux and macOS support `bash`, `sh`, `pwsh`, `powershell`, `python`, and custom templates such as `Rscript {0}`, `julia --color=yes {0}`, or `bash -l {0}`. Host workflow and composite steps automatically install PowerShell when `pwsh` is missing from `PATH`, including for the Windows default shell. The selected image must provide all other interpreters, job-container tools, and native dependencies. Unsupported shells fail during compilation when known, or before their step when resolved at runtime.
 
 Custom templates use `command [options] {0} [options]`, where `{0}` receives the script path. Single quotes, double quotes, and backslash escapes group arguments without shell expansion. Named PowerShell runs UTF-8 `.ps1` scripts, sets `$ErrorActionPreference = 'stop'`, and propagates the last native exit status. Custom PowerShell templates control their own error handling.
 
