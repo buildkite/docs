@@ -1,0 +1,13 @@
+# Use base commit when making if_changed comparisons
+
+Recreate the setting detail for [Interaction with if_changed agent behavior](/docs/pipelines/tutorials/github-merge-queue#understanding-merge-queue-behavior-interaction-with-if-changed-agent-behavior), following the [shared screenshot guidance](../../../../../styleguides/working-with-docs-site.md#screenshots).
+
+Use a dedicated test organization and an existing GitHub-linked Buildkite Pipelines pipeline with permission to manage pipeline settings. Use a fixture with **Trigger builds after pushing code** selected and all three merge-queue checkboxes clear. No installation changes, webhook changes, or builds are needed. The warning describes a prerequisite in GitHub, not verified GitHub configuration.
+
+1. Use Chrome for Testing 158 on macOS with a 1040 × 720 CSS-pixel viewport, 100% zoom, and pixel density two. Wait for `document.fonts.ready`. Verify that the label, help text, and warning render in the native system font (reported as `.SF NS` by Chromium), with Monaco for the inline `if_changed` code.
+1. Set browser color-scheme emulation to light before opening the pipeline. Use **System** appearance and verify the product renders in light mode. From the pipeline, select **Settings** in the pipeline tabs, then **GitHub**. Under **Trigger builds after pushing code**, expand **Merge queue checks** and verify all three checkboxes are clear.
+1. Select **Build merge queues**, then **Use base commit when making if_changed comparisons** without saving. Leave **Cancel builds for destroyed merge groups** clear.
+1. Position the top of the expanded disclosure at y≈100 CSS pixels. The reference scroll position is y=1790; crop the viewport from (344, 442), at 630 × 184 CSS pixels. Keep the checked box, label, full help text, and complete **Require all queue entries to pass required checks** warning, including its native outline and space below it. Crop out the parent setting, adjacent option, unrelated callouts, navigation, and identifying fields. Do not hide or restyle elements.
+1. Save `merge-queue-if-changed-setting.png`. Navigate away without saving and reopen **GitHub** to verify all three merge-queue boxes are clear and push triggers are still selected. Repeat from fresh navigation with dark color-scheme emulation, verifying the actual dark product theme, and save `merge-queue-if-changed-setting-dark.png`. Use the same viewport, zoom, scroll, crop, and unsaved selections, and verify the same stored state afterward.
+
+Accept two 1260 × 368 PNGs intended to display at 630 × 184 CSS pixels. The only checkbox shown is checked. The complete help and warning are legible in both themes. Exclude the pointer, hover or focus styling, and any account or repository identity.
