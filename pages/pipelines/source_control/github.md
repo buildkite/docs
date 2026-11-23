@@ -352,7 +352,7 @@ The commit status is the label used to identify the Buildkite checks on your com
 
 For example, if you select **Update commit statuses** in the **GitHub Commit Statuses** section of your pipeline's GitHub settings:
 
-<%= image "update-commit-statuses-on.png", alt: "Screenshot of GitHub build settings with Update commit statuses enabled" %>
+<%= image "update-commit-statuses-on.png", width: 1374/2, height: 990/2, alt: "Expanded Commit statuses settings with Update commit statuses selected" %>
 
 Your checks will appear on your pull request as **buildkite/your-pipeline-name**:
 
