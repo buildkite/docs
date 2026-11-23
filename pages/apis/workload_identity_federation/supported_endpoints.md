@@ -35,7 +35,7 @@ With team access, a token can read and manage those teams and their pipeline ass
 
 ## Test Engine
 
-With test suite access, a token can work with those suites in Buildkite Test Engine: read their runs, tests, and test plans, and with `write_suites`, update and delete the suites, manage their workflows, and change test states, such as muting or skipping tests. With `write_test_plan`, it can create test plans. Learn more in the [Suites API](/docs/apis/rest-api/test-engine/suites) reference.
+With test suite access, a token can work with those suites in Buildkite Test Engine: read their runs, tests, and test plans, and with `write_suites`, update and delete the suites, manage their workflows, and change test states, such as muting or skipping tests. With `write_test_plan`, a token can also create test plans. Learn more in the [Suites API](/docs/apis/rest-api/test-engine/suites) reference.
 
 Reads that start from a build or pipeline, such as a build's tests or test pools, also require access to that pipeline. A token can't create test suites, assign them to teams, or see a suite's API token or webhook endpoints.
 
