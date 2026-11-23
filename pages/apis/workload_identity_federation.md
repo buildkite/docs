@@ -124,6 +124,7 @@ Buildkite won't save an expression that:
 - **Pipelines:** Pipelines and their builds, jobs, and artifacts
 - **Teams:** Teams, their members, and their pipeline assignments. Reading a team's pipeline assignments also requires access to those pipelines.
 - **Clusters:** Clusters and their resources, such as queues, agent tokens, maintainers, and agents. Unclustered agents are never included.
+- **Suites:** [Buildkite Test Engine](/docs/pipelines/configure/tests) suites and their test results. Reading a build's tests or a pipeline's suites also requires access to that pipeline.
 
 Each row has three options:
 
