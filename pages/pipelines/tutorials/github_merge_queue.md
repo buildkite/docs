@@ -17,10 +17,10 @@ Familiarize yourself with [managing a merge queue in GitHub](https://docs.github
 To enable merge queue builds for a pipeline:
 
 1. From your Buildkite dashboard, select your pipeline.
-1. Select **Pipeline Settings** > **GitHub**.
-1. In the **GitHub Settings** section, select the **Build merge queues** checkbox.
+1. Select **Settings** > **GitHub**.
+1. Under **Trigger builds after pushing code**, expand **Merge queue checks** and select **Build merge queues**.
 
-<%= image "build-merge-queues-setting.png", alt: "Enabling merge queue builds in a pipeline's GitHub settings" %>
+<%= image "build-merge-queues-setting.png", width: 1334/2, height: 1100/2, alt: "Expanded Merge queue checks settings with Build merge queues selected and the GitHub merge group events requirement visible" %>
 > 🚧 Ensure GitHub webhook has _Merge groups_ events enabled
 > Buildkite relies on receiving `merge_group` webhook events from GitHub to create builds for merge groups in the merge queue. Ensure your pipeline's [webhook](/docs/pipelines/source-control/github#set-up-a-new-pipeline-for-a-github-repository) has the _Merge groups_ event enabled before enabling merge queue builds.
 
