@@ -401,6 +401,12 @@ You can see the full list of supported languages and lexers [here](https://githu
 
 This probably goes without saying, but do not use code fragments in page headings or section headings.
 
+#### Field order in JSON response examples
+
+Match the field order of the REST API response. Check a raw response from the endpoint or, if you can't make a request, check the backend presenter or serializer that builds it. Keep the same relative field order across examples of the same response shape, even if an example omits fields.
+
+Identifiers and core attributes near the top make responses easier to scan, but don't move fields to emphasize what an individual example demonstrates. This convention keeps examples consistent. Clients must not rely on JSON object field order.
+
 #### Escaping emoji in code snippets
 
 An emoji code will be rendered as emoji in the docs. For example, `":hammer: Tests"` will be rendered as `"🔨 Tests"`.
