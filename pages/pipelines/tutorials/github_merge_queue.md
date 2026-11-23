@@ -93,7 +93,7 @@ This will result in a new build being created for the newly created merge group:
 
 When a merge group is invalidated, GitHub sends a `merge_group` webhook event that Buildkite can respond to by cancelling any running build for that merge group. Select **Cancel builds for destroyed merge groups** in the pipeline's GitHub settings to enable this behavior.
 
-<%= image "merge-queue-cancel-builds-setting.png", alt: "Setting to enable automatic cancellation of builds for destroyed merge groups" %>
+<%= image "merge-queue-cancel-builds-setting.png", width: 1198/2, height: 164/2, alt: "Cancel builds for destroyed merge groups selected, with its help text" %>
 
 > 📘 Canceled after reporting a failure
 > If the build already reported a failure (for example, using [promise job failure](/docs/pipelines/configure/promise-job-failure)) before it was canceled for a destroyed merge group, the build summary explains this as **Canceled after reporting a failure and being removed from the merge queue**.
@@ -106,7 +106,7 @@ By default for merge queue builds this commit range will be the range of commits
 
 If your merge queue has the _Require all queue entries to pass required checks_ setting enabled, it is safe for `if_changed` to consider only the file changes belonging to the PR the merge group is for. Select **Use base commit when making `if_changed` comparisons** in the pipeline's GitHub settings to enable this behavior.
 
-<%= image "merge-queue-if-changed-setting.png", alt: "Setting to enable `if_changed` to consider only the file changes belonging to the PR the merge group is for" %>
+<%= image "merge-queue-if-changed-setting.png", width: 1260/2, height: 368/2, alt: "Use base commit when making if_changed comparisons selected, with the GitHub prerequisite warning" %>
 
 ### After merge groups are merged
 
