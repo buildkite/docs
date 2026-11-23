@@ -403,9 +403,9 @@ This probably goes without saying, but do not use code fragments in page heading
 
 #### Field order in JSON response examples
 
-Put `id` first, followed by `graphql_id` and then `type`. Skip any of these fields that are absent from the response. Keep names and slugs near the top, after those fields. Order the remaining fields roughly by relevance to the example.
+Match the field order of the REST API response. Check a raw response from the endpoint or, if you can't make a request, check the backend presenter or serializer that builds it. Keep the same relative field order across examples of the same response shape, even if an example omits fields.
 
-This convention makes examples easier to scan. It does not guarantee field order in API responses.
+Identifiers and core attributes near the top make responses easier to scan, but don't move fields to emphasize what an individual example demonstrates. This convention keeps examples consistent. Clients must not rely on JSON object field order.
 
 #### Escaping emoji in code snippets
 
