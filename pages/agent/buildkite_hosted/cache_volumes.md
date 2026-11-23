@@ -162,7 +162,7 @@ To enable container cache volumes feature for Buildkite hosted agents on your cl
 
 Once enabled, container cache volumes will be used for all Buildkite hosted agent jobs in that cluster. A separate volume is created for each pipeline, and is done so upon the pipeline being built for the first time.
 
-<%= image "hosted-agents-container-caching.png", width: 1760, height: 436, alt: "Hosted agents container cache setting displayed in the Buildkite UI" %>
+<%= image "hosted-agents-container-caching.png", width: 1128/2, height: 122/2, alt: "Enable container caching selected, with its complete help text" %>
 
 A container cache volume's name is based on your pipeline's slug followed by a slash, then "container-cache". For example, **pipeline-slug/container-cache**.
 
