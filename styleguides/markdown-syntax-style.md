@@ -401,6 +401,12 @@ You can see the full list of supported languages and lexers [here](https://githu
 
 This probably goes without saying, but do not use code fragments in page headings or section headings.
 
+#### Field order in JSON response examples
+
+Put `id` first, followed by `graphql_id` and then `type`. Skip any of these fields that are absent from the response. Keep names and slugs near the top, after those fields. Order the remaining fields roughly by relevance to the example.
+
+This convention makes examples easier to scan. It does not guarantee field order in API responses.
+
 #### Escaping emoji in code snippets
 
 An emoji code will be rendered as emoji in the docs. For example, `":hammer: Tests"` will be rendered as `"🔨 Tests"`.
