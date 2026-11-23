@@ -87,8 +87,10 @@ steps:
   - label: "Check and upload generated steps"
     command: |
       pipeline=$(/opt/buildkite/policy/generate-pipeline) &&
-        printf '%s\n' "$pipeline" | /opt/buildkite/policy/upload-checked-pipeline
+        printf '%s\n' "$$pipeline" | /opt/buildkite/policy/upload-checked-pipeline
 ```
+
+The `$$` [escapes interpolation during the bootstrap upload](/docs/agent/cli/reference/pipeline#environment-variable-substitution), so the shell expands `$pipeline` when the job runs.
 
 Replace the example paths with the locations of your generator and upload script. Keep the script, policy, and Conftest in platform-managed locations that build jobs can't modify, such as a custom agent image. An agent-level [environment hook](/docs/agent/hooks#job-lifecycle-hooks) can make Conftest available on `PATH`. The hook prepares the job environment. The upload script runs the policy check once the generated pipeline is available.
 
@@ -99,4 +101,4 @@ To verify signatures on your execution agents:
 1. [Sign the bootstrap step](/docs/agent/self-hosted/security/signed-pipelines#self-managed-key-creation-step-3-sign-all-steps) too if the upload agent verifies incoming jobs. Keep direct access to the signing key restricted to trusted code. An upload script or a `PATH` setting alone doesn't enforce policy if other code can also sign steps.
 
 > 🚧 Scope of the queue check
-> This example checks explicit queue values in the generated document. It doesn't resolve default routing, evaluate matrix substitutions, or authorize access to a queue. Queue targeting isn't covered by [pipeline signatures](/docs/agent/self-hosted/security/signed-pipelines#pipeline-signatures). Use [separate clusters](/docs/pipelines/security/clusters) to isolate privileged agents from pipelines that shouldn't use them.
+> This example checks only explicit queue values in the generated document. The policy doesn't resolve default routing, evaluate matrix substitutions, or authorize access to a queue. Queue targeting isn't covered by [pipeline signatures](/docs/agent/self-hosted/security/signed-pipelines#pipeline-signatures). Use [separate clusters](/docs/pipelines/security/clusters) to isolate privileged agents from pipelines that shouldn't use them.
