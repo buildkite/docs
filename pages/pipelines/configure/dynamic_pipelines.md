@@ -108,6 +108,8 @@ The `--dry-run` flag parses and interpolates the pipeline, then prints it to sta
 
 For additional validation, save the generated output to a file and use [`bk pipeline validate`](/docs/platform/cli/reference/pipeline#validate-a-pipeline). For a runnable project to adapt, see the [`dynamic-pipeline-example`](https://github.com/buildkite/dynamic-pipeline-example) repository.
 
+To check generated steps against your own rules before upload, see [Policy checks for dynamic pipeline uploads](/docs/pipelines/configure/dynamic-pipelines/policy-checks).
+
 Once the generated test steps run, [collect their results in Test Engine](/docs/pipelines/configure/tests/test-collection) to track slow or flaky tests across builds.
 
 ### Step insertion order
