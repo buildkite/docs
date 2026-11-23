@@ -162,7 +162,7 @@ To enable container cache volumes feature for Buildkite hosted agents on your cl
 
 Once enabled, container cache volumes will be used for all Linux hosted agent jobs in that cluster. A separate volume is created for each pipeline, and is done so upon the pipeline being built for the first time.
 
-<%= image "hosted-agents-container-caching.png", width: 1128/2, height: 122/2, alt: "Enable container caching selected, with its complete help text" %>
+<%= image "hosted-agents-container-caching.png", width: 1912/2, height: 934/2, alt: "Cached Storage Settings showing Enable container caching selected, both cache options, and Save cache settings" %>
 
 Although the **Enable container caching** help text mentions macOS, container cache volumes are only available to Linux hosted agents.
 
