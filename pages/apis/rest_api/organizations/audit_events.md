@@ -7,7 +7,7 @@ The audit events API endpoint lets you retrieve audit log events for your organi
 
 Audit events are system-generated records of activity within a Buildkite organization. The API provides read-only access. You cannot create or modify audit events using the API.
 
-The audit events API requires the `read_audit_events` [OAuth scope](/docs/apis/managing-api-tokens#token-scopes).
+The audit events API requires the `read_audit_events` [OAuth scope](/docs/apis/managing-api-tokens#token-scopes). A [workload identity](/docs/apis/workload-identity-federation) token with this scope doesn't need an administrator, and can read every audit event in the organization, regardless of its resource access.
 
 ## List audit events
 

@@ -6,7 +6,7 @@ The notification services API lets you manage the organization-level integration
 > These endpoints require both an API access token scope and sufficient organization access for the user who owns the token:
 > - List and get operations require the `read_notification_services` [scope](/docs/apis/managing-api-tokens#token-scopes).
 > - Create, update, delete, enable, and disable operations require the `write_notification_services` scope.
-> The user who owns the token must be an organization administrator. Other organization members can use these endpoints when [**Manage Notification Services**](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) is enabled across the organization.
+> The user who owns the token must be an organization administrator. Other organization members can use these endpoints when [**Manage Notification Services**](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) is enabled across the organization. A [workload identity](/docs/apis/workload-identity-federation) token doesn't need an administrator, and its resource access doesn't limit which services it can read or manage.
 
 ## Notification service data model
 

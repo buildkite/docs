@@ -46,7 +46,7 @@ To create a workload identity:
     **Note:** A trust policy that's too broad is a serious security risk, because it lets workloads that you didn't intend mint API access tokens for your Buildkite organization. Make the **OIDC subject** as restrictive as possible, and use claims and claim conditions to narrow it further.
 
 1. In **Resource Access**, select **Edit** for each resource type you want the workload to access. Choose **None**, **Selected**, or **All**, then select **Done** to apply the selection to the form. By default, tokens can't reach any resources. Learn more in [Choose resource access](#choose-resource-access).
-1. Expand **Grantable Scopes**, and select the maximum [REST API scopes](/docs/apis/managing-api-tokens#token-scopes) that a token can have. A token exchange request can ask for any subset of these scopes. **Resource Access** doesn't limit the `read_organizations` and `write_organizations` scopes, which let a token read your Buildkite organization and manage its members, or the `read_organization_settings` and `write_organization_settings` scopes, which let a token read and change organization settings.
+1. Expand **Grantable Scopes**, and select the maximum [REST API scopes](/docs/apis/managing-api-tokens#token-scopes) that a token can have. A token exchange request can ask for any subset of these scopes. **Resource Access** doesn't limit organization administration scopes, such as `read_organizations`, `write_organization_settings`, or `read_audit_events`, which reach across your whole Buildkite organization. Learn more in [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints).
 1. Expand **Default Scopes**, and select the scopes that a token gets when the request doesn't specify any. Default scopes must be a subset of the grantable scopes.
 1. In **Security**, set the following:
     * **Maximum token lifetime (seconds):** From 30 to 3,600 seconds (one hour), which is the default. A token can expire sooner. Learn more in [Token lifetime](#exchange-an-oidc-token-token-lifetime).
@@ -55,7 +55,7 @@ To create a workload identity:
 
 1. Select **Create Workload Identity**.
 
-The workload identity's page shows the **Client ID**, **Token endpoint**, and **OIDC audience** that the workload needs to [exchange an OIDC token](#exchange-an-oidc-token). These values aren't secrets, so you can store them in CI variables or commit them to your repository.
+The **Details** tab of the workload identity's page shows the **Client ID**, **Token endpoint**, and **OIDC audience** that the workload needs to [exchange an OIDC token](#exchange-an-oidc-token). These values aren't secrets, so you can store them in CI variables or commit them to your repository.
 
 A workload identity trusts one OIDC issuer and one audience. Create one for each platform that your workloads run on.
 
@@ -135,10 +135,14 @@ To change access, select **Edit** in the resource's row, choose an option, and s
 
 To configure access through the REST API, see the [resource grants example](/docs/apis/rest-api/organizations/workload-identities#workload-identity-data-model-resource-grants).
 
-For resources outside the token's access, the REST API returns `404 Not Found`. A token keeps the resource access that the workload identity had when the token was minted. To remove access from existing tokens, disable the workload identity, which revokes them. Disabling a workload identity doesn't revoke agent tokens or remove cluster maintainers that its tokens created. Learn more in [Cluster management limitations](/docs/apis/workload-identity-federation/supported-endpoints#cluster-management-limitations).
+For resources outside the token's access, the REST API returns `404 Not Found`. A token keeps the resource access that the workload identity had when the token was minted. To remove access from existing tokens, disable the workload identity, which revokes them. Disabling a workload identity doesn't revoke agent tokens, remove cluster maintainers, or stop schedules that its tokens created. Learn more in [Access that outlives the token](/docs/apis/workload-identity-federation/supported-endpoints#access-that-outlives-the-token).
 
 > 🚧 Limited API support
 > Workload identity federation supports a subset of REST API endpoints and scopes. Resource access doesn't enable every operation on a resource. See [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints) for the supported operations.
+
+## Review issued tokens
+
+The **Tokens** tab of a workload identity's page lists the API access tokens that it issued in the last 24 hours, with their scopes, when and from which IP address they were last used, and when they expire. To revoke the tokens, disable or delete the workload identity.
 
 ## Exchange an OIDC token
 
@@ -212,6 +216,10 @@ A workload identity accepts each OIDC token only once. Until the OIDC token expi
 Request a new OIDC token for every exchange, including retries. For example, a retry after a network error fails if Buildkite accepted the first request.
 
 Buildkite identifies OIDC tokens by their `jti` (JWT ID) claim. Buildkite agent, GitHub Actions, and AWS STS tokens have a unique `jti` claim. A workload can exchange an OIDC token without a `jti` claim more than once, until it expires.
+
+### Rate limit
+
+Buildkite accepts up to 50 token exchange requests per minute for each workload identity. Over the limit, Buildkite returns `429 Too Many Requests`, and the `RateLimit-WorkloadIdentityTokenExchange-Reset` header gives the number of seconds until the limit resets. Because the **Client ID** isn't a secret, anyone who knows it can use up this limit. Cache and reuse API access tokens instead of exchanging a token for every request.
 
 ## OIDC token requirements
 
