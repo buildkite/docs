@@ -1359,3 +1359,5 @@
           path: "apis/model-providers"
         - name: "Anthropic"
           path: "apis/model-providers/anthropic"
+        - name: "OpenAI"
+          path: "apis/model-providers/openai"

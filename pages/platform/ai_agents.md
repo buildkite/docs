@@ -48,17 +48,18 @@ Agent steps authenticate using the existing `$BUILDKITE_AGENT_ACCESS_TOKEN`—no
 steps:
   - label: "\:anthropic\: Analyze test failures"
     command: |
-      curl "$BUILDKITE_AGENT_ENDPOINT/ai/anthropic" \
-        -H "Authorization: Bearer $BUILDKITE_AGENT_ACCESS_TOKEN" \
+      curl "$$BUILDKITE_AGENT_ENDPOINT/ai/anthropic/v1/messages" \
+        -H "x-api-key: $$BUILDKITE_AGENT_ACCESS_TOKEN" \
         -H "Content-Type: application/json" \
         -d '{
           "model": "claude-opus-4-5",
+          "max_tokens": 1000,
           "messages": [{"role": "user", "content": "Analyze these test failures and suggest fixes..."}]
         }'
 ```
 
 > 📘 Supported models
-> Only Anthropic models are currently supported using model providers. See [Model providers](/docs/apis/model-providers) for the full configuration reference, including usage tracking in **Organization Settings > Usage > Model Providers**.
+> Model providers support [Anthropic](/docs/apis/model-providers/anthropic) and [OpenAI](/docs/apis/model-providers/openai). See the provider-specific pages for client configuration and supported endpoints, and [Model providers](/docs/apis/model-providers) for usage tracking in **Organization Settings > Usage > Model Providers**.
 
 ### Plugins
 
