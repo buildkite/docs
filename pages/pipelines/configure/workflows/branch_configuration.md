@@ -14,9 +14,9 @@ By default, a pipeline triggers builds for all branches (`*` or blank). In your 
 
 Builds created for pull requests ignore any pipeline-level branch filters. If you want to limit the branches that can build pull requests, add an additional branch filter in your pipeline's source control settings.
 
-Find this filter under 'Build pull requests' if you have chosen the 'Trigger builds after pushing code' option.
+In the pipeline's **Settings** > **GitHub**, select **Trigger builds after pushing code** and expand **Build on pull request activity**. Select **Build when pull request is opened or updated**. Under **Pull request webhook options**, select **Limit pull request branches** and enter a branch pattern, such as `features/*`.
 
-<%= image "pullrequest-level.png", width: 2524/2, height: 574/2, alt: "Pull request-level branch filtering" %>
+<%= image "pullrequest-level.png", width: 1344/2, height: 2262/2, alt: "Full Build on pull request activity panel with its events and webhook options, including Limit pull request branches selected and features/* entered" %>
 
 ## Step-level branch filtering
 
