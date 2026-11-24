@@ -1,6 +1,6 @@
 # Installing the Buildkite MCP server
 
-The Buildkite MCP server is available both [locally and remotely](/docs/apis/mcp-server#types-of-mcp-servers). This page is about installing and configuring the _local_ MCP server, beginning with [Before you start](#before-you-start).
+Use [mise](#install-and-run-the-server-locally-using-mise) to install and pin a version of the Buildkite MCP server when you run the binary yourself, either locally or as a [self-hosted HTTP server](#self-hosting-the-mcp-server). The [remote Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) is hosted by Buildkite and requires no installation or version management.
 
 Once you have installed your local Buildkite MCP server using the relevant instructions on this page, you can proceed to [configure your AI tools or agents](/docs/apis/mcp-server/local/configuring-ai-tools) to work with this MCP server.
 
@@ -183,7 +183,40 @@ You can also [create a new Buildkite API access token rapidly with these pre-sel
 
 ## Install and run the server locally
 
-To install and run the Buildkite MCP server locally, you can do so using [Docker](#install-and-run-the-server-locally-using-docker) (recommended), natively as a [pre-built binary](#install-and-run-the-server-locally-using-a-pre-built-binary), or [build it from source](#install-and-run-the-server-locally-building-from-source).
+Install the Buildkite MCP server with [mise](#install-and-run-the-server-locally-using-mise) (recommended). You can also use [Docker](#install-and-run-the-server-locally-using-docker), install a [pre-built binary](#install-and-run-the-server-locally-using-a-pre-built-binary) manually or with Homebrew, or [build from source](#install-and-run-the-server-locally-building-from-source).
+
+### Using mise
+
+After [installing mise](https://mise.jdx.dev/getting-started.html), run these commands from your project directory:
+
+1. List available versions:
+
+    ```bash
+    mise ls-remote github:buildkite/buildkite-mcp-server
+    ```
+
+1. Install and pin a release that publishes a binary for your operating system and architecture. For example:
+
+    ```bash
+    mise use --pin --path mise.toml github:buildkite/buildkite-mcp-server@1.32.1
+    ```
+
+    mise records the version in the project's `mise.toml`. Commit that file to share the pin with your team. To install the pinned version in another checkout, run `mise install` from the project directory.
+
+1. Verify the version that mise runs:
+
+    ```bash
+    mise exec -- buildkite-mcp-server --version
+    ```
+
+To upgrade, choose a newer version with a binary for your platform from the [Buildkite MCP server releases](https://github.com/buildkite/buildkite-mcp-server/releases). Run `mise use --pin` again with that version, verify the new version, and restart the MCP server or the client that starts it. For example:
+
+```bash
+mise use --pin --path mise.toml github:buildkite/buildkite-mcp-server@1.33.0
+mise exec -- buildkite-mcp-server --version
+```
+
+For a local AI client, follow the [binary configuration instructions](/docs/apis/mcp-server/local/configuring-ai-tools) for your client. To use the project pin without relying on shell activation, set the command to `mise` and the arguments to `exec`, `--`, `buildkite-mcp-server`, and `stdio`. The client must be able to find `mise` on its `PATH` and start it from the directory containing `mise.toml`. For a self-hosted HTTP server, run the [HTTP command](#self-hosting-the-mcp-server) from that directory with `mise exec --` before `buildkite-mcp-server`.
 
 ### Using Docker
 
