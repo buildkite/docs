@@ -132,6 +132,7 @@ composable
 config
 configs
 configmap
+Conftest
 Containerfile
 Containerfiles
 corepack
@@ -435,6 +436,7 @@ rebalancing
 recompiles
 refetch
 refspec
+Rego
 rehydrate
 rehydrated
 reimagined

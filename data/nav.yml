@@ -520,6 +520,8 @@
               path: "pipelines/configure/dynamic-pipelines"
             - name: "Using if_changed"
               path: "pipelines/configure/dynamic-pipelines/if-changed"
+            - name: "Policy checks for dynamic pipeline uploads"
+              path: "pipelines/configure/dynamic-pipelines/policy-checks"
             - name: "Buildkite SDK"
               path: "pipelines/configure/dynamic-pipelines/sdk"
         - name: "Annotations"

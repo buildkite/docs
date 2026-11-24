@@ -14,7 +14,7 @@ This page provides recommendations on managing your Buildkite organizations, pip
 ## GitOps workflow
 
 - Propose changes exclusively using pull requests in a dedicated repository.
-- Apply automated checks for validation of your Terraform plan, YAML schema, policy rules (for example, [Open Policy Agent (OPA)](https://www.openpolicyagent.org/) and/or [Sentinel](https://developer.hashicorp.com/sentinel)).
+- Automate checks for Terraform plans, YAML schemas, and policy rules. For policy checks, use tools such as [Open Policy Agent (OPA)](https://www.openpolicyagent.org/) or [Sentinel](https://developer.hashicorp.com/sentinel). For a Buildkite Pipelines example using an OPA policy, see [Policy checks for dynamic pipeline uploads](/docs/pipelines/configure/dynamic-pipelines/policy-checks).
 - Require multiple approvals for production queues, team permissions, or security settings. Consider using [block steps](/docs/pipelines/configure/step-types/block-step) to manage permission levels across your organization (for example, create [teams](/docs/platform/team-management/permissions#manage-teams-and-permissions) with or without deploy permissions).
 - Trigger `terraform apply` through a Buildkite pipeline with service account identity on merge.
 - Split Terraform state by blast radius: `org/`, `clusters/`, `pipelines/`.
