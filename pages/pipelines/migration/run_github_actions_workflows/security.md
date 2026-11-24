@@ -85,6 +85,10 @@ Image pulls use an empty private Docker configuration. They don't use ambient Do
 
 Direct image steps share the Docker action workspace, file-command mounts, and job service network. They don't receive a Docker socket or privileged mode. Inputs can't request Docker options or additional host mounts; an argument such as `--privileged` remains an argument to the image's executable. These restrictions don't make image code trusted or isolate it from other steps in the job.
 
+### Custom runtime binaries
+
+Use custom binaries only from publishers you trust. The plugin runs them as the importer or on a worker. Pin each URL with `#sha256=<64 hex digits>` using a hash from a trusted source. A matching hash verifies the bytes, not who built them. Don't put credentials in these URLs because they can appear in pipeline configuration or error messages.
+
 ### Source and event checks
 
 - Public actions and reusable workflows resolve once per operation to an immutable commit and repository digest.
