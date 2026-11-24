@@ -5,7 +5,7 @@ Once you have followed the required instructions on [Installing the Buildkite MC
 > 📘
 > The Buildkite MCP server is available both [locally and remotely](/docs/apis/mcp-server#types-of-mcp-servers). This page is about configuring AI tools with the local MCP server. If you are working directly with an AI tool and would prefer it to use the _remote_ MCP server, proceed with the relevant instructions on its [Configuring AI tools](/docs/apis/mcp-server/remote/configuring-ai-tools) page.
 
-All the Docker instructions on this page implement the `--pull=always` option to ensure that the latest MCP server version is obtained when the container is started. If you are installing the Buildkite MCP server locally as a binary, then you are responsible for manually upgrading it.
+The Docker examples on this page use `--pull=always` to pull the latest image each time the container starts. If you run the binary instead, use the binary instructions for your client. With a [mise-managed installation](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-mise), adapt the launch command to use your project's pinned version.
 
 For all configuration processes covered on this page, you can alternatively store your [Buildkite API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) in [1Password](https://1password.com/), and configure your local MCP server to access this token from 1Password. Learn more about this process in [Using 1Password](/docs/apis/mcp-server/local/installing#using-1password) and [Accessing the API access token through 1Password](#accessing-the-api-access-token-through-1password), towards the end of this page.
 
