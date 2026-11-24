@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.10-slim-trixie@sha256:a4b3e62bfe56bd267a3aeacc1b89aea96be919faa0c7d77c6346e2ac14f6c175
+ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.10-slim-trixie@sha256:dc488b2df1731a1523a24a845fc38627b3edde052473c4e7bef06ae4d649fd25
 ARG NODE_IMAGE=public.ecr.aws/docker/library/node:26-trixie-slim@sha256:e6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc
 
 FROM $BASE_IMAGE AS trusted-ruby
