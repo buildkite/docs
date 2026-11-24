@@ -9,7 +9,7 @@ You can set timeouts on your builds through:
 
 Organization-level timeouts can be set in your organization's [**Pipeline Settings**](https://buildkite.com/organizations/~/pipeline-settings):
 
-<%= image "pipeline_timeout_settings.png", width: 1724/2, height: 736/2, alt: "Set timeout period for your jobs" %>
+<%= image "pipeline_timeout_settings.png", width: 1436/2, height: 938/2, alt: "Timeouts panel showing default and maximum command step timeouts and scheduled job expiry" %>
 
 ## Command timeouts
 

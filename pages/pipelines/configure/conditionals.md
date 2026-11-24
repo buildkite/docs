@@ -6,9 +6,11 @@ You can define conditionals at the step level in your `pipeline.yml` or at the p
 
 ## Conditionals in pipelines
 
-To filter incoming webhooks before a build is created, use **Filter builds using a conditional** on the pipeline's **Settings** page for your repository provider. Builds are created only when the expression evaluates to `true`. Unlike step-level conditions, this setting controls build creation rather than which steps run. For example, to run only when a pull request is targeting the main branch:
+To filter incoming webhooks before a build is created, use **Filter builds using a conditional** on the pipeline's **Settings** page for your repository provider. Builds are created only when the expression evaluates to `true`. Unlike step-level conditions, this setting controls build creation rather than which steps run.
 
-<%= image "conditionals.png", width: 864, height: 298, alt: "Conditional Filtering settings" %>
+For example, enter `build.pull_request.base_branch == "main"` to create builds only for pull requests targeting the `main` branch:
+
+<%= image "conditionals.png", width: 1384/2, height: 474/2, alt: "GitHub settings with a conditional that filters builds to pull requests targeting main" %>
 
 Pipeline-level build conditionals are evaluated before any other build trigger settings. If both a conditional and a branch filter are present, both filters must pass for a build to be created – first the pipeline-level limiting filter and then the conditional filter.
 
