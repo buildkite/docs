@@ -1498,6 +1498,16 @@ type AuthorizationEdge {
 }
 
 """
+An Entire account authorized with a Buildkite account
+"""
+type AuthorizationEntire implements Authorization & Node {
+  """
+  ID of the object.
+  """
+  id: ID!
+}
+
+"""
 A GitHub account authorized with a Buildkite account
 """
 type AuthorizationGitHub implements Authorization & Node {
@@ -1560,6 +1570,11 @@ enum AuthorizationType {
   Bitbucket Authorization
   """
   BITBUCKET
+
+  """
+  Entire Authorization
+  """
+  ENTIRE
 
   """
   GitHub Authorization
@@ -14592,6 +14607,11 @@ type Team implements Node {
   """
   pipelines(
     after: String
+
+    """
+    Filter pipelines by archive status; omit to include all pipelines
+    """
+    archived: Boolean
     before: String
     first: Int
     last: Int

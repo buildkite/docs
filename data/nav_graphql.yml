@@ -336,6 +336,8 @@
     path: apis/graphql/schemas/object/authorizationconnection
   - name: AuthorizationEdge
     path: apis/graphql/schemas/object/authorizationedge
+  - name: AuthorizationEntire
+    path: apis/graphql/schemas/object/authorizationentire
   - name: AuthorizationGitHub
     path: apis/graphql/schemas/object/authorizationgithub
   - name: AuthorizationGitHubApp
