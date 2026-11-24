@@ -1,3 +1,5 @@
+import { syncPlainChatTheme } from "./plainChat";
+
 export function themeToggle() {
   const themeSelect = document.querySelector("#theme-select");
 
@@ -29,6 +31,8 @@ export function themeToggle() {
     document
       .querySelector(`.theme-${storedTheme}`)
       .classList.remove("theme-inactive");
+
+    syncPlainChatTheme(storedTheme);
   }
 
   themeSelect.addEventListener("change", function () {

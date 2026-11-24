@@ -20,7 +20,16 @@ To update this file:
 
 The `bk update` command allows you to update the installed bk CLI or print update instructions from the command line.
 
-Update the installed bk CLI or print update instructions Update the installed bk CLI. If bk is managed by Homebrew or mise, this command prints the right update instruction for that tool. If bk was installed as a standalone release binary, this command downloads the latest release for the current platform, verifies its checksum, and replaces that binary in place.
+Update the installed bk CLI or print update instructions
+
+Update the installed bk CLI.
+
+If bk is managed by Homebrew or mise, this command prints the right update
+instruction for that tool.
+
+If bk was installed as a standalone release binary, this command downloads the
+latest release for the current platform, verifies its checksum, and replaces
+that binary in place.
 
 ```bash
 bk update [flags]
@@ -30,4 +39,5 @@ bk update [flags]
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |

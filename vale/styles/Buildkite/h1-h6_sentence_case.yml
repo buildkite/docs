@@ -19,6 +19,7 @@ exceptions:
   - OAuth
   - OAuth App
   - OAuth Device Authorization
+  - OAuth Token Exchange
   - 1Password
   - 2FA
   - ADFS
@@ -99,6 +100,7 @@ exceptions:
   - CloudWatch
   - CloudWatch Logs
   - CocoaPods
+  - Code Storage
   - Codebase Settings
   - Cognito
   - completion_watcher
@@ -125,6 +127,7 @@ exceptions:
   - Elastic Container Registry
   - Elastic CI Stack
   - Enterprise Premium Support
+  - Entire
   - Entity Page
   - Everyone
   - ExUnit
@@ -137,10 +140,12 @@ exceptions:
   - Git Large File Storage
   - GitHub
   - GitHub Actions
+  - GitHub Actions Compatibility
   - GitHub App
   - GitHub Copilot
   - GitHub Enterprise
   - GitHub Enterprise Server
+  - GitHub Pages
   - GitLab
   - GitLab SCM
   - GitLab Self-Managed
@@ -230,6 +235,7 @@ exceptions:
   - OpenTelemetry
   - Open Container Initiative
   - Open Policy Agent
+  - Orchestration
   - Origin
   - OS X
   - Package Registries

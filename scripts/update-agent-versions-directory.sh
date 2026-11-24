@@ -16,7 +16,8 @@ echo "Output file: ${OUTPUT_FILE}"
 echo ""
 
 # Run the Ruby generator script
-ruby "${SCRIPT_DIR}/agent_versions_directory2md/agent_versions_directory2md.rb" > "${OUTPUT_FILE}"
+GENERATED_CONTENT="$(ruby "${SCRIPT_DIR}/agent_versions_directory2md/agent_versions_directory2md.rb")"
+printf '%s\n' "${GENERATED_CONTENT}" > "${OUTPUT_FILE}"
 
 echo ""
 echo "Done! Generated documentation at ${OUTPUT_FILE}"

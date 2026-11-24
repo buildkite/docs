@@ -9,7 +9,7 @@ You can set timeouts on your builds through:
 
 Organization-level timeouts can be set in your organization's [**Pipeline Settings**](https://buildkite.com/organizations/~/pipeline-settings):
 
-<%= image "pipeline_timeout_settings.png", width: 1724/2, height: 736/2, alt: "Set timeout period for your jobs" %>
+<%= image "pipeline_timeout_settings.png", width: 1436/2, height: 938/2, alt: "Timeouts panel showing default and maximum command step timeouts and scheduled job expiry" %>
 
 ## Command timeouts
 
@@ -21,7 +21,7 @@ The **Maximum Command Step Timeout** sets the maximum timeout in minutes for all
 
 Timeout precedence in the order of priority: step-level timeout → pipeline default → organization default. This behavior is distinct from [scheduled job expiration](#scheduled-job-expiration).
 
-Timeouts apply to the whole job lifecycle, including hooks and artifact uploads. If a timeout is triggered while a command or hook is running, the agent allows ten seconds by default for the process to handle the cancel signal before forcefully killing it. You can change this period with the [`cancel-signal-timeout`](/docs/agent/self-hosted/configure#cancel-signal-timeout) agent configuration option. The agent then uploads logs and artifacts, which is not time-limited unless the agent itself is shutting down.
+Timeouts apply to the whole job lifecycle, including hooks and artifact uploads. If a timeout is triggered while a command or hook is running, the agent allows ten seconds by default for the process to handle the cancel signal before forcefully killing it. You can change this period with the [`cancel-signal-timeout`](/docs/agent/self-hosted/configure#cancel-signal-timeout) agent configuration option. Any remaining hooks and artifact uploads, including `pre-exit` hooks, must also finish within this period. Learn more in [Signal handling](/docs/agent/lifecycle#signal-handling).
 
 When a job times out, the job log displays a message such as `Terminated with signal SIGTERM (because the job timed out). Exit status -1`.
 

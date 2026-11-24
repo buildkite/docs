@@ -221,20 +221,52 @@ If no keywords are provided it falls back to comma-separated URL path segments.
 
 This information was aggregated by going over the existing screenshots in the documentation repo. Feel free to change or expand it.
 
+### Screenshot recipes
+
+Screenshot recipes are an optional way to make captures repeatable for contributors and browser agents. To use one, add a Markdown recipe beside the screenshot with the same name, replacing `.png` with `.md`. For example, `images/docs/pipelines/source_control/github/github-default-status.png` has a recipe at `images/docs/pipelines/source_control/github/github-default-status.md`. Other screenshot workflows remain valid; existing screenshots do not need recipes.
+
+Agents can use the repository-local [regenerating screenshots skill](../.agents/skills/regenerating-screenshots/SKILL.md) for this workflow.
+
+For light and dark pairs, the page continues to reference `foo.png`. When `foo-dark.png` exists beside it, the image helper renders both variants and follows the documentation site's **Light**, **Dark**, or **System** theme selection. Both variants use lazy loading; browsers can still revalidate a previously loaded hidden image.
+
+Write the recipe as instructions that a contributor or browser agent can follow:
+
+- Link to the documentation section and explain what the screenshot demonstrates.
+- State the required product access, permissions, a working example source, and setup steps. Refer to a development environment or a dedicated integration test environment, not a specific private lab or account. Link to a verified public fixture when one is available.
+- Describe how to reach the required UI state, including any setup and cleanup. Use UI labels rather than browser selectors.
+- Record the operating system, browser, viewport, pixel density, zoom, and any required fonts.
+- Describe the framing: what the reader should learn, what stays in view, what is excluded, the crop, intended display width, and any pointer or highlighting requirement. Follow the [framing and typography guidance](#framing-and-typography).
+- State whether a dark capture applies. For pairs, keep `foo.png` as the light image and save `foo-dark.png` beside it, using the same recipe for both. Match viewport, zoom, scroll, cleanup, crop, content, and dimensions; only colors should differ.
+- Describe what must be visible and what must be excluded to accept the result.
+
+Keep shared image requirements in this guide. Keep credentials, private URLs, and internal environment details out of recipes because this repository is mirrored publicly. Capture the real UI; do not recreate it or change labels or results to fit an example. Unrelated UI, such as other check rows, can be hidden in the browser DOM before capture. Verify the subject first, preserve its real labels, results, and summary counts, and record the cleanup in the recipe. Prefer example data and cropping over redaction.
+
+Read the recipe before refreshing its screenshot. Inspect the new image and preview its documentation page, then update the image dimensions and alt text if needed. Update the recipe when the capture procedure changes. When a UI change affects a documented screen, review its screenshot too. A recipe makes a screenshot reproducible; it does not automatically detect when the image is out of date.
+
+### Framing and typography
+
+- Choose one teaching point. Use a tight panel for a setting, a contextual view when location or relationships matter, or a focused detail for a menu or popover. Keep complete headings, labels, meaningful values, and relevant controls. Do not preserve an old crop if the current UI needs different framing.
+- Preserve native panel padding and leave balanced breathing room around the subject. There is no fixed pixel inset for every screenshot. Exclude unrelated navigation and account details unless they explain the task. Add highlighting only when it helps the reader find the subject.
+- Keep screenshot padding separate from page spacing. The docs site's responsive image wrapper adds margins, rounded corners, and a shadow, but no internal padding. Do not bake that decoration into the PNG. Preview the actual image helper and paragraph or list placement; images without explicit dimensions use a different rendering path.
+- Prefer macOS for web UI that uses system fonts. Use the corresponding platform for native application instructions. Other capture platforms are acceptable when the product's genuine typography renders correctly; record the platform and browser rather than overriding fonts to imitate another platform.
+- Wait for `document.fonts.ready` and verify required web fonts loaded. Inspect the rendered text; a CSS font stack alone does not prove which font was used. Use 100% browser zoom and a pixel density of two for retina captures. Do not upscale low-resolution screenshots.
+- Judge text at the intended docs display width, not only at capture resolution. If the subject becomes too small, tighten the crop or split the teaching point. Inspect both themes and a narrow page layout for readable text, complete controls, balanced padding, and clipping at rounded corners.
+
 ### Taking and processing screenshots
 
-* **Format:** PNG
-* **Ratio:** arbitrary, but **strictly even number of pixels** for both height and width. Recommended size `width: 1024px, height: 880px` when you're taking a full-width screen
-* **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina or high-resolution display/screen. Recommended dimension is `width: 2048/2, height: 880/2` to get the best possible view across different screen sizes.
-* **No feature flag:** please remember to turn off all experimental features when taking screenshots
-* **Border:** no border
-* **Drop shadow:** no
-* **Cursor:** include when relevant
-* **Area highlight selection:** subtract overlay
-* **Blur:** use to obscure sensitive info like passwords or real email addresses; even, non-pixelated
-* **User info:** blur out everything except for the name
-* **Dummy data:** use Acme Inc as dummy company title
-* **Naming screenshots:** lowercase, words separated by hyphens; number after the title, for example, "installation-1"
+- **Format:** PNG
+- **Ratio:** arbitrary, but **strictly even number of pixels** for both height and width. Choose dimensions that fit the subject rather than a fixed full-screen size.
+- **Size:** capture at twice the intended display size and use half the physical dimensions in the image helper. A Retina Mac is preferable, not required; follow the framing and typography guidance above.
+- **No feature flag:** please remember to turn off all experimental features when taking screenshots
+- **Border:** no border
+- **Drop shadow:** no
+- **Cursor:** include when relevant
+- **Area highlight selection:** subtract overlay
+- **Privacy:** prefer safe example data and cropping to remove identifying details. If redaction is unavoidable, use even, non-pixelated blur. Do not expose secrets or real account details.
+- **Dummy data:** use Acme Inc as dummy company title
+- **Naming screenshots:** lowercase, words separated by hyphens; number after the title, for example, "installation-1"
+
+Convert wide-gamut captures to sRGB before removing color profiles or optimizing. Stripping a Display P3 profile without converting the pixels can change the colors. Inspect the final optimized PNG.
 
 ### Adding screenshots or other images
 

@@ -13,7 +13,7 @@ Use Test Engine to:
 - Monitor test performance, reliability, and ownership over time.
 - Surface the slowest and least reliable tests in each suite.
 
-<%= image "overview.png", width: 2594, height: 624, alt: "Screenshot of test suite trend showing six metrics over the last day" %>
+<%= image "overview.png", width: 2570, height: 535, alt: "Screenshot of a test suite's Summary page showing four metric charts over the last seven days" %>
 
 ## Get started
 

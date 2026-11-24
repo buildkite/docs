@@ -112,6 +112,27 @@
     vertical-align: top;
   }
 
+  &--nowrap-first-column {
+    tbody td:first-of-type {
+      white-space: nowrap;
+    }
+  }
+
+  &--with-status {
+    @media (min-width: $screen-md) {
+      table-layout: fixed;
+
+      thead th {
+        white-space: normal;
+        width: 25%;
+
+        &:last-child {
+          width: 50%;
+        }
+      }
+    }
+  }
+
   &--single-column-rows {
     tbody {
       tr {

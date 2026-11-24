@@ -10,12 +10,13 @@ Buildkite supports sending [OpenTelemetry Traces](https://opentelemetry.io/docs/
 
 ## OpenTelemetry tracing notification service
 
-> 📘 Preview feature
-> OpenTelemetry Tracing Notification Service is currently in Preview.
-
-To provide a build-wide view of Build performance, enable the OpenTelemetry Tracing
+To provide a build-wide view of build performance, enable the OpenTelemetry Tracing Notification Service.
 
 ### Creating a new service
+
+> 📘 Plan availability
+> On the 2026 plans, the OpenTelemetry tracing notification service is an [Enterprise plan](https://buildkite.com/pricing/) feature. Organizations on legacy plans retain their existing access, including the ability to add new OpenTelemetry tracing notification services.
+> This requirement does not apply to independently configured agent tracing.
 
 [Create a new OpenTelemetry Notification Service](https://buildkite.com/organizations/~/services/) in your organization's Notification Services settings (under Integrations).
 
@@ -23,7 +24,7 @@ To provide a build-wide view of Build performance, enable the OpenTelemetry Trac
 
 ### Endpoint
 
-Please provide the base URL for your OTLP endpoint. Do not include the `/v1/traces` path as that automatically appended by the Buildkite OpenTelemetry exporter.
+Please provide the base URL for your OTLP endpoint. Do not include the `/v1/traces` path as that is automatically appended by the Buildkite OpenTelemetry exporter.
 
 #### Limitations
 
@@ -231,7 +232,7 @@ The OpenTelemetry collector is an open source service for collecting, exporting 
 
 See [collector-config](https://github.com/buildkite/opentelemetry-notification-service-examples/tree/main/collector-config) for examples of OpenTelemetry collector configuration.
 
-If using the `otel/opentelemetry-collector-contrib` Docker image, you can configure the collector by mounting the your config file at `/etc/otelcol-contrib/config.yaml` or by overriding the `command` to `--config=env:OTEL_CONFIG` and setting the `OTEL_CONFIG` environment variable to the _contents_ of your config file.
+If using the `otel/opentelemetry-collector-contrib` Docker image, you can configure the collector by mounting your config file at `/etc/otelcol-contrib/config.yaml` or by overriding the `command` to `--config=env:OTEL_CONFIG` and setting the `OTEL_CONFIG` environment variable to the _contents_ of your config file.
 
 Consult the [Deployment](https://opentelemetry.io/docs/collector/deployment/) guide in the OpenTelemetry documentation for more information about hosting the collector.
 
@@ -266,18 +267,17 @@ You can also use an online validation tool available at https://www.otelbin.io/.
 
 ### Propagating traces across triggered builds
 
-> 📘 Preview feature
-> Trace propagation across triggered builds is currently in preview. [Contact support](https://buildkite.com/support) to have this enabled for your organization.
+When a build uses a [trigger step](/docs/pipelines/configure/step-types/trigger-step) to create another build, Buildkite Pipelines can automatically inject a W3C `TRACEPARENT` into the triggered build's environment. This links agent spans across builds in a single distributed trace in your observability platform.
 
-When a build uses a [trigger step](/docs/pipelines/configure/step-types/trigger-step) to create another build, Buildkite Pipelines can automatically inject a W3C `TRACEPARENT` into the triggered build's environment. This links the triggered build's agent spans to the parent build's trace. A multi-pipeline workflow then appears as a single distributed trace in your observability platform.
-
-Trace propagation across triggered builds must be enabled for your organization before any of the following applies. Once enabled, Buildkite Pipelines resolves the `TRACEPARENT` to inject using the following precedence:
+Buildkite Pipelines resolves the `TRACEPARENT` to inject using the following precedence:
 
 1. **Trigger step override**: If the trigger step sets `TRACEPARENT` in its `env:` block, that value is always used.
 1. **Inherited TRACEPARENT**: If the parent build carries a valid `TRACEPARENT` in its environment—seeded via the [Create Build API](/docs/apis/rest-api/builds#create-a-build) or propagated from a build higher in the trigger chain—the triggered build inherits it and joins that existing trace.
-1. **Derived TRACEPARENT**: If the parent build carries no seeded `TRACEPARENT` but its pipeline is covered by an enabled OpenTelemetry notification service, a `TRACEPARENT` is derived from the parent build's UUID. This ensures that purely internal trigger chains appear as a single distributed trace even when no external trace context is provided.
+1. **Derived TRACEPARENT**: If the parent build carries no valid `TRACEPARENT` but its pipeline is covered by an enabled OpenTelemetry notification service, a `TRACEPARENT` is derived from the parent build's UUID. This allows agent spans across internal trigger chains to share a trace even when no external trace context is provided.
 
-The Buildkite agent automatically receives the injected `TRACEPARENT` and uses it in the triggered build's agent spans. See [OpenTelemetry tracing from Buildkite agent](#opentelemetry-tracing-from-buildkite-agent) for the required tracing configuration.
+For jobs that match an enabled OpenTelemetry notification service, the Buildkite agent uses the injected `TRACEPARENT` in its spans when OpenTelemetry tracing is enabled. See [OpenTelemetry tracing from Buildkite agent](#opentelemetry-tracing-from-buildkite-agent) for the required tracing configuration.
+
+Joining Buildkite Pipelines control-plane spans across builds is a separate feature available on request. [Contact support](mailto:support@buildkite.com) to enable control-plane trace joining for your organization.
 
 > 📘
 > Setting `TRACEPARENT` in a triggered pipeline's top-level `env:` block has no effect on propagation. Set it in the trigger step's `env:` block instead.
@@ -285,7 +285,7 @@ The Buildkite agent automatically receives the injected `TRACEPARENT` and uses i
 ### Propagating traces from external systems
 
 > 📘 Preview feature
-> Propagating an external trace into Buildkite Pipelines control-plane spans is available on request. [Contact support](https://buildkite.com/support) to have this enabled for your organization.
+> Propagating an external trace into Buildkite Pipelines control-plane spans is available on request. [Contact support](mailto:support@buildkite.com) to have this enabled for your organization.
 
 When you create a build using the REST API, you can pass a W3C [`traceparent`](https://www.w3.org/TR/trace-context/#traceparent-header) header to connect Buildkite Pipelines control-plane spans to your upstream distributed trace. When enabled, the `buildkite.build` span is nested under the caller's span. All control-plane spans (`buildkite.build`, `buildkite.job`, and `buildkite.step`) share the same trace ID as the upstream system.
 
@@ -317,9 +317,9 @@ Buildkite agents version 3.136.1 or later can automatically receive OpenTelemetr
 
 Local OTLP destination settings, such as `OTEL_EXPORTER_OTLP_ENDPOINT`, take precedence over exporter settings received this way.
 
-### Required agent flags / environment variables
+### Manual configuration with agent flags and environment variables
 
-To propagate traces from the Buildkite control plane through to the agent running the job, enable OpenTelemetry tracing and set the appropriate environment variables for your OpenTelemetry Collector.
+If you aren't using automatic configuration through a cluster, enable OpenTelemetry tracing and set the appropriate environment variables for your OpenTelemetry Collector. This propagates traces from the Buildkite Pipelines control plane through to the agent running the job.
 
 | Flag                       | Environment variable               | Value                                  |
 | -------------------------- | ---------------------------------- | -------------------------------------- |
@@ -384,7 +384,11 @@ Trace contexts are propagated automatically from a Buildkite agent to all its ch
 
 ### Buildkite hosted agents
 
-To export OpenTelemetry traces from hosted agents, use a custom agent image with the following environment variables set. You can create custom images in Cluster settings. Custom images are currently supported for Linux only.
+To export OpenTelemetry traces from Buildkite hosted agents, select an OpenTelemetry notification service in the cluster's **Settings**. Agents running version 3.136.1 or later receive the exporter settings when they register, without a custom image or local OTLP configuration. See [Automatically configure agent OpenTelemetry tracing for a cluster](/docs/pipelines/security/clusters/manage#automatically-configure-agent-opentelemetry-tracing-for-a-cluster) for setup instructions and credential security guidance.
+
+Already registered agents keep their current configuration until they restart or reconnect. Local OTLP destination settings, including `OTEL_EXPORTER_OTLP_ENDPOINT` or `OTEL_EXPORTER_OTLP_HEADERS`, take precedence over the cluster configuration.
+
+For manual configuration, you can instead use a custom Linux agent image with the following environment variables set. Create custom images in the cluster's **Settings**.
 
 ```dockerfile
 # this is the same as --opentelemetry-tracing

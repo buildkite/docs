@@ -35,6 +35,25 @@ The `bk pipeline` command allows you to manage pipelines from the command line.
 
 Copy an existing pipeline.
 
+Copy an existing pipeline's configuration to create a new pipeline.
+
+This command copies configuration from a source pipeline including: - Pipeline
+steps (YAML configuration) - Repository settings - Branch configuration - Build
+skipping/cancellation rules - Provider settings (trigger mode, PR builds,
+commit statuses, etc.) - Environment variables - Tags and visibility
+
+Team assignments are not copied automatically. Use --team SLUG=`ACCESS_LEVEL` or
+--team UUID=`ACCESS_LEVEL` to assign destination teams explicitly; repeat the flag
+for multiple teams. Slugs must match exactly in the destination organization
+and require `read_teams` API access to resolve; UUIDs are passed through without a
+lookup. Access levels are `read_only`, `build_and_read`, and `manage_build_and_read`.
+Without --team, no team assignments are sent, even when the source has teams.
+Non-admin users in Teams-enabled organizations may receive a 422 from the API if
+they do not assign a team.
+
+When copying to a different organization, the cluster is not copied because it
+is organization-specific. Use --team with destination team slugs or UUIDs.
+
 ```bash
 bk pipeline copy [<pipeline>] [flags]
 ```
@@ -53,10 +72,11 @@ bk pipeline copy [<pipeline>] [flags]
 | `-t`, `--target=STRING` | Name for the new pipeline, or org/name to copy to a different organization |
 | `--cluster-name=STRING` | Cluster name for the new pipeline (resolved to UUID) |
 | `--cluster-uuid=STRING` | Cluster UUID for the new pipeline |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--dry-run` | Show what would be copied without creating the pipeline |
 | `--json` | Output as JSON |
-| `--org=STRING` | Organization slug |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
+| `--team=KEY=VALUE;...` | Assign a destination team as SLUG=`ACCESS_LEVEL` or UUID=`ACCESS_LEVEL` (repeatable); access: `read_only`, `build_and_read`, `manage_build_and_read` |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -72,6 +92,18 @@ Copy a specific pipeline:
 
 ```bash
 bk pipeline cp my-existing-pipeline --target "my-new-pipeline"
+```
+
+Copy with explicit team access by slug:
+
+```bash
+bk pipeline cp my-pipeline --target "my-copy" --team platform-engineering=build_and_read
+```
+
+Copy with explicit team access by UUID (skips the slug lookup):
+
+```bash
+bk pipeline cp my-pipeline --target "my-copy" --team 14e9501c-69fe-4cda-ae07-daea9ca3afd3=build_and_read
 ```
 
 Copy a pipeline from another org (if you have access):
@@ -114,15 +146,41 @@ bk pipeline cp my-pipeline -t "new-pipeline" -o json
 
 Create a new pipeline.
 
+Creates a new pipeline in the current org and outputs the URL to the pipeline.
+
+The repository URL and default name are inferred from Git origin. Without a
+name, interactive use offers a project-aware local starter if no pipeline file
+exists. Named invocations and --no-input never add prompts or local files unless
+--template is supplied. Local files must be reviewed, committed and pushed
+before building.
+
+Guided creation defaults to concise text on stdout, with file status and
+starter prompts on stderr. Explicit format flags and configured preferences take
+priority; named and scripted invocations retain their output defaults.
+
+You can specify a --dry-run flag to see the pipeline that would be created
+without actually creating it or writing local files. This outputs a JSON
+representation of the pipeline to be created by default.
+
+Use --cluster-uuid to assign a pipeline to a cluster by UUID, or --cluster-name
+to assign by name (the name will be resolved to the corresponding UUID).
+
+Use --team SLUG=`ACCESS_LEVEL` or --team UUID=`ACCESS_LEVEL` for each team
+assignment. Slugs must match exactly in the destination organization and require
+`read_teams` API access to resolve; UUIDs are passed through without a lookup.
+Access levels are `read_only`, `build_and_read`, and `manage_build_and_read`.
+Without --team, no team assignments are sent or inferred. Non-admin users in
+organizations with Teams enabled must assign a team when creating a pipeline.
+
 ```bash
-bk pipeline create <name> [flags]
+bk pipeline create [<name>] [flags]
 ```
 
 ### Arguments
 
 | Argument | Description |
 | --- | --- |
-| `<name>` | Name of the pipeline |
+| `[<name>]` | Name of the pipeline (defaults to Git origin or directory name) |
 
 ### Flags
 
@@ -134,10 +192,12 @@ bk pipeline create <name> [flags]
 | `-r`, `--repository=STRING` | Repository URL |
 | `--cluster-name=STRING` | Cluster name to assign the pipeline to (resolved to UUID) |
 | `--cluster-uuid=STRING` | Cluster UUID to assign the pipeline to |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--dry-run` | Simulate pipeline creation without actually creating it |
 | `--json` | Output as JSON |
-| `--org=STRING` | Organization slug. |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
+| `--team=KEY=VALUE;...` | Team assignment as SLUG=`ACCESS_LEVEL` or UUID=`ACCESS_LEVEL` (repeatable); access: `read_only`, `build_and_read`, `manage_build_and_read` |
+| `--template=""` | Create a local starter: go, node, pipenv, ruby or empty (never overwrites existing files) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -153,6 +213,18 @@ Create a new pipeline and view the created pipeline in JSON format:
 
 ```bash
 bk pipeline create "My Pipeline" --description "My pipeline description" --repository "git@github.com:org/repo.git" --output json
+```
+
+Create a pipeline with team access (by slug):
+
+```bash
+bk pipeline create "My Pipeline" -r "git@github.com:org/repo.git" --team platform-engineering=build_and_read
+```
+
+Create a pipeline with team access (by UUID, skips the slug lookup):
+
+```bash
+bk pipeline create "My Pipeline" -r "git@github.com:org/repo.git" --team 14e9501c-69fe-4cda-ae07-daea9ca3afd3=build_and_read
 ```
 
 Create a pipeline with a cluster (by UUID):
@@ -183,6 +255,11 @@ bk pipeline create "My Pipeline" -d "Description" -r "git@github.com:org/repo.gi
 
 List pipelines.
 
+List pipelines with optional filtering.
+
+This command lists all pipelines in the current organization that match the
+specified criteria. You can filter by pipeline name or repository URL.
+
 ```bash
 bk pipeline list [flags]
 ```
@@ -195,9 +272,9 @@ bk pipeline list [flags]
 | `-n`, `--name=STRING` | Filter pipelines by name (supports partial matches, case insensitive) |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-r`, `--repository=STRING` | Filter pipelines by repository URL (supports partial matches, case insensitive) |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
-| `--org=STRING` | Organization slug. |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -218,7 +295,7 @@ bk pipeline list --name pipeline
 List pipelines by repository:
 
 ```bash
-bk pipeline list --repo my-repo
+bk pipeline list --repository my-repo
 ```
 
 Get more pipelines (automatically paginates):
@@ -236,12 +313,32 @@ bk pipeline list --name pipeline -o json
 Use with other commands (e.g., get longest builds from matching pipelines):
 
 ```bash
-bk pipeline list --name pipeline | xargs -I {} bk build list --pipeline {} --since 48h --duration 1h
+bk pipeline list --name pipeline --json | jq -r '.[].slug' | xargs -I {} bk build list --pipeline {} --since 48h --duration '>1h'
 ```
 
 ## Convert pipeline
 
 Convert a CI/CD pipeline configuration to Buildkite format.
+
+Supported vendors:
+- `github` (GitHub Actions)
+- `bitbucket` (Bitbucket Pipelines)
+- `circleci` (CircleCI)
+- `jenkins` (Jenkins)
+- `gitlab` (GitLab CI) (beta)
+- `harness` (Harness CI) (beta)
+- `bitrise` (Bitrise) (beta)
+
+The command will automatically detect the vendor based on the file path and name
+if not specified.
+
+When using --file, the converted pipeline is saved to
+.buildkite/pipeline.<vendor>.yml by default. When reading from stdin, output
+goes to stdout by default. Use the --output flag to specify a custom output path
+in either case.
+
+Note: This command does not require an API token since it uses a public
+conversion API.
 
 ```bash
 bk pipeline convert --file=STRING [flags]
@@ -254,7 +351,8 @@ bk pipeline convert --file=STRING [flags]
 | `-F`, `--file=STRING` | Path to the pipeline file to convert (required) |
 | `-o`, `--output=STRING` | Custom path to save the converted pipeline (default: .buildkite/pipeline.<vendor>.yml) |
 | `-v`, `--vendor=STRING` | CI/CD vendor (auto-detected if the file name matches vendor path and name - otherwise, needs to be specified) |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--timeout=300` | The time (in seconds) after which a conversion should be cancelled |
 
 ### Examples
@@ -291,6 +389,15 @@ bk pipeline convert --vendor github < .github/workflows/ci.yml
 
 Validate a pipeline YAML file.
 
+Validate a pipeline YAML file against the Buildkite pipeline schema.
+
+By default, this command looks for a file at .buildkite/pipeline.yaml or
+.buildkite/pipeline.yml in the current directory. You can specify different
+files using the --file flag.
+
+Note: This command does not require an API token since validation is done
+locally.
+
 ```bash
 bk pipeline validate [flags]
 ```
@@ -300,7 +407,8 @@ bk pipeline validate [flags]
 | Flag | Description |
 | --- | --- |
 | `-f`, `--file=FILE,...` | Path to the pipeline YAML file(s) to validate |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -326,6 +434,8 @@ bk pipeline validate --file path/to/pipeline1.yaml --file path/to/pipeline2.yaml
 
 View a pipeline.
 
+View information about a pipeline.
+
 ```bash
 bk pipeline view [<pipeline>] [flags]
 ```
@@ -343,9 +453,9 @@ bk pipeline view [<pipeline>] [flags]
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | The pipeline to view. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-w`, `--web` | Open the pipeline in a web browser. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
-| `--org=STRING` | Organization slug. |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 

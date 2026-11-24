@@ -245,9 +245,9 @@ Error response: `404 Not Found` when no pipeline trigger matches the given ID fo
 
 Pipeline trigger filters use [Common Expression Language (CEL)](https://cel.dev/). A filter must evaluate to `true` for an incoming webhook delivery to create a build.
 
-GitHub Actions triggers don't accept a `filter` configuration and match supported workflow `on` declarations instead. See [GitHub Actions pipeline setup](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-trigger-builds-from-workflow-events) for matching behavior and limitations.
+The REST API supports filter configuration for `webhook`, `github`, and `linear` triggers. GitHub Actions triggers don't accept a `filter` configuration through this API. Configure supported workflow `on` declarations instead. See [supported GitHub Actions events and filters](/docs/pipelines/migration/run-github-actions-workflows/compatibility#events-and-triggers).
 
-Filter configuration is available only to organizations with webhook filtering enabled. Filter expressions have the following constraints:
+Filter expressions have the following constraints:
 
 - Expressions can contain a maximum of 256 bytes.
 - Expressions can only reference the `webhook` variable.
@@ -280,10 +280,11 @@ The `webhook` variable contains the following values:
 For example, the following expression creates builds only for GitHub pull request events with an `opened` action:
 
 ```text
-webhook.headers["HTTP_X_GITHUB_EVENT"] == "pull_request" && webhook.payload.action == "opened"
+webhook.headers["HTTP_X_GITHUB_EVENT"] == "pull_request" &&
+  webhook.payload.action == "opened"
 ```
 
-Use the [pipeline trigger deliveries API](/docs/apis/rest-api/pipeline-trigger-deliveries) to inspect whether a delivery matched its filter.
+For more examples and troubleshooting, see how to [filter webhook deliveries](/docs/apis/webhooks/incoming/pipeline-triggers#filter-webhook-deliveries). Use the [pipeline trigger deliveries API](/docs/apis/rest-api/pipeline-trigger-deliveries) to inspect whether a delivery matched its filter.
 
 ## Create a pipeline trigger
 
@@ -391,7 +392,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>filter</code></th>
-    <td>Filter with a required <code>expression</code> value that controls which deliveries create a build. Requires webhook filtering to be enabled for the organization. See <a href="#filter-webhook-deliveries">Filter webhook deliveries</a> for the expression contract.
+    <td>Filter with a required <code>expression</code> value that controls which deliveries create a build. Supported for <code>webhook</code>, <code>github</code>, and <code>linear</code> triggers. See <a href="#filter-webhook-deliveries">Filter webhook deliveries</a> for the expression contract.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "expression": "webhook.payload.action == \"opened\"" }</code></p></td>
   </tr>
   <tr>
@@ -429,7 +430,9 @@ Error responses:
 
 ### Create a GitHub Actions pipeline trigger
 
-Use a `github_actions` trigger for the recommended [server-side workflow dispatch setup](/docs/pipelines/migration/run-github-actions-workflows). The pipeline must use a GitHub.com repository connected through the full-access **GitHub** repository provider. Configure the pipeline's plugin without `workflow` or `workflows` so it runs the server-selected workflow.
+For a new pipeline, use the recommended [GitHub Actions setup in the Buildkite interface](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline). It creates the pipeline and enabled trigger together, then provisions a dedicated signed repository webhook instead of traditional GitHub webhook setup.
+
+For CLI, API, or agent-based automation, first [configure the equivalent pipeline and provider settings](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-configure-an-equivalent-pipeline-manually), then create its `github_actions` trigger below. The pipeline must use a GitHub.com repository connected through the full-access **GitHub** repository provider. Its configuration must omit `workflow` and `workflows` so the runtime runs the workflow selected by the trigger. Creating this trigger alone doesn't configure the pipeline.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -447,7 +450,7 @@ The `github_actions` type doesn't accept `build` or `filter`, including an empty
 
 Save the returned `endpoint_url` securely before leaving the creation response. It contains a one-time plaintext credential and isn't returned by subsequent reads. Webhook provisioning returns a `webhook_creation` object with a string `status` and a `message` that is a string or `null`. The `status` is `configured` when the webhook was provisioned, `skipped` when provisioning wasn't requested, or `failed` when provisioning was unsuccessful. The `message` is `null` for `configured` and `skipped`, and describes the error for `failed`. Check the status because `201 Created` can still include `webhook_creation.status: "failed"`: the trigger itself was created successfully.
 
-If webhook provisioning fails, retain the trigger ID and endpoint URL, resolve the reported error, and repair the webhook setup for that trigger. The generated signing secret isn't retrievable. For manual recovery, [update the existing trigger](#update-a-pipeline-trigger) with a replacement HMAC verification secret, then configure the repository webhook with the saved endpoint URL and the same secret. Don't repeat the trigger creation request to retry provisioning, because that creates another trigger. Use the [pipeline trigger deliveries API](/docs/apis/rest-api/pipeline-trigger-deliveries) to verify deliveries after setup.
+If webhook provisioning fails, retain the trigger ID and endpoint URL, resolve the reported error, and repair the webhook setup for that trigger. Inspect GitHub first: the webhook might exist even if its creation couldn't be confirmed. The generated signing secret isn't retrievable. For manual recovery, [update the existing trigger](#update-a-pipeline-trigger) with a replacement HMAC verification secret, then configure the repository webhook with the saved endpoint URL and the same secret. Don't repeat the trigger creation request to retry provisioning, because that creates another trigger. Use the [pipeline trigger deliveries API](/docs/apis/rest-api/pipeline-trigger-deliveries) to verify deliveries after setup.
 
 This request requires `write_pipelines` and **Full Access** to the pipeline, like other trigger creation requests.
 
@@ -455,7 +458,7 @@ This request requires `write_pipelines` and **Full Access** to the pipeline, lik
 
 Updates a pipeline trigger. Attributes omitted from the request body are left unchanged.
 
-GitHub Actions triggers don't accept `build` or `filter` updates. Configure supported workflow `on` declarations instead.
+GitHub Actions triggers don't accept `build` or `filter` updates through this API. Configure supported workflow `on` declarations instead. See [supported GitHub Actions events and filters](/docs/pipelines/migration/run-github-actions-workflows/compatibility#events-and-triggers).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

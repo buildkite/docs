@@ -8,7 +8,7 @@ limits](https://docs.docker.com/docker-hub/download-rate-limit/) on image
 downloads by unauthenticated clients, and authenticated clients on a free plan.
 For Buildkite customers using images hosted on Docker Hub, this results in intermittent job failures.
 
-How to prevent job failure caused by the Docker Hub rates limits depends on exactly how you are using Docker images, here are a few solutions for common scenarios.
+How to prevent job failure caused by the Docker Hub rate limits depends on exactly how you are using Docker images, here are a few solutions for common scenarios.
 
 ## Elastic CI Stack for AWS, authenticating with a paid Docker Hub account
 

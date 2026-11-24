@@ -20,7 +20,10 @@ To update this file:
 
 The `bk browse` command allows you to open Buildkite resources in a web browser from the command line.
 
-Open Buildkite resources in your web browser. Without arguments, the pipeline for the current project is resolved and opened, with its builds list filtered to the current git branch.
+Open Buildkite resources in your web browser.
+
+Without arguments, the pipeline for the current project is resolved and opened,
+with its builds list filtered to the current git branch.
 
 ```bash
 bk browse [<build>] [flags]
@@ -41,7 +44,8 @@ bk browse [<build>] [flags]
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-s`, `--settings` | Open the pipeline's settings page. |
 | `--all-branches` | Open the pipeline builds list without a branch filter. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ## Examples
 

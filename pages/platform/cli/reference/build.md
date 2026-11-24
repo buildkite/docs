@@ -26,6 +26,11 @@ The `bk build` command allows you to manage pipeline builds from the command lin
 | --- | --- |
 | `bk build create` | Create a new build. |
 | `bk build cancel` | Cancel a build. |
+| `bk build compare` | Compare final job attempts between two builds. |
+| `bk build annotations` | List a build's annotations, including HTML bodies. |
+| `bk build failed-tests` | List tests with failed executions in a build. |
+| `bk build retry-failed-jobs` | Queue retries for failed jobs in a build (may repeat side effects). |
+| `bk build step-uploads` | List dynamic step uploads for a build. |
 | `bk build view` | View build information. |
 | `bk build list` | List builds. |
 | `bk build download` | Download resources for a build. |
@@ -35,6 +40,8 @@ The `bk build` command allows you to manage pipeline builds from the command lin
 ## Create a build
 
 Create a new build.
+
+The web URL to the build will be printed to stdout.
 
 ```bash
 bk build create [flags]
@@ -54,7 +61,8 @@ bk build create [flags]
 | `-M`, `--metadata=METADATA` | Set metadata for the build (KEY=VALUE) |
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-w`, `--web` | Open the build in a web browser after it has been created. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -96,7 +104,8 @@ bk build cancel <build-number> [flags]
 | --- | --- |
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-w`, `--web` | Open the build in a web browser after it has been cancelled. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -109,12 +118,293 @@ bk build cancel 123 --pipeline my-pipeline
 Cancel a build and open in browser:
 
 ```bash
-bk build cancel 123 -pipeline my-pipeline --web
+bk build cancel 123 --pipeline my-pipeline --web
+```
+
+## Compare builds
+
+Compare final job attempts between two builds.
+
+Compare final job attempts, not all retry attempts. Requires `read_builds`.
+An explicit --baseline may be newer, failed or on another branch, but must be a
+different positive build number in the same pipeline. Otherwise search up to 500
+candidates for the latest earlier-created build that is currently passed on the
+target branch. It need not have passed before the target started.
+
+Match unique step keys with type, matrix and parallel index/total. Unkeyed jobs
+use unique exact names within their group and coordinates (a heuristic, reported
+as `name_fallback`). Duplicates and unnamed unkeyed jobs remain unmatched. Changes
+in `soft_failed` are `state_changed`, not `newly_failing`/recovered.
+
+All comparison rows are returned, failures first. Each inventory is limited to
+10 pages (1000 jobs). Missing baselines, incomplete inventories and API failures
+return an error without partial output. Unfinished builds are snapshots only.
+Timings cover final attempts; positive execution deltas mean slower, not build
+wall-clock changes. Still-failing does not establish a shared cause or retry
+safety. No logs are fetched; use job IDs/URLs to investigate. JSON/YAML never
+prompts for pipeline selection; use --pipeline when ambiguous.
+
+```bash
+bk build compare <build-number> [flags]
+```
+
+### Arguments
+
+| Argument | Description |
+| --- | --- |
+| `<build-number>` | Target build number, org/pipeline/number, or Buildkite build URL |
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
+| `-p`, `--pipeline=STRING` | Pipeline slug or org/pipeline. Inferred from configuration or repository if omitted. |
+| `--baseline=BASELINE` | Baseline build number in the same pipeline (otherwise an earlier passed build on the same branch). |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
+
+### Examples
+
+```bash
+bk build compare 123 --pipeline my-pipeline --json
+```
+
+```bash
+bk build compare acme/my-pipeline/123 --baseline 120 --text
+```
+
+```bash
+bk build compare https://buildkite.com/acme/my-pipeline/builds/123 --yaml
+```
+
+## List build annotations
+
+List a build's annotations, including HTML bodies.
+
+List all build- and job-scoped annotations for an explicit build. All pages
+are fetched, including HTML bodies (not the original Markdown). Requires the
+`read_builds` token scope. JSON/YAML never prompts for pipeline selection;
+use --pipeline when ambiguous. Empty results have annotations=[]. Errors return
+a nonzero exit status without partial results on stdout.
+
+```bash
+bk build annotations <build-number> [flags]
+```
+
+### Arguments
+
+| Argument | Description |
+| --- | --- |
+| `<build-number>` | Build number, org/pipeline/number, or Buildkite build URL |
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
+| `-p`, `--pipeline=STRING` | Pipeline slug or org/pipeline. Inferred from configuration or repository if omitted. |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
+
+### Examples
+
+```bash
+bk build annotations 123 --pipeline my-pipeline --json
+```
+
+```bash
+bk build annotations acme/my-pipeline/123 --text
+```
+
+```bash
+bk build annotations https://buildkite.com/acme/my-pipeline/builds/123 --yaml
+```
+
+```bash
+bk build annotations acme/my-pipeline/123 --json | jq '.annotations[].body_html'
+```
+
+## List failed tests
+
+List tests with failed executions in a build.
+
+List tests with at least one failed execution in this build, including tests
+that passed on retry, regardless of their current flaky labels or the build
+state. All result pages are fetched. Requires `read_builds` and `read_suites` token
+scopes. JSON/YAML never prompts for pipeline selection; use --pipeline when
+ambiguous.
+
+Results include test details, current labels, and build execution metrics, not
+individual failure messages or backtraces. Labels are not a per-failure verdict.
+Only uploaded Test Engine data from suites accessible to your token is included;
+an empty result does not prove that no tests failed. The API's aggregation
+window is limited by retention and ends at most 24 hours after build creation.
+
+```bash
+bk build failed-tests <build-number> [flags]
+```
+
+### Arguments
+
+| Argument | Description |
+| --- | --- |
+| `<build-number>` | Build number, org/pipeline/number, or Buildkite build URL |
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
+| `-p`, `--pipeline=STRING` | Pipeline slug or org/pipeline. Inferred from configuration or repository if omitted. |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
+
+### Examples
+
+```bash
+bk build failed-tests 123 --pipeline my-pipeline --json
+```
+
+```bash
+bk build failed-tests acme/my-pipeline/123 --text
+```
+
+```bash
+bk build failed-tests https://buildkite.com/acme/my-pipeline/builds/123
+```
+
+## Retry failed jobs
+
+Queue retries for failed jobs in a build (may repeat side effects).
+
+Queue retries for failed jobs in an existing build. Requires `write_builds`.
+By default, retries all retryable failed jobs. Use --states to select failure
+types. This is not limited to infrastructure failures and does not check whether
+jobs are safe to rerun; retries can repeat side effects, including deployments.
+
+Requires confirmation unless --yes is supplied. --no-input without --yes fails
+without retrying. JSON/YAML never prompts for pipeline selection; use --pipeline
+when ambiguous. Confirmation goes to stderr, not structured stdout. Malformed or
+conflicting explicit build/pipeline selectors are rejected.
+
+The API returns 202 Accepted asynchronously. `retried_jobs_count` is the number of
+jobs queued for retry, not completed or successful retries. No waiting is done;
+use bk build view or bk build watch to follow the build. If the accepted
+response has no usable count, check the build before resubmitting.
+
+```bash
+bk build retry-failed-jobs <build-number> [flags]
+```
+
+### Arguments
+
+| Argument | Description |
+| --- | --- |
+| `<build-number>` | Build number, org/pipeline/number, or Buildkite build URL |
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
+| `-p`, `--pipeline=STRING` | Pipeline slug or org/pipeline. Inferred from configuration or repository if omitted. |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
+| `--states=STRING` | Comma-separated failure states: canceled,expired,failed,`soft_failed`,`timed_out`. Omitted or empty retries all retryable failed jobs. |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
+
+### Examples
+
+```bash
+bk build retry-failed-jobs 123 --pipeline my-pipeline
+```
+
+```bash
+bk build retry-failed-jobs acme/my-pipeline/123 --states failed,soft_failed --yes --json
+```
+
+```bash
+bk build retry-failed-jobs https://buildkite.com/acme/my-pipeline/builds/123 --yes --no-input --text
+```
+
+## List dynamic step uploads
+
+List dynamic step uploads for a build.
+
+List a build's dynamic step uploads, newest first, fetching all cursor pages.
+Requires the `read_builds` token scope. JSON/YAML never prompts for pipeline
+selection; use --pipeline when ambiguous.
+
+Includes state, source job, created job count, rejection type and outcome
+message. An unavailable count is omitted in JSON and shown as "-" in text,
+not zero. Messages do not include uploaded configuration or internal failure
+details; check the source job's pipeline upload command output for further
+diagnostics. Uploaded definitions are not included. History is only available
+within the build's maximum lifetime (up to 30 days after creation); older builds
+return 410.
+
+```bash
+bk build step-uploads <build-number> [flags]
+```
+
+### Arguments
+
+| Argument | Description |
+| --- | --- |
+| `<build-number>` | Build number, org/pipeline/number, or Buildkite build URL |
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
+| `-p`, `--pipeline=STRING` | Pipeline slug or org/pipeline. Inferred from configuration or repository if omitted. |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
+
+### Examples
+
+```bash
+bk build step-uploads 123 --pipeline my-pipeline --json
+```
+
+```bash
+bk build step-uploads acme/my-pipeline/123 --text
+```
+
+```bash
+bk build step-uploads https://buildkite.com/acme/my-pipeline/builds/123 --yaml
 ```
 
 ## View a build
 
 View build information.
+
+You can pass an optional build number to view. If omitted, the most recent build
+on the current branch will be resolved. Builds from all creators are included by
+default. Use --mine or --user to filter by creator.
+
+--recursive follows all current trigger attempts, including passed/asynchronous
+triggers, and returns hard-failed or timed-out script jobs from the root and
+descendant builds. Superseded retries, soft failures, canceled/expired jobs,
+and jobs that never ran are excluded. Logs are linked, not downloaded. Missing
+children or request errors produce partial output with complete=false and a
+nonzero exit status.
 
 ```bash
 bk build view [<build-number>] [flags]
@@ -131,14 +421,16 @@ bk build view [<build-number>] [flags]
 | Flag | Description |
 | --- | --- |
 | `-b`, `--branch=STRING` | Filter builds to this branch. |
-| `-s`, `--job-states=JOB-STATES,...` | Filter jobs by state. Valid states: running, scheduled, passed, failed, canceled, skipped, not_run, broken. |
+| `-s`, `--job-states=JOB-STATES,...` | Filter jobs by state. Valid states: running, scheduled, passed, failed, canceled, skipped, `not_run`, broken. |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-u`, `--user=STRING` | Filter builds to this user. You can use name or email. |
 | `-w`, `--web` | Open the build in a web browser. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
 | `--mine` | Filter builds to only my user. |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
+| `--recursive` | Return current hard-failed and timed-out command jobs across the trigger tree, with log pointers. |
 | `--summary` | Return metadata only for fast state checks, polling, scripts, and LLM agents. |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
@@ -178,7 +470,7 @@ bk build view -w 429
 To view the most recent build on feature-x branch:
 
 ```bash
-bk build view -b feature-y
+bk build view -b feature-x
 ```
 
 You can filter by a user name or id:
@@ -199,6 +491,12 @@ Filter to only show failed and broken jobs:
 bk build view -s failed,broken
 ```
 
+Find current command failures throughout a trigger tree in one CLI invocation:
+
+```bash
+bk build view acme/monolith/429 --recursive --json
+```
+
 To view most recent build by greg on the deploy-pipeline:
 
 ```bash
@@ -208,6 +506,21 @@ bk build view -p deploy-pipeline -u "greg"
 ## List builds
 
 List builds.
+
+List builds with optional filtering.
+
+This command supports both server-side filtering (fast) and client-side
+filtering. Server-side filters are applied by the Buildkite API, while
+client-side filters are applied after fetching results and may require loading
+more builds.
+
+Client-side filters: --duration, --message Server-side filters: --pipeline,
+--since, --until, --state, --branch, --creator, --commit, --meta-data
+
+Builds can be filtered by their duration, message content, and other attributes.
+When filtering by duration, you can use operators like >, <, >=, and <= to
+specify your criteria. Supported duration units are seconds (s), minutes (m),
+and hours (h).
 
 ```bash
 bk build list [flags]
@@ -222,12 +535,14 @@ bk build list [flags]
 | `--branch=BRANCH,...` | Filter by branch name |
 | `--commit=STRING` | Filter by commit SHA |
 | `--creator=STRING` | Filter by creator (email address or user ID) |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--duration=STRING` | Filter by duration (e.g. >5m, <10m, 20m) - supports >, <, >=, <= operators |
 | `--json` | Output as JSON |
 | `--limit=50` | Maximum number of builds to return |
-| `--message=STRING` | Filter by message content --meta-data=KEY=VALUE;...    Filter by build meta-data (key=value format, can be specified multiple times) |
+| `--message=STRING` | Filter by message content |
+| `--meta-data=KEY=VALUE;...` | Filter by build meta-data (key=value format, can be specified multiple times) |
 | `--no-limit` | Fetch all builds (overrides --limit) |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--since=STRING` | Filter builds created since this time (e.g. 1h, 30m) |
 | `--state=STATE,...` | Filter by build state |
 | `--summary` | Return metadata only for fast state checks, polling, scripts, and LLM agents. |
@@ -345,7 +660,8 @@ bk build download [<build-number>] [flags]
 | `-u`, `--user=STRING` | Filter builds to this user. You can use name or email. |
 | `--artifacts-path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--artifacts-path "log/rspec*.json"`. |
 | `--artifacts-state=STRING` | Filter artifacts to download by state. Must be one of: new, finished, error, deleted, expired. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -412,7 +728,8 @@ bk build rebuild [<build-number>] [flags]
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-u`, `--user=STRING` | Filter builds to this user. You can use name or email. |
 | `-w`, `--web` | Open the build in a web browser after it has been created. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -472,8 +789,9 @@ bk build watch [<build-number>] [flags]
 | --- | --- |
 | `-b`, `--branch=STRING` | The branch to watch builds for. |
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--interval=1` | Polling interval in seconds |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--timeout=0` | Maximum time to resolve and watch the build (e.g. 30s, 20m). 0 means no timeout. Timing out does not cancel the build. |
 
 ### Examples

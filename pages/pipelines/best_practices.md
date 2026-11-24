@@ -9,3 +9,5 @@ The _Best practices_ section outlines recommended practices and guidelines for g
 Implementing these practices and guidelines will help you get up to speed, help ensure reliability and maintainability, and help you avoid common pitfalls, when using Buildkite Pipelines (Pipelines).
 
 These guidelines assume familiarity with Pipelines [terminology](/docs/pipelines/glossary) and an understanding of [Pipelines architecture](/docs/pipelines/architecture).
+
+For security best practices, including secrets management, see the [Security checklist](/docs/platform/security/checklist).

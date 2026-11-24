@@ -1,5 +1,8 @@
 # Agent images
 
+> 🚧 Agent images API is deprecated
+> All endpoints on this page are deprecated. Images built using this API are only available for Linux AMD64 queues, not Linux ARM64 queues. Instead, [build, push, and use custom images within your pipeline](/docs/agent/buildkite-hosted/linux/custom-agent-images#create-an-agent-image).
+
 Agent images let you define custom Dockerfile bodies for [Buildkite hosted agents](/docs/agent/buildkite-hosted). Each agent image is associated with a cluster and is built on top of a Buildkite-managed base image.
 
 These endpoints require Buildkite hosted agents and access to the custom agent images feature. The API returns `404 Not Found` when the feature is unavailable for the organization. When the target cluster is not a hosted cluster, [list](#list-agent-images) requests return an empty list, [get](#get-an-agent-image) and [delete](#delete-an-agent-image) requests return `404 Not Found`, and [create](#create-an-agent-image) requests return `422 Unprocessable Entity`.

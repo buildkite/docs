@@ -8,7 +8,7 @@ This diagram illustrates a standard deployment of Elastic CI Stack for AWS.
 
 The primary layout of the stack is built around AWS autoscaling components, with an Auto Scaling group (ASG) being the center piece. The ASG manages the lifecycle of EC2 instances, ensuring that the cluster scales out to meet demand, and scales in to save costs.
 
-The instances with the ASG are managed using a launch template; the launch template defines the configuration for EC2 instances launched using the ASG, the launch template will define configuration such as the AMI used, the instance type(s) available, security groups and user data scripts.
+The instances within the ASG are managed using a launch template; the launch template defines the configuration for EC2 instances launched using the ASG, the launch template will define configuration such as the AMI used, the instance type(s) available, security groups and user data scripts.
 
 User data scripts are scripts that run at boot time on the instance to ensure the instance has environment variables propagated, and any additional tools using bootstrap scripts (which are user provided using input configuration) are correctly installed. Once the user data scripts are completed, the instance will be moved into a healthy state. If they fail, the instance will be marked as unhealthy in the ASG and subsequently terminated.
 
@@ -25,7 +25,7 @@ The EC2 instances provisioned by the stack run using a pre-configured Amazon Mac
 - Git - the Buildkite agent actively uses Git to checkout codebases ahead of builds.
 
 ### AWS integration
-- Amazon SSM Agent -  enables remote management of instances, is used this from the Agent Scaler in order to kill Buildkite agent processes.
+- Amazon SSM Agent -  enables remote management of instances, is used by the Agent Scaler in order to kill Buildkite agent processes.
 - CloudWatch Agent - for streaming to log groups.
 - AWS CLI - for interacting with AWS Resources during build time; can be used within a pipeline.
 - EC2 Instance Connect - can be used to connect to an instance using the AWS Console.
@@ -49,7 +49,7 @@ The stack uses EC2 user data to perform final configuration at boot time. The sc
 
 For the most part, the User Data script is used to pass input configuration from the deployment method, whether that be AWS CloudFormation or Terraform, directly to the run time of the instance.
 
-When a bootstrap script is defined within input configuration, this is ran after the initial User Data scripts have ran, using the [bk-install-elastic-stack.sh](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/packer/linux/stack/conf/bin/bk-install-elastic-stack.sh) script.
+When a bootstrap script is defined within input configuration, this is run after the initial User Data scripts have run, using the [bk-install-elastic-stack.sh](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/packer/linux/stack/conf/bin/bk-install-elastic-stack.sh) script.
 
 ## IAM and security
 
@@ -78,7 +78,7 @@ The stack creates VPC endpoints for AWS Systems Manager (SSM) and S3. This allow
 
 ## Scaling mechanism
 
-The stack uses a Lambda-based scaling approach rather than standard AWS target tracking policies. This results in quicker scaling based on Buildkite-specific metrics, opposed to resource usage.
+The stack uses a Lambda-based scaling approach rather than standard AWS target tracking policies. This results in quicker scaling based on Buildkite-specific metrics, as opposed to resource usage.
 
 ### Agent scaler lambda
 
@@ -123,7 +123,7 @@ The stack deploys several Lambda functions to manage automation and lifecycle ev
 
 ### Agent scaler
 
-The `AgentScaler` Lambda function calculates and applies scaling adjustments to the Auto Scaling group. It's triggered by an EventBridge Schedule that runs every minute (by default), polling the Buildkite API to determine how many instances are needed based on queued jobs and busy agents. This Lambda is used to ensure that instance count scales based on jobs waiting, opposed to instances only scaling when resources hit the scaling threshold.
+The `AgentScaler` Lambda function calculates and applies scaling adjustments to the Auto Scaling group. It's triggered by an EventBridge Schedule that runs every minute (by default), polling the Buildkite API to determine how many instances are needed based on queued jobs and busy agents. This Lambda is used to ensure that instance count scales based on jobs waiting, as opposed to instances only scaling when resources hit the scaling threshold.
 
 ### Availability zone rebalancing suspender
 

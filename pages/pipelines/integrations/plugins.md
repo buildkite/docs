@@ -14,20 +14,18 @@ The following diagram shows how a plugin might hook into the job lifecycle:
 
 Plugins can be *open source* and available for anyone to use, or *private* and kept in private repositories that only your organization and agents can access. Plugins can be hosted and referenced using [a number of sources](/docs/pipelines/integrations/plugins/using#plugin-sources).
 
-Plugins can be also be *vendored* (if they are already present in the repository, and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the [order](/docs/agent/hooks#job-lifecycle-hooks) they are run in.
+Plugins can also be *vendored* (if they are already present in the repository, and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the [order](/docs/agent/hooks#job-lifecycle-hooks) they are run in.
 
 ## How to use plugins
 
 Add plugins to [command steps](/docs/pipelines/configure/step-types/command-step) in your YAML pipeline to add functionality to Buildkite. Plugins can do things like execute steps in Docker containers, read values from a credential store, or add test summary annotations to builds.
 
-The [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows) can also run supported GitHub Actions workflows as Buildkite Pipelines jobs during an incremental migration.
-
 <%= image "plugins-overview.png", width: 537, height: 209, alt: "Screenshot of a pipeline step with a plugin, and the plugin from the directory", class: "no-decoration" %>
 
 Reference plugins in your pipeline configuration, and when the step containing the plugin runs, your agent will override the default behavior with hooks defined in the plugin [hooks](/docs/agent/hooks). In case there is more than one, it will be with the command hook of the first plugin that defines it.
 
-> 📘 Plugin execution and conditionals
-> Plugins run during the job lifecycle, before the step-level `if` conditionals are evaluated. To conditionally run plugins, use either [group steps with conditionals](/docs/pipelines/configure/conditionals#conditionally-running-plugins-with-group-steps) or [dynamic pipeline uploads](/docs/pipelines/configure/conditionals#conditionally-running-plugins-with-dynamic-uploads).
+> 📘 Plugin execution and shell conditionals
+> A shell `if` statement inside a step's `command` does not control whether the step's plugins run. To conditionally run a step and its plugins, use the step's [YAML `if` attribute](/docs/pipelines/configure/conditionals#conditionals-in-steps). To apply one condition to several steps and their plugins, use [group steps with conditionals](/docs/pipelines/configure/conditionals#conditionally-running-plugins-with-group-steps). For conditions that can only be checked at runtime, use [dynamic pipeline uploads](/docs/pipelines/configure/conditionals#conditionally-running-plugins-with-dynamic-uploads) to conditionally upload the steps containing the plugins.
 
 Some plugins allow configuration. This is usually defined in your `pipeline.yml` file and is read by the agent before the plugin hooks are run. See plugins' readme files for detailed configuration and usage instructions.
 

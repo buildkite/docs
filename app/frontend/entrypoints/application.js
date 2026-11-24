@@ -4,6 +4,10 @@ import { initToc } from "../components/toc";
 import { attachCopyToClipboardButton } from "../components/copyToClipboardButton";
 import { themeToggle } from "../components/themeToggle";
 import { initPageCopyDropdown } from "../components/pageCopyDropdown";
+import { initPlainChat } from "../components/plainChat";
+import { initSecurityChecklist } from "../components/securityChecklist";
+import { initAnimations } from "../components/animations";
+import { initPageRating } from "../components/pageRating";
 import docsearch from "@docsearch/js";
 import {
   initSearchTracking,
@@ -11,6 +15,7 @@ import {
   searchTrackingItems,
   searchTrackingNavigator,
 } from "../components/searchTracking";
+import { initMarketingAttribution } from "../components/marketingAttribution";
 
 Turbo.start();
 
@@ -55,6 +60,8 @@ const relatedSections = {
 };
 
 function render() {
+  initMarketingAttribution();
+
   const section = getCurrentSection();
   const optionalFilters = [];
   if (section) {
@@ -78,9 +85,15 @@ function render() {
 
   bindToggles();
   preserveScroll();
+  const checklistCleanup = initSecurityChecklist();
+  if (checklistCleanup) cleanupFunctions.push(checklistCleanup);
+  const animationsCleanup = initAnimations();
+  if (animationsCleanup) cleanupFunctions.push(animationsCleanup);
   initToc();
   attachCopyToClipboardButton("pre.highlight");
   themeToggle();
+  initPlainChat();
+  initPageRating();
 
   // Store cleanup function if component returns one
   const dropdownCleanup = initPageCopyDropdown();

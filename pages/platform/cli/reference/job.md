@@ -25,6 +25,7 @@ The `bk job` command allows you to manage jobs within builds from the command li
 | Command | Description |
 | --- | --- |
 | `bk job cancel` | Cancel a job. |
+| `bk job flaky-tests` | List failed tests currently labeled flaky by Test Engine for a failed job. |
 | `bk job list` | List jobs. |
 | `bk job log` | Get logs for a job. |
 | `bk job reprioritize` | Reprioritize a job. |
@@ -36,6 +37,10 @@ The `bk job` command allows you to manage jobs within builds from the command li
 ## Cancel a job
 
 Cancel a job.
+
+Other jobs in the build keep running; to cancel the whole build, use bk build
+cancel. A running job is canceling until its agent stops it. If the agent stops
+responding, Buildkite finishes the cancellation without it.
 
 ```bash
 bk job cancel <job-id> [flags]
@@ -52,7 +57,8 @@ bk job cancel <job-id> [flags]
 | Flag | Description |
 | --- | --- |
 | `-w`, `--web` | Open the job in a web browser after it has been cancelled |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -74,9 +80,72 @@ Cancel a job and open it in browser:
 bk job --yes cancel 0190046e-e199-453b-a302-a21a4d649d31 --web
 ```
 
+## List flaky test failures
+
+List failed tests currently labeled flaky by Test Engine for a failed job.
+
+List tests with failed executions for this job that Test Engine currently labels
+flaky. All result pages are fetched. Requires `read_builds` and `read_suites`
+token scopes. Executions must have the build.`job_id` tag matching the job UUID.
+Collectors normally derive this from `BUILDKITE_JOB_ID`; overridden or missing job
+metadata may prevent matches.
+
+These are current test labels, not a verdict that flakiness caused the job to
+fail. No matches does not mean not flaky: Test Engine data may be missing or
+incomplete.
+
+```bash
+bk job flaky-tests <job-id> [flags]
+```
+
+### Arguments
+
+| Argument | Description |
+| --- | --- |
+| `<job-id>` | Failed job UUID to inspect |
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
+
+### Examples
+
+```bash
+bk job flaky-tests 0190046e-e199-453b-a302-a21a4d649d31 --text
+```
+
+```bash
+bk job flaky-tests 0190046e-e199-453b-a302-a21a4d649d31 --json
+```
+
 ## List jobs
 
 List jobs.
+
+This command supports both server-side filtering (fast) and client-side
+filtering. When a build number is known, use --build to fetch its jobs directly.
+The pipeline can be passed with --pipeline or resolved from the current
+repository or config.
+
+Server-side filters: --pipeline, --build, --step-key, --group-key, --since,
+--until, --queue, --state
+
+Client-side filters: --duration, and --state without --queue or --build
+
+Without --build, the command fetches up to 200 builds for filtering by default.
+Use --no-limit to search further.
+
+Jobs can be filtered by queue, state, duration, and other attributes.
+When filtering by duration, you can use operators like >, <, >=, and <= to
+specify your criteria. Supported duration units are seconds (s), minutes (m),
+and hours (h).
 
 ```bash
 bk job list [flags]
@@ -89,13 +158,14 @@ bk job list [flags]
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | Pipeline slug (uses the selected organization), org/pipeline, or Buildkite pipeline URL. |
 | `--build=STRING` | Filter by build number (requires a resolvable pipeline) |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--duration=STRING` | Filter by duration (e.g. >10m, <5m, 20m) - supports >, <, >=, <= operators |
 | `--group-key=STRING` | Filter by group key (requires --build) |
 | `--json` | Output as JSON |
 | `--limit=100` | Maximum number of jobs to return |
 | `--no-limit` | Fetch all jobs (overrides --limit) |
-| `--order-by=STRING` | Order results by field (start_time, duration) |
+| `--order-by=STRING` | Order results by field (`start_time`, duration) |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--queue=STRING` | Filter by queue name |
 | `--since=STRING` | Filter jobs from builds created since this time (e.g. 1h, 30m) |
 | `--state=STATE,...` | Filter by job state |
@@ -199,11 +269,12 @@ bk job log <job-id> [flags]
 | `-b`, `--build-number=STRING` | Deprecated; ignored because job UUIDs no longer require pipeline or build context |
 | `-p`, `--pipeline=STRING` | Deprecated; ignored because job UUIDs no longer require pipeline or build context |
 | `--agent` | Format output to be optimal for LLM consumption (strips ANSI, deduplicates loops) |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--format="plain"` | Output rendering for --agent: plain or Markdown |
 | `--max-tokens=INT` | Hard ceiling on the estimated token count of --agent output (0 = unlimited) |
 | `--no-timestamps` | Strip timestamp prefixes from log output |
 | `--no-window` | Disable failure-focused windowing in --agent output (keep all lines) |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -252,7 +323,8 @@ bk job reprioritize <job-id> <priority> [flags]
 | --- | --- |
 | `-b`, `--build-number=STRING` | Deprecated; ignored because job UUIDs no longer require pipeline or build context |
 | `-p`, `--pipeline=STRING` | Deprecated; ignored because job UUIDs no longer require pipeline or build context |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -265,6 +337,9 @@ bk job reprioritize 0190046e-e199-453b-a302-a21a4d649d31 1
 ## Retry a job
 
 Retry a job.
+
+Use this command to retry build jobs. Structured output contains the new job
+returned by the API; use its id to follow the retry.
 
 ```bash
 bk job retry <job-id> [flags]
@@ -281,8 +356,9 @@ bk job retry <job-id> [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -324,7 +400,8 @@ bk job ssh <job-uuid>
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -337,6 +414,8 @@ bk job ssh 0190046e-e199-453b-a302-a21a4d649d31
 ## Unblock a job
 
 Unblock a job.
+
+Use this command to unblock build jobs.
 
 ```bash
 bk job unblock <job-id> [flags]
@@ -353,7 +432,8 @@ bk job unblock <job-id> [flags]
 | Flag | Description |
 | --- | --- |
 | `--data=STRING` | JSON formatted data to unblock the job |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -393,7 +473,8 @@ bk job vnc <job-uuid>
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 

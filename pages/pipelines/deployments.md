@@ -22,8 +22,9 @@ steps:
   - label: "🚀"
     command: "scripts/deploy"
     if: build.branch == 'main'
-    concurrency: 1
-    concurrency_group: "my-app-deploy"
+    concurrency:
+      limit: 1
+      group: "my-app-deploy"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -63,8 +64,9 @@ steps:
   # test builds, no matter which test builds finish first.
   - label: "Concurrency gate"
     command: "exit 0"
-    concurrency: 1
-    concurrency_group: "my-app-deploy-concurrency-gate"
+    concurrency:
+      limit: 1
+      group: "my-app-deploy-concurrency-gate"
 
   - wait
 
@@ -85,8 +87,9 @@ steps:
   - label: "🚀"
     command: "scripts/deploy"
     if: build.branch == 'main'
-    concurrency: 1
-    concurrency_group: "my-app-deploy"
+    concurrency:
+      limit: 1
+      group: "my-app-deploy"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -113,8 +116,9 @@ steps:
   - label: "🚀"
     command: "scripts/deploy"
     if: build.branch == 'main'
-    concurrency_group: "my-app-deploy"
-    concurrency: 1
+    concurrency:
+      limit: 1
+      group: "my-app-deploy"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -126,15 +130,16 @@ Until the block step is manually unblocked either in Buildkite or using an API c
 
 There are [Buildkite plugins](/docs/pipelines/integrations/plugins) available for various systems and tools. For example, the [ECS Deploy plugin](https://github.com/buildkite-plugins/ecs-deploy-buildkite-plugin) and the [AWS Lambda Deploy plugin](https://github.com/envato/lambda-deploy-buildkite-plugin).
 
-The following example shows how to use the ECS Deploy plugin to automatically deploy an pre-built Docker image to an [AWS ECS](https://aws.amazon.com/ecs/) service:
+The following example shows how to use the ECS Deploy plugin to automatically deploy a pre-built Docker image to an [AWS ECS](https://aws.amazon.com/ecs/) service:
 
 ```yaml
 steps:
   - block: "Deploy"
     prompt: "Deploy to production?"
   - label: "\:ecs\: 🚀"
-    concurrency: 1
-    concurrency_group: "rails-app-deploy"
+    concurrency:
+      limit: 1
+      group: "rails-app-deploy"
     plugins:
       - ecs-deploy#v1.3.0:
         cluster: "production"

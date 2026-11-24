@@ -50,6 +50,10 @@ To create a new Buildkite secret using the Buildkite interface:
 
 1. Select **Create Secret** to create your new secret, which can now be accessed within jobs through the `buildkite-agent secret get` command.
 
+### From GitHub Actions
+
+To move GitHub Actions repository secrets into Buildkite secrets, see [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets).
+
 ## Update a secret's value
 
 Buildkite secrets can only be updated by [cluster maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster), as well as [Buildkite organization administrators](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions).
@@ -156,7 +160,7 @@ Buildkite secrets are designed, with the following controls in place:
 
 - Secrets are encrypted in transit using TLS.
 - Secrets are always stored encrypted at rest.
-- All access to the secrets are logged.
+- All access to the secrets is logged.
 - Employee access to secrets is strictly limited and audited.
 
 ## Manage secrets using the REST API

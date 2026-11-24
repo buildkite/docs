@@ -9,7 +9,7 @@ toc: false
 
 ## Introduction
 
-In early 2024, Buildkite successfully completed an initial phase of work to begin migrating Buildkite Pipelines from using a single, very large PostgreSQL database, over to smaller, multiple database shards. Migrating customers from one large database to a series for smaller multiple shards allows Buildkite Pipelines' database access to be distributed across multiple entry points, thereby improving the performance of Buildkite Pipelines for all customers.
+In early 2024, Buildkite successfully completed an initial phase of work to begin migrating Buildkite Pipelines from using a single, very large PostgreSQL database, over to smaller, multiple database shards. Migrating customers from one large database to a series of smaller multiple shards allows Buildkite Pipelines' database access to be distributed across multiple entry points, thereby improving the performance of Buildkite Pipelines for all customers.
 
 This initial phase of work involved migrating some of Buildkite's largest customers (accounting for approximately half of the load on this original single database) over to smaller multiple shards, which greatly improved overall Buildkite Pipelines performance.
 

@@ -5,7 +5,7 @@ Buildkite can connect to a GitHub repository in your GitHub account or GitHub or
 To complete this integration, you need admin privileges for your GitHub repository.
 
 > 📘 Accessing private repositories
-> Connecting GitHub to Buildkite configures webhooks and commit statuses. If you use the full-access GitHub App with [Buildkite hosted agents](/docs/agent/buildkite-hosted), code access is included automatically. However, if you use [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) or the Limited Access GitHub App, you need to configure code access separately. The recommended approach is to store an SSH key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it with [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) in your pipeline YAML. Alternatively, self-hosted agents can use [GitHub App installation access tokens](#using-github-app-installation-access-tokens). For all options, see [Configuring access to private repositories](/docs/pipelines/source-control#configure-access-to-private-repositories).
+> Connecting GitHub to Buildkite configures webhooks and commit statuses. The full-access GitHub App also provides checkout credentials automatically for [Buildkite hosted agents](/docs/agent/buildkite-hosted). For self-hosted agents, enable [GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on a queue to use temporary, read-only credentials without installing SSH keys on your agents. If you use the Limited Access GitHub App or need SSH-based checkout, store an SSH key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it with [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets). For all options, see [Configuring access to private repositories](/docs/pipelines/source-control#configure-access-to-private-repositories).
 
 ## Connecting Buildkite and GitHub
 
@@ -20,8 +20,8 @@ If you want to [connect using OAuth](#connect-your-buildkite-account-to-github-u
 
 When you connect Buildkite to GitHub through a GitHub App, the **Repository Providers** page in your Buildkite organization settings presents two options:
 
-- **GitHub** — a Buildkite GitHub App with full access permissions. This app has read access to your repository code and metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds on [Buildkite-hosted agents](/docs/agent/buildkite-hosted), because Buildkite needs code access to clone your repository.
-- **GitHub (Limited Access)** — a limited-permissions Buildkite GitHub App. This app does not have code access, but has read access to metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture).
+- **GitHub** — a Buildkite GitHub App with full access permissions. This app has read access to your repository code and metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds on [Buildkite-hosted agents](/docs/agent/buildkite-hosted) or use Buildkite-managed GitHub App token checkout on self-hosted agents. Buildkite needs code access to obtain checkout credentials.
+- **GitHub (Limited Access)** — a limited-permissions Buildkite GitHub App. This app does not have code access, but has read access to metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) with customer-managed checkout credentials.
 
 ### Permissions comparison
 
@@ -38,12 +38,12 @@ When you connect Buildkite to GitHub through a GitHub App, the **Repository Prov
 
 ### Choosing the right option
 
-Select the full-access **GitHub** app if you use [Buildkite-hosted agents](/docs/agent/buildkite-hosted) to run builds.
+Select the full-access **GitHub** app if you use [Buildkite-hosted agents](/docs/agent/buildkite-hosted) or want Buildkite-managed GitHub App token checkout on self-hosted queues.
 
-Select the **GitHub (Limited Access)** app if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture).
+Select the **GitHub (Limited Access)** app if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) and manage checkout credentials yourself. This app cannot provide Buildkite-managed checkout tokens.
 
 > 📘 Using both GitHub Apps
-> If you use both Buildkite-hosted and self-hosted agents, you can install both apps and scope each to the relevant repositories. Alternatively, you can install only the full access **GitHub** app, which works with both agent types.
+> You can install both apps and scope each to the relevant repositories. Use the full-access app for repositories that need managed checkout credentials on either agent type, and the Limited Access app for self-hosted repositories where you manage credentials yourself. Alternatively, install only the full-access **GitHub** app, which works with both agent types.
 
 ## Connect your Buildkite account to GitHub using the GitHub App
 
@@ -55,7 +55,7 @@ Connecting Buildkite and GitHub using the GitHub App lets your GitHub organizati
 1. Open your Buildkite organization's **Settings**.
 1. Select [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers).
 1. Select **GitHub** or **GitHub (Limited Access)** depending on your requirements. See [GitHub repository provider options](#github-repository-provider-options) to determine which option is right for you.
-    <%= image "repository-providers.png", alt: "Screenshot of the Buildkite Repository Providers" %>
+    <%= image "repository-providers.png", width: 1956/2, height: 2090/2, alt: "Repository Providers selected in Settings, with GitHub and GitHub (Limited Access) highlighted in the complete Add Provider list" %>
 1. Select **Connect to a new GitHub Account**. If you have never connected your Buildkite and GitHub accounts before, you will first need to select **Connect** and authorize Buildkite.
 1. Select the GitHub organization you want to connect to your Buildkite organization.
 1. Choose which repositories Buildkite should have access to, then select **Install**.
@@ -74,15 +74,16 @@ The **GitHub** (full access) option additionally requests read access to code, w
 
 ## Set up a new pipeline for a GitHub repository
 
-To run GitHub Actions workflows, use the recommended [GitHub Actions pipeline setup](/docs/pipelines/migration/run-github-actions-workflows). It creates a GitHub Actions pipeline trigger with its own signed repository webhook and skips the traditional webhook setup below.
+To run GitHub Actions workflows, use the recommended [GitHub Actions Compatibility setup](/docs/pipelines/migration/run-github-actions-workflows). When workflows are detected, the **New Pipeline** page selects **Run GitHub Actions workflows on Buildkite**. Review the detected workflows and pipeline settings, then select **Create GitHub Actions pipeline**. This creates an enabled GitHub Actions pipeline trigger with its own signed repository webhook and skips the traditional webhook setup below. Matching workflow events create one build per matching workflow.
 
-For a native Buildkite pipeline:
+For native Buildkite Pipelines steps, use regular setup:
 
 1. Select **Pipelines** > **New pipeline**.
 1. Enter your pipeline details, including your GitHub repository URL in the form `git@github.com:your/repo`.
 
     <%= image "new-pipeline-page.png", width: 2136/2, height: 1132/2, alt: "Screenshot of adding a new pipeline" %>
 
+1. If GitHub Actions setup is selected, select **Configure Buildkite pipeline** to use the regular editor.
 1. If you are still using the web steps visual editor, add at least one step to your pipeline. Refer to [Defining Steps - Adding steps](/docs/pipelines/configure/defining-steps#adding-steps) for more information.
 1. Select **Create Pipeline**.
 1. Follow the onscreen instructions to set up a webhook:
@@ -127,7 +128,7 @@ You can enable additional pull request actions to trigger builds:
 
 You can also configure these **Pull request webhook options** (these options may also affect builds triggered by pull request reviews and comments):
 
-- **Allow builds from third-party forked repositories**: allow builds to be created for pull requests opened from third-party forks. Make sure to check the [managing secrets](/docs/pipelines/security/secrets/managing) guide if you choose to do this.
+- **Allow builds from third-party forked repositories**: allow builds to be created for pull requests opened from third-party forks. Fork code can modify pipeline scripts and access credentials available to its jobs. Restrict [Buildkite secret access policies](/docs/pipelines/security/secrets/buildkite-secrets/access-policies) and isolate untrusted jobs. This setting doesn't enable fork pull requests for [GitHub Actions pipeline triggers](/docs/pipelines/migration/run-github-actions-workflows/security#fork-pull-requests).
 - **Limit pull request branches**: filter which branches trigger pull request builds
 - **Skip when pull request has existing build for commit and branch**: skip creating a duplicate build if one already exists for the same commit and branch. This option is enabled by default.
 - **Skip when pull request is closed or merged**: skip creating a new build for a pull request that's closed or merged, useful for ignoring late activity from automated housekeeping (such as label changes from bots) on closed pull requests. This option is enabled by default.
@@ -136,7 +137,9 @@ You can also configure these **Pull request webhook options** (these options may
 
 Even when **Skip when pull request source is default branch** is disabled, Buildkite Pipelines skips pull request builds whose source branch is the default branch if **Build when pull request is opened or updated** is also disabled.
 
-If you want to control which third-party forks can trigger builds in GitHub, you can prefix the branches from third-party forks with the contributor's username. For example, the `main` branch from `some-user` becomes `some-user:main`. You can then detect these using a pre-command hook or something similar before running a build. To enable prefixing the branch names, go to the GitHub settings for the pipeline and select **Prefix third-party fork branch names**.
+To distinguish fork branches from branches in your repository, go to the GitHub settings for the pipeline and select **Prefix third-party fork branch names**. For example, the `main` branch from `some-user` becomes `some-user:main`. Prefixing prevents that fork branch from matching a secret access policy condition such as `build_branch: main`. Other policy rules can still grant access. Review the entire policy.
+
+If you enforce fork restrictions with hooks, use [agent hooks](/docs/agent/hooks#hook-locations-agent-hooks), not repository hooks controlled by the fork. On self-hosted agents, [disable local hooks](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-disable-local-hooks). This prevents repository hooks from overriding the agent hooks. A `pre-command` hook runs after checkout and isn't a pre-execution approval boundary.
 
 If you want to run builds only on pull requests, set the **Branch Filter Pattern** in the pipeline to a branch name that will never occur (such as "this-branch-will-never-occur"). Pull request builds ignore the **Branch Filter Pattern**, and all pushes to other branches that don't match the pattern are ignored.
 
@@ -146,6 +149,30 @@ When you create a pull request, two builds are triggered: one for the pull reque
 > Rebuilding a pull request build replays the pull request data captured when the original build was created, including labels, draft state, base branch, and repository. A rebuild doesn't fetch the current pull request state from GitHub. If a label has been added or removed, or the pull request has been moved out of draft since the original build, the rebuild won't reflect those changes.
 > To run a build against the current pull request state, enable the relevant trigger from the pull request actions listed above. For example, **Build when pull request labels are changed** or **Build when pull request becomes ready for review**. Each trigger creates a new build from the webhook payload, so labels, draft state, and base branch reflect the pull request at the time of the event.
 
+### Filtering review requests
+
+To create builds only when a particular GitHub user or team is requested to review a pull request, enable **Build when a review is requested** and **Filter builds using a conditional** in the pipeline's GitHub settings. For example, this [pipeline-level conditional](/docs/pipelines/configure/conditionals#conditionals-in-pipelines) creates builds only for review requests targeting the GitHub user `octocat`:
+
+```text
+build.source_event == "pull_request" &&
+build.source_action == "review_requested" &&
+build.pull_request.requested_reviewer == "octocat"
+```
+
+To build only when the GitHub team `platform-engineering` is requested, use its slug instead of its display name:
+
+```text
+build.source_event == "pull_request" &&
+build.source_action == "review_requested" &&
+build.pull_request.requested_team == "platform-engineering"
+```
+
+These expressions exclude builds for other events. GitHub sends a separate webhook event for each requested reviewer or team. These variables identify the target of that specific event, not the person who sent the request or all outstanding review requests. A request for another reviewer does not match just because `octocat` is already requested on the pull request.
+
+Both variables preserve GitHub's values. String comparisons are case-sensitive. The reviewer variable is `null` for team requests, and the team variable is `null` for user requests. Both are `null` for unrelated events or actions, or when the original webhook is unavailable. The **Build when a review is requested** option does not trigger builds when a review request is removed.
+
+If [**Cancel Intermediate Builds**](/docs/pipelines/configure/canceling-builds#cancel-running-intermediate-builds) is enabled, use the pipeline-level filter rather than only a step-level `if`. A nonmatching request then creates no build and does not cancel an existing build. Multiple requests that match the filter still follow the pipeline's normal branch-wide cancellation behavior.
+
 ### Building the test merge commit
 
 By default, Buildkite Pipelines runs pull request builds against the head commit of the pull request branch (`refs/pull/<N>/head`). You can instead have the Buildkite agent check out the GitHub-computed test merge commit (`refs/pull/<N>/merge`), which represents the speculative result of merging the change into its base branch.
@@ -153,7 +180,7 @@ By default, Buildkite Pipelines runs pull request builds against the head commit
 This is useful when you want builds to reflect the post-merge state of the code, rather than the pull request branch in isolation.
 
 > 📘 Private preview
-> This feature is in private preview. Contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization.
+> This feature is in private preview. Contact [Buildkite support](mailto:support@buildkite.com) to have it enabled for your organization.
 
 To use this feature, three things need to be in place:
 
@@ -250,7 +277,7 @@ Your existing trigger settings are preserved, and commit status settings remain 
 
 Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds from a broader set of GitHub webhook events. These are configured in the **Additional Webhooks** section of your pipeline's GitHub settings and require the **Code** trigger mode (except where noted).
 
-- **Pull request reviews**: trigger builds when a review is submitted or dismissed. `BUILDKITE_BUILD_AUTHOR` identifies the author of the pull request's head commit when cached or persisted commit context is available. Otherwise, it identifies the webhook sender. With strict creator semantics, `BUILDKITE_BUILD_CREATOR` identifies the webhook sender when their GitHub identity is linked to a Buildkite user with access to the organization. It is empty when no eligible linked Buildkite user exists. Without strict creator semantics, a linked commit author takes precedence over a linked webhook sender. If neither identity is linked, `BUILDKITE_BUILD_CREATOR` can fall back to commit-author or webhook-sender information. For dismissed reviews, the webhook sender can be the user who dismissed the review rather than the original reviewer.
+- **Pull request reviews**: trigger builds when a review is submitted or dismissed. `BUILDKITE_BUILD_AUTHOR` identifies the author of the pull request's head commit when cached or persisted commit context is available. Otherwise, it identifies the webhook sender. With strict creator semantics, `BUILDKITE_BUILD_CREATOR` identifies the webhook sender when their GitHub identity is linked to a Buildkite user with access to the organization. It is empty when no eligible linked Buildkite user exists. Without strict creator semantics, a linked commit author takes precedence over a linked webhook sender. If neither identity is linked, `BUILDKITE_BUILD_CREATOR` can fall back to commit-author or webhook-sender information. For dismissed reviews, the webhook sender can be the user who dismissed the review rather than the original reviewer. To create builds only for approved reviews, use **Filter builds using a conditional** in the pipeline's GitHub settings with `build.source_event` and `BUILDKITE_GITHUB_REVIEW_STATE`. For example, `build.source_event != "pull_request_review" || build.env("BUILDKITE_GITHUB_REVIEW_STATE") == "approved"` creates a build for a review only when it's approved, while leaving other event types unaffected. Unlike a step-level `if` condition, this rejects non-approved reviews before a build is created.
 - **Check runs**: trigger builds when a check run from another GitHub App completes. Check runs from Buildkite Pipelines are automatically skipped to prevent feedback loops.
 - **Releases**: trigger builds when a GitHub release is published, created, or released.
 - **Issue comments**: trigger builds from comments on pull requests. Comments must match a configurable command word (default: `/bk`) and come from a trusted author. A commenter is trusted if GitHub reports their association as owner, member, or collaborator. They are also trusted if their GitHub account is linked to a Buildkite user who has build permission on the pipeline. Supports `exact` (default) and `contains` match modes.
@@ -269,7 +296,7 @@ Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds f
 ### Running builds on issue activity
 
 > 📘 Private preview
-> Running builds on issue activity is in private preview. Contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization.
+> Running builds on issue activity is in private preview. Contact [Buildkite support](mailto:support@buildkite.com) to have it enabled for your organization.
 
 To enable issue activity builds, select **Pipelines** > your pipeline > **Settings** > **GitHub**. In **Additional Webhooks**, expand **Issue activity**, then select **Build on GitHub issue activity**. This option is only available for GitHub.com pipelines that use the full-access **GitHub** App. It isn't available for GitHub Enterprise Server pipelines.
 
@@ -304,11 +331,14 @@ GitHub webhook-triggered builds expose environment variables for pipeline interp
 - `BUILDKITE_GITHUB_DEPLOYMENT_ID`: the deployment ID (deployment status events)
 - `BUILDKITE_GITHUB_ISSUE_NUMBER`: the number of the issue that triggered the build (issue events)
 
+**Available in pipeline-level build conditionals, but not at runtime:**
+
+- `BUILDKITE_GITHUB_REVIEW_STATE`: the review state (`approved`, `changes_requested`, and so on)
+
 **Not available at runtime or in pipeline-level build conditionals:**
 
 - `BUILDKITE_GITHUB_CHECK_RUN_NAME`, `BUILDKITE_GITHUB_CHECK_RUN_CONCLUSION`: check run details
 - `BUILDKITE_GITHUB_RELEASE_TAG`, `BUILDKITE_GITHUB_RELEASE_DRAFT`, `BUILDKITE_GITHUB_RELEASE_PRERELEASE`: release details
-- `BUILDKITE_GITHUB_REVIEW_STATE`: the review state (`approved`, `changes_requested`, and so on)
 - `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE`, `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT`: deployment status details
 - `BUILDKITE_GITHUB_PULL_REQUEST_STACK_POSITION`, `BUILDKITE_GITHUB_PULL_REQUEST_STACK_SIZE`, `BUILDKITE_GITHUB_PULL_REQUEST_STACK_BASE_BRANCH`: pull request stack details
 
@@ -322,11 +352,11 @@ The commit status is the label used to identify the Buildkite checks on your com
 
 For example, if you select **Update commit statuses** in the **GitHub Commit Statuses** section of your pipeline's GitHub settings:
 
-<%= image "update-commit-statuses-on.png", alt: "Screenshot of GitHub build settings with Update commit statuses enabled" %>
+<%= image "update-commit-statuses-on.png", width: 1374/2, height: 990/2, alt: "Expanded Commit statuses settings with Update commit statuses selected" %>
 
 Your checks will appear on your pull request as **buildkite/your-pipeline-name**:
 
-<%= image "github-default-status.png", alt: "Screenshot of the resulting GitHub pull request statuses" %>
+<%= image "github-default-status.png", width: 1598/2, height: 266/2, alt: "GitHub pull request checks showing a successful default Buildkite commit status" %>
 
 You can customize the commit statuses, for example, to reuse the same pipeline for multiple components in a monorepo, at both the build and step level, using the [`notify`](/docs/pipelines/configure/notify) attribute in your `pipeline.yml`.
 
@@ -432,6 +462,7 @@ To reduce your GitHub API usage:
 
 - Disable **Create a status for each job** on pipelines with high job counts, and rely on the single pipeline-level commit status instead.
 - Review which pipelines have **Update commit statuses** enabled, and disable it for pipelines where GitHub status reporting is not needed.
+- For pipelines that pass most of the time, disable **Update commit statuses** (this also stops the per-job statuses from **Create a status for each job**) and use a conditional [`github_commit_status` notification](/docs/pipelines/configure/notify#github-commit-status-report-only-failures-and-recoveries) to report only failed builds and the first passing build after a failure. Don't use this conditional for a required status check.
 
 ### Raising your rate limit
 
@@ -461,13 +492,13 @@ You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
 ## Workflow-scoped GitHub access tokens
 
-Jobs in a GitHub.com pipeline can request a short-lived, repository-scoped GitHub access token using the [Buildkite GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) connection. Requested permissions are checked against a `permissions` map declared in a workflow file at the build's exact commit, so a job can only receive permissions the repository has explicitly allowed for that commit.
+Jobs in a GitHub.com or GitHub Enterprise Server (GHES) pipeline can request a short-lived, repository-scoped GitHub access token using a GitHub App connection with code access enabled. Requested permissions are checked against a `permissions` map declared in a workflow file at the build's exact commit, so a job can only receive permissions the repository has explicitly allowed for that commit.
 
 To use this feature, the following requirements must be met:
 
-1. The pipeline uses the full-access **GitHub** repository provider. The **GitHub (Limited Access)** provider isn't supported because it doesn't provide code access.
+1. The pipeline uses the full-access [**GitHub** repository provider](#connect-your-buildkite-account-to-github-using-the-github-app) or a [GHES GitHub App connection](/docs/pipelines/source-control/github-enterprise#github-app) with code access enabled. The **GitHub (Limited Access)** provider and legacy GHES OAuth integration aren't supported.
 1. The job runs on a [Buildkite-hosted agent](/docs/agent/buildkite-hosted).
-1. In the **GitHub Workflow Access Tokens** section of the pipeline's GitHub settings, **Allow workflow-authorized GitHub access tokens** is selected. This checkbox only appears for pipelines connected to GitHub.com using the GitHub App (not GitHub Enterprise Server).
+1. Workflow-authorized GitHub access tokens are enabled for the pipeline. For GitHub.com, select **Allow workflow-authorized GitHub access tokens** in the **GitHub Workflow Access Tokens** section of the pipeline's GitHub settings. For GHES, [GitHub Actions setup](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline) enables this setting automatically. The checkbox isn't available for GHES; contact the Buildkite Support team to change the setting.
 
 > 🚧 Protect workflow-scoped tokens
 > Enabling this setting acknowledges that eligible jobs execute trusted code and may request write access to the pipeline's repository.
@@ -537,7 +568,7 @@ A requested permission is only granted when it's allowed by all of the following
 
 ### Restrictions
 
-- Only available for pipelines connected to GitHub.com using the GitHub App. GitHub Enterprise Server repositories aren't supported.
+- Only available for GitHub.com and GHES pipelines using a GitHub App connection with code access enabled. Tokens remain scoped to the pipeline repository and its App installation; there is no personal access token fallback.
 - Pull request builds, and any build triggered or rebuilt from a pull request build, can only request `contents: read`, regardless of what permissions the pull request's own workflow file declares.
 - Builds in a GitHub merge queue, including builds created by pushes to `gh-readonly-queue/*` branches, and any build triggered or rebuilt from one, can't request workflow-scoped tokens.
 - The build's commit must be a full, immutable commit SHA, and Buildkite must be able to resolve its complete trigger and rebuild history of up to 100 unique builds. Histories with more than 100 unique builds or incomplete histories are denied.
@@ -546,6 +577,8 @@ A requested permission is only granted when it's allowed by all of the following
 - The selected workflow file must not exceed 128 KiB.
 
 ## Using GitHub App installation access tokens
+
+For automatic checkout credentials without managing your own GitHub App or private key, enable [Buildkite-managed GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on your self-hosted queue instead. The instructions below are for creating and managing your own GitHub App and token-generation hook.
 
 > 📘 The difference between repository authentication and account connection
 > Configuring a GitHub App for repository authentication is different from using the [Buildkite GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) to connect your Buildkite account to GitHub.

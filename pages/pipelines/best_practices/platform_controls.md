@@ -3,7 +3,7 @@
 This guide covers how platform (infrastructure) teams can maintain centralized control while giving developer (engineering) teams the flexibility they need to run and observe pipelines in your Buildkite organization.
 
 > 📘
-> If you're looking for in-depth information on security controls, see [Enforcing security controls](/docs/pipelines/best-practices/security-controls).
+> If you're looking for in-depth information on security controls, see the [Security checklist](/docs/platform/security/checklist).
 
 ## Concept of platform management
 
@@ -81,7 +81,7 @@ See more in [Monitoring and observability](/docs/pipelines/best-practices/monito
 
 ## Setting up notifications for platform teams
 
-Timely [notifications](/docs/pipelines/configure/notify) help platform teams keep builds healthy without manually watching dashboards. In Buildkite Pipelines, you can enable the following notifications types:
+Timely [notifications](/docs/pipelines/configure/notify) help platform teams keep builds healthy without manually watching dashboards. In Buildkite Pipelines, you can enable the following notification types:
 
 - [Basecamp](/docs/pipelines/configure/notify#basecamp-campfire-message)
 - [Email](/docs/pipelines/configure/notify#email)
@@ -216,6 +216,6 @@ By embedding these contextual links directly in build output, you reduce the tim
 
 The following are the key areas we recommend you to focus on next:
 
-- [Security controls](/docs/pipelines/security/enforcing-security-controls)
+- [Security checklist](/docs/platform/security/checklist)
 - [Monitoring and observability](/docs/pipelines/best-practices/monitoring-and-observability) strategies
 - [Integration](/docs/pipelines/integrations) with your existing infrastructure

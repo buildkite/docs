@@ -29,7 +29,7 @@ You will need them to restore access to your account if you lose access to your 
 
 <%= image "2fa-5.png", width: 606, height: 732, alt: "Screenshot of Recovery Codes for Two-Factor Authentication" %>
 
-Saved your recovery codes and proceed.
+Save your recovery codes and proceed.
 
 ### Step 2: Configure authenticator application
 

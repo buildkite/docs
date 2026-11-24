@@ -42,7 +42,7 @@ When you create a new pipeline in Buildkite:
 **Full Access** on a pipeline allows you to:
 
 - View and create builds or rebuilds.
-- Cancel builds, and retry, cancel, or reprioritize jobs.
+- Cancel builds, and retry, cancel, or reprioritize jobs. [Reprioritizing a job](/docs/apis/rest-api/jobs#reprioritize-a-job) also requires [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) or organization administrator permissions if the job's cluster [restricts job reprioritization](/docs/pipelines/security/clusters/manage#restrict-job-reprioritization-to-cluster-maintainers). Reprioritizing a job that isn't assigned to a cluster only requires **Build** access.
 - Create or delete annotations on builds.
 - Delete job logs and artifacts.
 - Connect to running jobs on Buildkite hosted agents using [terminal access](/docs/agent/buildkite-hosted/terminal-access). This also requires [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) permissions on the pipeline's cluster, or Buildkite organization administrator permissions.
@@ -84,6 +84,7 @@ When you create a new test suite in Buildkite:
 - Provide access to other users, by adding the test suite to other teams that you are a [team maintainer](#manage-teams-and-permissions-team-level-permissions) on.
 - Configure test splitting.
 - Create and edit workflows.
+- Customize the widget layout of the test suite's **Summary** page.
 
 Any user with **Full Access** permission to a test suite can change its permission to **Read Only**, which allows you to view test runs only, but _not_:
 

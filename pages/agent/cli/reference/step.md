@@ -14,7 +14,7 @@ Use this command in your build scripts to update the step attributes. The follow
 
 ## Getting a step
 
-Use this command in your build scripts to get the value of a particular attribute from a step. The following attributes values can be retrieved:
+Use this command in your build scripts to get the value of a particular attribute from a step. The following attribute values can be retrieved:
 
 * `agents`
 * `command`

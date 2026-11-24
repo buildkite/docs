@@ -37,7 +37,7 @@ When running multiple commands, either defined in a single line (`npm install &&
 The results of running the commands defined in separate command steps are not guaranteed to be available to the subsequent command steps as those steps could be running on a different machine in the [cluster queue](/docs/agent/queues/managing#setting-up-queues).
 
 > 📘 Commands and `PATH`
-> The shell command(s) provided for execution must be resolvable through the directories defined within the `PATH` environment variable. When referencing scripts for execution, preference using a relative path (for example, `./scripts/build.sh`, or `scripts/bin/build-prod`).
+> The shell command(s) provided for execution must be resolvable through the directories defined within the `PATH` environment variable. When referencing scripts for execution, prefer using a relative path (for example, `./scripts/build.sh`, or `scripts/bin/build-prod`).
 
 ## Command step attributes
 
@@ -122,23 +122,19 @@ Optional attributes:
   <tr>
     <td><code>concurrency</code></td>
     <td>
-      The <a href="/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. If you use this attribute, you must also define a label for it with the <code>concurrency_group</code> attribute.<br/>
-      <em>Example:</em> <code>3</code>
+      A map of concurrency settings: <code>limit</code>, <code>group</code>, <code>method</code>, and <code>cancel_in_progress</code>. Controls the <a href="/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-limits">maximum number of jobs</a> allowed to run at the same time. Also accepts an integer with top-level group and method attributes, or <code>null</code> to disable concurrency. See <a href="#concurrency-attributes">Concurrency attributes</a>.
     </td>
   </tr>
   <tr>
     <td><code>concurrency_group</code></td>
     <td>
-      A unique name for the concurrency group that you are creating. If you use this attribute, you must also define the <code>concurrency</code> attribute.<br/>
-      <em>Example:</em> <code>"my-app/deploy"</code>
+      Supported top-level alternative to <code>group</code> in the <a href="#concurrency-attributes">concurrency map</a>. Use the map for new configurations.
     </td>
   </tr>
   <tr>
     <td><code>concurrency_method</code></td>
     <td>
-      This attribute provides control of the scheduling method for jobs in a <a href="/docs/pipelines/configure/workflows/controlling-concurrency">concurrency group</a>. With the <code>"ordered"</code> value set, the jobs run sequentially in the order they were queued, while the <code>"eager"</code> value allows jobs to run as soon as resources become available. If you use this attribute, you must also define the <code>concurrency</code> and <code>concurrency_group</code> attributes.<br/>
-      <em>Default:</em> <code>"ordered"</code><br/>
-      <em>Example:</em> <code>"eager"</code>
+      Supported top-level alternative to <code>method</code> in the <a href="#concurrency-attributes">concurrency map</a>. Accepts <code>ordered</code> (the default) or <code>eager</code>. Use the map for new configurations.
     </td>
   </tr>
   <tr>
@@ -411,8 +407,8 @@ For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step'
     <td>
       <p>Whether the agent should verify that the commit being built exists on the specified branch. For Buildkite agent v4, set the value to <code>strict</code> to fail the job when the agent determines that the commit is not on the branch. Set the value to <code>off</code> to skip verification. An empty value causes job bootstrap to fail.</p>
       <p>For Buildkite agent v3, use v3.136.0 or later for commit verification. In addition to <code>strict</code>, v3 accepts <code>warn</code> to emit a warning without failing the job when the commit is not on the branch. An empty value skips verification. A job-supplied <code>off</code> value uses warning behavior rather than skipping verification.</p>
-      <p>If the agent cannot complete the check (for example, due to a shallow clone that cannot be deepened), it warns and continues, even in <code>strict</code> mode. The value is emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_COMMIT_VERIFICATION"><code>BUILDKITE_GIT_COMMIT_VERIFICATION</code></a>. When omitted, the agent falls back to its own <code>--git-commit-verification</code> <a href="/docs/agent/self-hosted/configure#configuration-settings">configuration setting</a>. In v4, this setting defaults to <code>strict</code>. Agent v3 does not verify commits by default.</p>
-      <p>The agent skips verification for tag builds, pull request builds, builds where the commit is <code>HEAD</code>, builds with no branch set, and builds using a custom refspec. These skips also apply in <code>strict</code> mode. See the <a href="/docs/pipelines/configure/git-checkout#commit-verification">commit verification limitations</a> before relying on this check to grant protected-branch privileges.</p>
+      <p>If the agent cannot complete the check (for example, due to a shallow clone that cannot be deepened), it warns and continues, even in <code>strict</code> mode. The value is emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_COMMIT_VERIFICATION"><code>BUILDKITE_GIT_COMMIT_VERIFICATION</code></a>. When omitted, the agent falls back to its own <code>--git-commit-verification</code> <a href="/docs/agent/self-hosted/configure#configuration-settings">configuration setting</a>. In v4, this setting defaults to <code>strict</code>. Agent v3 does not verify commits by default. In Buildkite agent v4.7.0 or later, the agent configuration setting also accepts <code>fail-closed</code>, which requires verification to succeed. This value isn't available through <code>commit_verification</code>. See <a href="/docs/pipelines/configure/git-checkout#commit-verification-fail-closed-mode">fail-closed mode</a>.</p>
+      <p>In <code>strict</code> mode and in v3, the agent skips verification for tag builds, pull request builds, builds where the commit is <code>HEAD</code>, builds with no branch set, and builds using a custom refspec. See the <a href="/docs/pipelines/configure/git-checkout#commit-verification">commit verification limitations</a> before relying on <code>strict</code> mode alone to grant protected-branch privileges.</p>
       <em>Example:</em> <code>strict</code>
     </td>
   </tr>
@@ -456,7 +452,7 @@ steps:
   <tr>
     <td><code>adjustments</code></td>
     <td>
-      A array of <code>with</code> keys, each mapping an element to each dimension listed in the <code>array.setup</code>, as well as the attribute to modify for that combination.<br/>
+      An array of <code>with</code> keys, each mapping an element to each dimension listed in the <code>array.setup</code>, as well as the attribute to modify for that combination.<br/>
       Currently, only <code>soft_fail</code> and <code>skip</code> can be modified.
     </td>
   </tr>
@@ -498,6 +494,49 @@ To automatically cancel any remaining jobs as soon as any job in the build fails
 When a job fails, the build enters a _failing_ state. Other jobs with `cancel_on_build_failing: true` are automatically canceled, including jobs that are already running and jobs that are still waiting to start. Waiting jobs can include jobs whose dependencies are incomplete or that are blocked by a concurrency limit. After all remaining jobs have finished or been canceled, the build is marked as _failed_ due to the initial job failure.
 
 Jobs can also make the build enter `failing` before they finish by using [promise job failure](/docs/pipelines/configure/promise-job-failure). When a running job declares a promised hard failure, other running jobs with `cancel_on_build_failing: true` can be canceled before the declaring job exits.
+
+## Concurrency attributes
+
+Use the `concurrency` map to set a limit, group name, and scheduling method together:
+
+```yaml
+steps:
+  - command: "deploy.sh"
+    concurrency:
+      limit: 1
+      group: "my-app/deploy"
+      method: ordered
+```
+
+The map accepts the following attributes:
+
+Attribute | Description
+--------- | -----------
+`limit` | The maximum number of jobs allowed to run at the same time. A positive limit requires a nonempty group name. Omitting the limit or setting it to `null` disables concurrency. Zero retains the same behavior as integer `concurrency: 0`; it is not equivalent to `null`.
+`group` | The concurrency group name. Jobs with the same name share a group across pipelines in the organization. Accepts a string or `null`.
+`method` | The scheduling method: `ordered` (the default) or `eager`. Use `eager` to let ready jobs run without waiting for earlier jobs that are not ready. A value of `null` selects the default method.
+`cancel_in_progress` | When `true`, a job waiting for this concurrency group asks Buildkite Pipelines to cancel blocking jobs in the same group, instead of waiting for them to finish naturally. Cancellation is asynchronous and does not guarantee that only the latest job runs. Requires a positive `limit` and a nonempty `group`. Defaults to `false`. See [Canceling jobs in progress](/docs/pipelines/configure/workflows/controlling-concurrency#canceling-jobs-in-progress).
+{: class="two-column"}
+
+Set `concurrency: null` to disable concurrency for the step.
+
+### Compatibility with top-level attributes
+
+The integer syntax and top-level `concurrency_group` and `concurrency_method` attributes remain supported. Both syntaxes use the same concurrency groups and scheduling behavior. `cancel_in_progress` has no top-level equivalent, so set it inside the `concurrency` map.
+
+For example, this existing configuration is equivalent to the map above:
+
+```yaml
+steps:
+  - command: "deploy.sh"
+    concurrency: 1
+    concurrency_group: "my-app/deploy"
+    concurrency_method: ordered
+```
+
+When you combine a map with top-level attributes, a nested `group` or `method` takes precedence before server validation. An omitted key inherits the corresponding top-level value. An explicit `null` clears that value instead of inheriting it. For example, `method: null` overrides `concurrency_method: eager` and selects `ordered`. Setting `group: null` with a positive limit is invalid, even if `concurrency_group` is set.
+
+For concurrency group behavior and examples, see [Controlling concurrency](/docs/pipelines/configure/workflows/controlling-concurrency).
 
 ## Example
 
@@ -546,9 +585,10 @@ steps:
   - label: "\:shipit\: Deploy"
     command: "deploy.sh"
     branches: "main"
-    concurrency: 1
-    concurrency_group: "my-app/deploy"
-    concurrency_method: "eager"
+    concurrency:
+      limit: 1
+      group: "my-app/deploy"
+      method: eager
     retry:
       manual:
         allowed: false

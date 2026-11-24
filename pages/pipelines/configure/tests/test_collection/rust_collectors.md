@@ -26,7 +26,7 @@ Before you start, make sure Rust runs with access to [CI environment variables](
 
     Set the `BUILDKITE_ANALYTICS_TOKEN` environment variable to contain the token provided by the analytics project settings.
 
-    We try and detect several common CI environments based in the environment variables which are present. If this detection fails then the application will crash with an error. To force the use of a "generic CI environment" set the `CI` environment variable to any non-empty value.
+    We try and detect several common CI environments based on the environment variables which are present. If this detection fails then the application will crash with an error. To force the use of a "generic CI environment" set the `CI` environment variable to any non-empty value.
 
 1. Change your test output to JSON format:
 

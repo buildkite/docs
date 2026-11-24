@@ -26,6 +26,8 @@ Alternatively you can follow the [manual installation instructions](/docs/agent/
 
 ## SSH key configuration
 
+For GitHub repositories, you can use [Buildkite-managed GitHub App tokens](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) instead of installing SSH keys. Enable token checkout on your self-hosted queue to retrieve temporary, read-only credentials automatically.
+
 SSH keys should be copied to (or generated into) `~/.ssh/` for the user the agent is running as. For example, to generate a new private key which you can add to your source code host:
 
 ```bash

@@ -28,7 +28,7 @@ To pause an agent:
 
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster with the agent to pause.
-1. On the **Queues** page, select the queue with the agent to resume.
+1. On the **Queues** page, select the queue with the agent to pause.
 1. On the queue's details page, select the agent to pause.
 1. On the agent's details page, select **Pause Agent**.
 1. Enter a timeout (in minutes) and an optional note, and select **Yes, pause

@@ -11,7 +11,7 @@ steps:
     soft_fail:
       - exit_status: 1
     plugins:
-      - aws-assume-role-with-web-identity#v1.7.0:
+      - aws-assume-role-with-web-identity#v1.8.2:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
           session-tags:
             - organization_slug
@@ -20,7 +20,7 @@ steps:
       - ecr#v2.12.0:
           login: true
           account-ids: public.ecr.aws
-      - docker-compose#v5.14.0:
+      - docker-compose#v5.17.0:
           run: muffet
           shell: false
           upload-container-logs: always
@@ -30,6 +30,7 @@ steps:
       - ".buildkite/steps/muffet_results_internal.json"
 
   - label: ":earth_asia: Check for external link issues"
+    timeout_in_minutes: 6
     env:
       RAILS_ENV: production
       LINK_CHECK_MODE: external
@@ -38,7 +39,7 @@ steps:
     soft_fail:
       - exit_status: 1
     plugins:
-      - aws-assume-role-with-web-identity#v1.7.0:
+      - aws-assume-role-with-web-identity#v1.8.2:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
           session-tags:
             - organization_slug
@@ -47,7 +48,7 @@ steps:
       - ecr#v2.12.0:
           login: true
           account-ids: public.ecr.aws
-      - docker-compose#v5.14.0:
+      - docker-compose#v5.17.0:
           run: muffet
           shell: false
           upload-container-logs: always
@@ -59,7 +60,7 @@ steps:
   - label: ":bell: Assign PR reviewer"
     if: build.branch != "main" && !build.pull_request.labels includes "Reviewer-assigned"
     soft_fail: true
-    command: bin/assign-reviewer
+    command: sh scripts/with-ca-trust.sh bin/assign-reviewer
     retry:
       manual:
         permit_on_passed: true
@@ -69,7 +70,7 @@ steps:
       GH_REPO: buildkite/docs-private
       DRY_RUN: "false"
     plugins:
-      - aws-assume-role-with-web-identity#v1.7.0:
+      - aws-assume-role-with-web-identity#v1.8.2:
           # Uses docs-private role for access to gh-token SSM parameter
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
           session-tags:
@@ -83,7 +84,7 @@ steps:
           parameters:
             GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
       - docker#v5.14.0:
-          image: "public.ecr.aws/docker/library/ruby:4.0.7-slim-bookworm"
+          image: "public.ecr.aws/docker/library/ruby:4.0.10-slim-bookworm"
           propagate-environment: true
           environment:
             - GH_REPO
@@ -98,7 +99,7 @@ steps:
     agents:
       queue: hosted
     plugins:
-      - aws-assume-role-with-web-identity#v1.7.0:
+      - aws-assume-role-with-web-identity#v1.8.2:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
           session-tags:
             - organization_slug
@@ -107,64 +108,64 @@ steps:
       - ecr#v2.12.0:
           login: true
           account-ids: public.ecr.aws
-      - docker-compose#v5.14.0:
+      - docker-compose#v5.17.0:
           run: app
           dependencies: false
       - .buildkite/plugins/check-for-changes:
           fail_message: "The GraphQL reference docs in this repository may have been edited manually. These docs are generated from '/data/graphql/schema.graphql', and a check to update this schema from the live Buildkite GraphQL API is run once each day, which will create a PR to update the GraphQL reference docs if necessary. If you need to implement changes manually to the '/data/graphql/schema.graphql' file, run `bundle exec rake graphql:generate` and commit the changes."
 
   - label: ":go: Check generated agent CLI docs"
-    command: ./scripts/update-agent-help.sh
+    command: sh scripts/with-ca-trust.sh ./scripts/update-agent-help.sh
     soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.14.0:
-          image: "golang:1.27"
+          image: "golang:1.27.4"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent CLI docs are out of date, or you edited their content in this repository. Run `scripts/update-agent-help.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
   - label: ":go: Check generated agent configuration docs"
-    command: ./scripts/update-agent-configuration.sh
+    command: sh scripts/with-ca-trust.sh ./scripts/update-agent-configuration.sh
     soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.14.0:
-          image: "golang:1.27"
+          image: "golang:1.27.4"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent configuration docs are out of date, or you edited their content in this repository. Run `scripts/update-agent-configuration.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
   - label: ":go: Check generated BK CLI docs"
-    command: ./scripts/update-bkcli-help.sh
+    command: sh scripts/with-ca-trust.sh ./scripts/update-bkcli-help.sh
     soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.14.0:
-          image: "golang:1.27"
+          image: "golang:1.27.4"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated Buildkite CLI docs are out of date, or you edited their content in this repository. Run `scripts/update-bkcli-help.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/cli`."
 
   - label: ":test_tube: Check generated agent experiments docs"
-    command: ./scripts/update-agent-experiments.sh
+    command: sh scripts/with-ca-trust.sh ./scripts/update-agent-experiments.sh
     soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.14.0:
-          image: "ruby:4.0.7-bookworm"
+          image: "ruby:4.0.10-bookworm"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent experiments page is out of date, or you edited its content in this repository. Run `scripts/update-agent-experiments.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent` (the `EXPERIMENTS.md` file)."
 
   - label: ":test_tube: Check generated agent versions directory docs"
-    command: ./scripts/update-agent-versions-directory.sh
+    command: sh scripts/with-ca-trust.sh ./scripts/update-agent-versions-directory.sh
     soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.14.0:
-          image: "ruby:4.0.7-bookworm"
+          image: "ruby:4.0.10-bookworm"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent versions directory page is out of date, or you edited its content in this repository. Run `scripts/update-agent-versions-directory.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
@@ -173,12 +174,16 @@ steps:
     steps:
       - label: ":prettier: Lint assets"
         commands:
-          - yarn
-          - npm run prettier-check
+          # Node.js 26+ images no longer bundle Yarn v1, so install it with npm.
+          - sh scripts/with-ca-trust.sh npm install --global yarn@1.22.22
+          - sh scripts/with-ca-trust.sh yarn
+          - sh scripts/with-ca-trust.sh npm run prettier-check
+          - sh scripts/with-ca-trust.sh npm run test:marketing-attribution
+          - node --test spec/frontend/*_test.mjs
         agents:
           queue: hosted
         plugins:
-          - aws-assume-role-with-web-identity#v1.7.0:
+          - aws-assume-role-with-web-identity#v1.8.2:
               role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
               session-tags:
                 - organization_slug
@@ -188,22 +193,22 @@ steps:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.14.0:
-              image: "public.ecr.aws/docker/library/node:24-alpine"
+              image: "public.ecr.aws/docker/library/node:26-alpine"
 
       - label: ":lint-roller: Linting text and markdown"
         agents:
           queue: hosted
         plugins:
-          - docker-compose#v5.14.0:
+          - docker-compose#v5.17.0:
               run: vale
               config: ./vale/docker-compose.yml
 
       - label: ":lint-roller: Linting for insensitive words"
-        command: npm run lint -y
+        command: sh scripts/with-ca-trust.sh npm run lint -y
         agents:
           queue: hosted
         plugins:
-          - aws-assume-role-with-web-identity#v1.7.0:
+          - aws-assume-role-with-web-identity#v1.8.2:
               role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
               session-tags:
                 - organization_slug
@@ -216,16 +221,16 @@ steps:
           # version, is way faster because we don't have to wait for Ruby gems to
           # install.
           - docker#v5.14.0:
-              image: "public.ecr.aws/docker/library/node:24-alpine"
+              image: "public.ecr.aws/docker/library/node:26-alpine"
 
       - label: "Validate YAML"
         command:
-          - npm run -y validate-agent-attributes-yaml
-          - npm run -y validate-environment-variables-yaml
+          - sh scripts/with-ca-trust.sh npm run -y validate-agent-attributes-yaml
+          - sh scripts/with-ca-trust.sh npm run -y validate-environment-variables-yaml
         agents:
           queue: hosted
         plugins:
-          - aws-assume-role-with-web-identity#v1.7.0:
+          - aws-assume-role-with-web-identity#v1.8.2:
               role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
               session-tags:
                 - organization_slug
@@ -235,14 +240,14 @@ steps:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.14.0:
-              image: "public.ecr.aws/docker/library/node:24-alpine"
+              image: "public.ecr.aws/docker/library/node:26-alpine"
 
       - label: ":lint-roller: :markdown: Linting the Markdown"
-        command: npm run -y mdlint
+        command: sh scripts/with-ca-trust.sh npm run -y mdlint
         agents:
           queue: hosted
         plugins:
-          - aws-assume-role-with-web-identity#v1.7.0:
+          - aws-assume-role-with-web-identity#v1.8.2:
               role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
               session-tags:
                 - organization_slug
@@ -252,14 +257,14 @@ steps:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.14.0:
-              image: "public.ecr.aws/docker/library/node:24-alpine"
+              image: "public.ecr.aws/docker/library/node:26-alpine"
 
       - label: ":snake: Linting markdown files for snake case"
-        command: npx -y @ls-lint/ls-lint@2.1.0
+        command: sh scripts/with-ca-trust.sh npx -y @ls-lint/ls-lint@2.1.0
         agents:
           queue: hosted
         plugins:
-          - aws-assume-role-with-web-identity#v1.7.0:
+          - aws-assume-role-with-web-identity#v1.8.2:
               role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
               session-tags:
                 - organization_slug
@@ -269,7 +274,7 @@ steps:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.14.0:
-              image: "public.ecr.aws/docker/library/node:24-alpine"
+              image: "public.ecr.aws/docker/library/node:26-alpine"
 
   - label: ":rspec: RSpec"
     depends_on: linting
@@ -281,7 +286,7 @@ steps:
     agents:
       queue: hosted
     plugins:
-      - aws-assume-role-with-web-identity#v1.7.0:
+      - aws-assume-role-with-web-identity#v1.8.2:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
           session-tags:
             - organization_slug
@@ -290,7 +295,7 @@ steps:
       - ecr#v2.12.0:
           login: true
           account-ids: public.ecr.aws
-      - docker-compose#v5.14.0:
+      - docker-compose#v5.17.0:
           run: app
           dependencies: false
           env:
@@ -312,7 +317,7 @@ steps:
     agents:
       queue: hosted
     plugins:
-      - aws-assume-role-with-web-identity#v1.7.0:
+      - aws-assume-role-with-web-identity#v1.8.2:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
           session-tags:
             - organization_slug
@@ -321,7 +326,7 @@ steps:
       - ecr#v2.12.0:
           login: true
           account-ids: public.ecr.aws
-      - docker-compose#v5.14.0:
+      - docker-compose#v5.17.0:
           build: app
 
   - label: ":junit: Test Summary"
@@ -351,7 +356,7 @@ steps:
     timeout_in_minutes: 3
     soft_fail: true
     plugins:
-      - aws-assume-role-with-web-identity#v1.7.0:
+      - aws-assume-role-with-web-identity#v1.8.2:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug
@@ -362,7 +367,7 @@ steps:
           parameters:
             GITHUB_TOKEN: /pipelines/buildkite/docs-private/github-token
       - docker#v5.14.0:
-          image: "golang:1.27-bookworm"
+          image: "golang:1.27.4-bookworm"
           propagate-environment: true
           environment:
             - "BUILDKITE_AGENT_ACCESS_TOKEN"
@@ -372,6 +377,7 @@ steps:
             - "GH_TOKEN=${GITHUB_TOKEN}"
           mount-buildkite-agent: true
     command: |
+      sh scripts/with-ca-trust.sh true
       curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg 2>/dev/null
       chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
       echo "deb [arch=$$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null

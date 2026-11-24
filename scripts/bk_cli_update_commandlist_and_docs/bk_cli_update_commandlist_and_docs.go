@@ -79,7 +79,7 @@ func main() {
 		delete(current, name)
 
 		// Delete the corresponding reference page
-		mdPath := filepath.Join(repoRoot, "pages", "platform", "cli", "reference", name+".md")
+		mdPath := filepath.Join(repoRoot, "pages", "platform", "cli", "reference", strings.ReplaceAll(name, "-", "_")+".md")
 		if err := os.Remove(mdPath); err != nil {
 			if os.IsNotExist(err) {
 				fmt.Fprintf(os.Stderr, "    %s does not exist, skipping\n", mdPath)

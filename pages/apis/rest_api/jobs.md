@@ -204,6 +204,125 @@ Error responses:
 </tbody>
 </table>
 
+## Get job concurrency
+
+Returns a job's [concurrency group](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-groups), its own concurrency limit, and the active jobs ahead of it in that group's queue.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/concurrency"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/concurrency"
+```
+
+```json
+{
+  "concurrency_group": {
+    "id": "018f1e2a-7c3d-7000-9b2a-1a2b3c4d5e6f",
+    "key": "deploy",
+    "scope": "custom",
+    "cluster_id": "018f1e2a-7c3d-7000-9b2a-6c7d8e9f0a1b"
+  },
+  "concurrency_limit": 3,
+  "state": "limited",
+  "jobs_ahead": {
+    "items": [
+      {
+        "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+        "name": ":package: Build",
+        "state": "running",
+        "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+        "pipeline_name": "my-pipeline",
+        "build_number": 1,
+        "current_state_since": "2015-05-09T21:06:05.000Z",
+        "concurrency_limit": 7,
+        "concurrency_method": "eager",
+        "priority": { "number": -4 }
+      }
+    ],
+    "order": ["scheduled_at", "position", "id"],
+    "scope": "subset_of_active_jobs_ahead_within_callers_scope_and_internal_limit",
+    "notice": "Submission order is not execution order. This is not a complete list of jobs holding up this job because of concurrency limits; an empty list does not establish that there are no blockers."
+  }
+}
+```
+
+### Response structure
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>concurrency_group</code></th>
+    <td>The job's concurrency group, or <code>null</code> when the job doesn't use one. <code>scope</code> is <code>custom</code> for a group named explicitly in the step's concurrency map, or <code>step</code> for a group key generated from the step itself. <code>cluster_id</code> is <code>null</code> for an unclustered group.</td>
+  </tr>
+  <tr>
+    <th><code>concurrency_limit</code></th>
+    <td>The job's own concurrency limit, read from its step configuration at the time the job was created. <code>null</code> when the job has no concurrency group.</td>
+  </tr>
+  <tr>
+    <th><code>state</code></th>
+    <td>The job's current <a href="/docs/pipelines/configure/defining-steps#job-states">state</a>.</td>
+  </tr>
+  <tr>
+    <th><code>jobs_ahead</code></th>
+    <td>Other active jobs ahead of this job in the concurrency group's queue. <code>items</code> is always empty unless the job's own <code>state</code> is <code>limited</code>.</td>
+  </tr>
+</tbody>
+</table>
+
+Each entry in `jobs_ahead.items` is in submission order, matching `jobs_ahead.order`:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>id</code></th>
+    <td>The predecessor job's UUID</td>
+  </tr>
+  <tr>
+    <th><code>name</code>, <code>state</code>, <code>web_url</code>, <code>pipeline_name</code>, <code>build_number</code></th>
+    <td>Identifying details for the predecessor job. <code>name</code> falls back to the job's command, truncated to 50 characters, when the job has no name.</td>
+  </tr>
+  <tr>
+    <th><code>current_state_since</code></th>
+    <td>When the first item in the list entered its current state. <code>null</code> for every other item.</td>
+  </tr>
+  <tr>
+    <th><code>concurrency_limit</code></th>
+    <td>That predecessor job's own concurrency limit</td>
+  </tr>
+  <tr>
+    <th><code>concurrency_method</code></th>
+    <td>That predecessor job's <a href="/docs/pipelines/configure/step-types/command-step#concurrency-attributes">scheduling method</a>, <code>ordered</code> or <code>eager</code>. <code>null</code> when the job's step configuration isn't available.</td>
+  </tr>
+  <tr>
+    <th><code>priority</code></th>
+    <td>That predecessor job's <a href="/docs/pipelines/configure/workflows/job-priority">priority</a></td>
+  </tr>
+</tbody>
+</table>
+
+`jobs_ahead.items` is capped and filtered to jobs in pipelines the access token can view, without being refilled after filtering. `jobs_ahead.scope` and `jobs_ahead.notice` describe this: don't treat an empty `items` list as proof that nothing is blocking the job.
+
+Required scope: `read_builds`
+
+Success response: `200 OK`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>404 Not Found</code></th>
+    <td><code>{ "message": "No job found" }</code></td>
+  </tr>
+</tbody>
+</table>
+
 ## Create a remote desktop session
 
 Creates connection details for a running command job on a macOS hosted agent. The response includes a short-lived access token. Use this endpoint to connect a VNC client to the job's desktop.
@@ -314,6 +433,110 @@ Error responses:
   <tr>
     <th><code>503 Service Unavailable</code></th>
     <td>The hosted agent provider could not create the SSH session, or could not supply valid SSH host keys for a Linux hosted job.</td>
+  </tr>
+</tbody>
+</table>
+
+## Cancel a job
+
+Cancels a command job that is `scheduled`, `reserved`, `assigned`, `accepted`, or `running`. A job that hasn't started running moves straight to `canceled`. A running job moves to `canceling` while its agent stops the job, and then moves to `canceled`.
+
+Canceling a job can cause its build to fail. Learn more in [Manually cancel a job](/docs/pipelines/configure/canceling-builds#manually-cancel-a-job).
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/cancel"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/cancel"
+```
+
+This endpoint doesn't use a request body. The response contains the canceled job. The following example shows a job that was running when it was canceled:
+
+```json
+{
+  "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+  "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
+  "type": "script",
+  "name": ":package: Build",
+  "step_key": "build",
+  "step": { "id": "...", "signature": null },
+  "priority": { "number": 0 },
+  "agent_query_rules": [],
+  "state": "canceling",
+  "build_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
+  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+  "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+  "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+  "artifacts_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/artifacts",
+  "command": "scripts/build.sh",
+  "soft_failed": false,
+  "exit_status": null,
+  "signal": null,
+  "signal_reason": null,
+  "broken_reason": null,
+  "artifact_paths": null,
+  "created_at": "2015-05-09T21:05:59.874Z",
+  "scheduled_at": "2015-05-09T21:05:59.874Z",
+  "runnable_at": "2015-05-09T21:06:00.000Z",
+  "concurrency_wait_time_ms": null,
+  "started_at": "2015-05-09T21:06:05.000Z",
+  "finished_at": null,
+  "expired_at": null,
+  "retried": false,
+  "retried_in_job_id": null,
+  "retries_count": null,
+  "retry_source": null,
+  "retry_type": null,
+  "parallel_group_index": null,
+  "parallel_group_total": null,
+  "matrix": null,
+  "agent": null,
+  "retried_by": null,
+  "cluster_id": null,
+  "cluster_url": null,
+  "cluster_queue_id": null,
+  "cluster_queue_url": null
+}
+```
+
+Required scope: `write_builds`
+
+The authenticated user must have permission to cancel the job.
+
+Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the <code>write_builds</code> scope, or the authenticated user does not have permission to cancel the job: <code>{ "message": "You’re not allowed to cancel this job" }</code></td>
+  </tr>
+  <tr>
+    <th><code>404 Not Found</code></th>
+    <td>The organization, pipeline, build, or job does not exist, or the job does not belong to the build.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "You can only cancel jobs that have started" }</code><br>The job is not in a state that can be canceled. For example, the job is waiting, blocked, finished, or already canceled.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "This job is already being canceled" }</code><br>The job is already <code>canceling</code>.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Only `command` jobs can be canceled" }</code><br>The job is not a command job.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "This job can't be canceled anymore" }</code><br>The job changed state while the cancellation was being processed.</td>
   </tr>
 </tbody>
 </table>
@@ -460,6 +683,8 @@ Required [request body properties](/docs/api#request-body-properties):
 
 Required scope: `write_builds`
 
+If the job's cluster is set to [restrict job reprioritization to cluster maintainers](/docs/pipelines/security/clusters/manage#restrict-job-reprioritization-to-cluster-maintainers), the authenticated user must also be a maintainer of that cluster or a Buildkite organization administrator. This setting doesn't apply to a job that isn't assigned to a cluster, which only requires pipeline **Build** access to reprioritize.
+
 Success response: `200 OK`
 
 Error responses:
@@ -469,6 +694,10 @@ Error responses:
   <tr>
     <th><code>400 Bad Request</code></th>
     <td><code>{ "message": "Priority must be an integer" }</code></td>
+  </tr>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td><code>{ "message": "You don’t have the required permissions for this cluster. Contact a cluster maintainer or organization administrator." }</code></td>
   </tr>
 </tbody>
 </table>

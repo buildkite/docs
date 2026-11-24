@@ -45,6 +45,9 @@ See [build states](/docs/pipelines/configure/defining-steps#build-states) and [j
 
 ## Configuring
 
+> 📘 Plan availability
+> On the 2026 plans, the Amazon EventBridge notification service is an [Enterprise plan](https://buildkite.com/pricing/) feature. Organizations on legacy plans retain their existing access, including the ability to add new Amazon EventBridge notification services.
+
 In your Buildkite [Organization's Notification Settings](https://buildkite.com/organizations/-/services), add an Amazon EventBridge notification service:
 
 <%= image "buildkite-add-eventbridge.png", width: 1458/2, height: 208/2, alt: "Screenshot of Add Buildkite Amazon EventBridge Button" %>
@@ -132,7 +135,7 @@ exports.handler = (event, context, callback) => {
 
 ## Amazon EventBridge guidance
 
-Amazon EventBridge's [CI/CD with Buildkite](https://aws.amazon.com/eventbridge/integrations/buildkite/) page on the AWS web site provides guidelines on how to integrate Amazon EventBridge with Buildkite to build workflows that evaluates build start events from Buildkite, to visualize build events from Buildkite, and to interpret build alerts from Buildkite.
+Amazon EventBridge's [CI/CD with Buildkite](https://aws.amazon.com/eventbridge/integrations/buildkite/) page on the AWS web site provides guidelines on how to integrate Amazon EventBridge with Buildkite to build workflows that evaluate build start events from Buildkite, to visualize build events from Buildkite, and to interpret build alerts from Buildkite.
 
 These examples make use of [AWS Step Functions](https://aws.amazon.com/step-functions/), [Amazon QuickSight](https://aws.amazon.com/quicksight/), as well as [Amazon SNS](https://aws.amazon.com/sns/) and [AWS Lambda](https://aws.amazon.com/lambda/).
 ## Example event payloads
@@ -576,7 +579,7 @@ These types of events [may contain a `signal_reason` field value](#signal-reason
 
 #### Signal reason in job finished events
 
-The `signal_reason` field of a [job finished](#example-event-payloads-job-finished) event is only be present when the `exit_status` field value in the same event is not `0`. The `signal_reason` field's value indicates the reason why a job was either stopped, or why the job never ran.
+The `signal_reason` field of a [job finished](#example-event-payloads-job-finished) event is only present when the `exit_status` field value in the same event is not `0`. The `signal_reason` field's value indicates the reason why a job was either stopped, or why the job never ran.
 
 | Signal Reason | Description |
 | --- | --- |

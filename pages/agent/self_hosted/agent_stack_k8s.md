@@ -42,4 +42,4 @@ Learn more about how to set up the Buildkite Agent Stack for Kubernetes from the
 
 ## Development and contributing
 
-Since the Buildkite Agent Stack for K8s is open source, you can make your own contributions to this project. Learn more about how to do this from in [Agent Stack K8s Development](https://github.com/buildkite/agent-stack-k8s/blob/main/DEVELOPMENT.md).
+Since the Buildkite Agent Stack for K8s is open source, you can make your own contributions to this project. Learn more about how to do this from [Agent Stack K8s Development](https://github.com/buildkite/agent-stack-k8s/blob/main/DEVELOPMENT.md).

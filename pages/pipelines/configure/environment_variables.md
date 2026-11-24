@@ -3,13 +3,18 @@
 When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/configure/defining-steps) and
 [job lifecycle hooks](/docs/agent/hooks#job-lifecycle-hooks).
 
-Environment variable size limits are dependent on the operating systems the agents are run on. When a program or process is started, it can typically accept inputs as either one or more environment variables in the form of `key=value` pairs, or a list (array) of command line arguments (referred to as a vector of arguments or `argv`). Depending on the operating system, these limits could be shared size limit across all such environment variables and `argv`, whereas others impose size limits per item (such as an environment variable's size limit).
+Environment variable size limits are dependent on the operating systems the agents are run on. When a program or process is started, it can typically accept inputs as either one or more environment variables in the form of `key=value` pairs, or a list (array) of command line arguments (referred to as a vector of arguments or `argv`). Depending on the operating system, these limits could be a shared size limit across all such environment variables and `argv`, whereas others impose size limits per item (such as an environment variable's size limit).
 
 For best practices and recommendations about using secrets in your environment variables, see the [Managing secrets](/docs/pipelines/security/secrets/managing) guide.
 
 ## Buildkite environment variables
 
-The following environment variables may be visible in your commands, plugins, and hooks.
+The following environment variables may be visible in your commands, plugins, and hooks. The labels explain where values come from and where they can be changed:
+
+- **Set by Buildkite**: Buildkite or the agent supplies this value. Hooks can change its runtime value, but this does not necessarily update the recorded build metadata or reconfigure the agent. Later phases may overwrite the value again.
+- **This value cannot be modified**: The agent supplies this value and rejects changes exported from job lifecycle hooks, including `environment` and `pre-checkout`. Where an exception is listed, change the indicated setting instead. Agent configuration changes must be made before starting the agent. Pipeline setting changes apply to future jobs.
+
+Variables without a label can be configured using the methods in their descriptions. Check each variable's description for restrictions.
 
 > 🚧 Unverified commits
 > Note that GitHub accepts <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification">unsigned commits</a>, including information about the commit author and passes them along to webhooks, so you should not rely on these for authentication unless you are confident that all of your commits are trusted.
@@ -42,8 +47,10 @@ The following environment variables may be visible in your commands, plugins, an
           <% end %>
           </ul>
         <% end %>
-        <% if !env['modifiable'] %>
-          <small>This value cannot be modified</small>
+        <% if env['modification_note'] %>
+          <small><%= env['modification_note'] %></small>
+        <% elsif !env['modifiable'] %>
+          <small>Set by Buildkite</small>
         <% end %>
       </th>
       <td>
@@ -131,13 +138,21 @@ If you're using the **YAML Steps editor** to define your pipeline, only the foll
 - `BUILDKITE_PIPELINE_NAME`
 - `BUILDKITE_PIPELINE_ID`
 - `BUILDKITE_ORGANIZATION_SLUG`
+- `BUILDKITE_ORIGIN_EVENT`
+- `BUILDKITE_ORIGIN_REVIEW_ID`
+- `BUILDKITE_ORIGIN_REVIEW_VERDICT`
 - `BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG`
 - `BUILDKITE_REPO`
 - `BUILDKITE_PULL_REQUEST`
 - `BUILDKITE_PULL_REQUEST_BASE_BRANCH`
+- `BUILDKITE_PULL_REQUEST_LABELS`
 - `BUILDKITE_PULL_REQUEST_REPO`
 - `BUILDKITE_MERGE_QUEUE_BASE_BRANCH`
 - `BUILDKITE_MERGE_QUEUE_BASE_COMMIT`
+
+The Origin review variables describe the triggering [submitted review](/docs/pipelines/source-control/origin#configure-build-triggers-conditional-filtering). The review ID is also available in jobs. The verdict (`approve`, `request_changes`, or `comment`) is available only in conditions and interpolation, not in job environments.
+
+For GitHub and Origin builds, `BUILDKITE_PULL_REQUEST_LABELS` uses the build's recorded labels as a comma-separated string during conditions and **YAML Steps editor** interpolation. In these contexts, recorded labels override a supplied environment value, and missing or empty labels resolve to an empty string. Literal `env("BUILDKITE_PULL_REQUEST_LABELS")` and `build.env("BUILDKITE_PULL_REQUEST_LABELS")` conditions are supported. Use `build.pull_request.labels` for an array of labels.
 
 Some variables, for example `BUILDKITE_BUILD_NUMBER`, cannot be supported in the **YAML Steps editor** as the interpolation happens before the build is created. In those cases, interpolate them at the [runtime](/docs/pipelines/configure/environment-variables#runtime-variable-interpolation).
 
@@ -145,13 +160,15 @@ Alternatively, you can also access the rest of the Buildkite [environment variab
 
 ## Runtime variable interpolation
 
-When using environment variables that will be evaluated at run-time, make sure you escape the `$` character using `$$` or `\$`. For example:
+When defining commands in pipeline YAML, escape references to variables that the shell should evaluate at runtime using `$$` or `\$`. This includes environment variables and shell variables assigned within the command. For example:
 
 ```yml
 - command: "deploy.sh $$SERVER"
   env:
     SERVER: "server-a"
 ```
+
+Buildkite Pipelines converts `$$SERVER` to `$SERVER` before the step runs, leaving the shell to expand the variable. These escapes apply to pipeline YAML, not to separate shell script files.
 
 Further details about environment variable interpolation can be found in the [pipeline upload](/docs/agent/cli/reference/pipeline#environment-variable-substitution) CLI guide.
 

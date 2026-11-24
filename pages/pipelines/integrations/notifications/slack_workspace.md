@@ -46,6 +46,8 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
+If your organization has more than one Slack Workspace integration, prefix Slack IDs in build-level notifications with the workspace slug (`workspace-slug@ID`, `workspace-slug#channel-name`). You can find the slug on the Slack Workspace integration's settings page, which you can access from your Buildkite organization's [**Notification Services** settings](https://buildkite.com/organizations/-/services).
+
 ### Mentions in build notifications
 
 The build's author is mentioned automatically when the build can be linked to a Buildkite user and that user's verified email matches the email on their Slack account. A build is linked to a Buildkite user when the email of the commit's Git author matches a verified Buildkite email or when the commit's source control user matches a connected account of a Buildkite user (managed under **Personal Settings > Connected Apps**). Both the Buildkite user and their Slack account must be in the connected organization and workspace.

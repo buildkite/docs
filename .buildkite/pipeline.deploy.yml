@@ -11,7 +11,7 @@ steps:
     agents:
       queue: hosted
     plugins:
-      - aws-assume-role-with-web-identity#v1.7.0:
+      - aws-assume-role-with-web-identity#v1.8.2:
           role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug
@@ -24,13 +24,16 @@ steps:
 
   - name: ":ecr: ECR Vulnerabilities Scan"
     command: "true"
+    env:
+      # v1.9.1 reads this variable instead of the declared plugin option.
+      FAIL_BUILD_ON_PLUGIN_FAILURE: "true"
     soft_fail:
       - exit_status: 75 # soft fail for scan timeouts
     agents:
       queue: hosted
     depends_on: "ecr-push"
     plugins:
-      - aws-assume-role-with-web-identity#v1.7.0:
+      - aws-assume-role-with-web-identity#v1.8.2:
           role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug
@@ -39,7 +42,6 @@ steps:
             - build_branch
       - cultureamp/ecr-scan-results#v1.9.1:
           image-name: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
-          fail-build-on-plugin-failure: true
 
   # If the current user is part of the deploy team, then wait for everything to
   # finish before deploying
@@ -55,21 +57,45 @@ steps:
     depends_on: "ecr-push"
     if: "!(build.creator.teams includes 'deploy') && build.branch == 'main'"
 
-  - label: ":docker::rocket:"
+  - label: ":kubernetes::rocket: Deploy to EKS"
+    key: "deploy-eks"
     branches: main
     depends_on:
       - "deploy-check-wait"
       - "deploy-check-block"
     concurrency: 1
-    concurrency_group: docs-deploy
+    concurrency_group: docs-deploy-eks
     agents:
-      queue: hosted
-    command: scripts/deploy-ecs
+      queue: deploy
+    command: scripts/deploy-eks
+    env:
+      # Pin the same helm-deploy build as buildkite/buildkite.
+      HELM_DEPLOY_IMAGE: "${ECR_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/helm-deploy:246"
+      # The commit of buildkite/internal-charts to deploy charts/docs from.
+      INTERNAL_CHARTS_REF: "a9d1ac1c1c0954cc9775773a39d80c1bf1487230"
+      # TAILSCALE_CLIENT_ID, TAILSCALE_TAGS and TAILSCALE_VERIFY_PEER_TAG come
+      # from the pipeline env in buildkite/saas-iac, so they aren't mirrored to
+      # the public docs repo.
     plugins:
-      - aws-assume-role-with-web-identity#v1.7.0:
-          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
-          session-tags:
-            - organization_slug
-            - organization_id
-            - pipeline_slug
-            - build_branch
+      # Assumes pipeline-buildkite-docs-private with the default session tags,
+      # logs in to ECR, and supplies GH_TOKEN from Exchange. This pipeline's
+      # Exchange policy in buildkite/ops limits the token to reading
+      # buildkite/internal-charts.
+      - buildkite/just-works#v0.2.0:
+          account-id: "${ECR_ACCOUNT_ID}"
+          ecr:
+            accounts: ["${ECR_ACCOUNT_ID}"]
+            region: us-east-1
+          ssm:
+            enabled: false
+          github:
+            changes-enabled: true
+      - docker-compose#v5.17.0:
+          run: helm-deploy
+          config: .buildkite/docker-compose.helm-deploy.yml
+          mount-checkout: true
+          mount-buildkite-agent: true
+          propagate-environment: true
+          propagate-aws-auth-tokens: true
+          environment:
+            - GH_TOKEN

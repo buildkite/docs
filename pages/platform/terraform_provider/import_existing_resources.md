@@ -68,7 +68,7 @@ The `pipelines.tf` file generated using `terraform plan ...` does not include th
 
 ### Amend arguments with GraphQL ID values if required
 
-The values of following arguments in the generated `pipelines.tf` file reference actual GraphQL IDs as opposed to other Terraform identifiers, which is typically the case for those [defined manually](/docs/platform/terraform-provider/getting-started-with-managing-pipelines#define-your-initial-pipeline-resources).
+The values of the following arguments in the generated `pipelines.tf` file reference actual GraphQL IDs as opposed to other Terraform identifiers, which is typically the case for those [defined manually](/docs/platform/terraform-provider/getting-started-with-managing-pipelines#define-your-initial-pipeline-resources).
 
 - `cluster_id`
 - `pipeline_template_id`
@@ -77,4 +77,4 @@ If you [imported existing pipelines from a Buildkite organization to Terraform](
 
 - The _same_ Buildkite organization (for example, for disaster recovery purposes), then there is no need to update these arguments' values in `pipelines.tf`, on the assumption that you retain and intend to reuse the same Buildkite cluster/s and pipeline template/s.
 
-- A _different_ Buildkite organization, or _different_ Buildkite cluster/s or pipeline template/s in the _same_ Buildkite organization, then you'll need to amend these arguments' values in `pipelines.tf` to those of the IDs for the new cluster/s or pipeline templates/s associated with these pipelines. Otherwise, you can implement the alternative syntax used when [defining the `pipelines.tf` file manually](/docs/platform/terraform-provider/getting-started-with-managing-pipelines#define-your-initial-pipeline-resources).
+- A _different_ Buildkite organization, or _different_ Buildkite cluster/s or pipeline template/s in the _same_ Buildkite organization, then you'll need to amend these arguments' values in `pipelines.tf` to those of the IDs for the new cluster/s or pipeline template/s associated with these pipelines. Otherwise, you can implement the alternative syntax used when [defining the `pipelines.tf` file manually](/docs/platform/terraform-provider/getting-started-with-managing-pipelines#define-your-initial-pipeline-resources).

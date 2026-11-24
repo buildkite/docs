@@ -135,7 +135,7 @@ The stack layer is applied on top of the base AMI. This is what turns a Docker-c
 
 ### Windows base AMI
 
-The Windows base AMI template is in `packer/windows/base`. It is applied to the upstream Windows Server 2022 English Full Base image and installs:
+The Windows base AMI template is in `packer/windows/base`. It is applied to the upstream Windows Server English Full Base image for the version set by the template's `os_version` variable, either `2022` (the default) or `2025`, and installs:
 
 - Docker CE, Docker Compose, and the ECR credential helper
 - The Windows Containers feature
@@ -146,9 +146,11 @@ The Windows base AMI template is in `packer/windows/base`. It is applied to the 
 
 The Windows base AMI does not include Linux packages, Docker Buildx, systemd timers, or the S3 `authorized_keys` refresh tooling described in the Linux base AMI section.
 
+The Windows Server 2025 base AMI is named `buildkite-base-windows-2025-<timestamp>`. The Windows Server 2022 base AMI is named `buildkite-base-windows-<timestamp>`. The AMI description and the `OSVersion` tag also identify the Windows Server version.
+
 ### Windows stack AMI
 
-The Windows stack AMI template is in `packer/windows/stack`. It installs:
+The Windows stack AMI template is in `packer/windows/stack`. Like the base template, it takes an `os_version` variable of `2022` or `2025`, which must match the Windows Server version of the base AMI. The Windows Server 2025 stack AMI is named `buildkite-stack-windows-2025-<timestamp>`. The Windows Server 2022 stack AMI is named `buildkite-stack-windows-<timestamp>`. The AMI description and the `OSVersion` tag also identify the Windows Server version. The stack AMI installs:
 
 - Stable and beta Buildkite agent executables under `C:\buildkite-agent\bin\`
 - The `builds`, `hooks`, `git-mirrors`, and `plugins` directories under `C:\buildkite-agent\`
@@ -426,6 +428,10 @@ The `Makefile` provides several build targets, each running Packer in a Docker c
         "description": "Build Windows Server 2022 (64-bit x86) AMI only"
       },
       {
+        "command": "make packer-windows2025-amd64.output",
+        "description": "Build Windows Server 2025 (64-bit x86) AMI only"
+      },
+      {
         "command": "make packer-base-linux-amd64.output",
         "description": "Build the Amazon Linux 2023 base AMI only (64-bit x86)"
       },
@@ -436,6 +442,10 @@ The `Makefile` provides several build targets, each running Packer in a Docker c
       {
         "command": "make packer-base-windows-amd64.output",
         "description": "Build the Windows Server 2022 base AMI only (64-bit x86)"
+      },
+      {
+        "command": "make packer-base-windows2025-amd64.output",
+        "description": "Build the Windows Server 2025 base AMI only (64-bit x86)"
       }
     ].select { |field| field[:command] }.each do |field| %>
       <tr>
@@ -450,7 +460,7 @@ The `Makefile` provides several build targets, each running Packer in a Docker c
   </tbody>
 </table>
 
-The full stack targets (`make packer-linux-amd64.output`, `make packer-linux-arm64.output`, `make packer-windows-amd64.output`) automatically build the corresponding base AMI first, unless a base AMI ID is passed in using `BASE_AMI_ID` or an up-to-date `packer-base-*.output` file is present.
+The full stack targets (`make packer-linux-amd64.output`, `make packer-linux-arm64.output`, `make packer-windows-amd64.output`, `make packer-windows2025-amd64.output`) automatically build the corresponding base AMI first, unless a base AMI ID is passed in using `BASE_AMI_ID` or an up-to-date `packer-base-*.output` file is present.
 
 By default, all builds target the `us-east-1` region and use your default AWS profile. The `make` command can be prefixed with environment variables to change the behavior of the build.
 
@@ -569,6 +579,14 @@ AMI_PUBLIC=false \
 AMI_USERS="111122223333,444455556666" \
   make packer
 ```
+
+Build only the Windows Server 2025 base and stack AMIs:
+
+```bash
+make packer-base-windows2025-amd64.output packer-windows2025-amd64.output
+```
+
+The Windows Server 2025 AMIs boot in UEFI mode. Launch them on a Nitro-based instance type that supports UEFI. When you use a custom Windows Server 2025 AMI with the stack, set `InstanceOperatingSystem` to `windows` and pass the AMI ID with `ImageId`, or the Systems Manager parameter that stores it with `ImageIdParameter`. Either parameter takes precedence over `WindowsServerVersion`, which only selects between the AMIs that the template provides. Learn more about the instance type and container requirements in [Choosing a Windows Server version](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/setup#before-you-start-choosing-a-windows-server-version).
 
 Build only the Linux AMIs (skip the Windows build):
 

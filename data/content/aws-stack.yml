@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v7.0.0"
+Description: "Buildkite stack v7.12.0"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite agent cluster. Use it to parallelize
@@ -87,6 +87,7 @@ Metadata:
         - ImageIdParameter
         - InstanceOperatingSystem
         - LinuxDistribution
+        - WindowsServerVersion
         - InstanceTypes
         - CpuCredits
         - NestedVirtualizationEnabled
@@ -147,6 +148,7 @@ Metadata:
         - MaxDanglingInstancesToCheck
         - ScaleOutForWaitingJobs
         - InstanceCreationTimeout
+        - WindowsLaunchTimeout
         - ScalerEventSchedulePeriod
         - ScalerEventScheduleJitter
         - ScalerMinPollInterval
@@ -728,10 +730,12 @@ Parameters:
 
   OnDemandPercentage:
     Description: >
-      Percentage of instances to launch as OnDemand vs Spot instances.
-      OnDemand instances provide guaranteed availability at higher cost.
-      Spot instances offer 60-90% cost savings but may be interrupted by AWS.
-      Use 100% for critical workloads, lower values when jobs can handle unexpected instance interruptions.
+      Percentage of instances above OnDemandBaseCapacity to launch as On-Demand rather than Spot instances.
+      The remaining capacity uses Spot instances, subject to availability.
+      If Spot capacity is unavailable, the Auto Scaling group keeps trying to launch Spot instances
+      and does not replace them with additional On-Demand instances.
+      Spot instances may be interrupted by AWS.
+      Use 100% for critical workloads, lower values when jobs can handle capacity shortages and unexpected instance interruptions.
     Type: Number
     Default: 100
     MinValue: 0
@@ -783,9 +787,19 @@ Parameters:
     Description: >
       Optional - Timeout period for Auto Scaling Group Creation Policy. Defaults to PT5M on
       Linux (PT15M when GitMirrorSeedBucket is set, to allow for downloading and extracting
-      seed archives at boot) and PT10M on Windows.
+      seed archives at boot) and PT30M on Windows.
     Type: String
     Default: ""
+
+  WindowsLaunchTimeout:
+    Description: >
+      Seconds a Windows instance may wait for bootstrap and agent service startup before
+      Auto Scaling abandons the launch. Includes Windows setup time. Does not affect Linux
+      or change InstanceCreationTimeout. Requires the matching release's Windows AMI.
+    Type: Number
+    Default: 900
+    MinValue: 30
+    MaxValue: 7200
 
   RootVolumeSize:
     Description: Size of each instance's root EBS volume (in GB).
@@ -915,6 +929,17 @@ Parameters:
       - amazonlinux2023
       - ubuntu2404
     Default: "amazonlinux2023"
+
+  WindowsServerVersion:
+    Type: String
+    Description: >
+      The Windows Server version to run on the instances. Only applies when InstanceOperatingSystem is windows.
+      Windows Server 2025 boots in UEFI mode, so it requires a Nitro-based instance type that supports UEFI
+      (not Xen-based or bare metal instance types).
+    AllowedValues:
+      - "2022"
+      - "2025"
+    Default: "2022"
 
   ECRAccessPolicy:
     Type: String
@@ -1498,6 +1523,14 @@ Conditions:
     HasVariableSize:
       !Not [ !Equals [ !Ref MaxSize, !Ref MinSize ] ]
 
+    IsExperimentalElasticCIMode:
+      !Equals [ !Ref ScalerEnableExperimentalElasticCIMode, "true" ]
+
+    ShouldDeployScaler:
+      !Or
+        - !Condition HasVariableSize
+        - !Condition IsExperimentalElasticCIMode
+
     UseCostAllocationTags:
       !Equals [ !Ref EnableCostAllocationTags, "true" ]
 
@@ -1543,6 +1576,11 @@ Conditions:
       !And
         - !Equals [ !Ref InstanceOperatingSystem, "linux" ]
         - !Equals [ !Ref LinuxDistribution, "ubuntu2404" ]
+
+    UseWindows2025:
+      !And
+        - !Equals [ !Ref InstanceOperatingSystem, "windows" ]
+        - !Equals [ !Ref WindowsServerVersion, "2025" ]
 
     # Windows and Ubuntu AMIs root on /dev/sda1; Amazon Linux roots on /dev/xvda.
     # The root block device mapping must name the AMI's actual root device or the
@@ -1631,14 +1669,14 @@ Conditions:
     IsLambdaArchitectureArm64:
       !Equals [ !Ref LambdaArchitecture, "arm64" ]
 
-    HasVariableSizeAndArm64:
+    ShouldDeployScalerAndArm64:
       !And
-        - !Condition HasVariableSize
+        - !Condition ShouldDeployScaler
         - !Condition IsLambdaArchitectureArm64
 
-    HasVariableSizeAndX8664:
+    ShouldDeployScalerAndX8664:
       !And
-        - !Condition HasVariableSize
+        - !Condition ShouldDeployScaler
         - !Not [ !Condition IsLambdaArchitectureArm64 ]
 
 Mappings:
@@ -1656,25 +1694,25 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-09904f7841e0bc4f5, linuxarm64: ami-0a21da0842f6230d1, windows: ami-0c86c66600b76ed91, ubuntu2404amd64: ami-0706409f016596802, ubuntu2404arm64: ami-07507da6b2609fd12 }
-    us-east-2 : { linuxamd64: ami-0c9f81539c3058bbd, linuxarm64: ami-03cf6ceb5a853eace, windows: ami-044711db01186d4c2, ubuntu2404amd64: ami-005191f0d2a4bd1c6, ubuntu2404arm64: ami-0fbd00440cfbf8657 }
-    us-west-1 : { linuxamd64: ami-0c6083b367dfd1df9, linuxarm64: ami-0f8fa5a9d3d7f438a, windows: ami-00eb2130eab760980, ubuntu2404amd64: ami-09e54998d375e9b84, ubuntu2404arm64: ami-0efb52d5e25996357 }
-    us-west-2 : { linuxamd64: ami-0e8dc0c35086ad51f, linuxarm64: ami-0f43baacbe960e3dc, windows: ami-01f8b3bb79f665837, ubuntu2404amd64: ami-0c5800c371b0ba833, ubuntu2404arm64: ami-087a9512f82c9a5ea }
-    af-south-1 : { linuxamd64: ami-0fbbe1c2c4bf9bd6f, linuxarm64: ami-0f4bd3bf9cc242343, windows: ami-08c7d591ea43e7457, ubuntu2404amd64: ami-0f4b7fc275c305ba9, ubuntu2404arm64: ami-0a47b8cdc747e9b6d }
-    ap-east-1 : { linuxamd64: ami-042d2eb1f63033759, linuxarm64: ami-0f32ef9bd7b12a682, windows: ami-04ca75aa7e27e7113, ubuntu2404amd64: ami-0f163a9fa0d6ff822, ubuntu2404arm64: ami-03d832ee9a63e78c9 }
-    ap-south-1 : { linuxamd64: ami-0e196b725ca05b2fa, linuxarm64: ami-0f614982581d26586, windows: ami-0911e98838fa8d266, ubuntu2404amd64: ami-0d2832658a81b7fde, ubuntu2404arm64: ami-07cd6657d34aa95bb }
-    ap-northeast-2 : { linuxamd64: ami-041cfa1e25a93cfef, linuxarm64: ami-09448f1ac86596f40, windows: ami-0a165e61453817970, ubuntu2404amd64: ami-01754ef97b4723b72, ubuntu2404arm64: ami-0f81bbc8266a15fbc }
-    ap-northeast-1 : { linuxamd64: ami-0de7ef040c683adfa, linuxarm64: ami-0f4a176e0e7b9dafe, windows: ami-029b0c4e1df75546c, ubuntu2404amd64: ami-0714117b8715c8551, ubuntu2404arm64: ami-0a3d51e91f250e56c }
-    ap-southeast-2 : { linuxamd64: ami-0e4831bee8b773f3f, linuxarm64: ami-0829d4625637b1ed2, windows: ami-02891f6932a79c6c5, ubuntu2404amd64: ami-03387f07bb3e909c9, ubuntu2404arm64: ami-0152e5185202f27a7 }
-    ap-southeast-1 : { linuxamd64: ami-0cbf00766ffdcaff3, linuxarm64: ami-0221880af4968d0a5, windows: ami-02775e26fd80eabeb, ubuntu2404amd64: ami-0ffc269ae898c628d, ubuntu2404arm64: ami-05d7ba6b906835866 }
-    ca-central-1 : { linuxamd64: ami-0eb0f49fd92f56309, linuxarm64: ami-0b46868dc2212b225, windows: ami-009c7a380118799b1, ubuntu2404amd64: ami-0774bbd07ca314f88, ubuntu2404arm64: ami-0bd7c52d9e5fd6797 }
-    eu-central-1 : { linuxamd64: ami-06ec3a99597637d0f, linuxarm64: ami-01b33aae47725e467, windows: ami-05462f17d7646ea4a, ubuntu2404amd64: ami-06476eed80fa2ffd5, ubuntu2404arm64: ami-04ddd7794513dd5b4 }
-    eu-west-1 : { linuxamd64: ami-045692a6a9dfb73a1, linuxarm64: ami-0942ae0be0018f771, windows: ami-0c509366da433fe8e, ubuntu2404amd64: ami-0bf08279993a58e01, ubuntu2404arm64: ami-041a60b212147c0ef }
-    eu-west-2 : { linuxamd64: ami-0925acc54cf31cef3, linuxarm64: ami-0eca10ff06b90e4b2, windows: ami-01508d4c7fca255a6, ubuntu2404amd64: ami-036670f94e2f0d5f5, ubuntu2404arm64: ami-08d8f729fca19484a }
-    eu-south-1 : { linuxamd64: ami-01608651fdf071839, linuxarm64: ami-010dfd1fd5576e61e, windows: ami-0706dbe0ff0c752e1, ubuntu2404amd64: ami-00446f7bc6be8d38f, ubuntu2404arm64: ami-0a51816cb99ebe658 }
-    eu-west-3 : { linuxamd64: ami-00f3f2cae55041271, linuxarm64: ami-0df3d7398fd9b6570, windows: ami-08300d2e7a18f2bdf, ubuntu2404amd64: ami-0ec7658a2f7b74fd1, ubuntu2404arm64: ami-0cd6dd81da51cbdd4 }
-    eu-north-1 : { linuxamd64: ami-03f5e022aa7e5a46a, linuxarm64: ami-0a72ca5796a24c326, windows: ami-06c27dd19f93ac94a, ubuntu2404amd64: ami-0b3d524288cf1acf2, ubuntu2404arm64: ami-0b3fb7995faf5c12b }
-    sa-east-1 : { linuxamd64: ami-0c24e2b3665f34742, linuxarm64: ami-05bfd24809a7ff25b, windows: ami-0aa897eae9d28ff47, ubuntu2404amd64: ami-0815effe5fe3e9b6c, ubuntu2404arm64: ami-05227f3b5787c4be5 }
+    us-east-1 : { linuxamd64: ami-0feb7749aea82182e, linuxarm64: ami-08924ce5737fec9dc, windows: ami-0402973078388576d, ubuntu2404amd64: ami-0f69559b174a9f066, ubuntu2404arm64: ami-0161c7f7bd4a5e944, windows2025: ami-0a1824bd72980c9f4 }
+    us-east-2 : { linuxamd64: ami-07a9858252a616093, linuxarm64: ami-0caf8155f5742bbdb, windows: ami-07013f48d55144894, ubuntu2404amd64: ami-014c75b8adf4b1192, ubuntu2404arm64: ami-016957e0180495f6c, windows2025: ami-00328a7f8e47e5569 }
+    us-west-1 : { linuxamd64: ami-038bf85edeb99c048, linuxarm64: ami-09b901287db9eef04, windows: ami-00eb3a3e3e3c70914, ubuntu2404amd64: ami-02e7684691ddc1930, ubuntu2404arm64: ami-0b6c63df744ee844e, windows2025: ami-0f78bd76d3018984d }
+    us-west-2 : { linuxamd64: ami-0584f9a2348f51516, linuxarm64: ami-0cecc25d31eff21b3, windows: ami-058795ca655f1eff1, ubuntu2404amd64: ami-017483a60eb22e01f, ubuntu2404arm64: ami-0959f370a591f6805, windows2025: ami-08b5bc3aa76f3d217 }
+    af-south-1 : { linuxamd64: ami-052ef50377c0f2acd, linuxarm64: ami-00968aba4aa292b9e, windows: ami-065e193815e7248ad, ubuntu2404amd64: ami-0c651a172ecf1573e, ubuntu2404arm64: ami-041f2f1a297b0d187, windows2025: ami-0c94e7476f68a3656 }
+    ap-east-1 : { linuxamd64: ami-0d40971932aa7d141, linuxarm64: ami-0ef0acc5b6ad8feb1, windows: ami-01078c361fda85da2, ubuntu2404amd64: ami-0f79d99ebf37092fc, ubuntu2404arm64: ami-0fa7382ddbc60481c, windows2025: ami-0727c9114ea6aa236 }
+    ap-south-1 : { linuxamd64: ami-0d9798c8e8130f761, linuxarm64: ami-05c39ed3808f0e5cc, windows: ami-09d6cbd202711b704, ubuntu2404amd64: ami-0edd44de00dbd7388, ubuntu2404arm64: ami-059a36755c78c2799, windows2025: ami-0ec70712b3e140c1e }
+    ap-northeast-2 : { linuxamd64: ami-05e87c60279b8a055, linuxarm64: ami-00926d6afbebe69a8, windows: ami-08af9989e21bae4b2, ubuntu2404amd64: ami-0acdd021ca96bea3a, ubuntu2404arm64: ami-07b1a1c7efa942dde, windows2025: ami-0e04cdd6ca6c88b31 }
+    ap-northeast-1 : { linuxamd64: ami-0065b0b941ef0ce0d, linuxarm64: ami-0af16e08e81896937, windows: ami-0a0220cd157c95155, ubuntu2404amd64: ami-04a80fbbe6e353fb9, ubuntu2404arm64: ami-0f2edb77ae3ea5be1, windows2025: ami-0729337d48c0d5a63 }
+    ap-southeast-2 : { linuxamd64: ami-03dc4dabe475a6a05, linuxarm64: ami-0c1cb24ef27939c61, windows: ami-0df5b3050a904b8f5, ubuntu2404amd64: ami-007938861bb30d7f8, ubuntu2404arm64: ami-0ef532f0b068d9bf3, windows2025: ami-09943a7bcf0e771de }
+    ap-southeast-1 : { linuxamd64: ami-04332a8595084037f, linuxarm64: ami-00c41f42fcddb8467, windows: ami-062113599cffbca93, ubuntu2404amd64: ami-018449d956f79d8fc, ubuntu2404arm64: ami-0b0054a101a2cdcdf, windows2025: ami-047a49949deef91c8 }
+    ca-central-1 : { linuxamd64: ami-083f8997359bc58aa, linuxarm64: ami-00a00c7f0cc36f350, windows: ami-01f2d9ca8e63fa153, ubuntu2404amd64: ami-0c1942a9ba58c4814, ubuntu2404arm64: ami-02ef2fd66a328de57, windows2025: ami-0187eed3ee2e1455d }
+    eu-central-1 : { linuxamd64: ami-0f221658c68567042, linuxarm64: ami-0e5337385ba1f7649, windows: ami-0c88341b6e29ac66b, ubuntu2404amd64: ami-072057d68a8cf0567, ubuntu2404arm64: ami-066de6c57e2f3d8f3, windows2025: ami-0e99a97da158af175 }
+    eu-west-1 : { linuxamd64: ami-000fac5b0674b848a, linuxarm64: ami-0e38973dbba6f99f9, windows: ami-05ff9768daa9a9931, ubuntu2404amd64: ami-08e1d6054b6f0c6aa, ubuntu2404arm64: ami-0f0a7c7cb637f4e80, windows2025: ami-06bacd6476f6c48d0 }
+    eu-west-2 : { linuxamd64: ami-0654fae70c3f0ae5c, linuxarm64: ami-0f5ade6aa862f670d, windows: ami-003c6b81da4c06eb0, ubuntu2404amd64: ami-07af05a87a704e843, ubuntu2404arm64: ami-0eabb91751703b096, windows2025: ami-0c2d3844366108bb0 }
+    eu-south-1 : { linuxamd64: ami-08aba445a6634ac15, linuxarm64: ami-00cd10bfdae7a2ef7, windows: ami-0019b1c10c174c824, ubuntu2404amd64: ami-02f326f811ad75d8e, ubuntu2404arm64: ami-0919759d36bd42ae7, windows2025: ami-05aa40fe67073e6cc }
+    eu-west-3 : { linuxamd64: ami-04ef794480bc15487, linuxarm64: ami-076c0386e6c39ffc6, windows: ami-08a28938f98f5f5a4, ubuntu2404amd64: ami-01f0c15bbc64ca946, ubuntu2404arm64: ami-07ad6d54304f97054, windows2025: ami-080c909ec7b745ac4 }
+    eu-north-1 : { linuxamd64: ami-0829ae89c36eee93c, linuxarm64: ami-00da68f5b0679b495, windows: ami-027d802aa6d506168, ubuntu2404amd64: ami-0e9b94de9b2b04cf2, ubuntu2404arm64: ami-01acaebc9a8798ff9, windows2025: ami-08129d861055e3592 }
+    sa-east-1 : { linuxamd64: ami-0fc6de138b51b6477, linuxarm64: ami-0f4f8ff2279fa72fc, windows: ami-0778a7593a6b9aa0b, ubuntu2404amd64: ami-087aadbea691793a9, ubuntu2404arm64: ami-081f525babc304057, windows2025: ami-0126047a813de2f97 }
 
 Resources:
   Vpc:
@@ -2171,6 +2209,14 @@ Resources:
               - autoscaling:SetInstanceHealth
               - autoscaling:TerminateInstanceInAutoScalingGroup
             Resource: !Sub arn:${AWS::Partition}:autoscaling:${AWS::Region}:${AWS::AccountId}:autoScalingGroup:*:autoScalingGroupName/${AWS::StackName}-AgentAutoScaleGroup-*
+          - !If
+            - UseWindowsAgents
+            - Sid: CompleteWindowsLaunch
+              Effect: Allow
+              Action:
+                - autoscaling:CompleteLifecycleAction
+              Resource: !Sub arn:${AWS::Partition}:autoscaling:${AWS::Region}:${AWS::AccountId}:autoScalingGroup:*:autoScalingGroupName/${AWS::StackName}-AgentAutoScaleGroup-*
+            - !Ref "AWS::NoValue"
           - Sid: Logging
             Effect: Allow
             Action:
@@ -2350,10 +2396,16 @@ Resources:
               - !GetAtt ImageIdParameterStack.Outputs.ImageId
               - !If
                 - UseWindowsAgents
-                - !FindInMap
-                  - AWSRegion2AMI
-                  - !Ref 'AWS::Region'
-                  - 'windows'
+                - !If
+                  - UseWindows2025
+                  - !FindInMap
+                    - AWSRegion2AMI
+                    - !Ref 'AWS::Region'
+                    - 'windows2025'
+                  - !FindInMap
+                    - AWSRegion2AMI
+                    - !Ref 'AWS::Region'
+                    - 'windows'
                 - !If
                   - UseUbuntu
                   - !If
@@ -2430,11 +2482,12 @@ Resources:
                   $Env:DOCKER_USERNS_REMAP="${EnableDockerUserNamespaceRemap}"
                   $Env:DOCKER_EXPERIMENTAL="${EnableDockerExperimental}"
                   $Env:DOCKER_NETWORKING_PROTOCOL="${DockerNetworkingProtocol}"
-                  powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v7.0.0"
+                  $Env:BUILDKITE_STACK_VERSION="v7.12.0"
                   $Env:BUILDKITE_STACK_DEPLOYED_BY="cloudformation"
+                  $Env:BUILDKITE_LAUNCH_HOOK_NAME="buildkite-agent-launch"
+                  $Env:BUILDKITE_LAUNCH_TIMEOUT="${WindowsLaunchTimeout}"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
                   $Env:BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}"
@@ -2476,7 +2529,16 @@ Resources:
                   $Env:AWS_REGION="${AWS::Region}"
                   $Env:ENABLE_EC2_LOG_RETENTION_POLICY="${EnableEC2LogRetentionPolicy}"
                   $Env:EC2_LOG_RETENTION_DAYS="${EC2LogRetentionDays}"
-                  powershell -file C:\buildkite-agent\bin\bk-install-elastic-stack.ps1 >> C:\buildkite-agent\elastic-stack.log
+                  & {
+                    # Do not wait until the end of bootstrap to start collecting failure logs.
+                    try {
+                      Start-Service AmazonCloudWatchAgent -ErrorAction Stop
+                    } catch {
+                      Write-Warning "Could not start CloudWatch logging before bootstrap: $_"
+                    }
+                    powershell -file C:\buildkite-agent\bin\bk-install-elastic-stack.ps1
+                  } *>&1 | Out-File -FilePath C:\buildkite-agent\elastic-stack.log -Append -Encoding utf8
+                  exit $LASTEXITCODE
                   </powershell>
                 - LocalSecretsBucket: !If
                     - CreateSecretsBucket
@@ -2536,7 +2598,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v7.0.0" \
+                  BUILDKITE_STACK_VERSION="v7.12.0" \
                   BUILDKITE_STACK_DEPLOYED_BY="cloudformation" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
@@ -2628,6 +2690,13 @@ Resources:
       - VpcComplete
     Properties:
       VPCZoneIdentifier: !If [ "CreateVpcResources", [ !Ref Subnet0, !Ref Subnet1 ], !Ref Subnets ]
+      LifecycleHookSpecificationList: !If
+        - UseWindowsAgents
+        - - LifecycleHookName: buildkite-agent-launch
+            LifecycleTransition: autoscaling:EC2_INSTANCE_LAUNCHING
+            DefaultResult: ABANDON
+            HeartbeatTimeout: !Ref WindowsLaunchTimeout
+        - !Ref "AWS::NoValue"
       MixedInstancesPolicy:
         InstancesDistribution:
           OnDemandBaseCapacity: !Ref OnDemandBaseCapacity
@@ -2761,7 +2830,7 @@ Resources:
           Value: !Ref AgentsPerInstance
     CreationPolicy:
       ResourceSignal:
-        Timeout: !If [ UseDefaultInstanceCreationTimeout, !If [ UseWindowsAgents, PT10M, !If [ HasGitMirrorSeedBucket, PT15M, PT5M ] ], !Ref InstanceCreationTimeout ]
+        Timeout: !If [ UseDefaultInstanceCreationTimeout, !If [ UseWindowsAgents, PT30M, !If [ HasGitMirrorSeedBucket, PT15M, PT5M ] ], !Ref InstanceCreationTimeout ]
         Count: !Ref MinSize
     UpdatePolicy:
       AutoScalingReplacingUpdate:
@@ -2970,8 +3039,12 @@ Resources:
                   ],
                   DocumentName="AWS-RunShellScript",
                   Comment=f"Stopping BK agents in {stack_name}",
+                  # An instance with no running agent must not fail the command:
+                  # with the default MaxErrors of 0, one failure cancels every
+                  # invocation not yet started, leaving those agents running.
+                  MaxErrors="100%",
                   Parameters={
-                      "commands": ["sudo kill -s SIGTERM $(/bin/pidof buildkite-agent)"]
+                      "commands": ["sudo pkill -TERM -x buildkite-agent || true"]
                   }
               )
               logger.info(f"SSM command response: {response}")
@@ -3017,14 +3090,14 @@ Resources:
 
   Autoscaling:
     Type: AWS::Serverless::Application
-    Condition: HasVariableSizeAndX8664
+    Condition: ShouldDeployScalerAndX8664
     Properties:
       Location:
         ApplicationId: !FindInMap
           - AgentScalerARN
           - "x86-64"
           - ARN
-        SemanticVersion: 1.13.0
+        SemanticVersion: 1.16.1
       Parameters:
         BuildkiteAgentTokenParameter: !If [ UseCustomerManagedParameterPath, !Ref BuildkiteAgentTokenParameterStorePath, !Ref BuildkiteAgentTokenParameter ]
         BuildkiteAgentTokenParameterStoreKMSKey: !If [ UseCustomerManagedKeyForParameterStore, !Ref BuildkiteAgentTokenParameterStoreKMSKey, "" ]
@@ -3052,14 +3125,14 @@ Resources:
 
   AutoscalingArm64:
     Type: AWS::Serverless::Application
-    Condition: HasVariableSizeAndArm64
+    Condition: ShouldDeployScalerAndArm64
     Properties:
       Location:
         ApplicationId: !FindInMap
           - AgentScalerARN
           - "arm64"
           - ARN
-        SemanticVersion: 1.13.0
+        SemanticVersion: 1.16.1
       Parameters:
         BuildkiteAgentTokenParameter: !If [ UseCustomerManagedParameterPath, !Ref BuildkiteAgentTokenParameterStorePath, !Ref BuildkiteAgentTokenParameter ]
         BuildkiteAgentTokenParameterStoreKMSKey: !If [ UseCustomerManagedKeyForParameterStore, !Ref BuildkiteAgentTokenParameterStoreKMSKey, "" ]

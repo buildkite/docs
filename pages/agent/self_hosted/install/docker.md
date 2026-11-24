@@ -98,7 +98,7 @@ To use Docker and volume mounting from build scripts, you need to ensure that th
 
 For example, when a script runs the command `docker run --volume "$PWD:/code" ...` the `$PWD` environment variable will resolve to the path in your agent's container (for example, `/var/lib/buildkite/builds/my-org/my-pipeline`). The Docker daemon, which exists on the host machine, will attempt to mount `/var/lib/buildkite/builds/my-org/my-pipeline` from the host file system, not the agent container file system. If that directory does not exist on the host, Docker will mount an empty directory to `/code` without showing any error.
 
-The following example shows how to configure the agent container with the correct host volumes mounts, and `BUILDKITE_BUILD_PATH` configuration:
+The following example shows how to configure the agent container with the correct host volume mounts, and `BUILDKITE_BUILD_PATH` configuration:
 
 ```bash
 docker run \
@@ -146,6 +146,8 @@ docker run \
 If you're using Docker with Docker images hosted on Docker Hub, note that as of 2nd November 2020 there are [strict rate limits](/docs/pipelines/integrations/other/docker-hub) for image downloads.
 
 ## Authenticating private git repositories
+
+For GitHub repositories, enable [Buildkite-managed GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on your self-hosted queue to retrieve temporary, read-only credentials without mounting an SSH key or Git credentials file into the agent container. The following alternatives are for workloads that need customer-managed credentials.
 
 To configure a [git-credentials file](https://git-scm.com/docs/git-credential-store#_storage_format) located at `/buildkite-secrets/git-credentials`, you could use the following
 [`environment` hook](/docs/agent/hooks#job-lifecycle-hooks) mounted to `/buildkite/hooks/environment`:

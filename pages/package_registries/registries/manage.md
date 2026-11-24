@@ -89,7 +89,7 @@ To configure/change your source registry's current storage:
 
 ## Configure registry tokens
 
-_Registry tokens_ are long-lived _read only_ tokens configurable for a [private source registry](#update-a-source-registry), which allow you download and install packages from that registry, acting as an alternative to (and without having to use) a user account-based [API access token](https://buildkite.com/user/api-access-tokens) with the **Read Packages** REST API scope.
+_Registry tokens_ are long-lived _read only_ tokens configurable for a [private source registry](#update-a-source-registry), which allow you to download and install packages from that registry, acting as an alternative to (and without having to use) a user account-based [API access token](https://buildkite.com/user/api-access-tokens) with the **Read Packages** REST API scope.
 
 To configure registry tokens for a private source registry:
 

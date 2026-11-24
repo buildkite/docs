@@ -9,7 +9,7 @@ The agent REST API's _publicly_ available endpoints include:
 
 All other endpoints in the agent API are intended only for use by the Buildkite agent, therefore stability and backwards compatibility are not guaranteed, and changes won't be announced.
 
-The agent also includes an internal API, called the [internal job API](/docs/apis/agent-api/internal-job), which is used to query and mutate the state of if a job running on the agent, using environment variables.
+The agent also includes an internal API, called the [internal job API](/docs/apis/agent-api/internal-job), which is used to query and mutate the state of a job running on the agent, using environment variables.
 
 The current version of the agent API is v3.
 

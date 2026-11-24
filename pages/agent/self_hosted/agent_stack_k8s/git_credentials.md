@@ -66,7 +66,7 @@ steps:
 
 > 📘
 > If you are using the `kubernetes` plugin to provide the Kubernetes Secret's SSH private key, you need to _define this configuration for every step_ that requires access to the private Git repository.
-> If you are defining the Kubernetes Secret using the Buildkite Agent Stack for Kubernetes controller configuration, you'll only needs to configure it once.
+> If you are defining the Kubernetes Secret using the Buildkite Agent Stack for Kubernetes controller configuration, you'll only need to configure it once.
 
 ### Provide an SSH private key to non-checkout containers
 

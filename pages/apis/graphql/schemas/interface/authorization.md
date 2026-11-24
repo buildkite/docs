@@ -41,8 +41,14 @@ toc: false
 
 
 <h2 data-algolia-exclude>Possible types</h2>
-<div><a href="/docs/apis/graphql/schemas/object/authorizationbitbucket" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuthorizationBitbucket">
+<div><a href="/docs/apis/graphql/schemas/object/authorizationamp" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuthorizationAmp">
+  <code>AuthorizationAmp</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/authorizationbitbucket" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuthorizationBitbucket">
   <code>AuthorizationBitbucket</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/authorizationentire" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuthorizationEntire">
+  <code>AuthorizationEntire</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/authorizationgithub" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuthorizationGitHub">
   <code>AuthorizationGitHub</code>

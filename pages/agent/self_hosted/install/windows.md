@@ -29,6 +29,8 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercon
 
 ## SSH key configuration
 
+For GitHub repositories, you can use [Buildkite-managed GitHub App tokens](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) instead of installing SSH keys. Enable token checkout on your self-hosted queue to retrieve temporary, read-only credentials automatically.
+
 Copy or generate SSH keys into your `.ssh` directory. For example, typing the following into Git Bash generates a new private key which you can add to your source code host:
 
 ```bash

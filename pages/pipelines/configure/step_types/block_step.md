@@ -80,7 +80,12 @@ Optional attributes:
     <tr>
     <td><code>blocked_state</code></td>
     <td>
-      The state that the build is set to when the build is blocked by this block step. The default is <code>passed</code>. When the <code>blocked_state</code> of a block step is set to <code>failed</code>, the step that triggered it will be stuck in the <code>running</code> state until it is manually unblocked. If you're using GitHub, you can also <a href="/docs/pipelines/source-control/github#customizing-commit-statuses">configure which GitHub status</a> to use for blocked builds on a per-pipeline basis.<br/>
+      How this value is used when the build is blocked by this step:
+      <ul>
+        <li><strong>Build state:</strong> The state that the build is set to when the build is blocked by this block step. The default is <code>passed</code>. When set to <code>failed</code>, the step that triggered it will be stuck in the <code>running</code> state until it is manually unblocked.</li>
+        <li><strong>GitHub commit statuses:</strong> If <code>blocked_state</code> isn't set on this step, the commit status for the blocked build uses the <a href="/docs/pipelines/source-control/github#customizing-commit-statuses">per-pipeline setting for blocked builds</a>.</li>
+        <li><strong>GitHub checks:</strong> Build-level <a href="/docs/pipelines/configure/notify#github-check">GitHub check notifications</a> reflect the <code>blocked_state</code> value. If <code>blocked_state</code> isn't set on this step, the GitHub check conclusion is <code>action_required</code>. See <a href="/docs/pipelines/configure/notify#github-check-blocked-build-conclusion">Blocked build conclusion</a> for how each value maps to a GitHub check conclusion.</li>
+      </ul>
       <em>Default:</em> <code>passed</code><br/>
       <em>Values:</em> <code>passed</code>, <code>failed</code>, <code>running</code>
     </td>
@@ -343,7 +348,7 @@ Each select option has the following _required_ attributes:
 
 To unblock a block step, a user must either have write access to the pipeline, or where the [`allowed_teams` attribute](#block-step-attributes) is specified, the user must belong to one of the allowed teams. When `allowed_teams` is specified, a user who has write access to the pipeline but is not a member of any of the allowed teams will not be permitted to unblock the step.
 
-The `allowed_teams` attribute serves as a useful way to restrict unblock permissions to a subset of users without restricting the ability to create builds. Conversely, this attribute is also useful for granting unblock permissions to users _without_ also granting the ability create builds.
+The `allowed_teams` attribute serves as a useful way to restrict unblock permissions to a subset of users without restricting the ability to create builds. Conversely, this attribute is also useful for granting unblock permissions to users _without_ also granting the ability to create builds.
 
 ```yml
 - block: "Release"

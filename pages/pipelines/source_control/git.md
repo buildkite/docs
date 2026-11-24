@@ -31,7 +31,7 @@ Git runs executables found in:
 For example, after a push to the bare repository at the path `/repos/demo-repo/`, Git checks for the existence of an executable file `/repos/demo-repo/hooks/post-receive`.
 If it exists, it runs the file with arguments containing details about the push.
 
-The post-recieve hook is a convenient place to trigger builds using the Buildkite REST API.
+The post-receive hook is a convenient place to trigger builds using the Buildkite REST API.
 
 ## Step 1: Create a pipeline
 

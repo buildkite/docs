@@ -6,6 +6,8 @@ For stack-managed ephemeral agents, use a short-lived [job acquisition token](/d
 
 A user who is a Buildkite organization administrator or a [maintainer of a cluster](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) within the organization can manage agent tokens for that cluster.
 
+Use [scoped agent tokens](/docs/agent/self-hosted/scoped-agent-tokens) to choose which Agent API actions agents and jobs can perform, and which queues agents can register into. For example, allow pipeline uploads only on trusted agents, or create a metrics-only token that cannot run jobs.
+
 If you are managing agents in an unclustered environment, refer to [Working with unclustered agent tokens](/docs/agent/self-hosted/tokens#working-with-unclustered-agent-tokens) instead.
 
 ## The initial agent token
@@ -45,6 +47,11 @@ To create an agent token for a cluster using the Buildkite interface:
 
     **Note:** Leave this field empty if there is no need to restrict the use of this agent token by network address. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
 
+1. Choose **Queue access** and **Permissions** for the token. The defaults grant all permissions and access to all queues in the cluster. See [Configure a scoped token](/docs/agent/self-hosted/scoped-agent-tokens#configure-a-token) to restrict either setting.
+1. Select a **Token Expiry** duration, or keep the default of **Never** so the token doesn't expire. Choose a preset duration, or select **Custom** to enter a specific expiry date.
+
+    **Note:** A token's expiry can't be changed after it's created. To use a different expiry, revoke the token and [create a new one](#create-a-token-using-the-buildkite-interface).
+
 1. Select **Create Token**.
 
     Follow the instructions to copy and save your token to a secure location and select **Okay, I'm done!**. The new agent token appears on the cluster's **Agent Tokens** page.
@@ -59,7 +66,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "description": "A description",
-    "expires_at": "2026-01-01T00:00:00Z",
+    "expires_at": "2030-01-01T00:00:00Z",
     "allowed_ip_addresses": "0.0.0.0/0"
   }'
 ```
@@ -93,7 +100,7 @@ mutation {
       organizationId: "organization-id"
       clusterId: "cluster-id"
       description: "A description"
-      expiresAt: "2026-01-01T00:00:00Z"
+      expiresAt: "2030-01-01T00:00:00Z"
       allowedIpAddresses: "0.0.0.0/0"
     }
   ) {
@@ -139,7 +146,7 @@ The new agent token appears on the cluster's **Agent Tokens** page.
 
 Agent tokens can be updated by a [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the [**Agent Tokens** page of a cluster](#update-a-token-using-the-buildkite-interface), as well as Buildkite's [REST API](#update-a-token-using-the-rest-api) or [GraphQL API](#update-a-token-using-the-graphql-api).
 
-Only the **Description** and **Allowed IP Addresses** of an existing agent token can be updated. **Expiration date** for a token cannot be updated.
+You can update an existing token's **Description**, **Allowed IP Addresses**, **Queue access**, and **Permissions**. The token's **Expiration date** cannot be updated. See [Scoped agent tokens](/docs/agent/self-hosted/scoped-agent-tokens) for permission and queue configuration, including how changes affect existing agents and jobs.
 
 For these API requests, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
 
@@ -156,6 +163,9 @@ To update a cluster's agent token using the Buildkite interface:
 
         Leave this field empty if there is no need to restrict the use of this agent token by network address. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
 
+    * **Queue access** controls which queues the token permits for new agent registrations.
+    * **Permissions** controls the Agent API actions agents and jobs can perform. See [Configure a scoped token](/docs/agent/self-hosted/scoped-agent-tokens#configure-a-token).
+
 1. Select **Save Token** to save your changes.
 
     The agent token's updates will appear on the cluster's **Agent Tokens** page.
@@ -170,7 +180,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "description": "A description",
-    "allowed_ip_addresses": "202.144.0.0/24 198.51.100.12"
+    "allowed_ip_addresses": "192.0.2.0/24 198.51.100.12"
   }'
 ```
 
@@ -188,7 +198,7 @@ where:
 
 - <%= render_markdown partial: 'apis/descriptions/rest_allowed_ip_addresses' %>
 
-    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address, or change the field's current value. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
+    Omit this field to preserve the existing IP restriction, or set it to `null` to clear the restriction. Learn more in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
 
 ### Using the GraphQL API
 
@@ -201,7 +211,7 @@ mutation {
       organizationId: "organization-id"
       id: "token-id"
       description: "A description"
-      allowedIpAddresses: "202.144.0.0/24 198.51.100.12"
+      allowedIpAddresses: "192.0.2.0/24 198.51.100.12"
     }
   ) {
     clusterAgentToken {
@@ -239,7 +249,7 @@ where:
 
 - <%= render_markdown partial: 'apis/descriptions/graphql_allowed_ip_addresses' %>
 
-    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address, or change the field's current value. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
+    Supply the existing `allowedIpAddresses` value to preserve the IP restriction. Omitting this field clears the restriction. Learn more in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
 
 The agent token's updates will appear on the cluster's **Agent Tokens** page.
 
@@ -249,7 +259,18 @@ Agent tokens can be revoked by a [cluster maintainer](/docs/pipelines/security/c
 
 For these API requests, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
 
-Once a token is revoked, no new agents will be able to start with that token. Revoking a token does not affect any connected agents.
+Revoking a token offers two levels of revocation:
+
+- **Revoke token**: the default option. No new agents can start with this token, but agents that are already connected keep running, and their jobs keep their existing Buildkite access.
+- **Revoke token and agent access**: additionally rejects the session and job credentials derived from this token, including credentials issued through [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens). Use this option when responding to a compromised token, rather than for routine rotation.
+
+Agents generally shut down shortly after their access is revoked, stopping any running jobs, but neither outcome is guaranteed. Some older agent versions may keep running without being able to accept new work, consuming resources until you stop them manually. After revoking agent access, check directly in your infrastructure that affected agents and jobs have stopped, and stop any that remain running. Agents with revoked access can't report their status to Buildkite, so the Buildkite interface may temporarily show them as connected even after they've stopped. Jobs that lose their Buildkite access will be marked as lost after a short time.
+
+Revocation doesn't invalidate [OIDC tokens](/docs/pipelines/security/oidc) already issued to jobs or external credentials already obtained using those tokens, such as cloud provider credentials. These remain usable until they expire or the external provider invalidates them. Revocation also doesn't affect other externally issued credentials, requests already authorized before it takes effect, or presigned storage URLs.
+
+Agent access revocation is processed in the background, so it can take a short time before every agent associated with the token is affected. This action can't be undone.
+
+A token that has only been revoked (without revoking agent access) can later be escalated to also revoke its agent access.
 
 ### Using the Buildkite interface
 
@@ -258,7 +279,12 @@ To revoke a cluster's agent token using the Buildkite interface:
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster containing the agent token to revoke.
 1. Select **Agent Tokens** and on this page, expand the agent token to revoke.
-1. Select **Revoke** > **Revoke Token** in the confirmation message.
+1. Select **Revoke**.
+1. Choose **Revoke token** to only stop new agents from connecting, or **Revoke token and agent access** to also reject existing agents' session and job credentials.
+1. If you chose **Revoke token and agent access**, select the checkbox confirming that you understand jobs will be disrupted and that you may need to clean up resources manually.
+1. Select **Revoke Token**, or **Revoke Token and Agent Access** if you chose that option.
+
+To revoke agent access for a token that was already revoked, select **Include revoked tokens** on the **Agent Tokens** page, expand the revoked token, then select **Revoke Agent Access** and confirm.
 
 ### Using the REST API
 
@@ -278,6 +304,15 @@ where:
 <%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
 
 <%= render_markdown partial: 'apis/descriptions/rest_agent_token_id' %>
+
+To additionally [revoke the token's agent access](/docs/apis/rest-api/clusters/agent-tokens#revoke-a-tokens-agent-access), run the following example `curl` command:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}/agent-access-revocation"
+```
+
+This request also revokes the token itself if it hasn't already been revoked. It's safe to retry, including after agent access has already been revoked. The response's `agent_access_revocation_completed_at` field is `null` until the background revocation has finished for every agent sourced from the token.
 
 ### Using the GraphQL API
 
@@ -304,22 +339,24 @@ where:
 
 ## Scope of access
 
-An agent token is specific to the cluster it was associated when created (within a Buildkite organization), and can be used to register an agent with any [queue](/docs/agent/queues) defined in that cluster. Agent tokens can not be shared between different clusters within an organization, or between different organizations.
+An agent token belongs to one cluster within a Buildkite organization. By default, new tokens grant all permissions and allow registration into any [queue](/docs/agent/queues) in that cluster. You can restrict permitted API actions and queue access independently using [scoped agent tokens](/docs/agent/self-hosted/scoped-agent-tokens).
+
+Agent tokens cannot be shared between clusters or organizations. Session and job credentials inherit the source agent token's permissions, including when registration uses a job acquisition token. Queue restrictions apply to new registrations, JAT issuance, and explicit job acquisition, not every subsequent API operation. Explicit acquisition checks current bindings, so a queue-access edit can prevent an already-registered agent from acquiring a job.
 
 ## Agent token lifetime
 
-Agent tokens [created using the Buildkite interface](#create-a-token-using-the-buildkite-interface) do not expire and need to be rotated manually.
+When you [create an agent token using the Buildkite interface](#create-a-token-using-the-buildkite-interface), select a **Token Expiry** duration to set when the token expires, or keep the default of **Never** so the token doesn't expire and needs to be rotated manually. The shortest preset duration is 24 hours, and choosing **Custom** lets you pick any date tomorrow or later.
 
-However, using Buildkite's APIs, you can specify an optional expiration date attribute with a timestamp value in your API call to create an agent token—[`expires_at` using the REST API](#create-a-token-using-the-rest-api) or [`expiresAt` using the GraphQL API](#create-a-token-using-the-graphql-api). The ability to set an expiration timestamp on an agent token is a security compliance and token lifecycle management feature, which allows you to implement an automated token rotation process using the Buildkite API, replacing any previous, more manual rotation processes for long-lived agent tokens. Note that the existing agent tokens will continue to work without expiration, unless they are manually revoked.
+Alternatively, using the Buildkite APIs, you can specify an optional expiration date attribute with a timestamp value in your API call to create an agent token—[`expires_at` using the REST API](#create-a-token-using-the-rest-api) or [`expiresAt` using the GraphQL API](#create-a-token-using-the-graphql-api). The ability to set an expiration timestamp on an agent token is a security compliance and token lifecycle management feature, which allows you to implement an automated token rotation process using the Buildkite API, replacing any previous, more manual rotation processes for long-lived agent tokens. Existing agent tokens will continue to work without expiration, unless they are manually revoked.
 
-There is no maximum expiration duration for an agent token, although a minimum of 10 minutes from the current time is required. After an agent token has expired, it is displayed with the following message in the Buildkite interface:
+There is no maximum expiration duration for an agent token, although the API requires a minimum of 10 minutes from the current time. After an agent token has expired, it is displayed with the following message in the Buildkite interface:
 
 ⚠️ **This token expired on ...**
 
 An expired agent token will prevent agents configured with this token from being able to re-connect to its Buildkite cluster. However, agents currently connected to their cluster at the time of expiration won't be affected.
 
 > 📘 Agent token expiration format
-> The timestamp must be set in ISO8601 format (for example, `2025-01-01T00:00:00Z`). This timestamp value cannot be changed on an existing agent token. An error is returned if an attempt is made to update the expiration date field of an existing agent token.
+> When using the API, the timestamp must be set in ISO8601 format (for example, `2025-01-01T00:00:00Z`). An expiration date cannot be changed on an existing agent token, regardless of whether it was created using the Buildkite interface or the API. An error is returned if an attempt is made to update the expiration date field of an existing agent token.
 
 ## Additional agent tokens
 
@@ -334,6 +371,8 @@ Session tokens are internal tokens that last for the lifetime of the agent conne
 Job tokens are internal agent access tokens generated when each job starts. They expire when the job finishes. The job receives its token through the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN`. The Buildkite agent uses the token to manage the job's lifecycle in the Buildkite control plane. CLI commands, including [annotate](/docs/agent/cli/reference/annotate), [artifact](/docs/agent/cli/reference/artifact), [meta-data](/docs/agent/cli/reference/meta-data), and [pipeline](/docs/agent/cli/reference/pipeline), also use the token for authorization.
 
 You can set a default or maximum [command timeout](/docs/pipelines/configure/build-timeouts#command-timeouts) to further limit a job token's lifetime.
+
+A job token also inherits its source agent token's [permissions](/docs/agent/self-hosted/scoped-agent-tokens#available-permissions). Those permissions restrict available actions without replacing the resource boundaries described below.
 
 In most cases, job tokens can only be used to perform operations on the job they refer to. For example, you couldn't use a job token to issue an OIDC token pretending to be another job, or to emit logs to another job.
 
@@ -365,7 +404,7 @@ When an agent starts, it follows the token exchange process:
     <td>Agent token</td>
     <td>Buildkite organization admin or cluster maintainer</td>
     <td>Initial agent registration and authentication.</td>
-    <td>Forever unless expiration date is set during creation with GraphQL or REST API, or is manually revoked.</td>
+    <td>Until the expiry selected at creation in the Buildkite interface or set using the GraphQL or REST API, or until manually revoked. The interface defaults to <strong>Never</strong> (no expiry).</td>
   </tr>
   <tr>
     <td>Session token (internal)</td>
@@ -387,7 +426,7 @@ When an agent starts, it follows the token exchange process:
 ## Working with unclustered agent tokens
 
 > 🚧 This section documents a deprecated Buildkite feature
-> _It is not be possible to create and work with unclustered agents for any Buildkite organizations created after the official release of clusters on February 26, 2024._ Therefore, unclustered agent tokens are not relevant to these organizations, including this section of the Agent tokens page.
+> _It is not possible to create and work with unclustered agents for any Buildkite organizations created after the official release of clusters on February 26, 2024._ Therefore, unclustered agent tokens are not relevant to these organizations, including this section of the Agent tokens page.
 > Previously, agents only connected directly to Buildkite using a token which was created and managed by the processes described in this page section. These tokens are now a deprecated feature of Buildkite, and are referred to as _unclustered agent tokens_. Unclustered agent tokens, however, are still available to customers who have not yet migrated their pipelines to a [cluster](/docs/pipelines/security/clusters).
 > _Agent tokens_ are now associated with clusters, and connect to Buildkite through a specific cluster within an organization. Learn more about how to manage agent tokens for clusters from the top of this main [Agent tokens](/docs/agent/self-hosted/tokens) page and how to [migrate your unclustered agents across to a cluster](/docs/pipelines/security/clusters/migrate-from-unclustered-to-clustered-agents).
 
@@ -430,7 +469,7 @@ mutation {
 > As soon as the unclustered agent token's value is displayed, copy its value and save it in a secure location.
 > If you forget to do this, you'll need to create a new token to obtain its value.
 
-You can find your `organization-id` in your Buildkite organization settings page, or by running the following GrapqQL query:
+You can find your `organization-id` in your Buildkite organization settings page, or by running the following GraphQL query:
 
 ```graphql
 query GetOrgID {

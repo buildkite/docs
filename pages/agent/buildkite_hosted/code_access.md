@@ -1,6 +1,6 @@
 # Buildkite hosted agents code access
 
-Buildkite hosted agents can access private repositories in GitHub and Origin natively when you authorize Buildkite to access the repositories. To access private repositories from another provider, you can use the [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) pipeline configuration to supply an SSH key from [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets), or the [Git SSH Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/git-ssh-checkout-buildkite-plugin/) plugin as an alternative.
+Buildkite hosted agents can access private repositories in GitHub, GitHub Enterprise Server, Origin, and Code Storage natively when you authorize Buildkite to access the repositories. To access private repositories from another provider, you can use the [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) pipeline configuration to supply an SSH key from [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets), or the [Git SSH Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/git-ssh-checkout-buildkite-plugin/) plugin as an alternative.
 
 To learn more about changes that may need to be completed at an individual pipeline level, see [Pipeline migration](/docs/agent/buildkite-hosted/pipeline-migration).
 
@@ -21,6 +21,14 @@ Buildkite caches these GitHub access tokens for 50 minutes, where they remain en
 
 There's no need to configure this access token caching feature, as it's provided by default as part of [Buildkite hosted agents](/docs/agent/buildkite-hosted).
 
+## GitHub Enterprise Server private repositories
+
+Connect your server using the [GitHub App integration](/docs/pipelines/source-control/github-enterprise#github-app). Enable **Code Read Access** and install the App with access to the pipeline's repository. Buildkite hosted agents receive checkout credentials automatically for repositories the App can access.
+
+Set the pipeline's repository URL to HTTPS, for example `https://github.example.com/acme/app.git`, rather than `git@github.example.com:acme/app.git`. GitHub Enterprise Server SSH URLs are not automatically rewritten to HTTPS for App token checkout.
+
+The agents must also be able to reach your server to clone repositories. See [Network security](/docs/agent/buildkite-hosted/network-security) for hosted agent networking requirements.
+
 ## Origin private repositories
 
 When a pipeline is connected to an Origin repository, jobs running on Buildkite hosted agents automatically receive a read-only credential for checkout. No SSH key or additional pipeline configuration is required.
@@ -29,13 +37,29 @@ Buildkite issues a short-lived `repository:contents:read` token scoped to the ex
 
 To connect an Origin repository, see the [Origin source control integration](/docs/pipelines/source-control/origin).
 
+## Code Storage private repositories
+
+When a pipeline uses the [Code Storage integration](/docs/pipelines/source-control/code-storage), command jobs running on Buildkite hosted agents automatically receive a read-only checkout credential for the connected repository. No SSH key or additional pipeline configuration is required.
+
+The credential is valid for five minutes and grants `git:read` access to the exact repository configured on the pipeline. This managed checkout is not available on self-hosted agents.
+
+## Entire private repositories
+
+When a pipeline selects a repository from a connected Entire project, command jobs running on Buildkite hosted Linux agents on amd64 or arm64 can obtain a short-lived, read-only credential scoped to that repository with `contents:read` permission.
+
+The connection adds the Entire plugin to command jobs by default, including jobs that upload pipelines. The plugin requests the credential and exports it as `ENTIRE_TOKEN` for the job. If the job already has a non-empty `ENTIRE_TOKEN`, the plugin uses it instead. No Entire login or user-supplied token is required.
+
+If automatic plugin setup is off, add the plugin to each command step that needs checkout. For signed steps, add the plugin before signing. See [Entire checkout plugin settings](/docs/pipelines/source-control/entire#configure-the-checkout-plugin).
+
+Do not print the token or dump the job's environment. The plugin does not refresh the token, so it can expire during a long job. See [Entire checkout requirements](/docs/pipelines/source-control/entire#check-out-repositories-on-hosted-agents).
+
 ## Public repositories
 
 Buildkite does not require any special permissions to access public repositories.
 
 ## Private repositories with other providers
 
-To use Buildkite hosted agents with a private repository on a provider other than GitHub or Origin, store an SSH private key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it in your pipeline YAML. The recommended approach is to use the `checkout.ssh_secret` attribute, which configures the agent to fetch the key at job startup and use it automatically during Git checkout.
+For connections without native code access, store an SSH private key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it in your pipeline YAML. The recommended approach is to use the `checkout.ssh_secret` attribute, which configures the agent to fetch the key at job startup and use it automatically during Git checkout.
 
 ### Specifying an SSH secret in YAML
 

@@ -33,6 +33,10 @@ The `bk config` command allows you to manage Buildkite CLI configurations from t
 
 List configuration values.
 
+List all configuration values.
+
+Shows the effective configuration after applying precedence rules.
+
 ```bash
 bk config list [flags]
 ```
@@ -41,9 +45,10 @@ bk config list [flags]
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--global` | Only show global (user) configuration |
 | `--local` | Only show local configuration |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -63,6 +68,21 @@ bk config list --global
 
 Get a configuration value.
 
+Returns the effective value after applying precedence rules:
+
+Environment variable > Local config (.bk.yaml) > User config (~/.config/bk.yaml) > Default
+
+Valid keys:
+
+`selected_org`      Organization slug to use
+`output_format`     Default output format (json, yaml, text)
+`no_pager`          Disable pager for text output (true, false)
+quiet             Suppress progress output (true, false)
+`no_input`          Disable interactive prompts (true, false)
+pager             Custom pager command
+experiments       Enabled experiment flags
+`credential_store`  Default credential store for tokens (auto, keyring, shm)
+
 ```bash
 bk config get <key>
 ```
@@ -77,7 +97,8 @@ bk config get <key>
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -97,6 +118,17 @@ bk config get credential_store
 
 Set a configuration value.
 
+Valid keys:
+
+`selected_org`      Organization slug to use
+`output_format`     Default output format (json, yaml, text)
+`no_pager`          Disable pager for text output (true, false)
+quiet             Suppress progress output (true, false)
+`no_input`          Disable interactive prompts (true, false) [user config only]
+pager             Custom pager command [user config only]
+telemetry         Enable anonymous usage telemetry (true, false) [user config only]
+`credential_store`  Default credential store for tokens (auto, keyring, shm) [user config only]
+
 ```bash
 bk config set <key> <value> [flags]
 ```
@@ -112,8 +144,9 @@ bk config set <key> <value> [flags]
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--local` | Save to local (.bk.yaml) instead of user config |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -151,6 +184,8 @@ bk config set credential_store shm
 
 Remove a configuration value.
 
+Remove a configuration value, reverting to default.
+
 ```bash
 bk config unset <key> [flags]
 ```
@@ -165,8 +200,9 @@ bk config unset <key> [flags]
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--local` | Unset from local (.bk.yaml) instead of user config |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 

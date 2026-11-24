@@ -79,7 +79,7 @@ Custom images help teams ensure that their agents have all required tools and co
 
 ### Requirements
 
-To use the Packer templates provided, you will need to install the following installed on your system:
+To use the Packer templates provided, you will need to install the following on your system:
 
 - Docker
 - Make
@@ -432,6 +432,8 @@ module "buildkite_stack" {
 ```
 
 ### SSH keys for source control
+
+For GitHub repositories, enable [Buildkite-managed GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on the stack's self-hosted queue to use temporary, read-only credentials instead of storing checkout SSH keys in Secret Manager. Other build secrets and the Buildkite agent token are still managed separately.
 
 The Elastic CI Stack for GCP automatically loads SSH keys from [GCP Secret Manager](https://cloud.google.com/security/products/secret-manager) and adds them to an ephemeral `ssh-agent` for your builds. This allows your builds to clone private repositories without storing keys on disk.
 

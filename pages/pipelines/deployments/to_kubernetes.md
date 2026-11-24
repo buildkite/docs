@@ -4,7 +4,7 @@ This tutorial demonstrates deploying to Kubernetes using Buildkite best
 practices.
 
 The tutorial uses one pipeline for tests and another for deploys.
-The test pipeline runs tests and push a Docker image to a registry. The deploy pipelines uses the `DOCKER_IMAGE` environment variable to create a [Kubernetes deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) using `kubectl`. Then, you'll see how to link them together to automate deploys from the `main` branch.
+The test pipeline runs tests and pushes a Docker image to a registry. The deploy pipeline uses the `DOCKER_IMAGE` environment variable to create a [Kubernetes deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) using `kubectl`. Then, you'll see how to link them together to automate deploys from the `main` branch.
 
 First up, you need to add a step to your existing test pipeline that pushes a
 Docker image. Also check your agents have `kubectl` access to your target
@@ -30,13 +30,13 @@ deploy script in the next step.
 steps:
   - label: "\:rocket\: Push to \:kubernetes\:"
     command: script/buildkite/deploy
-    concurrency: 1
-    concurrency_group: deploy/tutorial
+    concurrency:
+      limit: 1
+      group: deploy/tutorial
 ```
 {: codeblock-file="pipeline.yml"}
 
-Set `concurrency` and `concurrency_group` when updating mutable state. These
-settings ensure only one step runs at a time.
+Set `limit` and `group` in the [concurrency map](/docs/pipelines/configure/step-types/command-step#concurrency-attributes) when updating mutable state. These settings ensure only one deployment job runs at a time.
 
 ## Writing the deploy script
 
@@ -44,7 +44,7 @@ The next step is writing a deploy script that generates a [Kubernetes deployment
 manifest](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) from the `DOCKER_IMAGE` environment variable.
 
 Let's start with manifest file. This sample file creates a Deployment with
-three replicas (horizontal scale in Kubernetes lingo) each listening port
+three replicas (horizontal scale in Kubernetes lingo) each listening on port
 `3000`. Change the `containerPort` to fit your application.
 
 > 📘
@@ -169,7 +169,7 @@ This `trigger` step creates a build with the same message, commit, and branch.
 correct values are replaced when the pipeline starts. The `env` setting passes
 along the `DOCKER_IMAGE` environment variable.
 
-Lastly, the `branches` options indicates to only build on `main`. This
+Lastly, the `branches` option indicates to only build on `main`. This
 prevents deploying unexpected topic branches.
 
 It's magic time. Push some code. :tada: Continuous deployment! If something
@@ -254,8 +254,9 @@ steps:
            wait: true
            atomic: true
            timeout: 600s
-     concurrency: 1
-     concurrency_group: deploy/production
+     concurrency:
+       limit: 1
+       group: deploy/production
 ```
 {: codeblock-file=".buildkite/pipeline.deploy.yml"}
 

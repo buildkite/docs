@@ -15,7 +15,7 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
 ```
 
 > 📘
-> Versions 0.28.1 and earlier of the Agent Stack for Kubernetes controller also requires you to specify a queue, using the argument: `--set-json='config.tags=["queue=arm64"]'`. If you do not specify a queue, then the queue name is assumed to be `kubernetes`.
+> Versions 0.28.1 and earlier of the Agent Stack for Kubernetes controller also require you to specify a queue, using the argument: `--set-json='config.tags=["queue=arm64"]'`. If you do not specify a queue, then the queue name is assumed to be `kubernetes`.
 
 Alternatively, you can place these configuration values into a YAML configuration file by creating the YAML file in this format:
 
@@ -43,7 +43,7 @@ Both of these deployment methods:
 
 ## Early versions of the controller
 
-Versions 0.27.0 and earlier of the Agent Stack for Kubernetes controller also requires you to specify a [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication), the organization slug, and the cluster UUID, as additional top-level configuration. For example, in the `values.yml` file:
+Versions 0.27.0 and earlier of the Agent Stack for Kubernetes controller also require you to specify a [Buildkite API access token with the GraphQL scope enabled](/docs/apis/graphql-api#authentication), the organization slug, and the cluster UUID, as additional top-level configuration. For example, in the `values.yml` file:
 
 ```yaml
 graphqlToken: "<buildkite-api-access-token-with-graphql-scope>"

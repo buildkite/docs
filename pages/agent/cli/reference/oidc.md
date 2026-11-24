@@ -210,7 +210,7 @@ All of the following claims (with the exception of the [`aud` claim](#aud), whic
 
 ### Optional claims
 
-You can generate additional optional claims by adding `--claims` to the `buildkite-agent oidc request-token` command. The `--claims` option can also take multiple values.
+You can generate additional optional claims by adding `--claim` to the `buildkite-agent oidc request-token` command. The `--claim` option can also take multiple values.
 
 For example, this command adds the Buildkite cluster's UUID value as a claim to the OIDC token:
 
@@ -272,6 +272,8 @@ The following optional claims can be added, whose values are automatically gener
   </tbody>
 </table>
 
+To use the `agent.buildkite.com:cluster_id` or `agent.buildkite.com:cluster_name` condition keys in an [AWS IAM role trust policy](/docs/pipelines/security/oidc/aws#restricting-access-with-buildkite-oidc-claims), request these claims with `--claim`. Requesting them only with [`--aws-session-tag`](#aws-session-tags) adds them as session tags, not as claims, so these conditions won't match.
+
 ### Example token contents
 
 OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html/rfc7519) — and the following is a complete example:
@@ -304,7 +306,9 @@ OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html
 
 ## AWS session tags
 
-For Buildkite OIDC tokens used to integrate with Amazon Web Services (AWS), you can optionally include any of the supported claims in the [AWS session tag format required by the `AssumeRoleWithWebIdentity` operation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html#id_session-tags_adding-assume-role-idp).
+AWS reads the `organization_slug`, `organization_id`, `pipeline_slug`, `pipeline_id`, and `build_branch` claims directly from Buildkite OIDC tokens, so you can use them as condition keys in an IAM role trust policy without session tags. The `cluster_id` and `cluster_name` condition keys also work, but only when these claims are requested with [`--claim`](#claims-optional-claims). Learn more in [Restricting access with Buildkite OIDC claims](/docs/pipelines/security/oidc/aws#restricting-access-with-buildkite-oidc-claims).
+
+These condition keys are only evaluated when the role is assumed. If you need claim values in the resulting role session, for example, for attribute-based access control (ABAC) in the role's permission policies, or to record them in AWS CloudTrail, you can also include any of the supported claims in the [AWS session tag format required by the `AssumeRoleWithWebIdentity` operation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html#id_session-tags_adding-assume-role-idp). Learn more in [Using AWS session tags](/docs/pipelines/security/oidc/aws#using-aws-session-tags).
 
 These OIDC tokens also typically have an audience of `sts.amazonaws.com`. For example, this command generates an AWS compatible OIDC token that includes the `organization_id` and `organization_slug`:
 

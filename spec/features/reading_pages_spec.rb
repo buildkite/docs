@@ -30,7 +30,44 @@ RSpec.feature "reading pages" do
     end
   end
 
+  describe "/docs/pipelines/configure/environment-variables" do
+    it "identifies where environment variable values can be modified" do
+      visit "/docs/pipelines/configure/environment-variables"
+
+      %w[
+        BUILDKITE_BUILD_CHECKOUT_PATH BUILDKITE_CLEAN_CHECKOUT
+        BUILDKITE_GIT_LFS_ENABLED BUILDKITE_GIT_SKIP_FETCH_EXISTING_COMMITS
+        BUILDKITE_GIT_SPARSE_CHECKOUT_PATHS BUILDKITE_GIT_SUBMODULES
+        BUILDKITE_PLUGIN_VALIDATION BUILDKITE_S3_ACCESS_KEY_ID
+        BUILDKITE_S3_ACCESS_URL BUILDKITE_S3_ACL BUILDKITE_S3_DEFAULT_REGION
+        BUILDKITE_S3_SECRET_ACCESS_KEY BUILDKITE_S3_SSE_ENABLED
+      ].each do |name|
+        expect(page.find("tr[id='#{name}'] th")).not_to have_css("small")
+      end
+
+      %w[BUILDKITE BUILDKITE_BRANCH BUILDKITE_BUILD_ID BUILDKITE_COMMAND CI].each do |name|
+        expect(page.find("tr[id='#{name}'] th small")).to have_text("Set by Buildkite", exact: true)
+      end
+
+      %w[BUILDKITE_AGENT_ACCESS_TOKEN BUILDKITE_AGENT_PID BUILDKITE_BIN_PATH].each do |name|
+        expect(page.find("tr[id='#{name}'] th small")).to have_text("This value cannot be modified", exact: true)
+      end
+
+      %w[BUILDKITE_AGENT_DEBUG BUILDKITE_COMMAND_EVAL BUILDKITE_GIT_MIRRORS_PATH].each do |name|
+        expect(page.find("tr[id='#{name}'] th small")).to have_text("This value cannot be modified except in the agent configuration", exact: true)
+      end
+
+      expect(page.find("tr[id='BUILDKITE_CONFIG_PATH'] th small")).to have_text("This value cannot be modified except when selecting the agent configuration file", exact: true)
+      expect(page.find("tr[id='BUILDKITE_GIT_REMOTE_MIRROR_URL'] th small")).to have_text("This value cannot be modified except in the pipeline settings", exact: true)
+    end
+  end
+
   describe "markdown format" do
+    # Capybara resets the session only after examples that call visit or a finder,
+    # so without this, Accept headers from examples that only call page.driver.get
+    # make later examples receive Markdown instead of HTML
+    after { page.driver.header "Accept", nil }
+
     it "serves pages as HTML by default" do
       visit "/docs/platform"
       expect(page.response_headers["Content-Type"]).to include("text/html")
@@ -78,11 +115,28 @@ RSpec.feature "reading pages" do
   end
 
   describe "all pages" do
-    example "render" do
+    around do |example|
+      # Render the optional Datadog and Plain scripts too
+      original = ENV.to_h.slice("DD_RUM_ENABLED", "PLAIN_CHAT_APP_ID")
+      ENV["DD_RUM_ENABLED"] = "true"
+      ENV["PLAIN_CHAT_APP_ID"] = "liveChatApp_example"
+      example.run
+    ensure
+      ENV.delete("DD_RUM_ENABLED")
+      ENV.delete("PLAIN_CHAT_APP_ID")
+      ENV.update(original)
+    end
+
+    example "render with nonced inline scripts only in the head" do
+      inline_scripts = 'script:not([src]):not([type="application/ld+json"])'
+      first_head_scripts = nil
+
       root = Rails.root.join("pages")
       root.glob("**/*.md").each do |path|
         # Skip partials
         next if path.to_s.include?("/_")
+        # Published only as Markdown, so it has no navigation entry or HTML page
+        next if path.to_s.end_with?("/agent_setup/prompt.md")
 
         url = "/docs" + path.to_s.delete_prefix(root.to_s).delete_suffix(".md")
         puts "Visiting #{url}"
@@ -90,6 +144,21 @@ RSpec.feature "reading pages" do
         if !page.status_code.in?([200, 403])
           raise "#{url} returned #{page.status_code}"
         end
+
+        csp = page.response_headers.fetch("Content-Security-Policy")
+        nonce = csp[/(?:\A|;\s*)script-src [^;]*'nonce-([^']+)'/, 1]
+        expect(nonce).to be_present, "expected script-src on #{url} to include a nonce"
+
+        head_scripts = page.all("head #{inline_scripts}", visible: false)
+        expect(head_scripts.map { |script| script[:nonce] }.uniq).to eql([nonce]), "expected inline scripts on #{url} to have the CSP nonce"
+
+        # After a Turbo visit, the browser blocks inline scripts in the body and
+        # head scripts that differ from the first page, because Turbo adds them
+        # without a nonce
+        expect(page).to have_no_css("body #{inline_scripts}", visible: false), "expected no inline scripts in the body of #{url}"
+        head_script_texts = head_scripts.map { |script| script.native.text }
+        first_head_scripts ||= head_script_texts
+        expect(head_script_texts).to eql(first_head_scripts), "expected inline head scripts on #{url} to match other pages"
       end
     end
   end
@@ -105,6 +174,48 @@ RSpec.feature "reading pages" do
   end
 
   describe "old URLs" do
+    it "keeps old data flow links with the shared responsibility diagram" do
+      visit "/docs/pipelines/security#data-flow"
+
+      expect(page.current_path).to eq("/docs/platform/security")
+      within("section#shared-responsibility") do
+        expect(page).to have_css("h2", text: "Shared responsibility")
+        expect(page).to have_css("a#data-flow", visible: :all)
+        expect(page).to have_css("img")
+      end
+      expect(page).to have_link("Security at Buildkite", href: "https://buildkite.com/about/security/")
+    end
+
+    it "preserves security control section links at their replacement sections" do
+      visit "/docs/pipelines/best-practices/security-controls"
+
+      expect(page.current_path).to eq("/docs/platform/security/checklist")
+
+      within(".Toc") do
+        expect(page).to have_link("Authentication and access control", href: "#authentication-and-access-control")
+        expect(page).to have_link("Incident readiness", href: "#incident-readiness")
+      end
+
+      {
+        "authentication-and-session-security-in-the-buildkite-interface-apis-and-cli" => "Authentication and access control",
+        "source-code-security-and-version-control-integrity" => "Pipeline and supply chain integrity",
+        "dependencies-and-package-management" => "Pipeline and supply chain integrity",
+        "api-access-token-compromise" => "Authentication and access control",
+        "network-and-transport-security" => "Network and data exposure",
+        "artifact-storage-and-integrity" => "Network and data exposure",
+        "consistent-pipeline-as-code-approach" => "Governance and configuration management",
+        "monitoring-anomaly-detection-logging" => "Monitoring and detection",
+        "incident-response-and-recovery" => "Incident readiness"
+      }.each do |anchor, heading|
+        target = page.find("a[id='#{anchor}']", visible: :all)
+        expect(target.find(:xpath, "following::h2[1]").text).to eq(heading)
+      end
+
+      %w[secrets-management buildkite-agent-security further-questions].each do |anchor|
+        expect(page).to have_css("h2[id='#{anchor}']")
+      end
+    end
+
     old_paths = %w{
       /docs/agent/agent-meta-data
       /docs/agent/artifacts
@@ -161,8 +272,12 @@ RSpec.feature "reading pages" do
       /docs/how-tos/github-enterprise
       /docs/how-tos/gitlab
       /docs/how-tos/migrating-from-bamboo
+      /docs/pipelines/best-practices/secrets-management
+      /docs/pipelines/best-practices/security-controls
       /docs/pipelines/emoji
       /docs/pipelines/pipelines
+      /docs/pipelines/security
+      /docs/platform/security/best-practices
       /docs/pipelines/security/enforcing-security-controls
       /docs/pipelines/tutorials/docker-containerized-builds
       /docs/pipelines/tutorials/parallel-builds

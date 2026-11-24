@@ -6,6 +6,8 @@ This page covers best practices for effective management of [Buildkite agents](/
 
 Buildkite agents can run on local machines, cloud compute, container schedulers, and serverless infrastructure. Choose based on your workload characteristics, cost constraints, and operational maturity. Many teams adopt a hybrid approach, combining different stacks for different workload types.
 
+For example setups and signals that your current design needs to change, see [Buildkite agent reference architectures](/docs/agent/reference-architectures).
+
 | Stack | Best for | Key benefits |
 | ----- | -------- | ------------ |
 | **Cloud compute** | High utilization, disk-heavy jobs | Bin-pack multiple agents, warm images, large cache support |
@@ -17,7 +19,7 @@ See a more detailed overview of each architecture type for Buildkite agents to c
 
 ### Cloud compute
 
-Run multiple agents per an instance to maximize cost efficiency and enable heavy caching.
+Run multiple agents per instance to maximize cost efficiency and enable heavy caching.
 
 **Pros:**
 
@@ -99,6 +101,7 @@ Learn more about using clusters and queues in [Managing clusters](/docs/pipeline
 - Monitor queue times with [cluster insights](/docs/pipelines/security/clusters#cluster-insights) and the [buildkite-agent-metrics](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli) tool.
 - Use cloud-based autoscaling ([Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), [Buildkite agent Scaler](https://github.com/buildkite/buildkite-agent-scaler), [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s)).
 - Maintain dedicated pools for CPU-intensive, GPU-enabled, or OS-specific workloads.
+- Limit the CPU, memory, and disk space that jobs can use on self-hosted agents with operating system, container, or Kubernetes controls. Learn more in [Resource controls](/docs/agent/self-hosted/resource-controls).
 - Configure [graceful termination](/docs/agent/lifecycle#signal-handling) to allow jobs to complete.
 - To be able to duplicate your fleet of agents in an easy way, favor agent images and configurations that are able to run in more than one environment. For example, you can have a single Docker image that contains the latest Buildkite agent binary, a selection of development and deployment tools, and a config that reads information such as queues or tags from environment variables. You could then run such image as Kubernetes agents, ECS agents, or in a Docker setup on a virtual machine.
 
@@ -112,8 +115,8 @@ Opt for building out your agent architecture in such a way that a single host or
 
 Build security into agent infrastructure from the start. Follow least privilege principles and integrate proper secret management. It's recommended that you:
 
-- Store secrets in hooks or cloud secret stores. You can find more on proper secrets management in Buildkite Pipelines in [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) and [Secrets management](/docs/pipelines/best-practices/secrets-management)
+- Store secrets in hooks or cloud secret stores. You can find more on proper secrets management in Buildkite Pipelines in [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) and [Secrets management](/docs/platform/security/checklist#secrets-management)
 - Use short-lived tokens and [ephemeral agents](/docs/agent/buildkite-hosted/linux#agent-images)
 - Enforce infrastructure-as-code ([Terraform](/docs/package-registries/ecosystems/terraform), CloudFormation)
 
-For more information on agent security, see [Buildkite agent security](/docs/pipelines/best-practices/security-controls#buildkite-agent-security).
+For more information on agent security, see [Buildkite agent security](/docs/platform/security/checklist#buildkite-agent-security).

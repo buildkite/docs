@@ -98,7 +98,7 @@ Depot requires authentication to access your projects. Depot supports [OIDC trus
 
 #### OIDC trust relationships (recommended)
 
-Configure an [OIDC trust relationships with Buildkite](/docs/pipelines/security/oidc) and Depot to use ephemeral tokens automatically as explained below. This will eliminate the need to manage static tokens and improves security.
+Configure an [OIDC trust relationship with Buildkite](/docs/pipelines/security/oidc) and Depot to use ephemeral tokens automatically as explained below. This will eliminate the need to manage static tokens and improves security.
 
 Set up the OIDC trust relationship in your Depot project settings. The Depot CLI automatically detects Buildkite's OIDC credentials from the Elastic CI Stack agents and uses them for authentication when an OIDC trust relationship is configured.
 

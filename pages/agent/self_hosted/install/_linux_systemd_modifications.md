@@ -11,6 +11,8 @@ Environment=HOME=/opt/my-service-account
 ```
 {: codeblock-file="/etc/systemd/system/buildkite-agent.service.d/change-service-user.conf"}
 
+You can also use drop-in files to limit the CPU, memory, and number of processes available to the agent and its jobs. Learn more in [Resource controls](/docs/agent/self-hosted/resource-controls#limit-cpu-and-memory-with-systemd).
+
 The Buildkite agent also supports the systemd watchdog mechanism (available since agent version 4.0.0-beta.16). Enable it by setting `WatchdogSec` in a drop-in configuration file:
 
 ```conf

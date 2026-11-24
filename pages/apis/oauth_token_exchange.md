@@ -2,7 +2,10 @@
 
 [OAuth Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693) lets you mint short-lived [Buildkite API access tokens](/docs/apis/managing-api-tokens) associated with a user in your organization programmatically, without interactive login flows. Your application signs a JWT assertion with its private key, exchanges it at the token endpoint for a scoped API token, and uses that token to call the Buildkite [REST](/docs/apis/rest-api) or [GraphQL](/docs/apis/graphql-api) API on behalf of a user.
 
-OAuth Token Exchange is ideal for security-conscious workflows where a central service mints tokens on behalf of users, avoiding long-lived tokens stored on individual machines. For interactive flows on devices without browser access, use [OAuth device authorization](/docs/apis/oauth-device-authorization) instead.
+> 📘 Enterprise plan feature
+> OAuth Token Exchange is only available to Buildkite customers on [Enterprise](https://buildkite.com/pricing) plans, and must be enabled for your Buildkite organization by Buildkite. If you're on an Enterprise plan and don't see **Token Exchange Apps** in your organization's settings, contact support@buildkite.com to have this feature enabled.
+
+OAuth Token Exchange is ideal for security-conscious workflows where a central service mints tokens on behalf of users, avoiding long-lived tokens stored on individual machines. For interactive flows on devices without browser access, use [OAuth device authorization](/docs/apis/oauth-device-authorization) instead. For a workload whose platform already issues OpenID Connect (OIDC) tokens, such as a job running on a Buildkite agent, a workload on AWS, or a GitHub Actions job, use [workload identity federation](/docs/apis/workload-identity-federation) instead.
 
 Common use cases include:
 
@@ -32,7 +35,7 @@ Common use cases include:
 
 ## Setup
 
-Creating a Token Exchange application requires organization administrator permissions.
+Creating a Token Exchange application requires organization administrator permissions. Your Buildkite organization must also be on an [Enterprise](https://buildkite.com/pricing) plan with OAuth Token Exchange enabled. If **Token Exchange Apps** doesn't appear in your organization's settings, contact support@buildkite.com.
 
 To create a Token Exchange application:
 
@@ -207,7 +210,16 @@ The `client_assertion` is a JWT ([RFC 7523](https://datatracker.ietf.org/doc/htm
 | `jti` | A unique identifier for the JWT ([RFC 7519 §4.1.7](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.7)). If present, must be a non-empty string of at most 255 bytes. A UUID is a common format. After a successful token exchange, Buildkite rejects later requests that reuse the same `jti`. By default, JWTs without a `jti` are accepted. |
 | `nbf` | Not-before timestamp. If set, must not be in the future. |
 
-**Supported signing algorithms:** RS256 (RSA) and ES256 (ECDSA P-256).
+**Supported signing algorithms:**
+
+| Algorithm | Key |
+|-----------|-----|
+| RS256, RS384, RS512, PS256, PS384, PS512 | RSA |
+| ES256 | EC, P-256 curve |
+| ES384 | EC, P-384 curve |
+| ES512 | EC, P-521 curve |
+
+Buildkite rejects HMAC algorithms, such as HS256, and unsigned JWTs.
 
 ### Example JWT header
 
@@ -278,7 +290,13 @@ Prefer shorter token lifetimes to limit the blast radius if a token is compromis
 
 ## Example client
 
-The [buildkite-token-exchange-example](https://github.com/buildkite/buildkite-token-exchange-example) repository contains a complete Go client that demonstrates the full token exchange flow, including JWT signing, token caching, and API calls.
+The [Go token exchange library](https://github.com/buildkite/tokenexchange) handles JWT signing, token exchange, caching, and authenticated HTTP requests. Its examples demonstrate how to:
+
+- [Convert a PEM key into a JWKS](https://github.com/buildkite/tokenexchange/tree/main/examples/jwks) for registering your application.
+- [Mint a token and make authenticated REST requests](https://github.com/buildkite/tokenexchange/tree/main/examples/mint).
+- [Run a single-user MCP gateway](https://github.com/buildkite/tokenexchange/tree/main/examples/mcp_gateway) that keeps short-lived Buildkite tokens in the gateway rather than distributing them to clients.
+
+See [Using token exchange with an MCP gateway](/docs/apis/mcp-server/remote/configuring-ai-tools#api-token-pass-through-for-headless-agents-using-token-exchange-with-an-mcp-gateway) for the authentication flow and production considerations. The gateway example is a local demonstration, not a production authentication service.
 
 ## Troubleshooting
 
@@ -295,6 +313,7 @@ The token endpoint returns [RFC 6749 §5.2](https://datatracker.ietf.org/doc/htm
 
 | `error` | `error_description` | Fix |
 |---------|---------------------|-----|
+| `access_denied` | "Your current plan does not include OAuth Token Exchange" | OAuth Token Exchange is only available on [Enterprise](https://buildkite.com/pricing) plans |
 | `invalid_client` | "Invalid client assertion signature" | Check that the public key in your JWKS matches the private key used to sign the JWT |
 | `invalid_client` | "JWT `aud` claim is invalid" | Set the JWT `aud` claim to `https://buildkite.com/oauth/token` |
 | `invalid_client` | "JWT `exp` claim must be in the future" | Check your system clock for skew |
@@ -303,6 +322,6 @@ The token endpoint returns [RFC 6749 §5.2](https://datatracker.ietf.org/doc/htm
 | `invalid_request` | "Subject user must be an active member of the organization" | Verify the email address or user UUID belongs to an active member of the target organization |
 | `invalid_scope` | "Requested scopes exceed grantable scopes" | Only request scopes that are in the app's configured grantable scopes |
 | `invalid_target` | "Invalid audience organization" | Use the organization slug (from the URL, not the display name) or the organization UUID |
-| `unsupported_grant_type` | "Token exchange is not enabled for this organization" | OAuth Token Exchange must be enabled for the organization |
+| `unsupported_grant_type` | "Token exchange is not enabled for this organization" | OAuth Token Exchange must be enabled for the organization. Contact support@buildkite.com |
 
 <!-- vale Buildkite.existence = YES -->

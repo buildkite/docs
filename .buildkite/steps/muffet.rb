@@ -4,6 +4,9 @@ require 'yaml'
 require 'json'
 
 require 'open3'
+require_relative 'muffet_runner'
+
+$stdout.sync = true
 
 # This check is split into two modes, each run as a separate Buildkite step:
 #
@@ -95,11 +98,16 @@ puts "--- Running muffet"
 muffet_cmd = [
   '/muffet',
   'http://app:3000/docs',
-  '--header="User-Agent: Muffet/$(/muffet --version)"',
-  '--max-connections=10',
+  "--header=User-Agent: Muffet/#{Open3.capture2('/muffet', '--version').first.strip}",
+  "--max-connections=#{MODE == 'external' ? 50 : 10}",
   '--timeout=15',
   '--buffer-size=16384',
+  # Some external documentation pages exceed Muffet's default 10 MB body limit.
+  '--max-response-body-size=20000000',
   '--format=json',
+  # The shared footer generates one edit link per page. Skip these requests
+  # rather than consuming GitHub's rate limit on links we already exempt.
+  '--exclude=^https://github\.com/buildkite/docs/edit/',
   # Capture successes as well as failures
   '--verbose',
 ]
@@ -109,16 +117,11 @@ muffet_cmd = [
 # page (they all match this pattern), so docs link discovery stays complete.
 # In external mode we crawl everything, then filter the results down to
 # external links below.
-muffet_cmd << "--include='^http://app:3000'" if MODE == 'internal'
+muffet_cmd << '--include=^http://app:3000' if MODE == 'internal'
 
-muffet_output_json=`#{muffet_cmd.join(' ')}`
-
-File.write(RESULTS_FILE, muffet_output_json)
+pages = MuffetRunner.run(muffet_cmd, results_file: RESULTS_FILE)
 
 puts "--- Checking results"
-
-
-pages = JSON.load(muffet_output_json)
 
 pages.each do |page|
   page['links'].each do |link|

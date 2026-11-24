@@ -25,15 +25,19 @@ Once Datadog APM is integrated with Buildkite Pipelines, you gain full visibilit
 
 The Buildkite agent can export job logs as OpenTelemetry log records to the Datadog OTLP logs intake endpoint. Follow the [Datadog job log export instructions](/docs/agent/self-hosted/monitoring-and-observability/tracing#exporting-job-logs-as-opentelemetry-logs-sending-job-logs-to-datadog) to configure the export, endpoint, and authentication.
 
-The exported logs are available in [Datadog Log Management](https://docs.datadoghq.com/logs/). If you also send pipeline data to Datadog CI Pipeline Visibility through the [Datadog Pipeline Visibility notification service](#configuring-the-datadog-integration-in-buildkite), Datadog correlates the logs with the corresponding pipeline and job executions. For more information, see [Buildkite Setup for CI Visibility](https://docs.datadoghq.com/continuous_integration/pipelines/buildkite/#collect-job-logs).
+The exported logs are available in [Datadog Log Management](https://docs.datadoghq.com/logs/). If you also send pipeline data to Datadog CI Pipeline Visibility through the [Datadog Pipeline Visibility notification service](#configuring-the-datadog-integration-in-buildkite), Datadog correlates the logs with the corresponding pipeline and job executions. For more information, see [Buildkite Setup for CI Visibility](https://docs.datadoghq.com/continuous_integration/pipelines/buildkite/#manage-job-logs).
 
 ## Configuring the Datadog integration in Buildkite
 
-To set up the Datadog's CI Pipeline Visibility integration for Buildkite:
+> 📘 Plan availability
+> On the 2026 plans, the Datadog Pipeline Visibility notification service is an [Enterprise plan](https://buildkite.com/pricing/) feature. Organizations on legacy plans retain their existing access, including the ability to add new Datadog Pipeline Visibility notification services.
+> This requirement does not apply to independently configured agent tracing or job log exports.
+
+To set up Datadog's CI Pipeline Visibility integration for Buildkite:
 
 1. As a [Buildkite organization administrator](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions), go to **Settings** > **Notification Services** and select the **Add** button next to **Datadog Pipeline Visibility**.
 
-1. Complete in the following fields:
+1. Complete the following fields:
     - **Description**: A description to help identify this integration in the future, for example `Datadog CI Pipeline Visibility`.
     - **API key**: Your Datadog API Key. You can generate it in [your Datadog account settings](https://app.datadoghq.com/organization-settings/api-keys).
     - **Datadog site**: The URL of your Datadog site to send notifications to, which is typically `datadoghq.com`. While this is the default value of this field, depending on your location, you might wish to use a different site, for instance, `us3.datadoghq.com` or `us5.datadoghq.com` for US or `ap1.datadoghq.com` for Japan. Learn more about these different sites and the current list of available websites to choose from in [Getting Started with Datadog Sites](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site).

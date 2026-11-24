@@ -4,7 +4,7 @@ The Buildkite Test Engine Client ([bktec](https://github.com/buildkite/test-engi
 
 ## Faster build times with test splitting
 
-Intelligently partition your pipeline with bktec to substantially reduce build times on your critical path to delivery. bktec split tests automatically based on your historical timing data, and maintains peak speed through continuous optimization and automated re-balancing.
+Intelligently partition your pipeline with bktec to substantially reduce build times on your critical path to delivery. bktec splits tests automatically based on your historical timing data, and maintains peak speed through continuous optimization and automated re-balancing.
 
 The following image from Test Engine's test splitting setup page illustrates how this feature works.
 

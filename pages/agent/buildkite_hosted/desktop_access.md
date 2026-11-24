@@ -12,6 +12,9 @@ Desktop access is useful for:
 
 Desktop access is available for currently running jobs on macOS hosted agents. Remote access must be active for your Buildkite organization. Organization administrators can manage the **Hosted Agents Remote Access (SSH and VNC)** setting from [**Pipeline Settings**](https://buildkite.com/organizations/~/pipeline-settings). You also need permission to manage hosted agents for the job.
 
+> 🚧 Deactivating remote access only prevents new credentials
+> The shared SSH and VNC setting controls credential issuance, not connection or credential lifetimes. If you suspect unauthorized SSH access, deactivate remote access and cancel all running jobs. See [Deactivate and reactivate remote access on hosted agents](/docs/agent/buildkite-hosted/terminal-access#deactivate-and-reactivate-remote-access-on-hosted-agents) for the limitations of this setting.
+
 To open a job's desktop:
 
 1. While a build is running, expand the relevant step and wait for its job to start running on a macOS hosted agent.

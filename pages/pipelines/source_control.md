@@ -9,11 +9,13 @@ Buildkite Pipelines integrates with source control providers to create builds fr
 ## Connect a source control provider
 
 - [GitHub](/docs/pipelines/source-control/github)
-- [GitHub Enterprise](/docs/pipelines/source-control/github-enterprise)
+- [GitHub Enterprise Server](/docs/pipelines/source-control/github-enterprise)
 - [GitLab](/docs/pipelines/source-control/gitlab)
 - [Bitbucket](/docs/pipelines/source-control/bitbucket)
 - [Bitbucket Server](/docs/pipelines/source-control/bitbucket-server)
 - [Origin](/docs/pipelines/source-control/origin)
+- [Code Storage](/docs/pipelines/source-control/code-storage)
+- [Entire](/docs/pipelines/source-control/entire)
 - [Phabricator](/docs/pipelines/source-control/phabricator)
 - [Other Git servers](/docs/pipelines/source-control/git)
 
@@ -21,7 +23,11 @@ Buildkite Pipelines integrates with source control providers to create builds fr
 
 Choose a repository authentication method based on where your agents run and which provider connection you use:
 
-- **Buildkite hosted agents with GitHub or Origin:** Repository access is included when you connect the full-access GitHub App or an Origin repository. See [Buildkite hosted agent code access](/docs/agent/buildkite-hosted/code-access).
-- **SSH key stored in Buildkite Secrets:** This is the recommended option for self-hosted agents, the Limited Access GitHub App, and providers without native repository access. Follow the instructions for [self-hosted agents](/docs/agent/self-hosted/code-access#using-buildkite-secrets-recommended) or [Buildkite hosted agents](/docs/agent/buildkite-hosted/code-access#private-repositories-with-other-providers).
+- **Buildkite hosted agents with GitHub, Origin, or Code Storage:** Repository access is included when you connect the full-access GitHub App, an Origin repository, or a Code Storage repository. See [Buildkite hosted agent code access](/docs/agent/buildkite-hosted/code-access).
+- **Buildkite hosted agents with GitHub Enterprise Server:** Connect a [GitHub App with code access enabled](/docs/pipelines/source-control/github-enterprise#github-app) and install it for the repositories you want to clone. See [GitHub Enterprise Server private repositories](/docs/agent/buildkite-hosted/code-access#github-enterprise-server-private-repositories).
+- **Buildkite hosted agents with Entire:** Connect an Entire project and select a repository. Checkout credentials are automatic, and the connection adds the Entire checkout plugin by default. See [Entire hosted-agent checkout](/docs/pipelines/source-control/entire#check-out-repositories-on-hosted-agents).
+- **Self-hosted agents with Entire**: An organization administrator can turn on **Allow self-hosted agents to use checkout credentials** in the Entire connection's **Settings** panel. Otherwise, supply your own `ENTIRE_TOKEN` in an agent environment hook. The checkout plugin installs the Git remote helper on Linux amd64 and arm64. See [Entire self-hosted checkout](/docs/pipelines/source-control/entire#check-out-repositories-on-self-hosted-agents) for setup and runtime requirements.
+- **Self-hosted agents with GitHub or GitHub Enterprise Server**: Enable [Buildkite-managed GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on a queue to use temporary, read-only credentials without installing SSH keys or GitHub App private keys on your agents. Requires an App integration with code access.
+- **SSH key stored in Buildkite Secrets**: This is the recommended SSH-based option for the Limited Access GitHub App and providers without native repository access. Follow the instructions for [self-hosted agents](/docs/agent/self-hosted/code-access#using-buildkite-secrets-recommended) or [Buildkite hosted agents](/docs/agent/buildkite-hosted/code-access#private-repositories-with-other-providers).
 - **SSH key stored on an agent machine:** Self-hosted agents can use keys in the agent user's `~/.ssh` directory. See [Managing SSH keys on agent machines](/docs/agent/self-hosted/code-access#managing-ssh-keys-on-agent-machines).
-- **GitHub App installation access token:** As an alternative to SSH keys, self-hosted agents can generate a short-lived token in a `pre-checkout` hook. See [Using GitHub App installation access tokens](/docs/pipelines/source-control/github#using-github-app-installation-access-tokens).
+- **Customer-managed GitHub App installation access token**: If you need to manage your own GitHub App, self-hosted agents can generate a short-lived token in a `pre-checkout` hook. Unlike managed queue credentials, this requires your own App private key and token-generation hook. See [Using GitHub App installation access tokens](/docs/pipelines/source-control/github#using-github-app-installation-access-tokens).

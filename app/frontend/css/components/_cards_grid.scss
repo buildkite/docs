@@ -14,3 +14,34 @@
 .CardsGrid__card {
   height: 100%;
 }
+
+.Article .CardsGrid {
+  list-style: none;
+  padding-left: 0;
+
+  .CardsGrid__item {
+    margin: 0;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .Card__content {
+    font-size: map-get($font-sizes, "sm");
+  }
+
+  .Card__list-item {
+    margin: 0.5rem 0 0;
+  }
+
+  .Card__list-item-link {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -2,7 +2,7 @@
 
 This page provides details on how to manage [clusters](/docs/pipelines/glossary#cluster) within your Buildkite organization.
 
-Learn more about on how to set up queues within a cluster in [Manage queues](/docs/agent/queues/managing).
+Learn more about how to set up queues within a cluster in [Manage queues](/docs/agent/queues/managing).
 
 ## Setting up clusters
 
@@ -150,6 +150,33 @@ Only agents that register to the cluster after this change receive the selected 
 
 If the selected notification service later becomes unavailable—for example, if it's deleted, disabled, or narrowed to a subset of pipelines or branches—agents that register after that point don't receive tracing configuration. Select a valid replacement to resume automatic configuration.
 
+## Restrict job reprioritization to cluster maintainers
+
+By default, any user with [**Build** access](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions) to a pipeline can [reprioritize](/docs/apis/rest-api/jobs#reprioritize-a-job) that pipeline's waiting jobs. This can be undesirable when a cluster's agents are shared across pipelines owned by different teams. Reprioritizing a job changes the order in which jobs from other pipelines are dispatched from the same [queue](/docs/agent/queues/managing).
+
+Enabling **Restrict job reprioritization to cluster maintainers** on a cluster requires, in addition to the job's pipeline **Build** access, that a user is either a [maintainer of the job's cluster](#manage-maintainers-on-a-cluster) (directly or through a team) or a Buildkite organization administrator, before they can change that job's priority. [Workload identity](/docs/apis/workload-identity-federation) tokens can't reprioritize jobs in a restricted cluster, even when their [resource grants](/docs/apis/rest-api/organizations/workload-identities#workload-identity-data-model-resource-grants) include the cluster.
+
+This setting doesn't restrict:
+
+- Priority set in pipeline YAML, using the top-level or step-level `priority` key. Learn more in [Job priority](/docs/pipelines/configure/workflows/job-priority).
+- Priority set through [dynamic pipeline uploads](/docs/pipelines/configure/dynamic-pipelines).
+- Priority changes made using [`buildkite-agent step update priority`](/docs/agent/cli/reference/step#updating-a-step).
+
+This setting also doesn't affect any other **Build** access permissions, such as starting, canceling, or retrying builds.
+
+This setting is off by default, and can only be changed by a [cluster maintainer](#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the Buildkite interface, the [REST API](/docs/apis/rest-api/clusters#clusters-update-a-cluster), or the [GraphQL API](/docs/apis/graphql-api). Changes to this setting are recorded in the organization's [audit log](/docs/platform/audit-log).
+
+> 📘 Unclustered jobs
+> This setting doesn't apply to jobs that aren't assigned to a cluster. Reprioritizing unclustered jobs only requires pipeline [**Build** access](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions).
+
+To restrict job reprioritization to cluster maintainers:
+
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+1. Select the cluster to configure.
+1. Select **Settings**.
+1. Under **Job prioritization**, select **Restrict job reprioritization to cluster maintainers**.
+1. Save your changes.
+
 ## Connect agents to a cluster
 
 Agents are associated with a cluster through the cluster's agent tokens. Learn more about this in [Agent tokens](/docs/agent/self-hosted/tokens).
@@ -176,7 +203,7 @@ Learn more about this entire process from the detailed [Migrate from unclustered
 
 ## Restrict an agent token's access by IP address
 
-As a security measure, each agent token has an optional **Allowed IP Addresses** setting that can be used to lock down access to the token. When this option is set on an agent token, only agents with an IP address that matches one this agent token's setting can use this token to connect to your Buildkite organization (through your cluster).
+As a security measure, each agent token has an optional **Allowed IP Addresses** setting that can be used to lock down access to the token. When this option is set on an agent token, only agents with an IP address that matches one of this agent token's setting can use this token to connect to your Buildkite organization (through your cluster).
 
 An agent token's **Allowed IP Addresses** setting can be set [when the token is created](/docs/agent/self-hosted/tokens#create-a-token), or this setting can be added to or modified on existing agent tokens by a [cluster maintainer](#manage-maintainers-on-a-cluster) or Buildkite organization administrator, using the [**Agent Tokens** page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), as well as Buildkite's [REST API](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) or [GraphQL API](#restrict-an-agent-tokens-access-by-ip-address-using-the-graphql-api).
 

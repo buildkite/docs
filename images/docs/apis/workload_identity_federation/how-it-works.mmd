@@ -1,0 +1,46 @@
+---
+config:
+  theme: base
+  themeVariables:
+    fontFamily: Inter
+    fontSize: "15px"
+    actorBkg: "#D9D2FF"
+    actorBorder: "#B7ABF1"
+    actorTextColor: "#2B1E53"
+    actorLineColor: "#B7ABF1"
+    signalColor: "#9B5DE5"
+    signalTextColor: "#2B1E53"
+    sequenceNumberColor: "#FFFFFF"
+    noteBkgColor: "#D3F6E6"
+    noteBorderColor: "#4FD99A"
+    noteTextColor: "#2B1E53"
+  sequence:
+    actorFontWeight: 600
+    bottomMarginAdj: 16
+    mirrorActors: false
+    actorMargin: 30
+    width: 130
+    messageMargin: 30
+    diagramMarginX: 20
+    diagramMarginY: 20
+    useMaxWidth: false
+---
+%% Source for how-it-works.png on /docs/apis/workload-identity-federation.
+%% Regenerate the PNG from the repository root with the Inter font installed. The second command adds the bottom margin that Mermaid leaves out:
+%%   npx -y @mermaid-js/mermaid-cli@11 -i images/docs/apis/workload_identity_federation/how-it-works.mmd -o images/docs/apis/workload_identity_federation/how-it-works.png -b white -s 2
+%%   magick images/docs/apis/workload_identity_federation/how-it-works.png -background white -gravity south -splice 0x36 -strip images/docs/apis/workload_identity_federation/how-it-works.png
+%% The PNG's width and height must both be even numbers. Update the width and height in pages/apis/workload_identity_federation.md to half of them.
+sequenceDiagram
+    autonumber
+    participant W as Workload
+    participant P as OIDC provider
+    participant T as Buildkite token<br/>exchange endpoint
+    participant A as Buildkite<br/>REST API
+    W->>P: Request an OIDC token
+    P-->>W: Signed OIDC token
+    W->>T: Client ID and OIDC token
+    Note over T: Check the token against<br/>the workload identity
+    T-->>W: bkwi_ access token
+    W->>A: API request with the bkwi_ token
+    Note over A: Check the token's<br/>pipeline access and scopes
+    A-->>W: API response for allowed pipelines

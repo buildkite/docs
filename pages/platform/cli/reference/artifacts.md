@@ -31,6 +31,11 @@ The `bk artifacts` command allows you to manage build artifacts from the command
 
 Download artifacts from a build.
 
+Use this command to download artifacts from a build.
+
+If no artifact ID is provided, all artifacts for the build (or job) will be
+downloaded. Artifact IDs can be found using "bk artifacts list".
+
 ```bash
 bk artifacts download [<artifact-id>] [flags]
 ```
@@ -48,8 +53,9 @@ bk artifacts download [<artifact-id>] [flags]
 | `-b`, `--build=STRING` | Build number containing the artifact. If omitted, the most recent build on the current branch will be used. |
 | `-j`, `--job-uuid=STRING` | The job UUID containing the artifact. |
 | `-p`, `--pipeline=STRING` | The pipeline containing the artifact. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. If omitted, it will be resolved using the current directory. |
-| `--debug` | Enable debug output for REST API calls |
-| `--path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--path "log/rspec*.json"`. |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
+| `--path=PATH` | Filter artifacts by path. Supports exact matches and * wildcards. Repeat to match any of multiple paths. |
 | `--state=STRING` | Filter artifacts to download by state. Must be one of: new, finished, error, deleted, expired. |
 
 ### Examples
@@ -94,9 +100,18 @@ bk artifacts download --build 429 --path "log/rspec*.json"
 bk artifacts download --build 429 --state finished
 ```
 
+Download artifacts matching either path (each artifact is downloaded once):
+
+```bash
+bk artifacts download --build 429 --path "log/rspec*.json" --path "log/minitest.log"
+```
+
 ## List artifacts
 
 List artifacts for a build or a job in a build.
+
+You can pass an optional build number. If omitted, the most recent build on the
+current branch will be resolved.
 
 ```bash
 bk artifacts list [<build-number>] [flags]
@@ -115,9 +130,10 @@ bk artifacts list [<build-number>] [flags]
 | `-j`, `--job-uuid=STRING` | List artifacts for a specific job on the given build. |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | The pipeline to view. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. If omitted, it will be resolved using the current directory. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
-| `--path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--path "log/rspec*.json"`. |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
+| `--path=PATH` | Filter artifacts by path. Supports exact matches and * wildcards. Repeat to match any of multiple paths. |
 | `--state=STRING` | Filter artifacts by state. Must be one of: new, finished, error, deleted, expired. |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
@@ -156,4 +172,10 @@ bk artifacts list 429 --path "log/rspec*.json"
 
 ```bash
 bk artifacts list 429 --state finished
+```
+
+List artifacts matching either path (each artifact is listed once):
+
+```bash
+bk artifacts list 429 --path "log/rspec*.json" --path "log/minitest.log"
 ```

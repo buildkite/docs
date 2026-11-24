@@ -37,7 +37,7 @@ Buildkite Pipelines is compute-agnostic — the platform handles orchestration, 
 [Buildkite hosted agents](/docs/agent/buildkite-hosted) provide fully managed build infrastructure for teams that want fast, ephemeral runners without maintaining their own agent fleet:
 
 - Latest generation Mac and AMD Zen-based hardware with a proprietary low-latency virtualization layer.
-- Agents provision on demand and are destroyed after each job, providing clean builds with hypervisor-level [isolation](/docs/pipelines/security).
+- Agents provision on demand and are destroyed after each job, providing clean builds with hypervisor-level [isolation](/docs/agent/buildkite-hosted/network-security).
 - Per-second billing with no minimum charges and no rounding.
 - [Caching](/docs/agent/buildkite-hosted/cache-volumes#container-cache-volumes), [git mirroring](/docs/agent/buildkite-hosted/cache-volumes#git-mirror-volumes), and [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders) included at no additional cost.
 - Jobs dispatch within seconds, with consistently low queue times.
@@ -133,7 +133,7 @@ Use pipeline templates to enforce consistent build patterns, reduce duplication,
 
 Buildkite Pipelines separates the control plane from the execution environment. The control plane handles orchestration and receives only build metadata — job status, logs, and timing data. Source code, secrets, and build artifacts remain on infrastructure you control.
 
-For a full security overview, see [Pipelines security](/docs/pipelines/security) and [Security best practices](/docs/pipelines/best-practices/security-controls).
+For security controls and shared responsibilities, see the [Security overview](/docs/platform/security). For platform security and assurance reports, see [Security at Buildkite](https://buildkite.com/about/security/).
 
 ### Clusters
 

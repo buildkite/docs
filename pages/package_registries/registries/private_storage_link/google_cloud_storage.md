@@ -36,7 +36,7 @@ Learn more about:
 
 - How to keep your GCS bucket private by default from Google's [Public access prevention](https://cloud.google.com/storage/docs/public-access-prevention) guide.
 
-- How to protect again accidental object deletion from Google's [Object Versioning](https://cloud.google.com/storage/docs/object-versioning) guide.
+- How to protect against accidental object deletion from Google's [Object Versioning](https://cloud.google.com/storage/docs/object-versioning) guide.
 
 Once you have a bucket, the Buildkite wizard will guide you through:
 

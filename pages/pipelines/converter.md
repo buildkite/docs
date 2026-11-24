@@ -12,7 +12,7 @@ The [Buildkite CLI](/docs/platform/cli) provides the `bk pipeline convert` comma
 
 ### Compatibility
 
-The Buildkite pipeline converter Supports the following CI providers:
+The Buildkite pipeline converter supports the following CI providers:
 
 - [GitHub Actions](/docs/pipelines/migration/tool/github-actions)
 - [CircleCI](/docs/pipelines/migration/tool/circleci)
@@ -203,6 +203,6 @@ For more tools and recommendations regarding migrating from your existing CI/CD 
 
 - [Migrate to Buildkite Pipelines](/docs/pipelines/migration)
 - [Migration from GitHub Actions - a step-by-step guide](/docs/pipelines/migration/from-githubactions)
-- [Run supported GitHub Actions workflows in Buildkite](/docs/pipelines/migration/run-github-actions-workflows)
+- [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows)
 - [Migration from Jenkins - a step-by-step guide](/docs/pipelines/migration/from-jenkins)
 - [Migration from Bamboo - a step-by-step guide](/docs/pipelines/migration/from-bamboo)

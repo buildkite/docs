@@ -1,6 +1,6 @@
 # Migrating to Buildkite Package Registries
 
-This section of the documentation provides a comprehensive guidance to help you export your packages, images and other files from an existing registry or repository provider, and import them to Buildkite Package Registries.
+This section of the documentation provides comprehensive guidance to help you export your packages, images and other files from an existing registry or repository provider, and import them to Buildkite Package Registries.
 
 ## Before you start
 
@@ -16,6 +16,7 @@ To get started, choose the guide that corresponds to the registry or repository 
 
 - [Export from JFrog Artifactory](/docs/package-registries/migration/from_jfrog_artifactory)
 - [Export from Cloudsmith](/docs/package-registries/migration/from-cloudsmith)
+- [Export from Packagecloud](/docs/package-registries/migration/from-packagecloud)
 
 Once you have downloaded your exported packages, you can then [import them into Buildkite Package Registries](/docs/package-registries/migration/import-to-package-registries).
 

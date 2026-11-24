@@ -100,6 +100,17 @@ PUT | `/v2/organizations/{org.slug}/services/{uuid}/enable` | [Enable a notifica
 PUT | `/v2/organizations/{org.slug}/services/{uuid}/disable` | [Disable a notification service](/docs/apis/rest-api/organizations/notification-services#disable-a-notification-service)
 {: class="responsive-table"}
 
+### Workload identities
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/workload-identities` | [List workload identities](/docs/apis/rest-api/organizations/workload-identities#list-workload-identities)
+GET | `/v2/organizations/{org.slug}/workload-identities/{uuid}` | [Get a workload identity](/docs/apis/rest-api/organizations/workload-identities#get-a-workload-identity)
+POST | `/v2/organizations/{org.slug}/workload-identities` | [Create a workload identity](/docs/apis/rest-api/organizations/workload-identities#create-a-workload-identity)
+PATCH | `/v2/organizations/{org.slug}/workload-identities/{uuid}` | [Update a workload identity](/docs/apis/rest-api/organizations/workload-identities#update-a-workload-identity)
+DELETE | `/v2/organizations/{org.slug}/workload-identities/{uuid}` | [Delete a workload identity](/docs/apis/rest-api/organizations/workload-identities#delete-a-workload-identity)
+{: class="responsive-table"}
+
 ### Pipelines
 
 Method | Endpoint | Description
@@ -153,6 +164,7 @@ Method | Endpoint | Description
 ------ | -------- | -----------
 POST | `/v2/organizations/{org.slug}/jobs/{job.id}/vnc-session` | [Create a remote desktop session](/docs/apis/rest-api/jobs#create-a-remote-desktop-session)
 POST | `/v2/organizations/{org.slug}/jobs/{job.id}/ssh-session` | [Create an SSH session](/docs/apis/rest-api/jobs#create-an-ssh-session)
+PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/jobs/{job.id}/cancel` | [Cancel a job](/docs/apis/rest-api/jobs#cancel-a-job)
 PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/jobs/{job.id}/retry` | [Retry a job](/docs/apis/rest-api/jobs#retry-a-job)
 PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/jobs/{job.id}/reprioritize` | [Reprioritize a job](/docs/apis/rest-api/jobs#reprioritize-a-job)
 PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/jobs/{job.id}/unblock` | [Unblock a job](/docs/apis/rest-api/jobs#unblock-a-job)

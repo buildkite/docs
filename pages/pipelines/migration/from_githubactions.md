@@ -2,7 +2,7 @@
 
 This guide helps [GitHub Actions](https://github.com/features/actions) users migrate to Buildkite Pipelines, and covers key differences between the platforms.
 
-To keep supported GitHub Actions workflows running while you migrate incrementally, use the [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows).
+To keep supported GitHub Actions workflows running while you migrate incrementally, use [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows).
 
 ## Understand the differences
 
@@ -41,6 +41,8 @@ The hybrid architecture of Buildkite Pipelines, which combines the centralized B
 While Buildkite Pipelines provides its own secrets management capabilities, you are also able to configure Buildkite Pipelines so that it doesn't store your secrets. Buildkite Pipelines does not have or need access to your source code. Only the agents you host within your infrastructure would need access to clone your repositories, and your secrets that provide this access can also be managed through secrets management tools hosted within your infrastructure.
 
 See the [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets) to learn more.
+
+To move GitHub Actions repository secrets into Buildkite secrets, see [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets).
 
 ### Pipeline configuration concepts
 
@@ -441,7 +443,7 @@ This table provides quick mappings between common GitHub Actions concepts and th
 | `jobs.<id>.timeout-minutes` | `timeout_in_minutes` |
 | `needs` | `depends_on` |
 | `continue-on-error: true` | `soft_fail: true` |
-| `${{ secrets.NAME }}` | `${NAME}` (configured on agent) |
+| `${{ secrets.NAME }}` | `secrets` on the step. To move existing secrets, see [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets). |
 | `working-directory: ./dir` | Prepend `cd dir &&` to commands |
 | `actions/upload-artifact` | `artifact_paths` on the step |
 | `actions/download-artifact` | `buildkite-agent artifact download` command |
@@ -685,7 +687,8 @@ Be aware of common pipeline-translation mistakes, which might include:
 
 Explore these resources to enhance your migrated pipelines:
 
-- [Run supported GitHub Actions workflows in Buildkite](/docs/pipelines/migration/run-github-actions-workflows)
+- [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows)
+- [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets)
 - [Defining your pipeline steps](/docs/pipelines/defining-steps)
 - [Buildkite agent overview](/docs/agent)
 - [Plugins directory](https://buildkite.com/resources/plugins/)

@@ -1,58 +1,68 @@
 # Pricing and plans
 
-Buildkite offers a range of plans designed to suit teams of all sizes, from individual developers to large enterprises.
+Buildkite offers Free, Pro, and Enterprise plans. Plans differ in available features, usage limits, and support.
 
 ## Available plans
 
 Buildkite offers the following plans:
 
-- **Personal**: For individual developers exploring the Buildkite platform.
+- **Free**: For individual developers and small teams.
 - **Pro**: For growing teams that need more capacity and features.
 - **Enterprise**: For organizations that require advanced security, compliance, and dedicated support.
 
-Plans differ in the features available, usage limits, and level of support provided. For a detailed comparison of what each plan includes, visit the [Buildkite pricing page](https://buildkite.com/pricing/).
+Compare current features, inclusions, and rates on the [Buildkite pricing page](https://buildkite.com/pricing/). Legacy plans, such as Personal, can have different inclusions and retention limits.
 
 To find out which plan your organization is on or to manage your subscription, select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
 ## Usage and limits
 
-Each plan has default [service quotas](/docs/platform/limits) that define usage limits across the Buildkite platform. Buildkite organization administrators can view the quotas that apply to their organization in the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page in the **Quotas** tab > **Service Quotas** section.
+Each plan has default [service quotas](/docs/platform/limits) that define usage limits across the Buildkite platform. To check your organization's actual limits as an administrator, select [**Organization Settings**](https://buildkite.com/organizations/~/settings) > **Quotas** to open **Service Quotas**.
 
 For how artifact storage and transfer usage in Buildkite-managed artifact storage is calculated and billed, see [Artifacts billing](/docs/platform/artifact-storage-and-transfer-billing).
 
-## Billing spend alerts
+To get notified when your estimated next invoice reaches a threshold you choose, set up a [spend alert](/docs/platform/spend-alerts).
 
-Spend alerts notify your organization when its estimated next invoice reaches a threshold you choose. Spend alerts are informational only—they don't cap spending, stop builds, or disable usage.
+## Usage overview
 
-Spend alerts are available to organizations on a monthly Pro plan that renews automatically. Legacy Buildkite Pipelines Pro plans are not supported. To set up or change a spend alert, you need billing administration permissions for your organization.
+Organizations with an active All Access Trial see an **Overview** tab on the [**Usage** page](https://buildkite.com/organizations/~/usage). This tab summarizes how your organization has explored Buildkite so far, and what else is available on your plan.
 
-To set up a spend alert:
+The **Overview** tab shows:
 
-1. Select **Settings** in the global navigation, then select **Billing**.
-1. In the **Spend Alert** row, select **Set spend alert**.
-1. Ensure **Enable spend alert** is selected, then enter an **Invoice threshold (USD)**.
-1. Optionally, select **Add my email to billing contacts**.
-1. Select **Save spend alert**.
+- The current usage period.
+- The days remaining in the trial once the countdown period begins.
+- Feature cards grouped into explored and unexplored sections, with a utilization indicator showing how many available features your organization has tried.
 
-To change the threshold or turn off the alert, select **Manage spend alert** in the **Spend Alert** row.
+Select a feature card to go to that feature.
 
-When the estimate reaches or exceeds your threshold:
+### Plan limits for Free plan organizations
 
-- Organization administrators see a banner across Buildkite.
-- Your organization's billing contacts receive an email, at most once per billing period.
+Organizations on the Free plan without an active trial can see an **Overview** tab showing their usage against the limits included in their plan, grouped by product, for the current usage period.
 
-If your organization has no billing contacts when the threshold is first reached, the banner still appears, but no email is sent for that billing period.
+- Limits with measurable usage, except the user limit, show a progress indicator and how much usage remains before the limit is reached. The user limit shows the current user count and the plan limit.
+- Limits that can't be measured against usage, such as concurrent job limits, show the limit only.
+- A **Need More?** prompt links to **Billing** to choose a different plan.
 
-Spend alerts aren't real-time. Your invoice estimate may already be higher than your threshold when an alert is sent. The estimate is based on charges accrued so far. Usage reporting can be delayed. The estimate may also differ from your final invoice.
+### Plan usage for Pro plan organizations
+
+Pro plan organizations that are eligible for a [spend alert](/docs/platform/spend-alerts) can also see an **Overview** tab, showing usage against their plan's inclusions, grouped by product, for the current billing cycle.
+
+The **Overview** tab shows:
+
+- The current billing cycle and the days remaining.
+- A table of usage against each plan inclusion, grouped by product, with a progress indicator and the amount over or remaining.
+
+This is the same usage shown on the **Billing** > **Usage & spend** page, without prices or other billing details.
+
+Organizations without an active trial or either plan-specific usage view are taken to the **Platform** tab when they select **Usage**.
 
 ## Viewing prepaid inclusions
 
-Managed enterprise customers with the inclusions report enabled can view their prepaid entitlements and current usage from the **Billing** section of their organization settings. This helps you track consumption against what is included in your plan and estimate any overage charges before they are invoiced.
+Managed Enterprise customers with the inclusions report enabled can compare prepaid entitlements with current usage in **Billing**. The report helps you estimate overage charges before invoicing.
 
 To access the inclusions report, you need billing administration permissions for your organization. To view it:
 
 1. Select **Settings** in the global navigation, then select **Billing**.
-2. Select the **Inclusions** tab.
+1. Select the **Inclusions** tab.
 
 The **Inclusions** page shows your included entitlements versus actual usage for the current subscription period. The page displays the subscription period dates and the number of days remaining.
 

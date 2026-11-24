@@ -365,7 +365,7 @@ As a recommended minimum baseline, always include the `user` toolset as its tool
 
 ### CI/CD management
 
-For CD/CD management, set the following MCP server toolsets:
+For CI/CD management, set the following MCP server toolsets:
 
 - `user`
 - `pipelines`

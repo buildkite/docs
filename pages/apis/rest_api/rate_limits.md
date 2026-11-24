@@ -3,19 +3,20 @@
 
 To ensure stability and prevent excessive or abusive calls to the server, Buildkite imposes limits on the number of REST API requests that can be made within a minute. These limits apply to the Pipelines REST API as well as the Analytics REST API.
 
-The REST API enforces two rate limits, and a request is rejected if either is exceeded:
+The REST API enforces two general rate limits, and a request is rejected if either is exceeded:
 
 - An [organization-level limit](#organization-rate-limit) shared across all users in the organization.
 - A [per-user limit](#per-user-rate-limits). The default per-user limit is 50 requests per minute.
+
+Deep pages of the [organization builds list](/docs/apis/rest-api/builds#list-builds-for-an-organization) are also subject to an additional [deep builds list rate limit](/docs/platform/limits#platform-and-organization-level-limits). Requests to these pages are rejected if any applicable limit is exceeded.
 
 ## Organization rate limit
 
 Buildkite imposes a rate limit of 200 requests per minute for each organization. This is the cumulative limit of all API requests made by users in an organization. This default can vary by plan. See [Limits](/docs/platform/limits) for the values that apply to your organization.
 
 > 📘 Buildkite MCP server requests
-> Requests to the Buildkite REST API made through the [Buildkite MCP server](/docs/apis/mcp-server) are handled differently based on whether you're using the [remote](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) or [local](/docs/apis/mcp-server#types-of-mcp-servers-local-mcp-server) MCP server.
-> The OAuth-based remote MCP server's requests are tracked through a separate per-user rate limit, which _does not_ count towards your Buildkite organization's REST API limit. See [Remote MCP server rate limits](/docs/apis/mcp-server/remote/rate-limits) for details.
-> Requests from the local MCP server and the remote MCP server's [API token pass-through endpoint](/docs/apis/mcp-server#api-token-pass-through-remote-mcp-server), however, _do_ count towards your Buildkite organization's REST API limit.
+> Requests authenticated through the remote Buildkite MCP server's interactive OAuth flow use a [separate per-user quota](/docs/apis/mcp-server/remote/rate-limits).
+> Requests from the [local MCP server](/docs/apis/mcp-server#types-of-mcp-servers-local-mcp-server) or the [API token pass-through endpoint](/docs/apis/mcp-server#api-token-pass-through-remote-mcp-server) that use personal API tokens or tokens issued by your token exchange application count toward standard REST API limits.
 
 ## Per-user rate limits
 
@@ -29,9 +30,9 @@ Organization administrators can view the per-user limits that apply to their org
 
 ## Checking rate limit details
 
-Every API response includes two independent sets of rate limit headers: one for the [organization-level limit](#organization-rate-limit) and one for the [per-user limit](#per-user-rate-limits). You can monitor both limits independently and determine which one your application is closer to reaching.
+The general rate limit headers track the [organization-level limit](#organization-rate-limit) and the [per-user limit](#per-user-rate-limits) independently. Deep pages of the organization builds list also include a separate set of headers for the deep builds list rate limit.
 
-The `RateLimit-*` headers track the organization's shared quota, while the `RateLimit-User-*` headers track the quota for the authenticated user making the request. A `429` response is returned if either limit is exceeded.
+The `RateLimit-*` headers track the organization's shared quota, while the `RateLimit-User-*` headers track the quota for the authenticated user making the request. The `RateLimit-DeepBuildsList-*` headers track the organization's deep builds list quota. A `429` response is returned if any applicable limit is exceeded.
 
 Organization-level headers:
 
@@ -46,6 +47,15 @@ Per-user headers:
 - `RateLimit-User-Remaining`: The remaining requests for the authenticated user within the current time window.
 - `RateLimit-User-Limit`: The per-user rate limit.
 - `RateLimit-User-Reset`: The number of seconds remaining until the per-user time window resets.
+
+Deep builds list headers:
+
+Requests to the organization builds list where `page × per_page` is greater than 1,000 include the following headers:
+
+- `RateLimit-DeepBuildsList-Scope`: The scope of the deep builds list rate limit. Set to `rest_deep_builds_list`.
+- `RateLimit-DeepBuildsList-Remaining`: The remaining requests within the current deep builds list time window.
+- `RateLimit-DeepBuildsList-Limit`: The deep builds list rate limit.
+- `RateLimit-DeepBuildsList-Reset`: The number of seconds remaining until the deep builds list time window resets.
 
 For example, the following response headers show an authenticated user with 35 requests remaining against their per-user limit of 50. The organization has 80 requests remaining against its limit of 200, reflecting usage from multiple users across the organization:
 
@@ -62,11 +72,11 @@ RateLimit-Reset: 42
 
 ### Using the rate limit API
 
-You can also programmatically query your organization's rate limit status using the dedicated rate limit endpoint. Requests to this endpoint don't count towards your organization's REST API rate limit or your per-user rate limit. See the [rate limit endpoint documentation](/docs/apis/rest-api/organizations/rate-limits) for details on retrieving rate limit information for both REST and GraphQL API usage.
+You can also programmatically query your organization's rate limit status using the dedicated rate limit endpoint. Requests to this endpoint don't count towards your organization's REST API rate limit or your per-user rate limit. See the [rate limit endpoint documentation](/docs/apis/rest-api/organizations/rate-limits) for details on retrieving rate limit information for REST, GraphQL, and remote MCP server usage, including your own per-user REST and remote MCP server status.
 
 ## Exceeding the rate limit
 
-Once the rate limit is exceeded, subsequent API requests return a `429` HTTP status code. You should not make any further requests until the relevant `RateLimit-Reset` or `RateLimit-User-Reset` header specifies a new availability window.
+When an applicable rate limit is exceeded, requests return a `429` HTTP status code. Before retrying, wait for the number of seconds specified by the matching `RateLimit-Reset`, `RateLimit-User-Reset`, or `RateLimit-DeepBuildsList-Reset` header.
 
 The `429` response body includes additional context about which limit was exceeded:
 
@@ -80,9 +90,9 @@ The `429` response body includes additional context about which limit was exceed
 }
 ```
 
-The `scope` field indicates which limit was exceeded. For example, `rest` for the organization limit or `rest_user` for the per-user limit.
+The `scope` field indicates which limit was exceeded. For example, `rest` for the organization limit, `rest_user` for the per-user limit, or `rest_deep_builds_list` for the deep builds list rate limit.
 
-When a limit is reached, the matching headers also include a `RateLimit-Warning` (organization-level) or `RateLimit-User-Warning` (per-user) header set to `You have exceeded your API rate limit.`. These warning headers are only present while the relevant limit is exhausted, and are omitted again once requests are available within the time window.
+When a limit is reached, the matching headers also include a `RateLimit-Warning` (organization-level), `RateLimit-User-Warning` (per-user), or `RateLimit-DeepBuildsList-Warning` (deep builds list) header set to `You have exceeded your API rate limit.`. These warning headers are only present while the relevant limit is exhausted, and are omitted again once requests are available within the time window.
 
 ## Best practices to avoid rate limits
 

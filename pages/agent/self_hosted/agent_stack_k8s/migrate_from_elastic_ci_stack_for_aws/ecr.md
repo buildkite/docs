@@ -15,7 +15,7 @@ When migrating to Agent Stack for Kubernetes, you need to explicitly configure t
 
 The `ecr` plugin requires AWS credentials to be available in your job Pods. You can provide these credentials using IAM Roles for Service Accounts (recommended for EKS clusters), AWS credentials stored as Kubernetes Secrets, or the [`aws-assume-role-with-web-identity` plugin](https://buildkite.com/resources/plugins/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin/) with [Buildkite OIDC](/docs/pipelines/security/oidc) tokens.
 
-Learn more about all available configuration options for the `ecr` plugin, see the plugin's [Options section of its README](https://github.com/buildkite-plugins/ecr-buildkite-plugin#options).
+To learn more about all available configuration options for the `ecr` plugin, see the plugin's [Options section of its README](https://github.com/buildkite-plugins/ecr-buildkite-plugin#options).
 
 #### Using IRSA
 
@@ -92,7 +92,7 @@ steps:
 
 The [AWS assume-role-with-web-identity plugin](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin) uses Buildkite OIDC tokens to assume an AWS IAM role without storing AWS credentials. You won't need to manage long-lived credentials in Kubernetes Secrets.
 
-Before using this plugin, you must configure an OIDC identity provider in AWS with a provider URL of `https://agent.buildkite.com` and an audience of `sts.amazonaws.com`. See the plugin's [AWS configuration documentation](https://buildkite.com/resources/plugins/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin/) for detailed setup instructions.
+Before using this plugin, you must configure an OIDC identity provider in AWS with a provider URL of `https://agent.buildkite.com` and an audience of `sts.amazonaws.com`. See [OIDC with AWS](/docs/pipelines/security/oidc/aws) for detailed setup instructions.
 
 Add the plugin before the `ecr` plugin in your pipeline:
 
@@ -106,7 +106,7 @@ steps:
     agents:
       queue: kubernetes
     plugins:
-      - aws-assume-role-with-web-identity#v1.4.0:
+      - aws-assume-role-with-web-identity#v1.8.0:
           role-arn: arn\:aws\:iam::123456789012:role/ecr-access-role
       - ecr#v2.11.0:
           region: us-east-1

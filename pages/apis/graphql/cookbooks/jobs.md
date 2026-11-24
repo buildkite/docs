@@ -6,35 +6,29 @@ A collection of common tasks with jobs using the GraphQL API.
 
 ## Get all jobs in a given queue for a given timeframe
 
-Get all jobs in a named queue, created on or after a given date. If you want to get all jobs across your Buildkite organization, you do not need to set a queue name, and you can therefore omit the `agentQueryRules` option.
+Get jobs in a named queue, created at or after `createdAtFrom` (inclusive) and before `createdAtTo` (exclusive), using `organization.jobs`. Both arguments accept [DateTime](/docs/apis/graphql/schemas/scalar/datetime) values in ISO-8601 UTC format. Omit either argument to leave that end of the timeframe unrestricted.
+
+The following query returns the first 100 matching jobs created on October 1, 2026, UTC. To search across all queues in your Buildkite organization, omit `agentQueryRules`.
 
 > 📘 Matching multiple agent query rules
 > When you pass more than one value in `agentQueryRules`, a job must match all of them. The `agentQueryRules` argument combines multiple values with AND, not OR. For example, `agentQueryRules: ["queue=test", "tag=value"]` returns only jobs whose agent query rules include both `queue=test` and `tag=value`.
 
 ```graphql
-query PipelineRecentBuildLastJobQueue {
+query JobsInQueueForTimeframe($after: String) {
   organization(slug: "organization-slug") {
-    pipelines(first: 500) {
+    jobs(
+      first: 100
+      after: $after
+      agentQueryRules: ["queue=queue-name"]
+      createdAtFrom: "2026-10-01T00:00:00Z"
+      createdAtTo: "2026-10-02T00:00:00Z"
+    ) {
       edges {
         node {
-          slug
-          builds(first: 1) {
-            edges {
-              node {
-                number
-                jobs(state: FINISHED, first: 1, agentQueryRules: "queue=queue-name") {
-                  edges {
-                    node {
-                      ... on JobTypeCommand {
-                        uuid
-                        agentQueryRules
-                        createdAt
-                      }
-                    }
-                  }
-                }
-              }
-            }
+          ... on JobTypeCommand {
+            uuid
+            agentQueryRules
+            createdAt
           }
         }
       }
@@ -46,6 +40,8 @@ query PipelineRecentBuildLastJobQueue {
   }
 }
 ```
+
+When `pageInfo.hasNextPage` is `true`, pass `pageInfo.endCursor` as the `after` variable in the next request. Repeat until `hasNextPage` is `false` to retrieve all matching jobs.
 
 ## Get all jobs in a particular concurrency group
 

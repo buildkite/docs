@@ -14,11 +14,11 @@ Once you have connected your Buildkite organization to a model provider, your AI
 
 Connecting your Buildkite organization to an AI model through the Buildkite platform can only be done by [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions).
 
-Currently, only [Anthropic](/docs/apis/model-providers/anthropic) models are supported.
+You can connect to [Anthropic](/docs/apis/model-providers/anthropic) and [OpenAI](/docs/apis/model-providers/openai).
 
 To connect to a model provider:
 
-1. Select **Settings** in the global navigation to access the to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
 1. Select **Integrations > Model Providers** to access your organization's [**Model Providers**](https://buildkite.com/organizations/~/model-providers) page.
 
@@ -28,7 +28,7 @@ To connect to a model provider:
 
     Your pipelines can then authenticate using existing Buildkite [job tokens](/docs/agent/self-hosted/tokens#additional-agent-tokens-job-tokens), which are accessible through the environment variable `$BUILDKITE_AGENT_ACCESS_TOKEN`.
 
-Learn more about integrating the Anthropic model on the [Anthropic model provider](/docs/apis/model-providers/anthropic) page.
+Follow the provider-specific setup and integration examples on the Anthropic or OpenAI model provider page.
 
 ### Buildkite hosted token
 
@@ -39,7 +39,7 @@ With the **Buildkite Hosted Token** authentication option, you can start using A
 - Configure additional infrastructure.
 
 > 📘
-> The Buildkite hosted token authentication option is only available to Buildkite customers on the [Pro or Enterprise](https://buildkite.com/pricing/) plan.
+> The **Buildkite Hosted Token** authentication option requires a paid [Pro or Enterprise](https://buildkite.com/pricing/) plan and a valid credit card on file. Model usage is billed through Buildkite.
 
 ### Bring your own token
 
@@ -60,7 +60,7 @@ Once configured, integrate AI capabilities into your build workflows using the B
 Once your [model provider has been connected](#connect-to-a-model-provider), your Buildkite agents can then interact directly with your connected model through the _Buildkite model provider API_ endpoints, which are based on this URL:
 
 ```url
-http://agent.buildkite.com/v3/ai
+https://agent.buildkite.com/v3/ai
 ```
 
 Or, using the [`$BUILDKITE_AGENT_ENDPOINT` environment variable](/docs/pipelines/configure/environment-variables#BUILDKITE_AGENT_ENDPOINT):
@@ -69,17 +69,19 @@ Or, using the [`$BUILDKITE_AGENT_ENDPOINT` environment variable](/docs/pipelines
 $BUILDKITE_AGENT_ENDPOINT/ai
 ```
 
-Therefore, to interact with a specific model provider, such as Anthropic, append its name to the end of this model provider API endpoint:
+Append the provider name, `anthropic` or `openai`, to this URL. For example, the OpenAI base URL is:
 
 ```url
-$BUILDKITE_AGENT_ENDPOINT/ai/anthropic
+$BUILDKITE_AGENT_ENDPOINT/ai/openai
 ```
+
+Each provider supports specific API endpoints and authentication headers. See the provider's integration page before configuring your client.
 
 ## Monitoring usage
 
 To track your Buildkite organization's AI model usage through the Buildkite interface:
 
-1. Select **Settings** in the global navigation to access the to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
 1. Select **Usage** to access your Buildkite organization's usage [**Usage > Summary**](https://buildkite.com/organizations/~/usage) page.
 

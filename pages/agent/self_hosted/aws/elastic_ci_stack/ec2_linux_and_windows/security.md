@@ -49,7 +49,7 @@ You don't need to create keys for the default deployment of Elastic CI Stack for
 
 * KMS key to encrypt the AWS SSM Parameter that stores your Buildkite agent token
 * KMS key for S3 SSE protection of secrets and artifacts
-* SSH key or other git credentials to be able to clone private repositories and store them in the S3 secrets bucket and optionally encrypt them using S3 SSE)
+* SSH key or other git credentials to be able to clone private repositories and store them in the S3 secrets bucket and optionally encrypt them using S3 SSE
 
 Remember that such keys are not intended to be public, and you must not grant public access to them.
 
@@ -93,8 +93,8 @@ To ensure your Elastic CI Stack for AWS has access to the secret:
 
 * Provide the Key ID (not the alias) used to encrypt the Secrets Manager secret to the `BuildkiteAgentTokenParameterStoreKMSKey` parameter. An IAM policy with `kms:Decrypt` permission for this key is included in the CloudFormation template.
 * Use the CloudFormation stacks' *Resources* tab to find the `AutoscalingLambdaExecutionRole` and `IAMRole` roles, use their Amazon Resource Name (ARN) in the policy below.
-* Secret Manager will capture a role's Unique ID when saving the resource policy; if you re-create the IAM role you must save the resource policy again to grant access.
-* Use the Secret Manager secret's resource policy to grant `secretsmanager:GetSecretValue` permission to both the instance IAM role and the scaling Lambda IAM Role.
+* Secrets Manager will capture a role's Unique ID when saving the resource policy; if you re-create the IAM role you must save the resource policy again to grant access.
+* Use the Secrets Manager secret's resource policy to grant `secretsmanager:GetSecretValue` permission to both the instance IAM role and the scaling Lambda IAM Role.
 
 ```json
 {
@@ -119,7 +119,7 @@ To ensure your Elastic CI Stack for AWS has access to the secret:
 ### Multi-region replication
 
 It is also possible to replicate your Buildkite agent token to multiple regions
-using AWS Secret Manager's [multi-region replication](https://docs.aws.amazon.com/secretsmanager/latest/userguide/create-manage-multi-region-secrets.html). You
+using AWS Secrets Manager's [multi-region replication](https://docs.aws.amazon.com/secretsmanager/latest/userguide/create-manage-multi-region-secrets.html). You
 can then deploy an Elastic CI Stack for AWS to each region and use the Parameter Store
 reference path to read the secret from the regionally replicated secret.
 
@@ -154,6 +154,8 @@ after rotating and replicating the secret, and before revoking the old token.
 
 The Elastic CI Stack for AWS creates an S3 bucket for you (or uses the one you provide as the `SecretsBucket` parameter). This is where the agent fetches your private SSH keys for source control and environment variables that provide other secrets to your builds.
 
+For GitHub repositories, you can avoid storing checkout SSH keys or personal access tokens in this bucket by enabling [Buildkite-managed GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on the stack's self-hosted queue. The agents retrieve short-lived, read-only credentials automatically. This does not replace your Buildkite agent token or secrets needed by the build itself.
+
 ### S3 secret paths
 
 The following S3 objects are downloaded and processed:
@@ -170,8 +172,11 @@ The following S3 objects are downloaded and processed:
 
 These files are encrypted using [AWS KMS](https://aws.amazon.com/kms/).
 
-> 🚧 Sourcing of environment variable files
-> The agent sources files such as `/env` or `/{pipeline-slug}/environment`. It is possible to include a shell script that will be executed by the agent in these files. However, including shell scripts in these files should be used with caution, as it can lead to unexpected behavior.
+> 🚧 Environment file format and secret redaction
+> Keep `env` and `environment` files limited to `KEY=VALUE` assignments, comments, and blank lines. Shell commands such as `set` or `if` cause parsing to fail for the entire file. The S3 secrets hook logs `Warning: failed to parse env file ...` and does not add any values from that file to the log redactor. The agent still executes the file as shell code, so secrets can be loaded without the hook registering them for redaction.
+> Put conditional logic in an [agent `environment` hook](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) instead of the S3 environment file.
+
+For environment files, the hook recognizes secret variable names containing `_SECRET`, `_SECRET_KEY`, `_PASSWORD`, `_TOKEN`, or `_ACCESS_KEY` for redaction. Use these names for values that need redaction.
 
 ### Using your own S3 bucket
 
@@ -199,7 +204,7 @@ aws s3 cp --acl private --sse aws:kms id_rsa_buildkite "s3://${SecretsBucket}/pr
 To set secrets that your builds can access, create a file that sets environment variables and upload it:
 
 ```bash
-echo "export MY_ENV_VAR=something secret" > myenv
+echo 'MY_SECRET="xxx-yyy-zzz"' > myenv
 aws s3 cp --acl private --sse aws:kms myenv "s3://${SecretsBucket}/env"
 rm myenv
 ```

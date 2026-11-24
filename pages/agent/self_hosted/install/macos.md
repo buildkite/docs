@@ -1,18 +1,24 @@
 # Installing Buildkite agent on macOS
 
-The Buildkite agent is supported on macOS 11 (Big Sur) or newer using Homebrew or the Buildkite installer script, and supports pre-release versions of both macOS and Xcode.
+You can install the Buildkite agent using Homebrew or the Buildkite installer script. The agent supports pre-release versions of both macOS and Xcode.
+
+Buildkite agent v4.8.0 and later requires macOS 13 (Ventura) or newer on both Intel and Apple silicon, following the [Go 1.27 requirements](https://go.dev/doc/go1.27#darwin). The last v4 release compatible with macOS 12 (Monterey) is [v4.7.0](https://github.com/buildkite/agent/releases/tag/v4.7.0), built with Go 1.26.10.
+
+For older macOS versions, select a compatible agent release from the [macOS compatibility table](https://github.com/buildkite/agent/blob/main/docs/macos.md) rather than installing the latest version. The v3 release line uses a separate toolchain and is not affected by the v4.8.0 toolchain upgrade.
 
 ## Installation
 
 We recommend installing the agent using [Homebrew](http://brew.sh/) so you can use the [Buildkite formula repository](https://github.com/buildkite/homebrew-buildkite). If you don't use Homebrew you should follow the [Linux](/docs/agent/self-hosted/install/linux) install instructions.
 
-To install the agent using Homebrew:
+To install the Buildkite agent using Homebrew:
 
-1. On the command line, install the agent by running:
+1. On the command line, install the latest v4 agent by running:
 
     ```shell
-    brew install buildkite/buildkite/buildkite-agent
+    brew install buildkite/buildkite/buildkite-agent@4
     ```
+
+    **Note:** If you need Buildkite agent v3, run `brew install buildkite/buildkite/buildkite-agent@3` instead.
 
 1. Add your [agent token](/docs/agent/self-hosted/tokens) to authenticate the agent by replacing `INSERT-YOUR-AGENT-TOKEN-HERE` with your agent token and running:
 
@@ -27,9 +33,14 @@ To install the agent using Homebrew:
     buildkite-agent start
     ```
 
+> 🚧 Homebrew reports an untrusted tap
+> If installation fails with an untrusted tap error, run `brew trust buildkite/buildkite`, then run the install command again. Homebrew 7.0.13 can report this error for `buildkite-agent@3` even when installing `buildkite-agent@4`.
+
 ## SSH key configuration
 
-SSH keys should be copied to (or generated into) the `.ssh` directory in the users' home directory (for example, `/Users/alice/.ssh`). For example, to generate a new private key which you can add to your source code host:
+For GitHub repositories, you can use [Buildkite-managed GitHub App tokens](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) instead of installing SSH keys. Enable token checkout on your self-hosted queue to retrieve temporary, read-only credentials automatically.
+
+SSH keys should be copied to (or generated into) the `.ssh` directory in the user's home directory (for example, `/Users/alice/.ssh`). For example, to generate a new private key which you can add to your source code host:
 
 ```bash
 $ mkdir -p ~/.ssh && cd ~/.ssh
@@ -44,7 +55,7 @@ File locations depend on your installation method and Mac hardware.
 
 ### Homebrew installation
 
-To see the paths to the agent's configuration, hooks, builds, and logs on your system, run `brew info buildkite-agent`.
+To see the paths to the agent's configuration, hooks, builds, and logs on your system, run `brew info buildkite/buildkite/buildkite-agent@4`. For v3, replace `@4` with `@3`.
 
 The typical paths for [Mac computers with Apple silicon](https://support.apple.com/en-gb/HT211814) (such as M1 chips) are:
 
@@ -79,8 +90,10 @@ On macOS, the Buildkite agent runs as the user who started the `launchd` service
 If you installed the agent using Homebrew you can run the following command to get instructions on how to install the correct plist and have buildkite-agent start on login:
 
 ```bash
-brew info buildkite-agent
+brew info buildkite/buildkite/buildkite-agent@4
 ```
+
+For v3, replace `@4` with `@3`.
 
 If you installed the buildkite-agent using the [Linux install script](linux) then you'll need to install the plist yourself using the following commands:
 
@@ -135,10 +148,12 @@ If your agents each need different configuration, you can create multiple `launc
 
 ## Upgrading
 
-If you installed the agent using Homebrew you can use the standard brew upgrade command to update the agent:
+If you installed Buildkite agent v4 using Homebrew, update it within the v4 release line by running:
 
 ```shell
-brew update && brew upgrade buildkite-agent
+brew update && brew upgrade buildkite/buildkite/buildkite-agent@4
 ```
 
-If you installed the buildkite-agent using the [Linux install script](linux) then you should run the installer script again and it will update your agent.
+To update within the v3 release line, replace `@4` with `@3`. Before moving from v3 to v4, read the [Agent v3 to v4 upgrade guide](/docs/agent/v3-v4-upgrade-guide) for breaking changes and migration instructions.
+
+If you installed the Buildkite agent using the [Linux install script](linux) then you should run the installer script again and it will update your agent.

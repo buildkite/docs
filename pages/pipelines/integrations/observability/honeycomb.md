@@ -14,7 +14,7 @@ You can integrate Honeycomb with Buildkite Pipelines using three methods:
 
 - **buildevents binary**: the [buildevents binary](https://github.com/honeycombio/buildevents) captures detailed trace telemetry for each build step. Learn more about configuring this method in [Using the buildevents binary](#using-the-buildevents-binary).
 - **OpenTelemetry tracing**: setting your [OpenTelemetry tracing notification endpoint to Honeycomb](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service-honeycomb) sends traces directly from the Buildkite agent. Learn more about configuring this method in [Using OpenTelemetry tracing](#using-opentelemetry-tracing).
-- **Honeycomb Markers Buildkite plugin**: the [Honeycomb Markers Buildkite plugin](https://www.honeycomb.io/integration/buildkite-markers) adds Buildkite Pipelines markers to your traces. However, for security best practice reasons, it is not recommended using this plugin as it is community-maintained with irregular updates.
+- **Honeycomb Markers Buildkite plugin**: the [Honeycomb Markers Buildkite plugin](https://www.honeycomb.io/integration/buildkite-markers) adds Buildkite Pipelines markers to your traces. However, for security best practice reasons, it is not recommended to use this plugin as it is community-maintained with irregular updates.
 
 ## Using the buildevents binary
 

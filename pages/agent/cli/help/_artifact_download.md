@@ -39,6 +39,10 @@ You can also change working directory to the intended destination and use a
 &lt;destination&gt; of &#39;.&#39; to always create a directory hierarchy matching the
 artifact paths.
 
+Artifact paths may traverse relative directory symlinks only when they stay
+within &lt;destination&gt;. Absolute directory symlinks beneath &lt;destination&gt; are
+not followed.
+
 ### Example
 
 ```shell

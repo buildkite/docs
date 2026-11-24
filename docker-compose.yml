@@ -11,6 +11,7 @@ services:
     environment:
       VITE_RUBY_HOST: vite
       RAILS_LOG_TO_STDOUT: yes
+      PLAIN_CHAT_APP_ID: ${PLAIN_CHAT_APP_ID:-}
     ports:
       - "3000:3000"
     volumes:
@@ -49,6 +50,14 @@ services:
     environment:
       BUILDKITE: ${BUILDKITE:-false}
       LINK_CHECK_MODE: ${LINK_CHECK_MODE:-internal}
+      # Runtime exporter settings are not in BUILDKITE_ENV_FILE.
+      # Resolve values here so credentials stay out of pipeline uploads.
+      OTEL_EXPORTER_OTLP_ENDPOINT:
+      OTEL_EXPORTER_OTLP_PROTOCOL:
+      OTEL_EXPORTER_OTLP_HEADERS:
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT:
+      OTEL_EXPORTER_OTLP_TRACES_PROTOCOL:
+      OTEL_EXPORTER_OTLP_TRACES_HEADERS:
 
   deploy-preview:
     build:

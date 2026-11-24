@@ -1,6 +1,6 @@
 # Helm
 
-Buildkite Package Registries provides Helm registry support for distributing Helm charts. While this page is for standard Helm source registry publishing instructions, you can alternatively publish to an [Helm OCI-based source registry](/docs/package-registries/ecosystems/helm-oci).
+Buildkite Package Registries provides Helm registry support for distributing Helm charts. While this page is for standard Helm source registry publishing instructions, you can alternatively publish to a [Helm OCI-based source registry](/docs/package-registries/ecosystems/helm-oci).
 
 Once your Helm source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload charts (generated from `helm package` to create the package) to this registry.
 
@@ -128,7 +128,7 @@ where:
 
 <%= render_markdown partial: 'package_registries/ecosystems/registry_slug' %>
 
-- `chart-release` is the unique release name for the Helm chart—this value must contain no `.` and be in lowercase. Learn more about chat name naming conventions in the [Chart Names section of the General Conventions](https://helm.sh/docs/chart_best_practices/conventions/#chart-names) page in the Helm documentation.
+- `chart-release` is the unique release name for the Helm chart—this value must contain no `.` and be in lowercase. Learn more about chart naming conventions in the [Chart Names section of the General Conventions](https://helm.sh/docs/chart_best_practices/conventions/#chart-names) page in the Helm documentation.
 
 - `chart-name` is the name of your chart.
 

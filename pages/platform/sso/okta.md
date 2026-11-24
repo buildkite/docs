@@ -33,7 +33,7 @@ Provisioning is handled by JIT on first login. Deprovisioning is handled by SCIM
 Using the SCIM provisioning settings in Okta, Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan can automatically remove user accounts from your Buildkite organization. In Okta this feature is called 'Deactivating' a user. You need an enabled Okta SSO Provider before you can set up SCIM.
 
 > 📘 User deprovisioning
-> User deprovisioning is an Enterprise plan-only feature and automatically enabled. As an Enterprise plan customer, if you are using a [custom provider](/docs/platform/sso/custom-saml), please contact support@buildkite.com to have the 'SCIM for Custom SAML' feature flag enabled.
+> User deprovisioning is an Enterprise plan-only feature and is automatically enabled. As an Enterprise plan customer, if you are using a [custom provider](/docs/platform/sso/custom-saml), please contact support@buildkite.com to have the 'SCIM for Custom SAML' feature flag enabled.
 
 After creating your SSO Provider in Buildkite, you will need the **Base URL** and **API Token** from your Okta SSO Provider Settings:
 

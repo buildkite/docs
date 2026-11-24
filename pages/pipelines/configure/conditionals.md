@@ -6,9 +6,11 @@ You can define conditionals at the step level in your `pipeline.yml` or at the p
 
 ## Conditionals in pipelines
 
-You can have complete control over when to trigger pipeline builds by using conditional expressions to filter incoming webhooks. You need to define conditionals in the pipeline's **Settings** page for your repository provider to run builds only when expressions evaluate to `true`. For example, to run only when a pull request is targeting the main branch:
+To filter incoming webhooks before a build is created, use **Filter builds using a conditional** on the pipeline's **Settings** page for your repository provider. Builds are created only when the expression evaluates to `true`. Unlike step-level conditions, this setting controls build creation rather than which steps run.
 
-<%= image "conditionals.png", width: 864, height: 298, alt: "Conditional Filtering settings" %>
+For example, enter `build.pull_request.base_branch == "main"` to create builds only for pull requests targeting the `main` branch:
+
+<%= image "conditionals.png", width: 1384/2, height: 474/2, alt: "GitHub settings with a conditional that filters builds to pull requests targeting main" %>
 
 Pipeline-level build conditionals are evaluated before any other build trigger settings. If both a conditional and a branch filter are present, both filters must pass for a build to be created – first the pipeline-level limiting filter and then the conditional filter.
 
@@ -60,8 +62,12 @@ steps:
 
 Since `if` conditions are evaluated at the time of the pipeline upload, it's not possible to use the `if` attribute to conditionally run a step based on the result of another step.
 
-> 🚧 Plugin execution and conditionals
-> Step-level `if` conditions only prevent commands from running but they _do not_ affect plugins. Plugins run during the job lifecycle, before the conditional is evaluated. To conditionally run plugins, use either [group steps](#conditionally-running-plugins-with-group-steps) or [dynamic pipeline uploads](#conditionally-running-plugins-with-dynamic-uploads).
+> 🚧 Plugin execution and shell conditionals
+> A shell `if` statement inside a step's `command` controls only the commands inside that statement. It does not control whether the step's plugins run. [Plugin hooks](/docs/agent/hooks#job-lifecycle-hooks) such as `environment` and `pre-command` run before the step's command, so they can execute even when the shell condition is false.
+>
+> This is different from the YAML `if` attribute on a step, which Buildkite Pipelines evaluates when the pipeline is uploaded to decide whether the step runs.
+>
+> To conditionally run a step and its plugins, use the step's YAML `if` attribute. For conditions that can only be checked at runtime, conditionally upload the steps containing the plugins using a [dynamic pipeline upload](#conditionally-running-plugins-with-dynamic-uploads).
 
 To run a step based on the result of another step, upload a new pipeline based on the `if` condition set up in the [command step](/docs/pipelines/configure/step-types/command-step) like in the example below:
 
@@ -100,7 +106,7 @@ Note that conditional expressions on the build state are only available at the p
 
 ## Conditionally running plugins with group steps
 
-To conditionally run plugins, use [group steps](/docs/pipelines/configure/step-types/group-step) rather than step-level `if` conditions. Group's conditional is evaluated before any steps within the group are created, which prevents plugin from executing entirely:
+To apply one condition to several steps and their plugins, put the steps in a [group](/docs/pipelines/configure/step-types/group-step) and set the YAML `if` attribute on the group.
 
 ```yaml
 steps:
@@ -126,7 +132,7 @@ For complex conditional logic, use dynamic pipeline uploads with conditional log
 steps:
   - label: "Docker Build"
     command: |
-      if [ -n "${DOCKER_PASSWORD}" ]; then
+      if [ -n "$${DOCKER_PASSWORD}" ]; then
         echo "Docker credentials found, uploading build steps..."
         cat <<EOF | buildkite-agent pipeline upload
       steps:
@@ -204,6 +210,13 @@ The following expressions are supported by the `if` attribute.
 
 > 🚧 Formatting regular expressions
 > When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the `$` anchor symbol must be escaped to avoid [environment variable substitution](/docs/agent/cli/reference/pipeline#environment-variable-substitution). For example, to match branches ending in `"/feature"` the conditional statement would be `build.branch =~ /\/feature$$/`.
+
+> 🚧 Unsupported regular expression syntax
+> Regular expressions in conditionals do not support lookahead, lookbehind, or backreferences such as `\1`.
+>
+> To exclude a value, combine a match with a separate `!~` check: `build.branch =~ /^release/ && build.branch !~ /-rc$$/`.
+>
+> Patterns are limited to 4096 characters and repetition counts of 100 or fewer. Other unsupported constructs include atomic groups, possessive quantifiers, named groups (use `(...)` instead), and conditional expressions within a pattern.
 
 ### Variables
 
@@ -305,6 +318,9 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<code>BUILDKITE_PIPELINE_NAME</code><br>
 		<code>BUILDKITE_PIPELINE_ID</code><br>
 		<code>BUILDKITE_ORGANIZATION_SLUG</code><br>
+		<code>BUILDKITE_ORIGIN_EVENT</code><br>
+		<code>BUILDKITE_ORIGIN_REVIEW_ID</code><br>
+		<code>BUILDKITE_ORIGIN_REVIEW_VERDICT</code><br>
 		<code>BUILDKITE_TRIGGERED_FROM_BUILD_ID</code><br>
 		<code>BUILDKITE_TRIGGERED_FROM_BUILD_NUMBER</code><br>
 		<code>BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG</code><br>
@@ -313,6 +329,7 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<code>BUILDKITE_REPO</code><br>
 		<code>BUILDKITE_PULL_REQUEST</code><br>
 		<code>BUILDKITE_PULL_REQUEST_BASE_BRANCH</code><br>
+		<code>BUILDKITE_PULL_REQUEST_LABELS</code><br>
 		<code>BUILDKITE_PULL_REQUEST_REPO</code><br>
 		<code>BUILDKITE_MERGE_QUEUE_BASE_BRANCH</code><br>
 		<code>BUILDKITE_MERGE_QUEUE_BASE_COMMIT</code><br>
@@ -377,7 +394,7 @@ The following variables are supported by the `if` attribute. Note that you canno
 	<tr>
 		<td><code>build.pull_request.label</code></td>
 		<td><code>String</code>, <code>null</code></td>
-		<td>The name of the specific label that was added or removed in a <code>labeled</code> or <code>unlabeled</code> pull request event, otherwise <code>null</code></td>
+		<td>The name of the specific label that was added or removed in a GitHub or Origin <code>labeled</code> or <code>unlabeled</code> pull request event, otherwise <code>null</code>. This is the changed label from the webhook, not the current label collection</td>
 	</tr>
 	<tr>
 		<td><code>build.pull_request.repository</code></td>
@@ -390,6 +407,16 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<td>If the pull request comes from a forked repository, otherwise <code>null</code> if the branch is not a pull request</td>
 	</tr>
 	<tr>
+		<td><code>build.pull_request.requested_reviewer</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The GitHub login of the reviewer targeted by the triggering pull request review-request event, from <code>requested_reviewer.login</code>. This identifies the event's target, not all outstanding review requests. Otherwise <code>null</code>, including when the original webhook is unavailable</td>
+	</tr>
+	<tr>
+		<td><code>build.pull_request.requested_team</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The GitHub team slug targeted by the triggering pull request review-request event, from <code>requested_team.slug</code>. This is not a team display name, an <code>org/team</code> string, or a Buildkite team. Otherwise <code>null</code>, including when the original webhook is unavailable</td>
+	</tr>
+	<tr>
 		<td><code>build.merge_queue.base_branch</code></td>
 		<td><code>String</code>, <code>null</code></td>
 		<td>If a merge queue build, the target branch which the merge queue build will be merged into</td>
@@ -400,6 +427,16 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<td>If a merge queue build, the <a href="https://git-scm.com/docs/git-merge-base" target="_blank" rel="nofollow">merge base</a> of the proposed merge commit (<code>build.commit</code>)</td>
 	</tr>
 	<tr>
+		<td><code>build.scm.committer.email</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The email of the user that created the commit</td>
+	</tr>
+	<tr>
+		<td><code>build.scm.committer.name</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The name of the user that created the commit</td>
+	</tr>
+	<tr>
 		<td><code>build.source</code></td>
 		<td><code>String</code></td>
 		<td>The source of the event that created the build<br><em>Available sources:</em> <code>ui</code>, <code>api</code>, <code>webhook</code>, <code>trigger_job</code>, <code>schedule</code></td>
@@ -407,12 +444,12 @@ The following variables are supported by the `if` attribute. Note that you canno
 	<tr>
 		<td><code>build.source_event</code></td>
 		<td><code>String</code>, <code>null</code></td>
-		<td>The GitHub webhook event type that triggered the build (for example, <code>push</code>, <code>pull_request</code>, <code>release</code>). <code>null</code> for non-webhook builds</td>
+		<td>The GitHub webhook event type or <a href="/docs/pipelines/source-control/origin#configure-build-triggers-conditional-filtering">mapped Origin event type</a> that triggered the build (for example, <code>push</code>, <code>pull_request</code>, <code>release</code>). <code>null</code> for non-webhook builds</td>
 	</tr>
 	<tr>
 		<td><code>build.source_action</code></td>
 		<td><code>String</code>, <code>null</code></td>
-		<td>The GitHub webhook event action (for example, <code>opened</code>, <code>labeled</code>, <code>submitted</code>). <code>null</code> for non-webhook builds or events without an action</td>
+		<td>The GitHub webhook action or mapped Origin action (for example, <code>opened</code>, <code>labeled</code>, <code>submitted</code>). <code>null</code> for non-webhook builds or events without an action</td>
 	</tr>
 	<tr>
 		<td><code>build.state</code></td>

@@ -1,7 +1,13 @@
-ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.7-slim-trixie@sha256:d10bdb076bb10d2261773ea20eadf4cdbde3346fc8f8db409856608b2d01b9c9
-ARG NODE_IMAGE=public.ecr.aws/docker/library/node:24-trixie-slim@sha256:8ec5d7557396cfe32d21c3f9c13072355ceab22b584578ca4bb28af31120cffe
+ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.10-slim-trixie@sha256:dc488b2df1731a1523a24a845fc38627b3edde052473c4e7bef06ae4d649fd25
+ARG NODE_IMAGE=public.ecr.aws/docker/library/node:26-trixie-slim@sha256:e6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc
 
-FROM $BASE_IMAGE AS builder
+FROM $BASE_IMAGE AS trusted-ruby
+
+COPY scripts/with-ca-trust.sh /usr/local/bin/with-ca-trust
+RUN sh /usr/local/bin/with-ca-trust true
+ENV NODE_OPTIONS="--use-openssl-ca"
+
+FROM trusted-ruby AS builder
 
 WORKDIR /app
 
@@ -21,6 +27,7 @@ RUN echo "--- :package: Installing system deps" \
     && apt-get install -y gh jq build-essential python3 \
     ## Pull down security updates
     && apt-get upgrade -y \
+    && sh /usr/local/bin/with-ca-trust true \
     # Upgrade rubygems and bundler
     && gem update --system \
     && gem install bundler \
@@ -44,12 +51,22 @@ RUN echo "--- :bundler: Installing ruby gems" \
 
 FROM $NODE_IMAGE AS node-deps
 
+COPY scripts/with-ca-trust.sh /usr/local/bin/with-ca-trust
+RUN sh /usr/local/bin/with-ca-trust true
+ENV NODE_OPTIONS="--use-openssl-ca"
+
+# Node.js 26+ images no longer bundle Yarn v1, so install it with npm.
+RUN npm install --global yarn@1.22.22
+
 COPY package.json yarn.lock ./
 RUN echo "--- :yarn: Installing node packages" && yarn
 
 # ------------------------------------------------------------------
 
-FROM public.ecr.aws/docker/library/golang:1.27-trixie AS gobuild
+FROM public.ecr.aws/docker/library/golang:1.27.4-trixie AS gobuild
+
+COPY scripts/with-ca-trust.sh /usr/local/bin/with-ca-trust
+RUN sh /usr/local/bin/with-ca-trust true
 
 # This was previously installed from gobinaries.com within
 # the deploy-preview step, but gobinaries.com keeps being unavailable :(
@@ -74,10 +91,13 @@ RUN if [ "$RAILS_ENV" = "production" ]; then \
 
 # ------------------------------------------------------------------
 
-FROM $BASE_IMAGE AS runtime
+FROM trusted-ruby AS runtime
 
 RUN apt-get update \
     && apt-get upgrade -y \
+    # The Node.js 26+ binary copied from node-deps needs libatomic
+    && apt-get install -y --no-install-recommends libatomic1 \
+    && sh /usr/local/bin/with-ca-trust true \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -118,7 +138,8 @@ FROM runtime AS deploy-preview
 # bin/deploy-preview has a couple of dependencies
 RUN apt-get update && \
     apt-get install -y curl jq && \
-    apt purge --assume-yes linux-libc-dev
+    apt purge --assume-yes linux-libc-dev && \
+    sh /usr/local/bin/with-ca-trust true
 
 COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
 
@@ -130,12 +151,13 @@ COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
 # make sense to us.
 #
 
-FROM raviqqe/muffet:2.11.5 AS muffet-scratch
-FROM ${BASE_IMAGE} AS muffet
+FROM raviqqe/muffet:2.11.9 AS muffet-scratch
+FROM trusted-ruby AS muffet
 
 RUN apt-get update && \
     apt-get install -y curl jq wget && \
-    apt purge --assume-yes linux-libc-dev
+    apt purge --assume-yes linux-libc-dev && \
+    sh /usr/local/bin/with-ca-trust true
 
 COPY --from=muffet-scratch /muffet /muffet
 

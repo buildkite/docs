@@ -135,7 +135,7 @@ In JSON:
 ```
 {: codeblock-file="pipeline.yml"}
 
-While the second command step in these examples is defined after a wait step, its empty dependency directs this command to not depend on the `wait` step, so that both commands steps are available to run immediately at the start of the build.
+While the second command step in these examples is defined after a wait step, its empty dependency directs this command to not depend on the `wait` step, so that both command steps are available to run immediately at the start of the build.
 
 Explicit dependencies on block steps can be added without setting additional input values. You can use this to define a **Deploy** button, for example.
 
@@ -160,13 +160,13 @@ There are three step attributes that can each affect when a step is able to run:
 
 * `if`/`branches`
 * `depends_on`
-* `concurrency_group`
+* `concurrency`
 
 If the step you're dependent on doesn't exist, the build will fail without running the step that is waiting for the dependency.
 
 However, if the step you're dependent on is excluded from the build due to an `if` condition, the dependency will be ignored and the step that depends on it will run once any other dependencies are satisfied.
 
-Steps that are in a `concurrency_group` run in the order they are created in and can be delayed in running by the `concurrency` attribute. If your step has a dependency on a step that is in a `concurrency_group`, there is an implicit dependency on the rest of the steps in the group. For more information about concurrency groups, see the [Controlling concurrency guide](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-groups).
+Steps in a concurrency group use the `group`, `limit`, and `method` settings in the `concurrency` map. With the default `ordered` method, jobs run in creation order and can be delayed by the concurrency limit. If your step has a dependency on a step in a concurrency group, there is an implicit dependency on the rest of the steps in the group. These ordering and dependency rules also apply to the supported integer syntax and top-level attributes. For more information, see the [Controlling concurrency guide](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-groups).
 
 ## Allowing dependency failures
 
@@ -237,7 +237,7 @@ steps:
 
 Setting [`soft_fail`](/docs/pipelines/configure/soft-fail) on a step will also allow steps that depend upon it to run, even when [`allow_dependency_failure: false`](/docs/pipelines/configure/depends-on#allowing-dependency-failures) is set on the subsequent step.
 
-In the following example, `step-b` will run because `step-a` is soft failing. If `step-a` were to to fail with a different exit code, `step-b` would not run.
+In the following example, `step-b` will run because `step-a` is soft failing. If `step-a` were to fail with a different exit code, `step-b` would not run.
 
 ```yml
 steps:

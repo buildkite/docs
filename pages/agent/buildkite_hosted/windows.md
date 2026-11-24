@@ -6,8 +6,8 @@ Windows hosted agents are:
 
 - Configured as part of a _Buildkite hosted queue_, where the machine type is Windows, with a particular [size](#sizes) to efficiently manage jobs with varying requirements.
 
-> 📘 Private preview feature
-> Windows hosted agents are currently in private preview and must be enabled for your Buildkite organization. To request access, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
+> 📘 Public preview feature
+> Windows hosted agents are currently in public preview and available on [Trial, Pro, and Enterprise](https://buildkite.com/pricing/) plans. To provide feedback, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
 Learn more about:
 
@@ -17,11 +17,15 @@ Learn more about:
 
 - The [concurrency](#concurrency), [security](#security), and [current limitations](#current-limitations) of Windows hosted agents.
 
+- Running GitHub Actions workflows on Windows hosted agents using [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows#requirements-run-windows-jobs).
+
 ## Sizes
 
 Windows hosted agents support the AMD64 architecture in four instance shapes:
 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_windows' %>
+
+The Extra Large (XL) instance shape is only available on Enterprise plans. Contact [Buildkite Support](mailto:support@buildkite.com) to request access.
 
 ## Base image
 
@@ -35,9 +39,11 @@ Windows hosted agents can operate concurrently when running your Buildkite pipel
 
 <%= render_markdown partial: 'agent/buildkite_hosted/hosted_agents_concurrency_explanation' %>
 
-The number of Windows hosted agents that can process jobs concurrently depends on the Windows vCPU concurrency allocated to your organization and the [instance shape](#sizes) configured for the queue.
+To calculate the maximum number of concurrent Windows hosted agents, divide your plan's Windows vCPU concurrency limit by the [instance shape's](#sizes) vCPU count. See [platform limits](/docs/platform/limits#pipelines-limits-hosted-agents-limits) for the default limits for each plan.
 
-When a job would exceed the allocated concurrency, it remains queued until sufficient capacity is available.
+For example, the `WINDOWS_AMD64_4X16` (Medium) instance shape has a vCPU count of four. A Windows concurrency limit of 64 vCPU supports 16 concurrent agents of this shape.
+
+Jobs that would exceed the limit remain queued until capacity becomes available.
 
 ## Security
 
@@ -52,7 +58,9 @@ Windows hosted agents don't currently support:
 - [Terminal access](/docs/agent/buildkite-hosted/terminal-access) using SSH
 - [Desktop access](/docs/agent/buildkite-hosted/desktop-access) using VNC or Remote Desktop
 - ARM64 architecture
+- Nested virtualization
 - Windows Server 2025
 - Selecting a Windows shell in the queue settings
 - Selecting or managing the Buildkite agent version
-- Windows jobs through the [GitHub Actions compatibility feature](/docs/pipelines/migration/run-github-actions-workflows)
+
+Without nested virtualization, Windows hosted agents can't run WSL2, Docker Desktop, or Windows containers with Hyper-V isolation. Docker Engine is installed on the base image and runs Windows containers with [process isolation](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container).

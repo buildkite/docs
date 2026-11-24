@@ -7,6 +7,8 @@ Before any build step runs, by default the Buildkite agent checks out your sourc
 
 This page explains each checkout option and when to use it. For the full attribute reference, see the [command step checkout attributes](/docs/pipelines/configure/step-types/command-step#checkout-attributes).
 
+For GitHub and GitHub Enterprise Server repositories on self-hosted agents, enable [GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on the queue to use short-lived, read-only credentials instead of an SSH key. This is a queue setting, not a `checkout` YAML option. For other authentication methods, see [Self-hosted agent code access](/docs/agent/self-hosted/code-access).
+
 ## How checkout works
 
 When a Buildkite Pipelines job starts, the agent performs the following steps in order:
@@ -473,10 +475,15 @@ steps:
 
 The `checkout.commit_verification` key tells the Buildkite agent to verify that the commit being built exists on the specified branch. This security feature is a branch-commit verification check, not GPG or SSH signature verification. This check helps protect against a scenario where a bad actor tries to trick CI into building a malicious commit that exists on a branch as though it is actually a commit on your `main` branch.
 
+During the [default checkout](#how-checkout-works), commit verification runs after fetching the source and before checking out the requested commit. The agent checks whether that commit appears in the named branch’s history. A commit passes if it is the branch’s latest commit or an earlier commit reachable through its history.
+
+> 🚧 Verification does not protect earlier job activity
+> Commit verification runs during the default checkout, after some job setup has already occurred. Secrets can be available, and hooks or plugins can execute, before the agent verifies branch membership. Even if `fail-closed` rejects the checkout and prevents the job’s commands from running, those earlier actions may already have occurred. Do not use commit verification alone to decide whether a job can receive secrets or other protected-branch privileges.
+
 For Buildkite agent v4, set the value to `strict` to fail the job when the agent determines that the commit is not on the branch. Set it to `off` to skip commit verification. An empty value causes job bootstrap to fail.
 
 > 🚧 Strict mode does not require successful verification
-> In both v3 and v4, the agent warns and continues if it cannot complete verification, even in `strict` mode. Commit verification does not guarantee that every executed commit belongs to the specified branch. Do not rely on it alone to grant protected-branch privileges or access to secrets.
+> In both v3 and v4, `strict` warns and continues if the agent cannot complete verification. Commit verification in `strict` mode does not guarantee that every executed commit belongs to the specified branch. Do not rely on `strict` mode alone to grant protected-branch privileges or access to secrets. For stronger guarantees, use [fail-closed mode](#commit-verification-fail-closed-mode).
 
 For Buildkite agent v3, use v3.136.0 or later for commit verification. In addition to `strict`, v3 accepts `warn` to emit a warning without failing the job when the commit is not on the branch. An empty value skips commit verification. A job-supplied `off` value uses warning behavior rather than skipping verification.
 
@@ -487,15 +494,17 @@ Agent v3 does not verify commits by default. Leave its configuration value empty
 > 📘 Requires none mode
 > The `checkout.commit_verification` key only takes effect when the agent runs with `--checkout-override-mode=none`. Under the default `from-job` mode, the agent uses its own `--git-commit-verification` setting and ignores the pipeline value. See [Agent checkout-override mode](#agent-checkout-override-mode).
 
-Verification may be unable to complete if fetching the branch or deepening a shallow clone fails. Skipping checkout or replacing the default checkout with an agent or plugin `checkout` hook bypasses the built-in check. Secrets can be available before verification runs. Hooks or plugins can also execute before verification runs. There is currently no built-in verification mode that requires successful verification for every checkout path.
+Verification may be unable to complete if fetching the branch or deepening a shallow clone fails. In `strict` mode and in v3, this isn't a definitive failure: the agent warns and continues. Skipping checkout or replacing the default checkout with an agent or plugin `checkout` hook also bypasses the built-in check in these modes. Secrets can be available before verification runs. Hooks and plugins can also execute before verification runs.
 
-The agent skips verification in the following cases, including in `strict` mode:
+In `strict` mode and in v3, the agent skips verification in the following cases. In `fail-closed` mode, it fails the job instead:
 
-- Tag builds
-- Pull request builds
-- Builds where the commit is `HEAD`
-- Builds with no branch set
-- Builds using a custom refspec
+- **Tag builds:** A tag names a particular commit independently of any branch. That commit might appear in several branches or none of them, so building a tag does not establish which branch’s history should be checked. The verifier does not currently perform a separate branch-membership check for tag builds.
+- **Pull request builds:** The agent can check out a generated merge commit that represents what the code would look like after merging the PR. That commit is available through a special PR ref but has not actually been merged into the target branch. Requiring it to appear in that branch’s history would reject a legitimate PR build. The verifier currently excludes all PR builds, including those that check out the PR head directly.
+- **Builds where the commit is `HEAD`:** A request with `commit: HEAD` asks the agent to fetch the named branch and build its current head, rather than supplying a particular commit independently of the branch.
+- **Builds with no branch set:** The agent needs both a commit and a branch to check their relationship. Without a branch name, it cannot determine which branch’s history the commit must belong to.
+- **Builds using a custom refspec:** A refspec controls which remote branches or other refs Git fetches and what names they receive locally. A custom refspec can produce a different layout from the standard branch checkout. These configurations remain unsupported because changes to the expected branch refs can cause false verification failures.
+
+Skipped and replacement checkouts also bypass verification in `strict` mode and in v3. The check is part of the default checkout implementation, so it does not run when checkout is skipped or replaced by an agent or plugin `checkout` hook. A replacement hook may use a different repository or checkout strategy, and its completion does not prove that the built-in ancestry check succeeded. `fail-closed` rejects both paths.
 
 ```yaml
 steps:
@@ -505,6 +514,71 @@ steps:
       commit_verification: "strict"
 ```
 {: codeblock-file="pipeline.yml"}
+
+### Fail-closed mode
+
+> 📘 Agent configuration only
+> `fail-closed` is available in Buildkite agent v4.7.0 or later as the agent's `--git-commit-verification` configuration setting or `BUILDKITE_GIT_COMMIT_VERIFICATION` environment variable. The `checkout.commit_verification` pipeline YAML key doesn't accept `fail-closed`.
+
+Set `--git-commit-verification` to `fail-closed` to require successful branch ancestry verification before the job's commands run. Unlike `strict`, `fail-closed` fails checkout instead of warning and continuing when verification can't complete, for example, when fetching the branch fails.
+
+`fail-closed` also rejects checkout paths that would otherwise skip or bypass verification:
+
+- **Tag builds:** A tag identifies a commit independently of any branch, so it does not establish which branch’s history to verify.
+- **Pull request builds:** A generated PR merge commit can exist outside the target branch’s history. The verifier excludes PR builds as a category, including those that check out the PR head directly.
+- **Builds where the commit is `HEAD`:** Checkout selects the fetched branch head rather than a particular commit supplied independently of the branch.
+- **Builds with no branch or no repository specified:** The agent needs a repository containing both the commit and the named branch to check their relationship.
+- **Builds using a custom refspec:** A custom refspec can change which refs are fetched and their local names. The verifier does not support these checkout configurations.
+- **A skipped checkout (`BUILDKITE_SKIP_CHECKOUT`):** Skipping checkout also skips the default implementation containing the verification check.
+- **An agent or plugin `checkout` hook that replaces the default checkout:** The hook replaces the implementation containing the check. Completing a custom checkout does not establish that branch ancestry was verified.
+
+Verification must succeed within the same bootstrap invocation that runs the job's commands. If a hook sets `BUILDKITE_GIT_COMMIT_VERIFICATION` to `fail-closed` after the checkout phase, for example, in a pre-command hook, the agent rejects the command unless verification has already succeeded in that invocation.
+
+`fail-closed` is a checkout safeguard, not a secrets-release boundary. Environment and pre-checkout hooks can still run before verification completes. To prevent jobs, hooks, and plugins from changing the verification setting, run the agent with `checkout-override-mode="strict"` alongside `git-commit-verification="fail-closed"`.
+
+For example, in the agent configuration file:
+
+```ini
+git-commit-verification="fail-closed"
+```
+{: codeblock-file="buildkite-agent.cfg"}
+
+## Fetching the base branch
+
+> 📘 Agent version requirement
+> The `--git-fetch-base-branch` setting requires Buildkite agent v4.2.0 or newer. Older agent versions don't recognize this setting.
+
+A checkout only fetches the refs the job needs to build: the pull request ref or commit for the branch under test. The checkout does not refresh `origin/<base-branch>` in the agent's working directory, so that ref can keep pointing at whatever an earlier build left there. Anything in the job that compares against the base branch, such as a custom script running `git merge-base HEAD origin/main`, can then read a stale ref. A stale ref often makes a diff wider than expected, but it can also hide changes, for example, when the branch under test reverts a change that the stale ref predates. If the base branch's history was rewritten, for example, by a force push, the comparison can produce misleading results or fail. Because the comparison usually succeeds anyway, a stale base ref tends to go unnoticed. [`if_changed` change detection](/docs/pipelines/configure/dynamic-pipelines/if-changed#troubleshooting-steps-run-unexpectedly-after-merging-the-default-branch-into-a-feature-branch) is a common place this shows up, and has its own `--fetch-diff-base` flag that solves the problem for `buildkite-agent pipeline upload` specifically.
+
+The agent's `--git-fetch-base-branch` configuration setting fetches the base branch during checkout, so that `origin/<base-branch>` reflects its current tip before any job commands run. The base branch is the first non-empty value of `BUILDKITE_PULL_REQUEST_BASE_BRANCH` or `BUILDKITE_PIPELINE_DEFAULT_BRANCH`. The agent skips the fetch when the branch being built is the base branch itself, since there's no distinct base branch to prepare.
+
+Set the mode with the agent's `--git-fetch-base-branch` flag, or the [`BUILDKITE_GIT_FETCH_BASE_BRANCH`](/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_FETCH_BASE_BRANCH) environment variable. It accepts three values:
+
+- `off` (the default): The agent does not fetch the base branch.
+- `optimistic`: The agent fetches the base branch before the job's commands run, and warns without failing the job if the fetch fails.
+- `strict`: The agent fails the job if the fetch fails, including when no base branch can be determined for the build.
+
+For example, in the agent configuration file:
+
+```ini
+git-fetch-base-branch="optimistic"
+```
+{: codeblock-file="buildkite-agent.cfg"}
+
+The agent only fetches the base branch determined from these variables. If a command compares against a different ref, such as a custom diff base for `if_changed`, fetch that ref separately.
+
+### Overriding the agent setting
+
+Whether a job can change this setting depends on the agent's [checkout-override mode](#agent-checkout-override-mode):
+
+- `from-job` (the default): When the agent sets `optimistic` or `strict`, a pipeline or step `env` can't override it, but hooks and plugins can. When the agent leaves the setting at `off`, a pipeline or step can enable the fetch by setting `BUILDKITE_GIT_FETCH_BASE_BRANCH` in its `env`.
+- `none`: Pipeline or step `env`, secrets, hooks, and plugins can override the agent's value in either direction, including setting `off` to skip a fetch that the agent enables.
+- `strict`: The agent's value always applies, including `off`, and no pipeline or step `env`, secret, hook, or plugin can change it.
+
+To guarantee the same behavior across every job on an agent, run the agent with `checkout-override-mode="strict"` as well as `git-fetch-base-branch`. Disabling command evaluation (`no-command-eval`) also forces `strict` mode.
+
+> 🚧 Buildkite hosted agents
+> Buildkite hosted agents run in `from-job` mode, and you can't change their agent configuration. To fetch the base branch on hosted agents running v4.2.0 or newer, set `BUILDKITE_GIT_FETCH_BASE_BRANCH` in your pipeline or step `env`. Alternatively, fetch the base branch in the step's command, for example, `git fetch origin main`.
 
 ## Migrating from checkout plugins
 

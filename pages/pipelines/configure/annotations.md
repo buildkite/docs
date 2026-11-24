@@ -130,7 +130,7 @@ Use cases where job-scoped annotations are particularly useful:
 - Results from parallel jobs that need to be viewed separately
 - Build matrices where each job produces different output
 
-Job-scoped annotations can be created from [within a build's job](#create-a-job-scoped-annotation-from-within-a-builds-job), as well as externally using Buildkite' [REST API](#create-a-job-scoped-annotation-externally-using-the-rest-api) and [GraphQL API](#create-a-job-scoped-annotation-externally-using-the-graphql-api).
+Job-scoped annotations can be created from [within a build's job](#create-a-job-scoped-annotation-from-within-a-builds-job), as well as externally using Buildkite's [REST API](#create-a-job-scoped-annotation-externally-using-the-rest-api) and [GraphQL API](#create-a-job-scoped-annotation-externally-using-the-graphql-api).
 
 > 📘 Requirements
 > Job-scoped annotations require Buildkite agent v3.112 or newer and are not available in the classic build page experience.
@@ -487,6 +487,8 @@ steps:
       EOF
 ```
 {: codeblock-file="pipeline.yml"}
+
+For artifacts in Buildkite-managed storage, `artifact://` images and links no longer load once the artifact passes your organization's retention period. See [Limits](/docs/platform/limits) for the plan defaults.
 
 ## List annotations for a build
 

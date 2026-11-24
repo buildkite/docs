@@ -5,11 +5,11 @@ This tutorial takes you through the process of creating dynamic pipelines and bu
 - How the Bazel build tool can integrate with Buildkite, learn more about this in the [Using Bazel with Buildkite tutorial](/docs/pipelines/tutorials/bazel), which uses a Buildkite pipeline to build a simple Bazel example.
 - The basics of Buildkite Pipelines, run through the [Pipelines getting started tutorial](/docs/pipelines/getting-started) first.
 
-The tutorial uses an [Bazel Monorepo Example](https://github.com/buildkite/bazel-monorepo-example) project, whose program `pipeline.py` within the `.buildkite/` directory is one of the first things run by Buildkite Pipelines when the pipeline commences its build. This Python program creates additional Buildkite pipeline steps (in JSON format) that are then uploaded to the same pipeline, which Buildkite continues to run as part of the same pipeline build. Buildkite pipelines that generate new pipeline steps dynamically like this are known as [_dynamic pipelines_](/docs/pipelines/configure/dynamic-pipelines).
+The tutorial uses a [Bazel Monorepo Example](https://github.com/buildkite/bazel-monorepo-example) project, whose program `pipeline.py` within the `.buildkite/` directory is one of the first things run by Buildkite Pipelines when the pipeline commences its build. This Python program creates additional Buildkite pipeline steps (in JSON format) that are then uploaded to the same pipeline, which Buildkite continues to run as part of the same pipeline build. Buildkite pipelines that generate new pipeline steps dynamically like this are known as [_dynamic pipelines_](/docs/pipelines/configure/dynamic-pipelines).
 
 This `pipeline.py` Python program:
 
-- Determines which initial Bazel packages need to be built, based on changes that have been committed to either the `app/` or `library/` files, and then proceeds to upload the relevant steps that builds these packages as part of the same pipeline build.
+- Determines which initial Bazel packages need to be built, based on changes that have been committed to either the `app/` or `library/` files, and then proceeds to upload the relevant steps that build these packages as part of the same pipeline build.
 - Also runs [Bazel queries](https://bazel.build/query/guide) to determine which additional Bazel packages (defined within the packages' `BUILD.bazel` files) depend on these initial Bazel packages (for example, to build the `library/`'s dependency, which is `app/`), and then builds those additional packages too.
 
 ## Before you start
@@ -122,6 +122,6 @@ That's it! You've successfully configured a Buildkite agent, built a Buildkite p
 
 - Builds pipeline steps dynamically.
 - Uses Bazel to define Bazel package dependencies, and runs [Bazel queries](https://bazel.build/query/guide) to determine which Bazel packages need to be built (based on their dependencies).
-- Generates pipeline build annotations using the using the [Bazel BEP Annotate Buildkite Plugin](https://github.com/buildkite-plugins/bazel-annotate-buildkite-plugin). 🎉
+- Generates pipeline build annotations using the [Bazel BEP Annotate Buildkite Plugin](https://github.com/buildkite-plugins/bazel-annotate-buildkite-plugin). 🎉
 
 Learn more about dynamic pipelines from the [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) page.

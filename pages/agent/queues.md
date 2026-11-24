@@ -1,6 +1,6 @@
 # Queues overview
 
-Each [pipeline](/docs/pipelines/configure) has the ability to separate its jobs (define by the pipeline's steps) using queues. This allows you to isolate a set of jobs or agents, or both, making sure that only specific agents will run jobs that are intended for them.
+Each [pipeline](/docs/pipelines/configure) has the ability to separate its jobs (defined by the pipeline's steps) using queues. This allows you to isolate a set of jobs or agents, or both, making sure that only specific agents will run jobs that are intended for them.
 
 Buildkite Pipelines allows you to configure two types of queues:
 
@@ -58,7 +58,7 @@ If you don't assign a self-hosted agent to a [self-hosted queue](/docs/agent/que
 
 > 📘 Clusters without a default self-hosted queue configured
 > If you start a self-hosted agent without explicitly specifying an existing self-hosted queue in your cluster _and_ a default [self-hosted queue](/docs/agent/queues/managing#create-a-self-hosted-queue) is not configured in this cluster, or your default queue is set to a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue), then your agent will fail to connect to the Buildkite platform.
-> You must either explicitly specify an existing self-hosted queue within in your [cluster](/docs/pipelines/security/clusters/manage) when starting the agent, or have a default self-hosted queue already configured in this cluster for the agent to connect successfully.
+> You must either explicitly specify an existing self-hosted queue within your [cluster](/docs/pipelines/security/clusters/manage) when starting the agent, or have a default self-hosted queue already configured in this cluster for the agent to connect successfully.
 
 ## Setting up queues for unclustered agents
 

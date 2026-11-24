@@ -8,7 +8,7 @@ Buildkite Pipelines supports several caching approaches. Which ones you can use 
 
 Approach | Runs on | How data is addressed | Scope and retention | Availability
 --- | --- | --- | --- | ---
-[Buildkite Cache](/docs/pipelines/configure/cache) | Buildkite hosted agents and self-hosted agents in a [cluster](/docs/pipelines/security/clusters) | Explicitly, using the `buildkite-agent cache save` and `buildkite-agent cache restore` commands with a cache key you define | Held in a cluster cache registry, with configurable pipeline, branch, and build scopes. Entries expire three days after they're created or last restored by an exact key match | Public preview. Enabled for all Buildkite organizations
+[Buildkite Cache](/docs/pipelines/configure/cache) | Buildkite hosted agents and self-hosted agents in a [cluster](/docs/pipelines/security/clusters) | Explicitly, using the `buildkite-agent cache save` and `buildkite-agent cache restore` commands with a cache key you define | Held in a cluster cache registry, with configurable pipeline, branch, and build scopes. Entries expire three days after they're created or last restored by an exact key match | Generally available
 [Cache volumes](/docs/agent/buildkite-hosted/cache-volumes) | Buildkite hosted agents only | Implicitly, from the paths you list in the `cache` attribute of your pipeline YAML | Scoped to a pipeline and shared between its steps. Retained for up to 14 days from last use | Generally available
 [Build artifacts](/docs/pipelines/configure/artifacts) | Any agent | Explicitly, by uploading and downloading files by path, job, or build | Retained according to your artifact storage policy | Generally available
 Plugins and external caches | Any agent | Whatever the plugin or tool implements, such as an Amazon S3 bucket or a Bazel remote cache | You manage the storage and its lifecycle | Generally available
@@ -61,6 +61,7 @@ Don't cache:
 
     * Order your Dockerfile's structure in such a way that immutable layers (OS packages and core dependencies) come first
     * Copy lockfiles before installation to maximize cache hits
+    * On Buildkite hosted agents, Docker layers are cached automatically, unless your step selects Docker's `default` builder. Learn more in [How Docker image builds run](/docs/agent/buildkite-hosted/linux/remote-docker-builders#how-docker-image-builds-run).
 
 - For artifact caching, store heavyweight build outputs as artifacts between steps instead of re-building. See more in the following section.
 
@@ -70,7 +71,7 @@ When you cache with [Buildkite Cache](/docs/pipelines/configure/cache), most of 
 
 - Order key parts from coarse to fine. A restore drops optional parts from the end of the key, so put stable values such as the cache name, operating system, and architecture first, and the most specific value, such as a lockfile checksum, last.
 - Mark the part immediately before your lockfile checksum with `fallback_limit: true`. A lockfile change then still restores the previous set of dependencies, and the install command reconciles the difference instead of starting from nothing.
-- Restore before the command that needs the data, and save after that command has populated the target path. A cache miss exits successfully, so the build carries on either way.
+- Restore before the command that needs the data, and save after that command has populated the target path. A cache miss exits successfully, so the build carries on either way. For a command whose result you can skip entirely on a cache hit, use [`buildkite-agent cache exec`](/docs/pipelines/configure/cache#define-and-use-a-cache-skip-a-command-using-its-cached-result) instead of separate restore and save steps.
 - Change a literal part of the key, such as bumping `v1` to `v2`, when you need to invalidate a cache. An entry is written once per address, so saving again won't refresh an entry that already exists.
 - Keep target paths narrow. A restore deletes each target before extracting into it, so cache a dependency directory rather than a whole working directory.
 - Expect misses in pipelines that build infrequently. Entries expire three days after they're created or last restored by an exact key match, and a fallback restore doesn't extend that.
@@ -169,7 +170,7 @@ You can also pass `--remote_cache` on the command line per build/test invocation
 
 > 📘 Non-deterministic behavior
 > Cache volumes on Buildkite hosted agents are [non-deterministic by nature](/docs/agent/buildkite-hosted/cache-volumes#lifecycle-non-deterministic-nature) and allow for dependency caching and Git mirror caching.
-> For deterministic caching in your pipeline, use Docker images with [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders) which allow you to have fast Docker builds and the [internal container registry](/docs/agent/buildkite-hosted/internal-container-registry).
+> For deterministic caching of Docker images and Docker layers, use your [internal container registry](/docs/agent/buildkite-hosted/internal-container-registry), which can also [store a Docker layer cache](/docs/agent/buildkite-hosted/linux/remote-docker-builders#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache).
 
 - What to cache:
     * Use cache volumes for local tool data that's expensive to refetch between ephemeral jobs, for example, Bazel repository cache and custom CLIs.

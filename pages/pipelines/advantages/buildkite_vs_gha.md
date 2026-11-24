@@ -50,7 +50,7 @@ GitHub has no native test intelligence—teams must rely on custom scripts or ma
 
 GitHub Actions uses per-minute billing that can lead to unexpected costs as teams grow.
 
-In Buildkite Pipelines, [pricing](https://buildkite.com/pricing/) is based on agent concurrency using the 95th percentile, so short bursts don't inflate costs and you'll also be able to use your own compute including spot instances to educe costs further.
+In Buildkite Pipelines, [pricing](https://buildkite.com/pricing/) is based on agent concurrency using the 95th percentile, so short bursts don't inflate costs and you'll also be able to use your own compute including spot instances to reduce costs further.
 
 ## Job routing and priorities
 
@@ -66,7 +66,7 @@ Buildkite provides rich logging with colors, links, and emojis that make build o
 
 ## Migration path
 
-To run supported GitHub Actions workflows in Buildkite while you migrate incrementally, use the [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows).
+To run supported GitHub Actions workflows in Buildkite while you migrate incrementally, use [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows).
 
 You can try out the [Buildkite pipeline converter](/docs/pipelines/migration/pipeline-converter) to see how your existing GitHub Actions pipelines might look converted to Buildkite Pipelines.
 

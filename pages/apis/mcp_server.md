@@ -19,7 +19,7 @@ Once you have established which Buildkite MCP server to use (remote or local) an
 
 The Buildkite MCP server lets an AI tool investigate and manage your CI work from the same conversation where you develop code. After connecting your AI tool, explicitly ask it to use Buildkite. Connecting the server alone does not make the AI tool monitor builds.
 
-The following prompts are starting points. Replace the example organization, pipeline, branch, and build number with your own values, or provide a build URL. These investigation workflows can use [read-only access](#read-only-remote-mcp-server). If you connect with an [API access token](#use-an-api-access-token-for-durable-authentication) instead of OAuth, the token needs the read scopes of the tools that the prompt uses, such as `read_builds` and `read_build_logs`. See the [MCP tools overview](/docs/apis/mcp-server/tools#available-mcp-tools) for each tool's required scope.
+The following prompts are starting points. Replace the example organization, pipeline, branch, and build number with your own values, or provide a build URL. These investigation workflows can use [read-only access](#read-only-remote-mcp-server). If you restrict [toolsets](/docs/apis/mcp-server/tools/toolsets), include the ones each workflow needs. If you connect with an [API access token](#use-an-api-access-token-for-durable-authentication) instead of OAuth, grant the corresponding read scopes.
 
 ### Watch a pull request build
 
@@ -37,7 +37,7 @@ Babysit this build.
 
 Use the longer prompt when you need to specify read-only calls. The shorter request alone does not restrict what the AI tool can do.
 
-The `wait_for_build` tool checks for up to 45 seconds per call and treats a blocked build as finished so the AI tool can report that it needs input. The AI tool can inspect jobs and read logs when a build fails. To keep watching beyond one call, the AI tool must call again or use its own scheduling or event mechanism. Connecting the MCP server does not start a background watcher.
+The `wait_for_build` tool polls for up to 45 seconds per call and can spend up to 10 more seconds fetching annotations after a build settles. It treats a blocked build as finished so the AI tool can report that it needs input. The tool uses the `builds` toolset and requires `read_builds`. To follow up with logs, include the `logs` toolset and `read_build_logs` scope. To keep watching beyond one call, the AI tool must call again or use its own scheduling or event mechanism.
 
 ### Investigate a failure
 
@@ -47,7 +47,7 @@ Ask for evidence before deciding whether to change code or retry a job:
 Use the Buildkite MCP server to investigate failed build 123 in example-org/example-pipeline. Tell me the likely cause with links to the evidence, and say if any logs or test results are missing. Use only read-only calls.
 ```
 
-The `get_build_failure_summary` tool gathers problem jobs, log tails, error and warning annotations, and available failed tests in one call. Its results can be partial, so check for missing or truncated evidence before drawing conclusions. Test Engine investigation is optional: the build might not have uploaded results, and your AI tool might not have access to them. If you restrict [toolsets](/docs/apis/mcp-server/tools/toolsets), enable `investigations` for this summary. Enable `builds`, `logs`, `annotations`, or `tests` as needed for deeper follow-up calls.
+The `get_build_failure_summary` tool gathers problem jobs, log tails, error and warning annotations, and available failed tests in one call. Its results can be partial, so check for missing or truncated evidence before drawing conclusions. The tool uses the `investigations` toolset and requires `read_builds`, `read_build_logs`, and `read_suites`. Include `builds`, `logs`, `annotations`, or `tests` as needed for deeper follow-up calls.
 
 ### Query pipeline state
 
@@ -109,7 +109,7 @@ The OAuth-based remote MCP server is suitable for personal usage with an AI tool
     Instead, you only require your Buildkite user account, and the Buildkite platform issues a short-lived OAuth access token, representing your user account for authentication, along with both _read_ and _write_ access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) and connecting to it.
 
     **Notes:**
-    * OAuth access tokens are valid for one hour, and the client refreshes them automatically. A session stays authorized while the client keeps using it. See [Session lifetime and re-authentication](#how-remote-oauth-works-session-lifetime-and-re-authentication).
+    * MCP access tokens last up to one hour, and refresh tokens last up to 30 days. Clients that support refresh can renew credentials without another interactive login. See [OAuth for remote MCP and the Buildkite CLI](/docs/platform/security/oauth) for token lifetimes, security testing, and audit visibility.
     * These OAuth access tokens provide both read and write access to the remote MCP server. If you'd prefer to restrict your access to read-only, a [read-only version of the MCP server](#read-only-remote-mcp-server) is also available.
 
 - There is no need to install or upgrade any software. Since the remote MCP server undergoes frequent updates, you get access to new features and fixes automatically.
@@ -130,12 +130,9 @@ https://mcp.buildkite.com/direct
 
 This remote MCP server version accepts the API access token in an `Authorization: Bearer <buildkite-api-token>` header. The token is forwarded to the Buildkite REST API, and the token scopes determine which MCP tool calls can complete successfully.
 
-Because the requests use your API access token rather than an OAuth token issued to the remote MCP server, they count toward your Buildkite organization's [REST API rate limit](/docs/apis/rest-api/rate-limits), not the separate [remote MCP server rate limit](/docs/apis/mcp-server/remote/rate-limits).
+Requests made with a personal API token or a token issued by your token exchange application count toward [standard REST API limits](/docs/apis/rest-api/rate-limits), not the separate [MCP rate limit](/docs/apis/mcp-server/remote/rate-limits).
 
 Use this endpoint only for agents or services that cannot complete the interactive OAuth flow. It also avoids contention when multiple background agents would otherwise share OAuth tokens. For prompt-based AI tools, use the OAuth-based remote MCP server at `https://mcp.buildkite.com/mcp`.
-
-> 📘 API access token authentication preview
-> API access token authentication for the remote MCP server is currently in preview. See the [API access token support announcement](https://buildkite.com/resources/changelog/363-remote-mcp-server-api-access-token-support-is-now-available-preview/) for details.
 
 > 📘
 > The API token pass-through endpoint supports the same [toolsets](/docs/apis/mcp-server/tools/toolsets) and read-only routing options as the OAuth-based remote MCP server. Learn more in [Configuring AI tools with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools#api-token-pass-through-for-headless-agents).
@@ -176,7 +173,7 @@ The local MCP server is not suitable for personal usage with an AI tool, as it h
 
 - You'll also need to manage upgrades to the MCP server yourself, especially if you choose to install the binary version of the local MCP server, which means you may miss out on new and updated features offered automatically through the [remote MCP server](#types-of-mcp-servers-remote-mcp-server).
 
-- Unlike the [remote MCP server](#types-of-mcp-servers-remote-mcp-server), requests made through the local MCP server count towards your Buildkite organization's standard [REST API rate limit](/docs/apis/rest-api/limits).
+- Unlike requests using remote MCP OAuth credentials, requests made through the local MCP server with a personal API token count toward [standard REST API limits](/docs/apis/rest-api/rate-limits).
 
 If you intend to use the local Buildkite MCP server, learn more about how to set up and install it in [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing).
 
@@ -188,17 +185,17 @@ Each authorization is limited to the selected organization, your Buildkite user 
 
 ### Session lifetime and re-authentication
 
-OAuth access tokens are valid for one hour. Before an access token expires, the client uses its refresh token to get a new one in the background, without opening a browser. Each refresh also replaces the refresh token with a new one that's valid for 30 days, so a session stays authorized for as long as the client keeps using it. If a refresh fails because of a temporary problem, such as a timeout or rate limit, the remote MCP server retries it and doesn't ask you to re-authenticate.
+Remote MCP access tokens last up to one hour, and refresh tokens last up to 30 days. A client that supports refresh can renew credentials without opening a browser. The client must save the replacement refresh token and use it for the next refresh. The underlying Buildkite authorization can expire sooner. See [Token lifetime and refresh](/docs/platform/security/oauth#token-lifetime-and-refresh).
 
 You need to authorize the client again in the browser when:
 
-- The client hasn't refreshed its session for 30 days.
+- The client's refresh token has expired.
 - You [revoke the client's access](#revoke-access-revoke-oauth-access).
 - You lose access to the selected organization.
 - The client loses its stored OAuth credentials, for example, after you remove and re-add the MCP server or clear the client's credential cache.
-- Buildkite detects that a refresh token was reused after it had already been replaced. Buildkite treats this as possible credential theft and revokes the whole session. This can happen when several processes or agents share one set of OAuth credentials. Use [API token pass-through](#api-token-pass-through-remote-mcp-server) for background agents instead.
+- The client keeps using a replaced refresh token after the reuse grace period and no longer has a valid replacement. This can happen when several processes share one set of OAuth credentials. Use [API token pass-through](#api-token-pass-through-remote-mcp-server) for background agents instead.
 
-If a client disconnects about an hour after authorizing, or asks you to authorize again repeatedly, it isn't refreshing its credentials successfully. Stop retrying the failed tool calls, update the client to its latest version, and reconnect the MCP server or run the client's OAuth login action. See [Recovering from authentication errors](/docs/apis/mcp-server/remote/rate-limits#recovering-from-authentication-errors) for more troubleshooting steps.
+If a client disconnects about an hour after authorizing, or asks you to authorize again repeatedly, the client might not be refreshing its credentials successfully. Stop retrying the failed tool calls, update the client to its latest version, and reconnect the MCP server or run the client's OAuth login action. See [Recovering from authentication errors](/docs/apis/mcp-server/remote/rate-limits#recovering-from-authentication-errors) for more troubleshooting steps.
 
 ## Use an API access token for durable authentication
 

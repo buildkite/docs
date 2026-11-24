@@ -327,6 +327,8 @@ Success response: `200 OK`
 
 YAML pipelines are the recommended way to [manage your pipelines](/docs/pipelines/tutorials/pipeline-upgrade). To create a YAML pipeline using this endpoint, set the `configuration` key in your json request body to the YAML you want in your pipeline.
 
+For GitHub Actions Compatibility, prefer [GitHub Actions setup in the Buildkite interface](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline). To provision the equivalent using this API, [create the pipeline with the GitHub Actions provider settings, then create its dedicated pipeline trigger](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-configure-an-equivalent-pipeline-manually). This endpoint doesn't create the trigger or its signed repository webhook automatically.
+
 For example, to create a pipeline called `"My Pipeline"` containing the following command step
 
 ```yaml
@@ -631,7 +633,7 @@ Error responses:
 
 <%= render_markdown partial: 'platform/deriving_a_pipeline_slug_from_the_pipelines_name' %>
 
-Any attempt to create a new pipeline with a name that matches an existing pipeline's name, results in an error.
+Any attempt to create a new pipeline with a name that matches an existing pipeline's name results in an error.
 
 ## Create a visual step pipeline
 
@@ -1399,7 +1401,7 @@ Success response: `204 No Content`
 
 ## Add a webhook
 
-Create an GitHub webhook for an existing pipeline that is configured using our GitHub App. Pushes to the linked GitHub repository will trigger builds.
+Create a GitHub webhook for an existing pipeline that is configured using our GitHub App. Pushes to the linked GitHub repository will trigger builds.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -1555,10 +1557,10 @@ Properties available for all providers:
 </tbody>
 </table>
 
-Bitbucket Cloud, Bitbucket Server, GitLab, GitLab Self-Managed, GitHub, GitHub Enterprise, and Origin all have optional `provider_settings`.
+Bitbucket Cloud, Bitbucket Server, GitLab, GitLab Self-Managed, GitHub, GitHub Enterprise, Origin, and Code Storage all have optional `provider_settings`.
 
-> 📘 Origin provider settings
-> Origin provider settings require the pipeline to use a repository selected from a connected Origin installation.
+> 📘 Origin and Code Storage provider settings
+> Origin provider settings require the pipeline to use a repository selected from a connected Origin installation. Code Storage provider settings require a Code Storage HTTPS repository URL. Connect the [Code Storage organization](/docs/pipelines/source-control/code-storage) to enable push builds, hosted-agent checkout, and Git notes delivery. The Code Storage integration is in public preview.
 
 Properties available for Bitbucket Server:
 
@@ -1707,9 +1709,57 @@ Properties available for Origin:
       </td>
     </tr>
     <tr>
+      <th><code>build_pull_request_ready_for_review</code></th>
+      <td>Whether to create a build when a draft pull request is marked ready for review. Respects <code>skip_pull_request_builds_for_existing_commits</code>. Requires <code>build_pull_requests</code> to be <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_reopened</code></th>
+      <td>Whether to create a build when a pull request is reopened, even if its commit and branch already built. Requires <code>build_pull_requests</code> to be <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_base_branch_changed</code></th>
+      <td>Whether to create a build when a pull request changes target branch, even if its commit and branch already built. Does not create a build when the target branch receives new commits. Requires <code>build_pull_requests</code> to be <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_edited</code></th>
+      <td>Whether to create a build when a pull request title, description, or target branch changes, even if its commit and branch already built. Either this setting or <code>build_pull_request_base_branch_changed</code> enables target-branch-change builds. Requires <code>build_pull_requests</code> to be <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_labels_changed</code></th>
+      <td>Whether to create builds when labels are added to or removed from a pull request. Respects <code>skip_pull_request_builds_for_existing_commits</code>. Requires <code>build_pull_requests</code> to be <code>true</code> and pull request labels support enabled for your Buildkite organization.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_review_submitted</code></th>
+      <td>Whether to create a build of the reviewed commit when a submitted review approves, requests changes, or comments on a pull request. Works independently of <code>build_pull_requests</code> and ignores <code>skip_pull_request_builds_for_existing_commits</code>. Requires review access for the Origin installation. Review dismissals and reviews on closed or merged pull requests do not create builds.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>skip_pull_request_builds_for_existing_commits</code></th>
+      <td>Whether to skip a pull request build when an earlier webhook build exists for the same commit and branch. Enabled reopen, edit, target-branch-change, and submitted-review events can rebuild the same commit regardless of this setting. Webhook retries and matching push and pull request head notifications do not create duplicate pull request builds.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>true</code></p>
+      </td>
+    </tr>
+    <tr>
       <th><code>build_tags</code></th>
       <td>Whether to create builds when tags are pushed.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>cancel_deleted_branch_builds</code></th>
+      <td>Whether to cancel a branch's active builds when the branch is deleted. Cancellation applies regardless of <code>build_branches</code> or any conditional filter. It does not cancel a build for a tag with the same name.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
       </td>
     </tr>
     <tr>
@@ -1720,6 +1770,33 @@ Properties available for Origin:
     </tr>
   </tbody>
 </table>
+
+Properties available for Code Storage:
+
+<table class="responsive-table responsive-table--wrap-th-codeblocks">
+  <tbody>
+    <tr>
+      <th><code>build_branches</code></th>
+      <td>Whether to create builds when branches are pushed. Defaults to <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_tags</code></th>
+      <td>Whether to create builds when tags are pushed. Defaults to <code>false</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>publish_git_notes</code></th>
+      <td>Whether to publish build status to Code Storage as <a href="/docs/pipelines/source-control/code-storage#publish-build-status-as-git-notes">Git notes</a>. Defaults to <code>true</code>. Setting this to <code>false</code> stops future notes but does not remove existing notes.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+Code Storage does not support `build_pull_requests` or `publish_commit_status`. It reports build status using Git notes. Code Storage triggers builds through an organization-level webhook, so there is no per-pipeline webhook URL.
 
 Additional properties available for GitHub and GitHub Enterprise:
 
@@ -1823,7 +1900,7 @@ Additional properties available for GitHub and GitHub Enterprise:
     </tr>
     <tr>
       <th><code>issue_comment_command_word</code></th>
-      <td>The command word that a PR comment must match to trigger a build. Only used when <code>build_issue_comment_created</code> is <code>true</code>.
+      <td>The single command word that a PR comment must match to trigger a build. Only used when <code>build_issue_comment_created</code> is <code>true</code>. Leading and trailing whitespace is trimmed. Values containing multiple words, such as <code>/bk review</code>, return <code>422 Unprocessable Entity</code> without creating or updating the pipeline. Use <code>null</code> or an empty string to clear the command word. Matching follows <code>issue_comment_match_mode</code>.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>/bk</code></p>
       </td>
     </tr>
@@ -1841,19 +1918,19 @@ Additional properties available for GitHub and GitHub Enterprise:
     </tr>
     <tr>
       <th><code>review_comment_command_word</code></th>
-      <td>The command word that a PR review comment must match to trigger a build. Only used when <code>build_pull_request_review_comment_created</code> is <code>true</code>.
+      <td>The single command word that a PR review comment must match to trigger a build. Only used when <code>build_pull_request_review_comment_created</code> is <code>true</code>. Leading and trailing whitespace is trimmed. Values containing multiple words, such as <code>/bk review</code>, return <code>422 Unprocessable Entity</code> without creating or updating the pipeline. Use <code>null</code> or an empty string to clear the command word. Matching follows <code>review_comment_match_mode</code>.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>/bk</code></p>
       </td>
     </tr>
     <tr>
       <th><code>review_comment_match_mode</code></th>
-      <td>How the review comment command word is matched against the comment body. <code>exact</code> requires the entire whitespace-trimmed comment to equal the command word; <code>contains</code> matches if the command word appears anywhere in the comment. Both modes are case-insensitive.
+      <td>How the saved review comment command word is matched against the comment body. <code>exact</code> requires the entire whitespace-trimmed comment to equal the saved command word; <code>contains</code> matches if the saved command word appears anywhere in the comment. Both modes are case-insensitive.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>exact</code>, <code>contains</code>. <em>Default:</em> <code>exact</code></p>
       </td>
     </tr>
     <tr>
       <th><code>issue_comment_match_mode</code></th>
-      <td>How the issue comment command word is matched against the comment body. <code>exact</code> requires the entire whitespace-trimmed comment to equal the command word; <code>contains</code> matches if the command word appears anywhere in the comment. Both modes are case-insensitive.
+      <td>How the saved issue comment command word is matched against the comment body. <code>exact</code> requires the entire whitespace-trimmed comment to equal the saved command word; <code>contains</code> matches if the saved command word appears anywhere in the comment. Both modes are case-insensitive.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>exact</code>, <code>contains</code>. <em>Default:</em> <code>exact</code></p>
       </td>
     </tr>
@@ -1939,7 +2016,7 @@ Additional properties available for GitHub and GitHub Enterprise:
     <tr>
       <th><code>prevent_custom_statuses_from_using_buildkite_prefix</code></th>
       <td>Whether to prevent custom commit statuses configured using <a href="/docs/pipelines/source-control/github#customizing-commit-statuses"><code>notify:</code></a> from setting <code>context:</code> to a value that starts with <code>buildkite/</code>. When enabled, custom commit statuses must specify a <code>context:</code>. Effective enforcement also requires this feature to be enabled for your organization. When the feature is inactive, the setting is stored but not enforced.
-        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p>This feature is currently in private preview. Contact <a href="mailto:support@buildkite.com">Buildkite support</a> to enable it for your organization.</p>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
@@ -1950,7 +2027,7 @@ Additional properties available for GitHub and GitHub Enterprise:
           <li><code>code</code> creates builds when code is pushed to GitHub.</li>
           <li><code>deployment</code> creates builds when a deployment is created with the <a href="https://developer.github.com/v3/repos/deployments/">GitHub Deployments API</a>.</li>
           <li><code>fork</code> creates builds when the GitHub repository is forked.</li>
-          <li><code>none</code> will not create any builds based on GitHub activity.</li>
+          <li><code>none</code> disables traditional GitHub build triggering. It doesn't disable <a href="/docs/apis/rest-api/pipeline-triggers#create-a-pipeline-trigger-create-a-github-actions-pipeline-trigger">GitHub Actions pipeline triggers</a>, which process their own deliveries.</li>
         </ul>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>code</code>, <code>deployment</code>, <code>fork</code>, <code>none</code></p>
       </td>
@@ -1966,7 +2043,7 @@ Additional properties available for GitHub:
       <th><code>github_workflow_access_tokens_enabled</code></th>
       <td>Whether jobs can request GitHub access tokens bounded by workflow permissions. This setting is not supported for GitHub Enterprise Server pipelines.
         <p>The organization feature and this pipeline setting must both be enabled. See <a href="/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-credentials-secrets-and-oidc">credentials, secrets, and OIDC</a> for requirements and limitations.</p>
-        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p>This feature is currently in private preview. Contact <a href="mailto:support@buildkite.com">Buildkite support</a> to enable it for your organization.</p>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
@@ -1974,7 +2051,7 @@ Additional properties available for GitHub:
       <th><code>build_issues</code></th>
       <td>Whether to create builds for GitHub issue activity, such as an issue being opened, edited, labeled, or closed. This setting is not supported for GitHub Enterprise Server pipelines.
         <p>Only available for GitHub.com pipelines that use the full-access <strong>GitHub</strong> App. Builds run the repository's default branch at the exact commit resolved when Buildkite Pipelines processes the webhook delivery. Public issue authors can trigger these builds without a trusted-author check. See <a href="/docs/pipelines/source-control/github#running-builds-on-additional-github-events-running-builds-on-issue-activity">running builds on issue activity</a> for details.</p>
-        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p>This feature is currently in private preview. Contact <a href="mailto:support@buildkite.com">Buildkite support</a> to enable it for your organization.</p>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>

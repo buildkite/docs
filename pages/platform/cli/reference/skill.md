@@ -32,6 +32,13 @@ The `bk skill` command allows you to manage Buildkite skills for AI coding agent
 
 Install a Buildkite skill.
 
+Install a Buildkite skill from github.com/buildkite/skills.
+
+By default, the target is auto-detected from a project .claude or .cursor
+folder. Use --agent to choose a target explicitly, --global to install to all
+existing global agent directories (~/.claude and/or ~/.cursor), or --path for
+another agent's skills directory.
+
 ```bash
 bk skill add <name> [flags]
 ```
@@ -47,9 +54,10 @@ bk skill add <name> [flags]
 | Flag | Description |
 | --- | --- |
 | `--agent=STRING` | Agent/harness to install for (claude or cursor). Auto-detected from .claude or .cursor by default. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--force` | Overwrite an existing installed skill. |
 | `--global` | Install globally in your home directory instead of the current project. |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--path=STRING` | Custom skills directory to install into, for agents such as Amp or Pi. |
 
 ### Examples
@@ -78,9 +86,14 @@ Install into a custom skills directory, such as Amp or Pi:
 bk skill add buildkite-api --path ~/.amp/skills
 ```
 
-## Update skill
+## Update a skill
 
 Update an installed Buildkite skill.
+
+Update installed Buildkite skills from github.com/buildkite/skills.
+
+If no skill name is provided, all currently installed skills for the target
+agent are updated.
 
 ```bash
 bk skill update [<name>] [flags]
@@ -97,8 +110,9 @@ bk skill update [<name>] [flags]
 | Flag | Description |
 | --- | --- |
 | `--agent=STRING` | Agent/harness to update for (claude or cursor). Auto-detected from .claude or .cursor by default. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--global` | Update the globally installed skill instead of the current project. |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--path=STRING` | Custom skills directory to update, for agents such as Amp or Pi. |
 
 ### Examples
@@ -119,7 +133,7 @@ bk skill update buildkite-api --agent claude --global
 bk skill update --path ~/.amp/skills
 ```
 
-## Delete skill
+## Delete a skill
 
 Delete an installed Buildkite skill.
 
@@ -138,8 +152,9 @@ bk skill delete <name> [flags]
 | Flag | Description |
 | --- | --- |
 | `--agent=STRING` | Agent/harness to delete from (claude or cursor). Auto-detected from .claude or .cursor by default. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--global` | Delete the globally installed skill instead of the current project. |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--path=STRING` | Custom skills directory to delete from, for agents such as Amp or Pi. |
 
 ### Examples

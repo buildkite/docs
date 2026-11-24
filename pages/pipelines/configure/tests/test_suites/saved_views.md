@@ -14,7 +14,7 @@ Saved views created from any of these locations are shared across your Buildkite
 
 1. On the test suite's **Summary** or **Tests** page, select **Filter**, then select as many filter values as you would like.
 1. Select **Display**, then select the columns you would like to appear in your view.
-1. Select **Save** in the filter bar.
+1. Select **Save view** in the filter bar.
 1. Select one of the following options:
     * **Save as default view:** Available on the **Summary** page only. Sets the view as the default for the test suite.
     * **Create a new view:** Available on both the **Summary** and **Tests** pages. Give your view a name, then select **Save view**.
@@ -31,7 +31,7 @@ You can also create a default saved view directly from the **Tests** tab on a bu
 1. Navigate to a build page and select the **Tests** tab.
 1. Select **Filter**, then select your desired filter values.
 1. Select **Display**, then select the columns you would like to appear in your view.
-1. Select **Save** in the filter bar.
+1. Select **Save view** in the filter bar.
 1. Select **Save as default view**.
 
 This view will now be the default **Tests** tab view for all builds in your Buildkite organization.

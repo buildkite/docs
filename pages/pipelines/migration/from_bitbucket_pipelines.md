@@ -44,7 +44,7 @@ The following table maps key Bitbucket Pipelines concepts to their Buildkite Pip
 | `parallel` | Steps without `depends_on` (parallel by default) |
 | `caches` | [Cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin) |
 | `artifacts` | `artifact_paths` / `buildkite-agent artifact` |
-| `deployment` | `concurrency_group` + `block` step |
+| `deployment` | [`concurrency`](/docs/pipelines/configure/step-types/command-step#concurrency-attributes) map and `block` step |
 | `size` | `agents` with `queue` attribute |
 | `condition.changesets` | `if_changed` |
 | `max-time` | `timeout_in_minutes` |
@@ -293,7 +293,7 @@ steps:
 
 ### Deployment environments
 
-Bitbucket Pipelines uses `deployment` to tag steps for environment tracking, and `trigger: manual` for manual approval. In Buildkite Pipelines, use `concurrency_group` for deployment serialization and [`block` steps](/docs/pipelines/configure/step-types/block-step) for manual approval.
+Bitbucket Pipelines uses `deployment` to tag steps for environment tracking, and `trigger: manual` for manual approval. In Buildkite Pipelines, use a `concurrency` map for deployment serialization and [`block` steps](/docs/pipelines/configure/step-types/block-step) for manual approval.
 
 **Bitbucket Pipelines:**
 
@@ -316,8 +316,9 @@ steps:
   - label: "Deploy to production"
     command: "./deploy.sh production"
     branches: "main"
-    concurrency: 1
-    concurrency_group: "deploy-production"
+    concurrency:
+      limit: 1
+      group: "deploy-production"
 ```
 
 ### Agent targeting
@@ -577,7 +578,7 @@ The deploy step will need to explicitly download the build artifacts before depl
 
 ### Step 5: Add the deployment gate
 
-Bitbucket Pipelines uses `trigger: manual` for manual approval. In Buildkite Pipelines, use a [`block` step](/docs/pipelines/configure/step-types/block-step) and `concurrency_group` to serialize deployments:
+Bitbucket Pipelines uses `trigger: manual` for manual approval. In Buildkite Pipelines, use a [`block` step](/docs/pipelines/configure/step-types/block-step) for approval and a `concurrency` map to serialize deployments:
 
 ```yaml
   - block: "Deploy to production?"
@@ -587,8 +588,9 @@ Bitbucket Pipelines uses `trigger: manual` for manual approval. In Buildkite Pip
     command:
       - buildkite-agent artifact download "app/dist/**" .
       - ./deploy.sh production
-    concurrency: 1
-    concurrency_group: "deploy-production"
+    concurrency:
+      limit: 1
+      group: "deploy-production"
 ```
 
 ### Step 6: Add branch filtering
@@ -649,8 +651,9 @@ steps:
     command:
       - buildkite-agent artifact download "app/dist/**" .
       - ./deploy.sh production
-    concurrency: 1
-    concurrency_group: "deploy-production"
+    concurrency:
+      limit: 1
+      group: "deploy-production"
 ```
 
 Compared to the original Bitbucket pipeline, this Buildkite pipeline:
@@ -660,7 +663,7 @@ Compared to the original Bitbucket pipeline, this Buildkite pipeline:
 - Uses `depends_on` for sequential ordering instead of relying on step position.
 - Makes artifact passing explicit with `artifact_paths` and `buildkite-agent artifact download`.
 - Replaces `trigger: manual` with a `block` step for deployment approval.
-- Replaces `deployment: production` with `concurrency_group` for deployment serialization.
+- Replaces `deployment: production` with a `concurrency` map for deployment serialization.
 
 > 📘 Caching
 > The Bitbucket pipeline used built-in `caches` for `node_modules`. For Buildkite hosted agents, use [cache volumes](/docs/agent/buildkite-hosted/cache-volumes) and [enable container caching](/docs/agent/buildkite-hosted/cache-volumes#container-cache-volumes-enabling-container-cache-volumes). For self-hosted agents, use the [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin). Since each step already runs `npm ci`, caching is an optimization you can add later.

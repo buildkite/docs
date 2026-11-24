@@ -141,7 +141,7 @@ The recommended isolation mode for the Buildah container environments is `BUILDA
 
 ## Customizing the build
 
-You can customize you Buildah builds by modifying the `buildah bud` command options using the approaches outlined below.
+You can customize your Buildah builds by modifying the `buildah bud` command options using the approaches outlined below.
 
 ### Using build arguments
 

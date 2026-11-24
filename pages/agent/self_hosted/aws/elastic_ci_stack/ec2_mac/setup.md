@@ -64,7 +64,7 @@ can access the instance.
 1. Using an SSH or AWS SSM session:
 	- Set a password for the `ec2-user` using `sudo passwd ec2-user`
 	- Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
-	- Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mac-instance-increase-volume.html) for details.
+	- Grow the APFS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mac-instance-increase-volume.html) for details.
 1. Using a VNC session (run SSH port forwarding `ssh -L 5900:localhost:5900 ec2-user@<ip-address>` if direct access is not available):
 	1. Sign in as the `ec2-user`.
 	1. Set **Automatically log in as** to `ec2-user` in **System Settings** > **Users & Groups**.
@@ -193,6 +193,6 @@ host resource group and boot instances on them. The launch template's `UserData`
 script will resize the root disk, then install, configure, and start the
 Buildkite agent.
 
-EC2 Mac instances are slower to boot and terminate than Linux instances. If want
+EC2 Mac instances are slower to boot and terminate than Linux instances. If you want
 to match your **Desired capacity** to your workload, consider configuring
 [scheduled scaling for your Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html)

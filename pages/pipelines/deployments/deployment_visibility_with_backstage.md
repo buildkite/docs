@@ -151,7 +151,7 @@ If your Buildkite deployments aren't appearing in Backstage:
 - Ensure the component has been properly registered in your [Backstage Software Catalog](https://backstage.io/docs/features/software-catalog/).
 - Ensure the builds exist within the selected time range.
 - Confirm that all filters are set correctly.
-- Check that that your Buildkite API access token has [sufficient permissions](/docs/apis/managing-api-tokens#token-scopes) (`read_pipelines`, `read_builds`, `read_user`, and `write_builds`, for rebuild functionality).
+- Check that your Buildkite API access token has [sufficient permissions](/docs/apis/managing-api-tokens#token-scopes) (`read_pipelines`, `read_builds`, `read_user`, and `write_builds`, for rebuild functionality).
 - Confirm your deployment builds are [properly tagged with deployment metadata](/docs/pipelines/deployments/deployment-visibility-with-backstage#best-practices-for-deployment-visibility-use-deployment-specific-metadata).
 
 ### Incomplete deployment information

@@ -125,7 +125,7 @@ env | grep -i -E 'git|node'
 some_command
 ```
 
-Enabling Bash's debug mode using `set -x` can also help to debug your build scripts. This debug output can be very noisy, so it's best enable this before the command you want to debug, and then to disable it straight after. For example:
+Enabling Bash's debug mode using `set -x` can also help to debug your build scripts. This debug output can be very noisy, so it's best to enable this before the command you want to debug, and then to disable it straight after. For example:
 
 ```bash
 #!/bin/bash

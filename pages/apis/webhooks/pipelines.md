@@ -13,7 +13,7 @@ To add a webhook for your pipeline event:
 
 1. Select the **Add** button on **Webhook**.
 
-1. Specifying your webhook's **Description** and **Webhook URL**.
+1. Specify your webhook's **Description** and **Webhook URL**.
 
 1. If you are using self-signed certificates for your webhooks, clear the **Verify TLS Certificates** checkbox.
 
@@ -151,4 +151,4 @@ The following example repositories show how to receive a webhook event and trigg
 
 ## Request logs
 
-The last 20 webhook request and responses are saved, so you can debug and inspect your webhook. Each webhook's request logs are available on the bottom of their settings page. Select **Load recent requests** to view the log.
+The last 20 webhook requests and responses are saved, so you can debug and inspect your webhook. Each webhook's request logs are available on the bottom of their settings page. Select **Load recent requests** to view the log.

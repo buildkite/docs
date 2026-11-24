@@ -8,7 +8,7 @@ You can download a complete folder of packages or a specific package version fro
 
 - To download a complete folder of packages, follow JFrog's [Download a Folder](https://jfrog.com/help/r/jfrog-artifactory-documentation/download-a-folder) guide. You might need to configure folder download from the administrator settings.
 
-- To download a specific version of a package, follow JFrog's [Downloading Package Versions](https://docs.jfrog.com/artifactory/docs/upload-and-download-packages-using-artifactory#downloading-package-versions) guidance.
+- To download a specific version of a package, follow JFrog's [Download Packages Manually](https://docs.jfrog.com/artifactory/docs/upload-and-download-packages-using-artifactory#download-packages-manually) guidance.
 
 ## Download packages using the JFrog CLI
 
@@ -26,7 +26,7 @@ The [JFrog CLI](https://jfrog.com/help/r/jfrog-applications-and-cli-documentatio
 
 The following JFrog CLI download command examples can be used to get you started.
 
-To download all packages from a particular JFrog Artifactory repository, use the `--flat` option download all of these packages into the same folder.
+To download all packages from a particular JFrog Artifactory repository, use the `--flat` option to download all of these packages into the same folder.
 
 ```bash
 jfrog rt dl {repo-name} --flat

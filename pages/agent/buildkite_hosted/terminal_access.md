@@ -18,7 +18,7 @@ The terminal access feature is available to users who have/are any of the follow
 - a [maintainer of the cluster](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) containing this pipeline
 - a Buildkite organization administrator of this cluster
 
-As a pipeline is being built, expand the relevant step and as its job is being built, select its **Open Terminal** button. A new browser window will open with terminal you can use to execute commands to investigate your hosted agent's environment, test script behavior and debug other issues.
+As a pipeline is being built, expand the relevant step and as its job is being built, select its **Open Terminal** button. A new browser window will open with a terminal you can use to execute commands to investigate your hosted agent's environment, test script behavior and debug other issues.
 
 <%= image "terminal-button-on-job.png", alt: "Accessing the SSH button through the Buildkite UI" %>
 
@@ -48,7 +48,7 @@ To use the `bk job ssh` command, install [Buildkite CLI version 3.55.1](https://
 bk job ssh 0190046e-e199-453b-a302-a21a4d649d31
 ```
 
-The command requests a short-lived access token and opens an interactive shell in your current terminal. The CLI securely proxies the connection and keeps the ephemeral SSH private key in memory.
+The command requests SSH credentials and opens an interactive shell in your current terminal. The CLI keeps the SSH private key in memory.
 
 Before running the command:
 
@@ -73,7 +73,10 @@ To deactivate or reactivate remote access for hosted agents:
     * _Deactivate this feature_, select the **Disable Remote Access** button, followed by **Disable Hosted Agents Remote Access** in the confirmation message.
     * _Reactivate this feature_, select the **Enable Remote Access** button, followed by **Enable Hosted Agents Remote Access** in the confirmation message.
 
-Deactivating the setting removes SSH access from Linux and macOS hosted agents across all clusters in your Buildkite organization. Reactivating it makes SSH access available again. These actions also remove or make VNC access available for supported macOS hosted jobs.
+Deactivating the setting prevents Buildkite Pipelines from issuing new SSH and VNC credentials across all clusters in your Buildkite organization and hides the remote access buttons. Reactivating it allows new credentials to be issued and makes the buttons available again.
+
+> 🚧 Deactivating remote access does not revoke existing SSH credentials
+> The setting controls credential issuance, not connection or credential lifetimes. Deactivating it does not revoke SSH keys already issued for Linux hosted jobs or close existing sessions. If you suspect unauthorized SSH access, deactivate remote access and cancel all running jobs. Deactivating remote access alone does not stop someone who already has access from continuing to run commands.
 
 When this feature is active, be aware that users require either:
 

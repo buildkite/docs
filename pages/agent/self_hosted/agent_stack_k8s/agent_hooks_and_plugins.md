@@ -41,7 +41,7 @@ The `hooks-path` Buildkite agent config option can be used to change the mount p
 
 ## Agent hooks in earlier versions
 
-If you are running the Buildkite Agent Stack Kubernetes controller 0.15.0 or earlier, your agent hooks must be present on the instances where the Buildkite agent runs.
+If you are running the Buildkite Agent Stack for Kubernetes controller 0.15.0 or earlier, your agent hooks must be present on the instances where the Buildkite agent runs.
 
 These hooks need to be accessible to the Kubernetes pod where the `checkout` and command containers will be running. The recommended approach is to create a ConfigMap with the agent hooks and mount the ConfigMap as a volume to the containers.
 
@@ -169,7 +169,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Looking at the resulting build logs below, you'll see that it only has `environment` and `pre-exit` hooks that ran for the user-defined `command` container and no checkout-related hooks. The is due to the `checkout.skip: true` value being applied, resulting in the `checkout` container not being created and checkout-related hooks no executing.
+Looking at the resulting build logs below, you'll see that it only has `environment` and `pre-exit` hooks that ran for the user-defined `command` container and no checkout-related hooks. This is due to the `checkout.skip: true` value being applied, resulting in the `checkout` container not being created and checkout-related hooks not executing.
 
 ```
 Running global environment hook     # <-- user-defined container
@@ -181,7 +181,7 @@ Running global pre-exit hook        # <-- user-defined container
 
 The `agent-config` block within the controller's configuration file (`values.yaml`) accepts a value for [`plugins-path`](/docs/agent/self-hosted/configure#plugins-path) using the `pluginsVolume` configuration. If configured, a corresponding volume named `buildkite-plugins` will be automatically mounted on `checkout` and command containers, with the Buildkite agent configured to use them.
 
-Example of using plugins from a [HostPath](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath)):
+Example of using plugins from a [HostPath](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath):
 
 ```yaml
 config:

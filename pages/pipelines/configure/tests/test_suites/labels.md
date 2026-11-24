@@ -21,7 +21,7 @@ Labels may be applied to or removed from tests:
 
 From the details page of a test (accessible through its test suite's **Test** page), select **Add labels** and either:
 
-- Select a label from the list of existing used in the test's suite.
+- Select a label from the list of existing labels used in the test's suite.
 - Specify a **New label**, select its **Label color**, and select **Save**.
 
 > 📘

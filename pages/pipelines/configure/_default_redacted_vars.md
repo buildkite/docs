@@ -1,0 +1,9 @@
+- `*_PASSWORD`
+- `*_SECRET`
+- `*_TOKEN`
+- `*_PRIVATE_KEY`
+- `*_SSH_KEY` (added in Agent v3.128.0)
+- `*_ACCESS_KEY`
+- `*_SECRET_KEY`
+- `*_CONNECTION_STRING` (added in Agent v3.53.0)
+- `*_API_KEY` (added in Agent v3.120.1)

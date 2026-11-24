@@ -24,11 +24,13 @@ applesimutils
 Aqua
 architecting
 Argo CD
+args
 ARNs
 argumentless
 artifactDelete
 Artifactory
 Artifactory's
+askpass
 Athena
 Atlassian
 auditability
@@ -47,10 +49,13 @@ aws
 awscli
 azcopy
 backoff
+backports
+backreferences
 Backstage
 Backstage Software Catalog
 Basecamp
 Basscss
+BOMs
 Bottlerocket
 Bayesian
 Bazel
@@ -64,9 +69,11 @@ bktec's
 bktx
 blobless
 boolean
+booleans
 Boomper
 bottlenecked
 Brewfile
+Bugsnag
 Buildbox
 buildevents
 Buildah
@@ -78,7 +85,12 @@ Buildx
 buildx
 Bundler
 bursty
+cache_key
+callee
+Callee
+callee's
 cancelation
+canonicalizes
 carthage
 Cachew
 CCMenu
@@ -97,7 +109,9 @@ cli
 CLI
 CLIs
 Cloudsmith
+codeload
 Cognito
+Compilable
 Cooldown
 clonekit
 Cloudsmith's
@@ -118,6 +132,7 @@ composable
 config
 configs
 configmap
+Conftest
 Containerfile
 Containerfiles
 corepack
@@ -140,6 +155,7 @@ declaratively
 deduper
 deduplicated
 deduplicates
+Deduplication
 deno
 deprioritize
 deprovisioning
@@ -148,6 +164,7 @@ deprovision
 dev
 dialog's
 dialogs
+digestless
 discoverability
 distro
 distutils
@@ -175,7 +192,11 @@ exfiltrate
 exfiltrated
 exfiltration
 explainshell
+extensionless
+externalId
 extglobs
+fallback_limit
+falsy
 fastfile
 fastlane
 fastlane's
@@ -188,11 +209,14 @@ Firehose
 Firewalled
 firewalled
 Flexbox
+forkee
+forkee's
 fpm
 Fugit
 gcloud
 gh
 gif
+Git's
 githooks
 GitLab
 glibc
@@ -202,6 +226,7 @@ gnupg
 goroutines
 goss
 grantable
+gotest
 gotestsum
 gpg
 GPU
@@ -215,10 +240,12 @@ Graviton
 GRC
 GuardDog
 gz
+gzip
 gzipped
 hard-code
 hard-coded
 hard-coding
+hardlinks
 Hashicorp
 Homebrew
 heredoc
@@ -256,6 +283,7 @@ junit
 JWT
 JWTs
 Kaniko
+Karpenter
 keyserver
 keyservers
 keyless
@@ -279,7 +307,11 @@ llvm
 lockfile
 lockfiles
 lockfile‑keyed
+lookahead
 lookback
+lookbehind
+lookups
+loopback
 macOS
 macos
 manylinux
@@ -287,6 +319,7 @@ matchfile
 matchers
 Makefile
 Memcache
+metacharacters
 minitest
 misconfiguration
 misconfigurations
@@ -313,6 +346,10 @@ NUnit
 nodeName
 nodeSelector
 nonblank
+noninteractive
+nonmatch
+nonmatching
+nonnested
 Noreply
 noreply
 not_run
@@ -343,6 +380,7 @@ Palo
 parsable
 parallelization
 parameterization
+passwordless
 pbuilder
 pbuilder's
 perl
@@ -363,6 +401,7 @@ polyrepos
 Postgres
 PowerShell
 PR's
+prevalidates
 PRs
 predeclare
 predeclared
@@ -379,6 +418,7 @@ prepended
 prepends
 preprovisioned
 preselecting
+presigned
 proxied
 ptrace
 pty
@@ -393,17 +433,23 @@ readme
 readmes
 rearchitect
 rebalancing
+recompiles
 refetch
 refspec
+Rego
 rehydrate
 rehydrated
 reimagined
+reinclude
 remediation
 remediations
 repo
 repos
+repositoryUrl
+reprioritization
 reprioritize
 reprioritizes
+reprioritizing
 reserver
 resizable
 retryable
@@ -448,6 +494,8 @@ sigstore
 sigstore's
 signaltometrics
 skopeo
+snapshotted
+subprocesses
 subproject
 subprojects
 SLA
@@ -470,6 +518,7 @@ sso
 stack_error
 start_time
 statefully
+stderr
 stdin
 stdout
 streamable
@@ -491,6 +540,7 @@ swiftlint
 syntaxes
 systemd
 Tailscale
+target_paths
 teardown
 templated
 tgz
@@ -511,10 +561,13 @@ TOTP's
 TPUs
 TTLs
 traceparent
+treemap
 Trivy
 trixie
 typosquatted
+Ubicloud
 udp
+uncached
 unmanaged
 untracked
 UserData
@@ -553,10 +606,14 @@ util
 uuid
 UUIDs
 uv
+validator
+validators
 vendored
 vfs
 virtualenv
 virtualized
+vite
+Vite
 Vitest
 VMs
 VPC's
@@ -704,3 +761,8 @@ base_ref
 head_sha
 head_ref
 if_changed
+backtraces
+multiline
+pipenv
+unkeyed
+jsdom
