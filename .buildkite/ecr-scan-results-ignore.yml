@@ -1,4 +1,65 @@
 ignores:
+  # --- OpenSSL 3.5.9-1~deb13u1 (current docs serving paths do not use the affected features) ---
+  # Assessed against docs commit 4237acf, Puma 8.1.2, and Ruby/OpenSSL 4.0.2 in
+  # the pinned Ruby 4.0.10 amd64 base image. These exceptions do not mean the
+  # library is patched. The plugin matches CVE IDs, not package versions.
+  # Reassess when crypto/TLS callers or runtime dependencies change, remove
+  # when the distribution ships the fixes, and review before the December 8 expiry.
+  - id: CVE-2026-95691
+    until: 2026-12-08
+    reason: |
+      Requires an OpenSSL QUIC client processing retransmitted CRYPTO frames. The docs server binds Puma to plain HTTP over TCP in config/puma.rb. Outbound Bugsnag HTTPS uses Net::HTTP and Ruby/OpenSSL's TLS_method(), not OpenSSL's QUIC API. The pinned Ruby openssl.so imports TLS_method but no QUIC client constructor; the application adds no QUIC client.
+
+      https://openssl-library.org/news/secadv/20261110.txt
+  - id: CVE-2026-107494
+    until: 2026-12-08
+    reason: |
+      Requires an OpenSSL QUIC connection processing retransmitted NEW_CONNECTION_ID frames. Neither the Puma HTTP listener nor the Net::HTTP outbound TLS path creates a QUIC connection. Ruby/OpenSSL 4.0.2 and Puma 8.1.2 contain no QUIC API caller.
+
+      https://github.com/openssl/openssl/commit/734c6cd7444bdbf589bfec917e47598c1b21ddd3
+  - id: CVE-2026-124709
+    until: 2026-12-08
+    reason: |
+      Requires an OpenSSL QUIC server retaining rejected streams. The runtime starts Puma with the TCP HTTP bind in config/puma.rb, not a QUIC server. Ruby/OpenSSL 4.0.2 and Puma 8.1.2 contain no QUIC server API caller.
+
+      https://openssl-library.org/news/secadv/20261117.txt
+  - id: CVE-2026-95692
+    until: 2026-12-08
+    reason: |
+      Requires AES-GCM-SIV initialization with an IV other than 12 bytes. The application does not select AES-GCM-SIV. Rails encryption uses AES-GCM or AES-CBC, and Rack session encryption uses AES-GCM or AES-CTR; these are different algorithms. The ordinary Net::HTTP TLS path does not select AES-GCM-SIV either.
+
+      https://openssl-library.org/news/secadv/20261110.txt
+  - id: CVE-2026-88823
+    until: 2026-12-08
+    reason: |
+      Requires AES-GCM-SIV with fragmented AAD containing an empty update, or cipher context reuse. The application and its Rails/Rack encryption paths do not select AES-GCM-SIV. Their AES-GCM, AES-CBC, and AES-CTR use does not enter the affected cipher implementation.
+
+      https://openssl-library.org/news/secadv/20261110.txt
+  - id: CVE-2026-84786
+    until: 2026-12-08
+    reason: |
+      Requires a DANE-enabled TLS client combining PKIX and DANE TLSA usages. Bugsnag delivery uses Net::HTTP with the ordinary Ruby/OpenSSL certificate store, not TLSA records. Ruby/OpenSSL 4.0.2 exposes no DANE configuration API, and the pinned openssl.so imports neither SSL_dane_enable nor SSL_CTX_dane_enable. The application does not add native or FFI DANE calls.
+
+      https://github.com/openssl/openssl/pull/33634
+  - id: CVE-2026-107493
+    until: 2026-12-08
+    reason: |
+      Requires PEM_X509_INFO_read_bio_ex() or a related PEM_X509_INFO_read* function to append to a non-NULL caller-supplied stack, then fail. Ruby/OpenSSL 4.0.2 and Puma 8.1.2 have no direct caller of these functions; the pinned Ruby openssl.so imports none of them. OpenSSL's own certificate-loading callers pass NULL, which the advisory explicitly identifies as safe. No application code supplies such a stack through native or FFI calls.
+
+      https://openssl-library.org/news/secadv/20261117.txt
+  - id: CVE-2026-107496
+    until: 2026-12-08
+    reason: |
+      Requires CMS_encrypt() or CMS_encrypt_ex() with an attacker-controlled EC recipient certificate. The docs application renders pages and does not perform CMS encryption or accept recipient certificates. Ruby/OpenSSL 4.0.2 and Puma 8.1.2 have no CMS_encrypt* caller; the pinned Ruby openssl.so imports no CMS API. Ordinary TLS and Rails message encryption do not enter this CMS path.
+
+      https://openssl-library.org/news/secadv/20261110.txt
+  - id: CVE-2026-121482
+    until: 2026-12-08
+    reason: |
+      Requires CRL checking of attacker-controlled certificates with many relative distribution points. Although Ruby/OpenSSL exposes PKCS7#verify, the docs application does not verify CMS or PKCS#7 messages. Its outbound Net::HTTP certificate store uses default paths without enabling CRL_CHECK or CRL_CHECK_ALL, and application code sets neither flag nor a custom certificate store. The plain HTTP Puma listener does not verify client certificates.
+
+      https://github.com/openssl/openssl/pull/33546
+
   # --- ncurses (not remotely exploitable; no fix in Bookworm or Trixie) ---
   - id: CVE-2025-69720 # ncurses 6.5+20250216-2
     reason: Not exploitable in this containerized Rails app — ncurses is not exposed to untrusted terminal input.
