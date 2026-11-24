@@ -8,7 +8,7 @@ In step-level and pipeline-level branch filtering, you can use `*` as a wildcard
 
 By default, a pipeline triggers builds for all branches (`*` or blank). In your pipeline settings, you can set specific branch patterns for the entire pipeline. If a commit doesn't match the branch pattern, no build is created.
 
-<%= image "pipeline-level.png", width: 2122/2, height: 1016/2, alt: "Pipeline-level branch filtering" %>
+<%= image "pipeline-level.png", width: 1436/2, height: 664/2, alt: "Branch Limiting panel with the branch pattern main stable-* !unstable" %>
 
 ## Additional branch filtering for pull request builds
 
