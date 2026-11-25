@@ -1,12 +1,20 @@
 class PagesController < ApplicationController
   append_view_path "pages"
 
-  before_action :negotiate_markdown_from_accept_header, only: :show
+  before_action :negotiate_page_format, only: [:index, :show]
 
   def index
     @nav = default_nav
 
-    render :index, layout: "homepage"
+    respond_to do |format|
+      format.html do
+        advertise_markdown("/docs")
+        render :index, layout: "homepage"
+      end
+      format.md do
+        render_markdown("/docs", render_to_string(:index, formats: [:md], layout: false))
+      end
+    end
   end
 
   def show
@@ -14,9 +22,8 @@ class PagesController < ApplicationController
     @page = Page.new(view_context, params[:path])
 
     # If the page doesn't exist, walk up the URL looking for the nearest ancestor
-    # page that does exist and redirect there (302). If no ancestor page exists
-    # (for example, a single-segment unknown path or an .md request), fall through to a 404 so
-    # callers get a clear signal rather than an unexpected redirect.
+    # page that does exist and redirect there (302). If no ancestor page exists,
+    # fall through to a 404 so callers get a clear signal.
     unless @page.exists?
       segments = params[:path].to_s.split("/")
       parent_path = loop do
@@ -41,32 +48,57 @@ class PagesController < ApplicationController
       return # ensure we exit the method after redirecting
     end
 
-    # Handle different formats
+    canonical_path = "/docs/#{@page.canonical_url}"
     respond_to do |format|
-      format.html {
-        markdown_url = "#{request.base_url}/docs/#{@page.canonical_url}.md"
-        response.headers["Link"] = %(<#{markdown_url}>; rel="alternate"; type="text/markdown")
-        @markdown_alternate_url = markdown_url
+      format.html do
+        advertise_markdown(canonical_path)
         render @page.template
-      }
-      format.md {
-        canonical_url = "#{request.base_url}/docs/#{@page.canonical_url}"
-        response.headers["Link"] = %(<#{canonical_url}>; rel="canonical")
-        render plain: @page.markdown_body_with_table_conversion, content_type: "text/markdown"
-      }
+      end
+      format.md do
+        render_markdown(canonical_path, @page.markdown_body_with_table_conversion)
+      end
     end
   end
 
   private
 
-  # Rails' respond_to prefers the first declared format when Accept includes */*,
-  # which most AI fetchers send (e.g. Claude Code: "text/markdown, text/html, */*").
-  # Explicitly route to markdown when the client lists text/markdown as acceptable.
-  def negotiate_markdown_from_accept_header
-    return if params[:format].present?
+  def advertise_markdown(path)
+    @markdown_alternate_url = "#{request.base_url}#{path}.md"
+    response.headers["Link"] = %(<#{@markdown_alternate_url}>; rel="alternate"; type="text/markdown")
+  end
 
-    accepted = request.accept.to_s.split(",").map { |type| type.split(";").first.to_s.strip }
-    request.format = :md if accepted.include?("text/markdown")
+  def render_markdown(path, body)
+    response.headers["Link"] = %(<#{request.base_url}#{path}>; rel="canonical")
+    render plain: Page::MarkdownExport.format(body, path), content_type: "text/markdown"
+  end
+
+  def negotiate_page_format
+    return if params[:format].present? || request.accept.blank?
+
+    # Rails treats browser-style Accept headers containing wildcards as HTML.
+    # Use the most specific range for each representation, even when its q is zero.
+    ranges = request.accept.downcase.split(",").map do |entry|
+      type, *parameters = entry.split(";").map(&:strip)
+      quality = parameters.find { |parameter| parameter.start_with?("q=") }
+      [type, quality ? quality.delete_prefix("q=").to_f : 1.0]
+    end
+    # Keep the existing text/plain alias, but never let it override an explicit Markdown range.
+    markdown_type = ranges.any? { |type, _| type == "text/markdown" } ? "text/markdown" : "text/plain"
+    scores = { html: "text/html", md: markdown_type }.filter_map do |format, exact_type|
+      match = [exact_type, "text/*", "*/*"].each_with_index.lazy.filter_map do |type, specificity|
+        index = ranges.index { |range, _| range == type }
+        [ranges[index].last, -specificity, -index] if index
+      end.first
+      next unless match && match.first.positive?
+
+      [format, match]
+    end
+
+    if scores.empty?
+      head :not_acceptable
+    else
+      request.format = scores.max_by(&:last).first
+    end
   end
 
   def beta?

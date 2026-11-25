@@ -90,10 +90,10 @@ RSpec.describe LLMFullText do
           "Incident readiness",
           "Security controls"
         ].each do |heading|
-          expect(result).to include("##### #{heading}\n")
+          expect(result).to include("## #{heading}\n")
         end
-        expect(result.scan(/^###### Audit this area$/).length).to eq(9)
-        expect(result).to include("##### Audit this area\n", "It also can't look up a token you've found")
+        expect(result.scan(/^### Audit this area$/).length).to eq(9)
+        expect(result).to include("## Audit this area\n", "It also can't look up a token you've found")
         expect(result).to include("curl --fail-with-body", "bk --org", "Use read-only Buildkite MCP tools")
         expect(result).not_to include("<%", "Prefix: ``")
       end
@@ -128,26 +128,14 @@ RSpec.describe LLMFullText do
         expect(result).to include("> Buildkite is a platform for running fast, secure")
       end
 
-      it "includes the section heading" do
+      it "identifies the section and page without nesting the page content" do
         result = llm_full_text.generate
-        expect(result).to include("## Test Section")
-      end
-
-      it "includes the page name as a heading" do
-        result = llm_full_text.generate
-        expect(result).to include("### Test Page")
+        expect(result).to include("**Test Section**", "**Test Page**")
       end
 
       it "includes the page URL" do
         result = llm_full_text.generate
-        expect(result).to include("URL: https://buildkite.com/docs/test/my-page")
-      end
-
-      it "includes the page content with bumped headings" do
-        result = llm_full_text.generate
-        expect(result).to include("This is test content.")
-        expect(result).to include("#### Test Page")
-        expect(result).not_to match(/^# Test Page/)
+        expect(result).to include("URL: https://buildkite.com/docs/test/my-page.md\n")
       end
 
       it "separates pages with horizontal rules" do
@@ -206,28 +194,25 @@ RSpec.describe LLMFullText do
           "## Section",
           "### Subsection",
           "#### Detail",
-          "Some text with #hashtag intact"
+          "##### More detail",
+          "###### Example",
+          "",
+          "```yaml",
+          '# A comment in a YAML example',
+          'label: "\:pipeline\: Upload"',
+          "```"
         ].join("\n")
         parsed = double("Parsed", content: content)
         allow(::FrontMatterParser::Parser).to receive(:parse_file).with(filepath).and_return(parsed)
       end
 
-      it "bumps page headings down by 3 levels" do
+      it "preserves authored heading levels and exports valid YAML" do
         result = llm_full_text.generate
-        expect(result).to include("#### Page title")
-        expect(result).to include("##### Section")
-        expect(result).to include("###### Subsection")
-      end
-
-      it "caps headings at H6" do
-        result = llm_full_text.generate
-        expect(result).to include("###### Detail")
-        expect(result).not_to include("#######")
-      end
-
-      it "does not modify non-heading hash characters" do
-        result = llm_full_text.generate
-        expect(result).to include("#hashtag")
+        expect(result.lines.grep(/^#+ /).drop(1)).to eq([
+          "# Page title\n", "## Section\n", "### Subsection\n", "#### Detail\n", "##### More detail\n", "###### Example\n",
+          "# A comment in a YAML example\n"
+        ])
+        expect(YAML.safe_load(result[/^```yaml\n(.*?)^```/m, 1])).to eq("label" => ":pipeline: Upload")
       end
     end
 
@@ -325,7 +310,7 @@ RSpec.describe LLMFullText do
 
         it "resolves paginated_resource_docs_url to the actual URL" do
           result = llm_full_text.generate
-          expect(result).to include("[paginated list](/docs/apis/rest-api#pagination)")
+          expect(result).to include("[paginated list](https://buildkite.com/docs/apis/rest-api.md#pagination)")
           expect(result).not_to include("<%=")
         end
       end
@@ -466,8 +451,7 @@ RSpec.describe LLMFullText do
         allow(::FrontMatterParser::Parser).to receive(:parse_file).and_return(parsed)
 
         result = llm_full_text.generate
-        # h2 becomes ## then gets bumped +3 to #####
-        expect(result).to include("##### Section title")
+        expect(result).to include("## Section title")
         expect(result).not_to include("<h2>")
       end
 
@@ -631,14 +615,14 @@ RSpec.describe LLMFullText do
 
       it "includes the section's own page" do
         result = llm_full_text.generate
-        expect(result).to include("### Pipelines")
-        expect(result).to include("URL: https://buildkite.com/docs/pipelines")
+        expect(result).to include("**Pipelines**")
+        expect(result).to include("URL: https://buildkite.com/docs/pipelines.md\n")
         expect(result).to include("Pipelines overview content")
       end
 
       it "also includes the section's children" do
         result = llm_full_text.generate
-        expect(result).to include("### Getting Started")
+        expect(result).to include("**Getting Started**")
         expect(result).to include("Getting started content")
       end
     end
@@ -668,10 +652,10 @@ RSpec.describe LLMFullText do
 
       it "flattens nested children into page entries" do
         result = llm_full_text.generate
-        expect(result).to include("### Getting Started")
-        expect(result).to include("### Step types")
-        expect(result).to include("### Environment variables")
-        expect(result).to include("### REST API")
+        expect(result).to include("**Getting Started**")
+        expect(result).to include("**Step types**")
+        expect(result).to include("**Environment variables**")
+        expect(result).to include("**REST API**")
       end
 
       it "includes content from all nested pages" do
