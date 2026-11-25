@@ -22,7 +22,7 @@ toc: false
 <!-- vale on -->
 
 
-Whether the bound artifact has a version with the observed digest; not producing-build attribution
+Whether the bound artifact has a version with the observed tag; not producing-build attribution
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

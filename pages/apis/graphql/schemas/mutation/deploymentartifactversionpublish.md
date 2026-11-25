@@ -25,7 +25,7 @@ toc: false
 <!-- vale on -->
 
 
-Publish a version with digest and provenance. Each call creates a distinct version.
+Publish a tagged version with provenance. Each call creates a distinct version.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
