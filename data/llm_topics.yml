@@ -13,7 +13,6 @@ ai-tools-and-mcp:
     - "apis/model-providers"
   exact_paths:
     - "pipelines/getting-started-with-coding-agents"
-    - "https://buildkite.com/docs/agent-setup/prompt.md"
     - "platform/ai-agents"
     - "platform/security/oauth"
     - "apis/graphql/portals"
