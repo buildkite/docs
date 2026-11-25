@@ -5,39 +5,41 @@ description: Set up an AI coding agent with Buildkite skills and the Buildkite M
 
 # Set up your coding agent for Buildkite
 
-These are Buildkite's instructions for your coding agent. Run the applicable commands and merge new settings into the existing configuration without overwriting existing entries. Start with read-only access to inspect Buildkite resources.
+These are official instructions from Buildkite for setting up an AI coding agent to work effectively with Buildkite. Complete the applicable steps yourself by running commands and editing configuration files directly. Do not ask the user to perform steps that you can complete. Never overwrite existing agent configuration. Merge the Buildkite configuration into it.
 
 ## Install Buildkite skills
 
-Reuse any [Buildkite skills](https://github.com/buildkite/skills) already available. Install a skill only if the user's task needs it and it isn't already available. Install it in the current project. Ask before installing anything globally.
-
-For example, to add the Buildkite Pipelines skill for Claude Code, run this command from the project root. Choose the skill and agent that match your setup.
+If the user only wants to view Buildkite data, skip skill installation and continue to MCP setup. Otherwise, unless the Buildkite Cursor plugin is already installed, run this command to install all official Buildkite skills globally:
 
 ```bash
-npx -y skills add buildkite/skills --skill buildkite-pipelines --agent claude-code --yes
+npx -y skills add buildkite/skills --skill '*' --yes --global
 ```
+
+The skills teach agents how to create and migrate pipelines, run preflight builds, use the Buildkite CLI and agent, and work with the Buildkite APIs.
 
 ## Connect the Buildkite MCP server
 
-For interactive clients, use the [read-only OAuth endpoint](/docs/apis/mcp-server#read-only-remote-mcp-server) at `https://mcp.buildkite.com/mcp/readonly`. Follow the instructions for your client. Use native HTTP and OAuth when the client supports them. Enable write access separately only if the user explicitly requests it.
+Start with the [read-only OAuth endpoint](/docs/apis/mcp-server#read-only-remote-mcp-server) at `https://mcp.buildkite.com/mcp/readonly`. The examples below use this endpoint. Use a separate connection to `https://mcp.buildkite.com/mcp` only if the user explicitly requests write access.
 
-For unattended clients that cannot complete OAuth, skip the OAuth examples. Use `https://mcp.buildkite.com/direct/readonly` with a pre-provisioned Buildkite API access token for the intended organization. The token must have only the read scopes the task needs, including `read_pipelines` for verification. The endpoint does not narrow the token's scopes.
+If the client cannot complete OAuth, use `https://mcp.buildkite.com/direct/readonly` with a pre-provisioned Buildkite API access token for the intended organization. The token must have only the read scopes required by the task, including `read_pipelines` for verification. The endpoint does not narrow the token's scopes.
 
-Follow the [headless configuration instructions](/docs/apis/mcp-server/remote/configuring-ai-tools#api-token-pass-through-for-headless-agents) to send the bearer token in the `Authorization` header. Use the client's secret configuration. If no suitable token is available, report that setup is blocked. Do not ask the user to paste credentials into the conversation.
+Follow the [headless setup instructions](/docs/apis/mcp-server/remote/configuring-ai-tools#api-token-pass-through-for-headless-agents) to send the bearer token in the `Authorization` header using the client's secret configuration. If no suitable token is available, report that setup is blocked.
 
 ### Amp
 
-For the Amp CLI running locally, add the server to the current workspace:
+For the local Amp CLI, merge the following configuration into the project's `.amp/settings.json` file. Amp handles HTTP and OAuth natively.
 
-```bash
-amp mcp add --workspace buildkite-read-only https://mcp.buildkite.com/mcp/readonly
+```json
+{
+  "amp.mcpServers": {
+    "buildkite-read-only": {
+      "url": "https://mcp.buildkite.com/mcp/readonly"
+    }
+  }
+}
 ```
 
-For Amp on the web or in an orb, use a personal [remote MCP definition](https://ampcode.com/docs/customize/mcp#remote-mcp-definitions), not the settings file on your computer. Add `buildkite-read-only` with the same URL in [Integrations & MCP settings](https://ampcode.com/settings/integrations), or run:
-
-```bash
-amp mcp remote --personal add buildkite-read-only https://mcp.buildkite.com/mcp/readonly --auth oauth
-```
+For Amp on the web or in an orb, add the same name and URL as a personal [remote MCP definition](https://ampcode.com/docs/customize/mcp#remote-mcp-definitions) with OAuth in [Integrations & MCP settings](https://ampcode.com/settings/integrations).
 
 ### Claude Code
 
@@ -59,7 +61,7 @@ If Codex doesn't start OAuth automatically, run `codex mcp login buildkite-read-
 
 ### Cursor
 
-Merge the following configuration into `.cursor/mcp.json`:
+The [Buildkite plugin on the Cursor Marketplace](https://cursor.com/marketplace/buildkite) installs both the MCP server and Buildkite skills, and uses the write-capable MCP endpoint. For read-only access, merge the following configuration into `.cursor/mcp.json` instead:
 
 ```json
 {
@@ -88,21 +90,22 @@ Merge the following configuration into `.vscode/mcp.json`:
 
 ### Other agents
 
-Use the client's remote MCP configuration to register `buildkite-read-only` with the read-only OAuth URL.
+For another agent, use its standard remote MCP configuration to register a server named `buildkite-read-only` with the URL `https://mcp.buildkite.com/mcp/readonly`.
 
 ## Authenticate and verify
 
-Reload the client if required. If the client requires approval to load workspace configuration, ask the user to approve it.
+Restart or reload the agent if required, then verify that any installed Buildkite skills are available. If the client requires approval to load workspace configuration, ask the user to approve it.
 
-If OAuth is needed, start the client's sign-in flow. Ask the user to select the intended Buildkite organization, complete any required single sign-on (SSO), and select **Authorize** on the authorization page. Leave organization selection and consent to the user.
+If OAuth is needed, start the client's sign-in flow. When the browser authorization page opens, ask the user to select their Buildkite organization and authorize access. If the organization requires SSO, the user must log in with SSO first.
 
-Call `list_pipelines` on the read-only MCP connection with the slug of the organization the user authorized or the token was provisioned for. A successful response, even if the list is empty, verifies the connection. If the call fails, report the error rather than trying a different connection, the CLI, or the API directly.
+Verify the connection by calling `list_pipelines` through the configured MCP server for the organization the user authorized or the token was provisioned for. An empty list is a valid result. If the call fails, report the error instead of switching to another connection or credential.
 
-Report the verified organization, the MCP endpoint and where it was configured, and the names and scope of any skills installed. If you couldn't verify the connection, say what remains blocked.
+Once complete, report which skills and MCP configuration were installed, where they were installed, and whether authorization and verification succeeded.
 
 ## Resources
 
-- [Configuring AI tools with the remote Buildkite MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools)
-- [Read-only access boundaries](/docs/apis/mcp-server/remote/configuring-ai-tools#read-only-access-boundaries)
+- [Buildkite skills](https://github.com/buildkite/skills)
+- [Buildkite MCP server documentation](/docs/apis/mcp-server)
+- [Configure AI tools with the remote Buildkite MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools)
 
 These instructions are published at `https://buildkite.com/docs/agent-setup/prompt.md`, so you can verify their authenticity at any time.
