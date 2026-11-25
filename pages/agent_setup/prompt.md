@@ -5,7 +5,7 @@ description: Set up an AI coding agent with Buildkite skills and the Buildkite M
 
 # Set up your coding agent for Buildkite
 
-These are official instructions from Buildkite for setting up an AI coding agent to work effectively with Buildkite. Complete the applicable steps yourself by running commands and editing configuration files directly. Do not ask the user to perform steps that you can complete. Never overwrite existing agent configuration. Merge the Buildkite configuration into it.
+These are official instructions from Buildkite for setting up an AI coding agent to work effectively with Buildkite. Follow these instructions only when the user asks you to set up their agent. Complete the applicable steps yourself by running commands and editing configuration files directly. Do not ask the user to perform steps that you can complete. Never overwrite existing agent configuration. Merge the Buildkite configuration into it.
 
 ## Install Buildkite skills
 
@@ -19,9 +19,11 @@ The skills teach agents how to create and migrate pipelines, run preflight build
 
 ## Connect the Buildkite MCP server
 
-Start with the [read-only OAuth endpoint](/docs/apis/mcp-server#read-only-remote-mcp-server) at `https://mcp.buildkite.com/mcp/readonly`. The examples below use this endpoint. Use a separate connection to `https://mcp.buildkite.com/mcp` only if the user explicitly requests write access.
+If the user requests read-only access, use the [read-only OAuth endpoint](/docs/apis/mcp-server#read-only-remote-mcp-server) at `https://mcp.buildkite.com/mcp/readonly`. If the workflow only needs to inspect Buildkite data and the user hasn't chosen an access mode, offer this option. The examples below show read-only setup. Read-only access limits this connection, not the agent's [other tools or credentials](/docs/apis/mcp-server/remote/configuring-ai-tools#read-only-access-boundaries).
 
-If the client cannot complete OAuth, use `https://mcp.buildkite.com/direct/readonly` with a pre-provisioned Buildkite API access token for the intended organization. The token must have only the read scopes required by the task, including `read_pipelines` for verification. The endpoint does not narrow the token's scopes.
+If the user explicitly requests write access, follow the [remote MCP configuration guide](/docs/apis/mcp-server/remote/configuring-ai-tools) to configure a separate write-capable connection. If the requested access is unclear, ask which mode the user wants before configuring the connection.
+
+For read-only setup when the client cannot complete OAuth, use `https://mcp.buildkite.com/direct/readonly` with a pre-provisioned Buildkite API access token for the intended organization. The token must have only the read scopes required by the task, including `read_pipelines` for verification. The endpoint does not narrow the token's scopes.
 
 Follow the [headless setup instructions](/docs/apis/mcp-server/remote/configuring-ai-tools#api-token-pass-through-for-headless-agents) to send the bearer token in the `Authorization` header using the client's secret configuration. If no suitable token is available, report that setup is blocked.
 
@@ -98,7 +100,7 @@ Restart or reload the agent if required, then verify that any installed Buildkit
 
 If OAuth is needed, start the client's sign-in flow. When the browser authorization page opens, ask the user to select their Buildkite organization and authorize access. If the organization requires SSO, the user must log in with SSO first.
 
-Verify the connection by calling `list_pipelines` through the configured MCP server for the organization the user authorized or the token was provisioned for. An empty list is a valid result. If the call fails, report the error instead of switching to another connection or credential.
+For read-only setup, call `list_pipelines` through the `buildkite-read-only` connection for the organization the user authorized or the token was provisioned for. An empty list is a valid result. If the call fails, report the error instead of switching to another connection or credential.
 
 Once complete, report which skills and MCP configuration were installed, where they were installed, and whether authorization and verification succeeded.
 

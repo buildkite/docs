@@ -6,8 +6,6 @@ keywords: docs, pipelines, AI coding agents, Claude, MCP server, skills, LLM, ge
 
 AI coding agents like [Claude Code](https://claude.ai/code/) and [Cursor](https://cursor.com/) can help you build, debug, and maintain your Buildkite-based workflows more effectively, whether you're configuring [Buildkite Pipelines](/docs/pipelines), instrumenting [test suites](/docs/pipelines/configure/tests), or working with the [Buildkite APIs](/docs/apis).
 
-Paste the URL of the [Buildkite setup prompt](/docs/agent-setup/prompt.md) into your coding agent to connect with read-only access.
-
 This page covers three ways of giving your AI coding agent the context and tools it needs to work with Buildkite Pipelines and Buildkite Package Registries.
 
 ## Connecting to the MCP server
@@ -22,7 +20,7 @@ With the MCP server connected, your agent can:
 - Access cluster and queue state to debug job routing issues
 - And more
 
-To set up the MCP server, see the [MCP server](/docs/apis/mcp-server) documentation.
+If you only need to inspect Buildkite data, such as build logs or pipeline configuration, you can ask your coding agent to set up a read-only MCP connection using the [Buildkite setup prompt](/docs/agent-setup/prompt.md). If your workflow needs to trigger builds or make other changes, see [Configuring AI tools with the remote Buildkite MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) for write-capable setup.
 
 ## Installing Buildkite skills
 
