@@ -229,7 +229,7 @@ codex mcp login buildkite
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
 
-You're now ready to use Buildkite's remote MCP server through Codex for this Buildkite organization. Use `/mcp` in Codex to check the connection and available tools.
+The remote Buildkite MCP server is now available in Codex for the organization you authorized. Use `/mcp` in Codex to check the connection and available tools.
 
 ### Toolsets and read-only access
 

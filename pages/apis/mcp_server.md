@@ -77,7 +77,7 @@ For interactive personal use, start with the remote OAuth endpoint. Use the [rea
 
 ### MCP server or Buildkite CLI
 
-AI agents with shell access can also use the [Buildkite CLI](/docs/platform/cli) (`bk`), and some [Buildkite skills](/docs/platform/ai-agents#build-with-agents-skills), such as those for [preflight builds](/docs/platform/cli/preflight), run CLI commands. Neither path bypasses Buildkite's authorization model. Both are limited by the Buildkite user's permissions and the credential's API scopes, and both can use OAuth instead of a stored API access token.
+AI agents with shell access can also use the [Buildkite CLI](/docs/platform/cli) (`bk`), and some [Buildkite skills](/docs/platform/ai-agents#build-with-agents-skills), such as those for [preflight builds](/docs/platform/cli/preflight), run CLI commands. Both the CLI and the MCP server respect the Buildkite user's permissions and the credential's API scopes. Both can use OAuth instead of a stored API access token.
 
 - Use the remote MCP server when you want to avoid distributing API access tokens to agent environments, and to restrict a connection with the [read-only endpoint](#read-only-remote-mcp-server) and [toolsets](/docs/apis/mcp-server/tools/toolsets).
 - Use the CLI when a skill or workflow requires it. Authenticate with [`bk auth login`](/docs/platform/cli/configuration#authenticate-using-oauth) and use its `--scopes` option to request only the scopes the workflow needs.
