@@ -28,9 +28,6 @@
           path: "pipelines/starting-a-new-build"
         - name: "Getting started with coding agents"
           path: "pipelines/getting-started-with-coding-agents"
-        # This prompt is published only as Markdown. Index the full URL unchanged.
-        - name: "Coding agent setup prompt"
-          path: "https://buildkite.com/docs/agent-setup/prompt.md"
         - name: "Speed up builds with bktec"
           path: "pipelines/speed-up-builds-with-bktec"
         - name: "Reduce flaky tests"
