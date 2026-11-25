@@ -4,7 +4,7 @@ template: landing_page_pipelines
 
 # Buildkite Pipelines
 
-Use Buildkite Pipelines to build, test, and deploy software on [Buildkite hosted agents](/docs/agent/buildkite-hosted) or [self-hosted agents](/docs/agent/self-hosted).
+Use Buildkite Pipelines to build, test, and deploy software on [Buildkite-hosted agents](/docs/agent/buildkite-hosted) or [self-hosted agents](/docs/agent/self-hosted).
 
 ## Get started
 

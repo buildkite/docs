@@ -36,6 +36,9 @@ class Page::MarkdownExport
     uri = URI.join("#{SITE}#{path}", url)
     return url unless uri.host == "buildkite.com" && %w[http https].include?(uri.scheme)
 
+    # Generated SDK references are published separately and only have HTML versions.
+    return uri.to_s if uri.path == "/docs/sdk" || uri.path.start_with?("/docs/sdk/")
+
     if uri.path.match?(%r{\A/docs(?:/[\w-]+)*/?(?:\.html|\.md)?\z})
       uri.scheme = "https"
       uri.path = uri.path.delete_suffix("/").delete_suffix(".html").delete_suffix(".md") + ".md"

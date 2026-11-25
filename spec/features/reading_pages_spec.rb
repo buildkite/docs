@@ -164,6 +164,15 @@ RSpec.feature "reading pages" do
       expect(page.html).to include("(https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/)")
     end
 
+    it "keeps the generated SDK reference links in both Markdown exports" do
+      links = %w[typescript python ruby].map { |language| "https://buildkite.com/docs/sdk/#{language}/" }
+      ["/docs/pipelines/configure/dynamic-pipelines/sdk.md", "/docs/llms-full.txt"].each do |path|
+        page.driver.get(path)
+        expect(page.status_code).to eq(200)
+        expect(page.html.scan(%r{\]\((https://buildkite\.com/docs/sdk/[^)]+)\)}).flatten.uniq).to include(*links)
+      end
+    end
+
     it "publishes working topic guides on the coding agents page" do
       visit "/docs/pipelines/getting-started-with-coding-agents"
       guide_paths = page.all("main a[href^='/docs/llms-']").map { |link| link[:href] }
