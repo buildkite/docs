@@ -77,6 +77,11 @@ Also, see [Recommended toolset configurations](#recommended-toolset-configuratio
         "toolset": "tests",
         "description": "[Test Engine](/docs/apis/mcp-server/tools#available-mcp-tools-test-engine)",
         "tools": "list_tests, list_test_runs, get_test_run, get_failed_executions, get_test"
+      },
+      {
+        "toolset": "usage",
+        "description": "[Organization usage](/docs/apis/mcp-server/tools#available-mcp-tools-organization-usage) reading",
+        "tools": "list_organization_usage"
       }
     ].select { |field| field[:toolset] }.each do |field| %>
       <tr>

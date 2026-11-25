@@ -671,6 +671,48 @@ These MCP tools are used to retrieve details about Test Engine [tests](/docs/pip
   </tbody>
 </table>
 
+### Organization usage
+
+This MCP tool is used to retrieve an organization's raw daily usage data for a single resource, such as hosted jobs, managed tests, or artifact storage.
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:20%">Tool</th>
+      <th style="width:80%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "tool": "list_organization_usage",
+        "description": "Lists an organization's raw daily usage for one `resource`, such as `managed_tests`, `hosted_jobs`, or `artifact_storage`. Each row is a UTC date with the resource's counters for that day, split by pipeline, suite, registry, cluster, or model where the resource records them. Values are raw usage, not billed amounts, plan limits, or percentiles. Without `from` and `to`, uses the same default date range as the [organization billing usage breakdown API](/docs/apis/rest-api/organizations/usages#date-range).",
+        "scope": "read_usages"
+      }
+    ].select { |field| field[:tool] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:tool] %></code>
+         </td>
+        <td>
+          <p><%= render_markdown(text: field[:description]) %></p>
+          <% if field[:scope] %>
+            <p>Required <a href="/docs/apis/managing-api-tokens#token-scopes">token scope</a>: <code><%= field[:scope] %></code>.</p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+`list_organization_usage` accepts the following valid values for `resource`:
+
+`active_users`, `self_hosted_jobs`, `hosted_jobs`, `self_hosted_concurrent_agents`, `hosted_concurrent_agents`, `managed_tests`, `test_executions`, `otel_ingestion`, `otel_storage`, `artifact_storage`, `artifact_uploads`, `artifact_downloads`, `package_storage`, `package_transfer`, `cache`, `anthropic_tokens`, and `openai_tokens`.
+
+This tool also accepts optional inclusive `from` and `to` dates (`YYYY-MM-DD`, provided together), and `page` and `per_page` parameters for paginated results. `per_page` defaults to 100, up to a maximum of 500.
+
+The `cache` resource returns `404 Not Found` if hosted cache usage isn't enabled for your organization.
+
 ## Smart caching and storage
 
 To improve performance in accessing log data from the Buildkite platform, the Buildkite MCP server downloads and stores the [logs of jobs](/docs/apis/rest-api/jobs#get-a-jobs-log-output) in [Parquet file format](https://parquet.apache.org/docs/file-format/) to either of the following areas.
