@@ -190,6 +190,18 @@ RSpec.feature "reading pages" do
       expect(page.html).to include("(https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/)")
     end
 
+    it "normalizes bare docs URLs in generated Markdown without swallowing punctuation or fragments" do
+      page.driver.get("/docs/agent/cli/reference/bootstrap.md")
+      expect(page.html).to include("See https://buildkite.com/docs/agent/hooks.md for more details.")
+
+      page.driver.get("/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters.md")
+      expect(page.html).to include(
+        "https://buildkite.com/docs/agent/v3/tracing.md.",
+        "https://buildkite.com/docs/agent/v3-v4-upgrade-guide.md.",
+        "https://buildkite.com/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack.md#using-custom-iam-roles"
+      )
+    end
+
     it "keeps the generated SDK reference links in both Markdown exports" do
       links = %w[typescript python ruby].map { |language| "https://buildkite.com/docs/sdk/#{language}/" }
       ["/docs/pipelines/configure/dynamic-pipelines/sdk.md", "/docs/llms-full.txt"].each do |path|

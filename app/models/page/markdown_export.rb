@@ -3,9 +3,13 @@
 class Page::MarkdownExport
   SITE = "https://buildkite.com"
 
-  # Match destinations in inline links, reference definitions, and HTML links.
+  # Match link destinations and bare Buildkite docs URLs in prose.
   # Consume inline code first so examples of link syntax are left alone.
-  LINK = /(?<ticks>`+)(?!`).*?(?<!`)\k<ticks>(?!`)|(?<prefix>\]\(\s*<?|^ {0,3}\[[^\]]+\]:\s*<?|\bhref=["']|<(?=https?:\/\/))(?<url>[^\s)<>"']+)/
+  LINK = %r{
+    (?<ticks>`+)(?!`).*?(?<!`)\k<ticks>(?!`)
+    |(?<prefix>\]\(\s*<?|^[ ]{0,3}\[[^\]]+\]:\s*<?|\bhref=["']|<(?=https?://))(?<url>[^\s)<>"']+)
+    |(?<![^\s(])(?<bare>https?://buildkite\.com/docs(?=[/?\#\s.,;:!)]|$)[^\s)<>"']*)
+  }x
 
   def self.format(body, path)
     code_lines = {}
@@ -25,8 +29,15 @@ class Page::MarkdownExport
         line
       else
         line.gsub(LINK) do |match|
-          prefix, url = Regexp.last_match.values_at(:prefix, :url)
-          url ? prefix + link_url(url, path) : match
+          prefix, url, bare = Regexp.last_match.values_at(:prefix, :url, :bare)
+          if bare
+            url = bare.sub(/[.,;:!?]+\z/, "")
+            link_url(url, path) + bare.delete_prefix(url)
+          elsif url
+            prefix + link_url(url, path)
+          else
+            match
+          end
         end
       end
     end.join
