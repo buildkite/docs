@@ -36,6 +36,23 @@ GET | `/v2/organizations` | [List organizations](/docs/apis/rest-api/organizatio
 GET | `/v2/organizations/{org.slug}` | [Get an organization](/docs/apis/rest-api/organizations#get-an-organization)
 GET | `/v2/organizations/{org.slug}/rate_limit` | [Get organization rate limits](/docs/apis/rest-api/organizations/rate-limits#get-rate-limits)
 GET | `/v2/organizations/{org.slug}/usage` | [Get organization usage](/docs/apis/rest-api/organizations/usage#get-organization-usage)
+GET | `/v2/organizations/{org.slug}/usages/active_users` | [Get active user usage](/docs/apis/rest-api/organizations/usages#get-active-user-usage)
+GET | `/v2/organizations/{org.slug}/usages/self_hosted_jobs` | [Get self-hosted job usage](/docs/apis/rest-api/organizations/usages#get-self-hosted-job-usage)
+GET | `/v2/organizations/{org.slug}/usages/hosted_jobs` | [Get hosted job usage](/docs/apis/rest-api/organizations/usages#get-hosted-job-usage)
+GET | `/v2/organizations/{org.slug}/usages/self_hosted_concurrent_agents` | [Get self-hosted concurrent agent usage](/docs/apis/rest-api/organizations/usages#get-self-hosted-concurrent-agent-usage)
+GET | `/v2/organizations/{org.slug}/usages/hosted_concurrent_agents` | [Get hosted concurrent agent usage](/docs/apis/rest-api/organizations/usages#get-hosted-concurrent-agent-usage)
+GET | `/v2/organizations/{org.slug}/usages/managed_tests` | [Get managed test usage](/docs/apis/rest-api/organizations/usages#get-managed-test-usage)
+GET | `/v2/organizations/{org.slug}/usages/test_executions` | [Get test execution usage](/docs/apis/rest-api/organizations/usages#get-test-execution-usage)
+GET | `/v2/organizations/{org.slug}/usages/otel_ingestion` | [Get OpenTelemetry ingestion usage](/docs/apis/rest-api/organizations/usages#get-opentelemetry-ingestion-usage)
+GET | `/v2/organizations/{org.slug}/usages/otel_storage` | [Get OpenTelemetry storage usage](/docs/apis/rest-api/organizations/usages#get-opentelemetry-storage-usage)
+GET | `/v2/organizations/{org.slug}/usages/artifact_storage` | [Get artifact storage usage](/docs/apis/rest-api/organizations/usages#get-artifact-storage-usage)
+GET | `/v2/organizations/{org.slug}/usages/artifact_uploads` | [Get artifact upload usage](/docs/apis/rest-api/organizations/usages#get-artifact-upload-usage)
+GET | `/v2/organizations/{org.slug}/usages/artifact_downloads` | [Get artifact download usage](/docs/apis/rest-api/organizations/usages#get-artifact-download-usage)
+GET | `/v2/organizations/{org.slug}/usages/package_storage` | [Get package storage usage](/docs/apis/rest-api/organizations/usages#get-package-storage-usage)
+GET | `/v2/organizations/{org.slug}/usages/package_transfer` | [Get package transfer usage](/docs/apis/rest-api/organizations/usages#get-package-transfer-usage)
+GET | `/v2/organizations/{org.slug}/usages/cache` | [Get cache usage](/docs/apis/rest-api/organizations/usages#get-cache-usage)
+GET | `/v2/organizations/{org.slug}/usages/anthropic_tokens` | [Get Anthropic token usage](/docs/apis/rest-api/organizations/usages#get-anthropic-token-usage)
+GET | `/v2/organizations/{org.slug}/usages/openai_tokens` | [Get OpenAI token usage](/docs/apis/rest-api/organizations/usages#get-openai-token-usage)
 {: class="responsive-table"}
 
 ### Audit events
