@@ -113,6 +113,32 @@ RSpec.feature "reading pages" do
       expect(page.response_headers["Content-Type"]).to include("text/markdown")
     end
 
+    it "varies extensionless responses by Accept even when the header is absent or rejected" do
+      ["/docs", "/docs/platform"].each do |path|
+        { nil => 200, "text/html" => 200, "text/markdown" => 200, "text/markdown;q=0" => 406 }.each do |accept, status|
+          page.driver.header "Accept", accept
+          page.driver.get(path)
+          expect(page.status_code).to eq(status)
+          expect(page.response_headers["Vary"].to_s.downcase.split(",").map(&:strip)).to include("accept", "x-requested-with")
+        end
+      end
+    end
+
+    it "accepts XHTML as an alias for HTML without overriding explicit HTML preferences" do
+      page.driver.header "Accept", "application/xhtml+xml"
+      page.driver.get("/docs/platform")
+      expect(page.status_code).to eq(200)
+      expect(page.response_headers["Content-Type"]).to include("text/html")
+
+      page.driver.header "Accept", "application/xhtml+xml;q=0.4, text/markdown;q=0.8"
+      page.driver.get("/docs/platform")
+      expect(page.response_headers["Content-Type"]).to include("text/markdown")
+
+      page.driver.header "Accept", "text/html;q=0, application/xhtml+xml"
+      page.driver.get("/docs/platform")
+      expect(page.status_code).to eq(406)
+    end
+
     it "honors quality values instead of header order and does not serve rejected Markdown" do
       page.driver.header "Accept", "text/markdown;q=0.5, text/html"
       page.driver.get("/docs/platform")

@@ -73,7 +73,17 @@ class PagesController < ApplicationController
   end
 
   def negotiate_page_format
-    return if params[:format].present? || request.accept.blank?
+    return if params[:format].present?
+
+    # Setting request.format makes Rails skip its automatic Vary header.
+    vary = response.headers["Vary"].to_s.split(",").map(&:strip)
+    unless vary.include?("*")
+      request.vary_headers.each do |header|
+        vary << header unless vary.any? { |existing| existing.casecmp?(header) }
+      end
+      response.headers["Vary"] = vary.join(", ")
+    end
+    return if request.accept.blank?
 
     # Rails treats browser-style Accept headers containing wildcards as HTML.
     # Use the most specific range for each representation, even when its q is zero.
@@ -82,9 +92,10 @@ class PagesController < ApplicationController
       quality = parameters.find { |parameter| parameter.start_with?("q=") }
       [type, quality ? quality.delete_prefix("q=").to_f : 1.0]
     end
-    # Keep the existing text/plain alias, but never let it override an explicit Markdown range.
+    # Keep the Rails MIME aliases without overriding explicit ranges for either representation.
+    html_type = ranges.any? { |type, _| type == "text/html" } ? "text/html" : "application/xhtml+xml"
     markdown_type = ranges.any? { |type, _| type == "text/markdown" } ? "text/markdown" : "text/plain"
-    scores = { html: "text/html", md: markdown_type }.filter_map do |format, exact_type|
+    scores = { html: html_type, md: markdown_type }.filter_map do |format, exact_type|
       match = [exact_type, "text/*", "*/*"].each_with_index.lazy.filter_map do |type, specificity|
         index = ranges.index { |range, _| range == type }
         [ranges[index].last, -specificity, -index] if index
