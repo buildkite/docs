@@ -2,7 +2,7 @@
 
 Use the Organization billing usage breakdown API to retrieve daily billing measurements by resource for a single Buildkite organization. Call `GET /v2/organizations/{org.slug}/usages/{resource}` with the organization slug and one of the resources listed on this page. For billing summaries and percentiles instead of daily breakdowns, use the [organization usage API](/docs/apis/rest-api/organizations/usage).
 
-Any organization member can use these endpoints. The [API access token](/docs/apis/managing-api-tokens#token-scopes-billing) must include the `read_usages` scope and grant access to the requested organization. Resource grants don't filter the usage data returned for that organization.
+As on the organization's [**Usage** page](https://buildkite.com/organizations/~/usage), any organization member can use these endpoints. The [API access token](/docs/apis/managing-api-tokens#token-scopes-billing) must include the `read_usages` scope and grant access to the requested organization. Resource grants don't filter the usage data returned for that organization.
 
 Each response is a JSON array in ascending date order. Resources with a breakdown can return multiple rows per day, such as one row per suite. The API does not fill in missing days with zeros. If a page has no rows, the API returns `[]`.
 
@@ -10,7 +10,7 @@ Each response is a JSON array in ascending date order. Resources with a breakdow
 
 Supply `from` and `to` together as inclusive dates in `YYYY-MM-DD` format, for example, `?from=2026-11-01&to=2026-11-12`. The `from` date must be within the last two years and cannot be later than `to`. The range can span at most two years.
 
-If you omit both dates, the API uses the default date range shown on the organization's [**Usage** page](https://buildkite.com/organizations/~/usage). The range depends on the organization's subscription.
+If you omit both dates, the API uses the default date range shown on the organization's **Usage** page. The range depends on the organization's subscription.
 
 ## Pagination
 
