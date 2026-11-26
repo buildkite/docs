@@ -48,7 +48,7 @@ The API is exposed using a Unix Domain Socket. The path to the socket is not ava
 
 ### Interpolation prefers runtime env
 
-When interpolating the pipeline level environment block, a pipeline level environment variable could take precedence over environment variables depending on the ordering. This may contravene Buildkite's [documentation](https://buildkite.com/docs/pipelines/environment-variables#environment-variable-precedence) that suggests the Job runtime environment takes precedence over that defined by combining environment variables defined in a pipeline.
+When interpolating the pipeline level environment block, a pipeline level environment variable could take precedence over environment variables depending on the ordering. This may contravene Buildkite's [documentation](/docs/pipelines/configure/environment-variables#environment-variable-precedence) that suggests the Job runtime environment takes precedence over that defined by combining environment variables defined in a pipeline.
 
 We previously made this the default behaviour of the agent (as of v3.63.0) but have since reverted it.
 

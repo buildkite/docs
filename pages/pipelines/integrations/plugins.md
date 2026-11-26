@@ -33,17 +33,7 @@ See [Using plugins](/docs/pipelines/integrations/plugins/using) for more informa
 
 ## Finding plugins
 
-The [Buildkite plugins directory](https://buildkite.com/resources/plugins) allows you to discover and find all plugins maintained by Buildkite, as well as those from third-party developers.
-
-<a class="Frameheader" href='https://buildkite.com/resources/plugins' target='_blank'>
-  <span class="Frameheader__address">buildkite.com/resources/plugins</span>
-</a>
-<iframe
-  src='https://buildkite.com/resources/plugins/embed'
-  referrerPolicy='same-origin'
-  allow="fullscreen" crossorigin="anonymous" width="100%" height="800px"
-  style="border-radius:0 0 8px 8px;box-sizing: border-box;"
-/>
+Browse the [Buildkite plugins directory](https://buildkite.com/resources/plugins/) to find plugins maintained by Buildkite and third-party developers. You can search by name or filter by category. See [Plugins directory](/docs/pipelines/integrations/plugins/directory) for direct links to categories and the Markdown listing.
 
 Plugins supported by the Buildkite team display the Buildkite logo in the directory, and can be found in the [Buildkite Plugins GitHub organization](https://github.com/buildkite-plugins).
 

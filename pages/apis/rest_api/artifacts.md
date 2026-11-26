@@ -54,7 +54,7 @@ An artifact is a file uploaded by your agent during the execution of a build's j
 </table>
 
 > 🚧 Deprecated fields
-> Artifacts previously included <code>glob_path</code> and <code>original_path</code> but these were <a href="https://buildkite.com/changelog/71-artifacts-glob-path-and-original-path-fields-are-deprecated">deprecated</a> and now return <code>null</code>.
+> Artifacts previously included <code>glob_path</code> and <code>original_path</code> but these were <a href="https://buildkite.com/resources/changelog/71-artifacts-glob-path-and-original-path-fields-are-deprecated/">deprecated</a> and now return <code>null</code>.
 
 ## List artifacts for a build
 

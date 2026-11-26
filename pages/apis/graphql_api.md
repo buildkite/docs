@@ -282,4 +282,4 @@ Further resources for learning more about GraphQL:
 - The [Portals](/docs/apis/graphql/portals) page, where you can learn more about how to provide restricted access to Buildkite's GraphQL API.
 - The [Portals REST API](/docs/apis/rest-api/portals) page, for managing portals programmatically.
 - The [**Learn** section](https://graphql.org/learn/) of [the official GraphQL website](https://graphql.org).
-- The [Getting started with GraphQL queries and mutations](https://buildkite.com/blog/getting-started-with-graphql-queries-and-mutations) blog post.
+- The [Getting started with GraphQL queries and mutations](https://buildkite.com/resources/blog/getting-started-with-graphql-queries-and-mutations/) blog post.

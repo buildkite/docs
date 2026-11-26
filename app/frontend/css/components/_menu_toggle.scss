@@ -1,6 +1,12 @@
 .MenuToggleCheckbox {
   position: absolute;
-  visibility: hidden;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+
+  @media (min-width: $screen-md) {
+    display: none;
+  }
 
   ~ .SiteHeader__nav,
   ~ .SiteHeader__global-links {
@@ -43,6 +49,10 @@
 
   .MenuToggleCheckbox:checked + & {
     background-image: url("~/images/icons/remove.svg");
+  }
+
+  .MenuToggleCheckbox:focus-visible + & {
+    outline: 2px solid currentColor;
   }
 
   span {

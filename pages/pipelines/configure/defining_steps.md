@@ -39,7 +39,7 @@ Learn more about configuring these other repository providers from the [Source c
 
 ## Adding steps
 
-There are two ways to define steps in your pipeline: using the YAML step editor in Buildkite or with a `pipeline.yml` file. The web steps visual editor is still available if you haven't migrated to [YAML steps](https://buildkite.com/changelog/99-introducing-the-yaml-steps-editor) but will be deprecated in the future.
+There are two ways to define steps in your pipeline: using the YAML step editor in Buildkite or with a `pipeline.yml` file. The web steps visual editor is still available if you haven't migrated to [YAML steps](https://buildkite.com/resources/changelog/99-introducing-the-yaml-steps-editor/) but will be deprecated in the future.
 
 If you have not yet migrated to YAML Steps, you can do so on your pipeline's settings page. See the [Migrating to YAML steps guide](/docs/pipelines/tutorials/pipeline-upgrade) for more information about the changes and the migration process.
 

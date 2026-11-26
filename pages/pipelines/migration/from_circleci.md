@@ -141,7 +141,7 @@ CircleCI executors define the execution environment (Docker image, resource clas
 
 | Executor component | Buildkite Pipelines equivalent |
 |-------------------|-------------------------------|
-| `docker[].image` | [Docker plugin](https://buildkite.com/resources/plugins/docker) `image` |
+| `docker[].image` | [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) `image` |
 | `docker[].environment` | Docker plugin `environment` |
 | `resource_class` | `agents: { queue: "..." }` |
 | `working_directory` | Docker plugin `workdir` |
@@ -161,7 +161,7 @@ steps:
     command: npm test
 ```
 
-For Docker-based builds, use the [Docker plugin](https://buildkite.com/resources/plugins/docker) or the [Docker Compose plugin](https://buildkite.com/resources/plugins/docker-compose) to run commands inside containers.
+For Docker-based builds, use the [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) or the [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) to run commands inside containers.
 
 > 🚧 CircleCI `cimg/*` images require workarounds
 > CircleCI convenience images (`cimg/node`, `cimg/python`, and so on) install runtimes using version managers that require login shells. The Buildkite Docker plugin defaults to `/bin/sh -e -c`, which does not source these profiles. Add a `shell` option for bash login shells and `propagate-uid-gid: true` to avoid permission errors:
@@ -351,7 +351,7 @@ Replace the placeholder commands with real commands. The `node/install-packages`
 
 ### Step 5: Add the Docker plugin for container builds
 
-Replace the CircleCI executor with the [Docker plugin](https://buildkite.com/resources/plugins/docker) to run commands inside a container:
+Replace the CircleCI executor with the [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) to run commands inside a container:
 
 ```yaml
   - label: "\:eslint\: Lint"
@@ -578,7 +578,7 @@ steps:
       ./generate-config.sh | buildkite-agent pipeline upload
 ```
 
-For path-based dynamic configuration (similar to CircleCI's `path-filtering` orb), use [conditionals](/docs/pipelines/configure/conditionals), [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) with change detection logic, or the declarative [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes). For monorepos, the [Monorepo Diff plugin](https://buildkite.com/resources/plugins/monorepo-diff) watches for changes across directories and triggers the appropriate pipelines automatically.
+For path-based dynamic configuration (similar to CircleCI's `path-filtering` orb), use [conditionals](/docs/pipelines/configure/conditionals), [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) with change detection logic, or the declarative [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes). For monorepos, the [Monorepo Diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/) watches for changes across directories and triggers the appropriate pipelines automatically.
 
 ### Reusable commands
 
@@ -594,7 +594,7 @@ This table provides a mapping between CircleCI concepts and their Buildkite Pipe
 | Workflow | Pipeline |
 | Job | [Command step](/docs/pipelines/configure/step-types/command-step) |
 | Step (`run:`) | Shell command within a command step |
-| Executor | Agent queue or [Docker plugin](https://buildkite.com/resources/plugins/docker) |
+| Executor | Agent queue or [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) |
 | Orb | [Plugin](https://buildkite.com/resources/plugins/) |
 | `requires` | [`depends_on`](/docs/pipelines/configure/depends-on) |
 | `type: approval` | [Block step](/docs/pipelines/configure/step-types/block-step) |

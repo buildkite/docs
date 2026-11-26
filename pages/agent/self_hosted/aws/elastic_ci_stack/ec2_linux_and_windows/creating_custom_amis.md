@@ -2,7 +2,7 @@
 
 Custom AMIs help teams ensure that their agents have all required tools and configurations before instance launch. These images preserve the required configuration when the stack launches new or replacement instances, which do not retain changes made to previous instances during runtime.
 
-Custom [AMIs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html) can be used with the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows) by specifying the `ImageId` parameter. You can use any AMI available to your AWS account. For best results, start with the Packer templates provided in the [packer directory](https://github.com/buildkite/elastic-ci-stack-for-aws/tree/main/packer) of the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) repository.
+Custom [AMIs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html) can be used with the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/setup) by specifying the `ImageId` parameter. You can use any AMI available to your AWS account. For best results, start with the Packer templates provided in the [packer directory](https://github.com/buildkite/elastic-ci-stack-for-aws/tree/main/packer) of the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) repository.
 
 ## Creating an image
 

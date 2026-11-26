@@ -100,7 +100,7 @@ test_engine_guides:
       - text: "Rust"
         url: "/docs/pipelines/configure/tests/test-collection/rust-collectors"
       - text: "Java"
-        url: "/docs/pipelines/configure/tests/test-collection/java"
+        url: "/docs/pipelines/configure/tests/test-collection/importing-junit-xml"
       - text: "Other languages"
         url: "/docs/pipelines/configure/tests/test-collection/other-collectors"
   - title: "Other test collectors"

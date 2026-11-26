@@ -8,10 +8,6 @@ RSpec.feature "reading pages" do
 
       visit "/docs/agent/ubuntu"
       expect(page).to have_content("apt repository")
-
-      visit "/docs/unknown"
-      expect(page).to have_content("Routing Error")
-      expect(page).to have_content("The documentation page `unknown` does not exist")
     end
 
     it "has appropriate meta tags" do
@@ -28,6 +24,24 @@ RSpec.feature "reading pages" do
       visit "/docs/pipelines/getting-started"
       expect(page).to have_css("a[href='https://github.com/buildkite/docs/edit/main/pages/pipelines/getting_started.md']", text: 'Edit this page')
     end
+  end
+
+  it "renders the section tree once, outside the main content, with a separate footer" do
+    visit "/docs/pipelines/getting-started"
+
+    expect(page).to have_css("main h1")
+    expect(page).to have_no_css("main nav[aria-label='Docs section'], main footer")
+    expect(page).to have_css("nav[aria-label='Docs section']", count: 1)
+    expect(page).to have_no_css("header nav a[href='/docs/pipelines/starting-a-new-build']")
+    expect(page).to have_css("nav[aria-label='Docs section'] a[href='/docs/pipelines/starting-a-new-build']")
+    expect(page).to have_css("footer", count: 1)
+  end
+
+  it "gives the homepage a footer landmark outside main" do
+    visit "/docs"
+
+    expect(page).to have_no_css("main footer")
+    expect(page).to have_css("footer", count: 1)
   end
 
   describe "/docs/pipelines/configure/environment-variables" do
@@ -83,10 +97,27 @@ RSpec.feature "reading pages" do
       expect(page.html).not_to include("<html")
     end
 
-    it 'returns 404 for non-existent markdown pages' do
-      page.driver.get('/docs/non-existent-page.md')
+    it "returns actionable HTML and Markdown 404s without redirecting to a valid ancestor" do
+      missing = "/docs/pipelines/configure/environment-variables/non-existent-page"
+
+      page.driver.get(missing)
       expect(page.status_code).to eq(404)
-      expect(page.html).to include('The documentation page `non_existent_page` does not exist')
+      expect(page.response_headers["Location"]).to be_nil
+      expect(page.response_headers["Content-Type"]).to include("text/html")
+      expect(page).to have_link("Search the docs", href: "/docs#search")
+      expect(page).to have_link("Documentation index for AI agents", href: "/docs/llms.txt")
+
+      page.driver.get("#{missing}.md")
+      expect(page.status_code).to eq(404)
+      expect(page.response_headers["Content-Type"]).to include("text/markdown")
+      expect(page.html).to start_with("# Page not found\n")
+      expect(page.html).to include("https://buildkite.com/docs/llms.txt")
+
+      page.driver.header "Accept", "text/markdown, text/html;q=0.5"
+      page.driver.get("/docs/non-existent-page")
+      expect(page.status_code).to eq(404)
+      expect(page.response_headers["Content-Type"]).to include("text/markdown")
+      expect(page.response_headers["Vary"]).to include("Accept")
     end
 
     it "serves markdown when Accept header lists text/markdown (Claude Code style)" do

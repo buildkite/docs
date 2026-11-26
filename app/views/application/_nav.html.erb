@@ -1,7 +1,7 @@
-<nav class="Nav">
+<nav class="Nav" aria-label="Docs products">
   <%=
     render 'nav_children',
-    children: @nav.data_for_top_nav(request),
+    children: @nav.data.map { |section| section.except("children") },
     current_nav_item: @nav.current_item(request),
     is_dropdown: nil,
     nav_level: 0,

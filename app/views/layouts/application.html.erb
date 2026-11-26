@@ -6,24 +6,24 @@
   <body class="<%= beta? ? 'beta' : ''-%>" data-keywords="<%= content_for :keywords %>">
     <%= render "site_header" %>
 
-    <main id="__main" role="main">
-      <div class="PageContainer">
-        <div class="Page">
-          <div class="Page__sidebar">
-            <%= render 'sidebar' %>
-          </div>
-          <% if content_for :toc %>
-            <div class="Page__toc">
-              <%= yield :toc %>
-            </div>
-          <% end %>
-          <div class="Page__content">
+    <div class="PageContainer">
+      <div class="Page">
+        <div class="Page__content">
+          <main id="__main">
             <%= yield %>
-            <%= render "footer" %>
-          </div>
+          </main>
+          <%= render "footer" %>
         </div>
+        <div class="Page__sidebar" id="docs-section-nav">
+          <%= render "sidebar" %>
+        </div>
+        <% if content_for :toc %>
+          <div class="Page__toc">
+            <%= yield :toc %>
+          </div>
+        <% end %>
       </div>
-    </main>
+    </div>
 
     <%# Plain mounts its chat widget as a plain child of <body>, which Turbo
         would otherwise destroy on every navigation. plainChat.js moves it

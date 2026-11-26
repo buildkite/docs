@@ -10,6 +10,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
 
 .Page {
   display: grid;
+  reading-flow: grid-rows;
   grid-template-rows: minmax(0, auto);
   grid-template-columns: 1fr;
   grid-template-areas:
@@ -37,14 +38,20 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
 
 .Page__sidebar {
   grid-area: sidebar;
-  position: sticky;
   overflow-y: auto;
   overscroll-behavior: contain;
   display: none;
-  border-right: 1px solid $navy-100;
+
+  @media (max-width: 959px) {
+    body:has(#navicon:checked) & {
+      display: block;
+    }
+  }
 
   @media (min-width: $screen-md) {
     display: block;
+    position: sticky;
+    border-right: 1px solid $navy-100;
     top: $md-screen-margin-top;
     height: calc(100vh - #{map-get($header-height, "two-rows")});
     padding: 8px;
@@ -84,7 +91,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
   @media (min-width: $screen-lg) {
     justify-self: center;
     padding-block: 40px;
-    &:nth-child(2) {
+    &:not(:has(~ .Page__toc)) {
       max-width: 1074px;
     }
   }
