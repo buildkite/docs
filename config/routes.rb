@@ -553,7 +553,7 @@ Rails.application.routes.draw do
   get "/docs/llms-:topic.txt", to: "llm_topic_text#show", defaults: { format: "txt" }, constraints: { topic: /[a-z][a-z0-9-]+/ }
 
   # Homepage
-  get "/docs" => "pages#index", as: :home_page
+  get "/docs" => "pages#index", as: :home_page, constraints: { format: /html|md/ }
 
   # All other standard docs pages
   get "/docs/*path" => "pages#show", as: :docs_page, constraints: { format: /html|md/ }

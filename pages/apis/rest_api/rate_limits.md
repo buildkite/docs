@@ -15,9 +15,8 @@ Deep pages of the [organization builds list](/docs/apis/rest-api/builds#list-bui
 Buildkite imposes a rate limit of 200 requests per minute for each organization. This is the cumulative limit of all API requests made by users in an organization. This default can vary by plan. See [Limits](/docs/platform/limits) for the values that apply to your organization.
 
 > 📘 Buildkite MCP server requests
-> Requests to the Buildkite REST API made through the [Buildkite MCP server](/docs/apis/mcp-server) are handled differently based on whether you're using the [remote](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) or [local](/docs/apis/mcp-server#types-of-mcp-servers-local-mcp-server) MCP server.
-> The remote MCP server's requests are tracked through a separate per-user rate limit, which _does not_ count towards your Buildkite organization's REST API limit. See [Remote MCP server rate limits](/docs/apis/mcp-server/remote/rate-limits) for details.
-> The local MCP server's requests, however, _do_ count towards your Buildkite organization's REST API limit.
+> Requests authenticated through the remote Buildkite MCP server's interactive OAuth flow use a [separate per-user quota](/docs/apis/mcp-server/remote/rate-limits).
+> Requests from the [local MCP server](/docs/apis/mcp-server#types-of-mcp-servers-local-mcp-server) or the [API token pass-through endpoint](/docs/apis/mcp-server#api-token-pass-through-remote-mcp-server) that use personal API tokens or tokens issued by your token exchange application count toward standard REST API limits.
 
 ## Per-user rate limits
 

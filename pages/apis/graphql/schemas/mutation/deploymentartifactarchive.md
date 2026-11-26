@@ -25,7 +25,7 @@ toc: false
 <!-- vale on -->
 
 
-Archive a catalog artifact without removing or yanking its published digests. Repeated archives preserve the original mark.
+Archive a catalog artifact without removing or yanking its published tags. Repeated archives preserve the original mark.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

@@ -32,15 +32,16 @@ class LLMFullText
 
       next if pages.empty?
 
-      content << "## #{section['name']}"
+      # Use labels for bundle metadata so each page keeps its authored heading hierarchy.
+      content << "**#{section['name']}**"
       content << ""
 
       pages.each do |page|
         page_content = read_page(page["path"])
         next unless page_content
 
-        url = "https://buildkite.com/docs/#{page['path']}"
-        content << "### #{page['name']}"
+        url = "https://buildkite.com/docs/#{page['path']}.md"
+        content << "**#{page['name']}**"
         content << ""
         content << "URL: #{url}"
         content << ""
@@ -96,19 +97,10 @@ class LLMFullText
     # Convert HTML to Markdown-friendly plain text
     content = strip_html(content)
 
-    # Bump headings down by 3 levels so page content sits below the
-    # structural headings (# doc title, ## section, ### page title).
-    # Caps at H6 (######) since Markdown doesn't support deeper levels.
-    content = content.gsub(/^(#+)(\s)/) do
-      hashes = $1
-      new_level = [hashes.length + 3, 6].min
-      "#" * new_level + $2
-    end
-
     # Clean up excessive blank lines left by stripping
     content = content.gsub(/\n{3,}/, "\n\n")
 
-    content.strip
+    Page::MarkdownExport.format(content, "/docs/#{path}").strip
   end
 
   def resolve_erb(content)

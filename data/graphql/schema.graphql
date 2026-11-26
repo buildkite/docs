@@ -100,6 +100,7 @@ enum APIAccessTokenScopes {
   READ_PIPELINE_TEMPLATES
   READ_PORTALS
   READ_REGISTRIES
+  READ_RELEASES
   READ_RULES
   READ_SECRETS_DETAILS
   READ_SUITES
@@ -125,6 +126,7 @@ enum APIAccessTokenScopes {
   WRITE_PIPELINE_TEMPLATES
   WRITE_PORTALS
   WRITE_REGISTRIES
+  WRITE_RELEASES
   WRITE_RULES
   WRITE_SECRETS
   WRITE_SUITES
@@ -3628,11 +3630,6 @@ type DeploymentArtifactVersion implements Node {
   The publishing user; null for machine publications
   """
   createdBy: User
-
-  """
-  The published content claim; null for legacy digestless versions
-  """
-  digest: String
   id: ID!
   organization: Organization!
   pullRequests: [ReleasePullRequest!]!
@@ -3646,6 +3643,11 @@ type DeploymentArtifactVersion implements Node {
   The publisher-supplied source reference
   """
   sourceURL: String
+
+  """
+  The published artifact identifier; null for legacy versions without one
+  """
+  tag: String
 
   """
   The public UUID of this Releases resource
@@ -3694,11 +3696,6 @@ input DeploymentArtifactVersionPublishInput {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
-
-  """
-  sha256 followed by a colon and 64 lowercase hexadecimal characters
-  """
-  digest: String!
   pullRequests: [ReleasePullRequestInput!]
 
   """
@@ -3706,6 +3703,11 @@ input DeploymentArtifactVersionPublishInput {
   """
   sourceBuildId: ID
   sourceUrl: String
+
+  """
+  A non-blank, case-sensitive artifact identifier of up to 255 characters
+  """
+  tag: String!
 }
 
 """
@@ -6328,8 +6330,7 @@ type Mutation {
   ): ClusterUpdatePayload
 
   """
-  Archive a catalog artifact without removing or yanking its published digests.
-  Repeated archives preserve the original mark.
+  Archive a catalog artifact without removing or yanking its published tags. Repeated archives preserve the original mark.
   """
   deploymentArtifactArchive(
     """
@@ -6369,7 +6370,7 @@ type Mutation {
   ): DeploymentArtifactUpdatePayload
 
   """
-  Publish a version with digest and provenance. Each call creates a distinct version.
+  Publish a tagged version with provenance. Each call creates a distinct version.
   """
   deploymentArtifactVersionPublish(
     """
@@ -11075,7 +11076,7 @@ type RegistryToken implements Node {
 }
 
 """
-Whether the bound artifact has a version with the observed digest; not producing-build attribution
+Whether the bound artifact has a version with the observed tag; not producing-build attribution
 """
 type ReleaseCatalogResolution {
   reason: ReleaseCatalogResolutionReason
@@ -11286,11 +11287,11 @@ type ReleaseComponentInstanceEdge {
 Observed instance state projected in ingestion order, not a health or desired-state inference
 """
 type ReleaseComponentInstanceStatus {
-  activeDigest: String
+  activeTag: String
   catalogResolution: ReleaseCatalogResolution!
   firstSeenAt: DateTime
   instance: ReleaseComponentInstance!
-  lastActiveDigest: String
+  lastActiveTag: String
   lastSeenAt: DateTime
   present: Boolean
   sequence: JSInt
@@ -11419,10 +11420,9 @@ An immutable report in a target's observation history
 """
 type ReleaseObservation implements Node {
   """
-  Only digest observations have a catalog resolution
+  Only version observations have a catalog resolution
   """
   catalogResolution: ReleaseCatalogResolution
-  digest: String
 
   """
   The reporter's retry identifier
@@ -11438,6 +11438,7 @@ type ReleaseObservation implements Node {
   Per-target ingestion sequence, independent of occurrence time
   """
   sequence: JSInt!
+  tag: String
   target: ReleaseTarget
   type: ReleaseObservationType!
 
@@ -11479,8 +11480,6 @@ type ReleaseObservationEdge {
 A raw observation. Omitted fields and timestamp spelling are part of retry identity; optional fields cannot be null.
 """
 input ReleaseObservationInput {
-  digest: String
-
   """
   A client-generated UUIDv7, unique within the target
   """
@@ -11495,6 +11494,11 @@ input ReleaseObservationInput {
   RFC3339 timestamp; omit to use server recording time
   """
   occurredAt: String
+
+  """
+  Required for version observations; a non-blank artifact identifier of up to 255 characters
+  """
+  tag: String
   type: ReleaseObservationType!
 }
 
@@ -14592,6 +14596,12 @@ type Team implements Node {
   membersCanManagePipelineTemplates: Boolean!
 
   """
+  Private preview. Whether team members can manage all Releases resources in the
+  organization. Returns false when Releases is disabled for the organization.
+  """
+  membersCanManageReleases: Boolean!
+
+  """
   The name of the team
   """
   name: String!
@@ -15669,6 +15679,13 @@ input TeamUpdateInput {
   change this, and it is ignored when pipeline template team permissions are disabled
   """
   membersCanManagePipelineTemplates: Boolean
+
+  """
+  Private preview. Whether team members can manage all Releases resources. Only
+  organization admins can change this. Rejected when Releases is disabled for
+  the organization. Omit or pass null to preserve the saved setting.
+  """
+  membersCanManageReleases: Boolean
   name: String!
 
   """

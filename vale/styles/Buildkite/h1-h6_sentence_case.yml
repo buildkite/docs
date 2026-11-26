@@ -280,6 +280,7 @@ exceptions:
   - Scripted
   - Secret Manager
   - Sequoia
+  - Session Manager
   - SLA
   - Slack
   - Slack Workspace

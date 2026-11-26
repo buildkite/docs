@@ -77,10 +77,42 @@ Use the [`log-collector`](https://github.com/buildkite/elastic-ci-stack-for-aws/
 
 ## Accessing Elastic CI Stack for AWS instances directly
 
-Sometimes, looking at the logs isn't enough to figure out what's going on in your instances. In these cases, it can be useful to access the shell on the instance directly:
+If logs do not provide enough information to diagnose a problem, you can open an interactive session on the instance using AWS Systems Manager Session Manager or, on Linux instances, SSH.
 
-- If your Elastic CI Stack for AWS has been configured to allow SSH access (using the `AuthorizedUsersUrl` parameter), run `ssh <some instance id>` in your terminal.
-- If SSH access isn't available, you can still use AWS SSM to remotely access the instance by finding the instance ID, and then running `aws ssm start-session --target <instance id>`.
+### Finding the instance
+
+In Buildkite, open the agent's details page by following the agent link from any job that ran on it, or by navigating to its cluster, queue, and agent. Copy the EC2 instance ID from this page.
+
+### Using Session Manager
+
+Session Manager accepts an EC2 instance ID directly and does not require SSH keys or inbound access to port 22:
+
+```bash
+aws ssm start-session --target <instance-id> --region <aws-region>
+```
+
+Your local machine must have the AWS CLI and the [Session Manager plugin](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html) installed, and your AWS identity must have permission to start sessions on the instance. The instance must have a running SSM Agent and network access to the Systems Manager endpoints.
+
+### Using SSH on Linux instances
+
+For SSH access, use the instance ID to find the instance in the AWS EC2 console in the appropriate AWS account and Region. Copy the instance's public IPv4 address or public DNS name from the EC2 console.
+
+Configure SSH authentication using one of these stack parameters:
+
+- `KeyName`: The name of an existing EC2 key pair whose private key you hold.
+- `AuthorizedUsersUrl`: An HTTPS or S3 URL for an `authorized_keys` file that includes your public key. The instance must be able to download this file. The downloaded file replaces the default login user's `authorized_keys` file.
+
+Connect using the corresponding private key and the instance's public IP address or DNS name:
+
+```bash
+ssh -i /path/to/private-key ec2-user@<instance-ip-or-dns-name>
+```
+
+For Ubuntu instances, replace `ec2-user` with `ubuntu`.
+
+Your machine must have a network route to the instance, and the instance's security group must allow inbound TCP port 22 from your connection source. For instances without a publicly reachable address, connect through a private network or bastion, or use Session Manager instead.
+
+When the stack creates the security group, setting `KeyName` or `AuthorizedUsersUrl` opens port 22 to all IPv4 addresses (`0.0.0.0/0`). Restrict this rule to trusted sources where possible. If you supply `SecurityGroupIds`, the stack does not add an SSH ingress rule, so you must configure access yourself.
 
 ## Auto Scaling group fails to boot instances
 

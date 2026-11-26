@@ -16,11 +16,13 @@ With the MCP server connected, your agent can:
 
 - Fetch build logs and identify root causes of failures
 - Query pipeline configuration and suggest improvements
-- Trigger new builds and monitor their progress
+- Monitor build progress and, with write access, trigger new builds
 - Access cluster and queue state to debug job routing issues
 - And more
 
-To set up the MCP server, see the [MCP server](/docs/apis/mcp-server) documentation.
+If you only need to inspect Buildkite data, such as build logs or pipeline configuration, you can ask your coding agent to set up a read-only MCP connection using the [Buildkite setup prompt](/docs/agent-setup/prompt.md). For example, ask: “Set up a read-only Buildkite MCP connection using `https://buildkite.com/docs/agent-setup/prompt.md`.”
+
+If your workflow needs to trigger builds or make other changes, see [Configuring AI tools with the remote Buildkite MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) for write-capable setup.
 
 ## Installing Buildkite skills
 
@@ -47,22 +49,21 @@ To install skills, follow the instructions in the [Buildkite skills repository](
 
 ## Using Buildkite documentation as context
 
-Every Buildkite documentation page is available in Markdown format. Append `.md` to any documentation URL to get the source Markdown file, for example, [`/docs/pipelines/getting-started.md`](/docs/pipelines/getting-started.md). Pass these URLs directly to your AI agent as focused context for a specific topic.
+Append `.md` to a documentation page URL to get its Markdown version, for example, [`/docs/pipelines/getting-started.md`](/docs/pipelines/getting-started.md). Pass these URLs directly to your AI agent as focused context for a specific topic.
 
-For broader context, Buildkite provides `llms.txt` files per documentation section, listing all pages in that section in a format optimized for LLMs:
+For broader context, use the [documentation index](/docs/llms.txt) or a topic guide that links to related pages in Markdown:
 
-| Section | URL |
+| Area | Topic guide |
 |---|---|
-| Pipelines | `/docs/pipelines/llms.txt` |
-| Agent | `/docs/agent/llms.txt` |
-| Package Registries | `/docs/package-registries/llms.txt` |
-| APIs | `/docs/apis/llms.txt` |
-| Platform | `/docs/platform/llms.txt` |
+| Buildkite Pipelines | [Pipelines](/docs/llms-pipelines.txt) |
+| Buildkite agent | [Agent](/docs/llms-agent.txt) |
+| Buildkite Package Registries | [Package Registries](/docs/llms-packages.txt) |
+| Buildkite APIs | [APIs](/docs/llms-buildkite-apis.txt) |
+| Buildkite platform | [User and team management](/docs/llms-user-management.txt) |
+| Test Engine | [Test Engine](/docs/llms-test-engine.txt) |
 {: class="responsive-table"}
 
-For a bundle scoped to test suites and related Pipelines features, see the [Test Engine topic bundle](/docs/llms-test-engine.txt).
-
-Use a section's `llms.txt` as a starting point to give your agent a broad overview of that area, then pass individual `.md` pages for deeper context on specific tasks.
+Start with a topic guide, then pass individual `.md` pages for more detail on specific tasks.
 
 ## Next steps
 

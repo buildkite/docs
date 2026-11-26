@@ -112,6 +112,116 @@ RSpec.feature "reading pages" do
       expect(page.status_code).to eq(200)
       expect(page.response_headers["Content-Type"]).to include("text/markdown")
     end
+
+    it "varies extensionless responses by Accept even when the header is absent or rejected" do
+      ["/docs", "/docs/platform"].each do |path|
+        { nil => 200, "text/html" => 200, "text/markdown" => 200, "text/markdown;q=0" => 406 }.each do |accept, status|
+          page.driver.header "Accept", accept
+          page.driver.get(path)
+          expect(page.status_code).to eq(status)
+          expect(page.response_headers["Vary"].to_s.downcase.split(",").map(&:strip)).to include("accept", "x-requested-with")
+        end
+      end
+    end
+
+    it "accepts XHTML as an alias for HTML without overriding explicit HTML preferences" do
+      page.driver.header "Accept", "application/xhtml+xml"
+      page.driver.get("/docs/platform")
+      expect(page.status_code).to eq(200)
+      expect(page.response_headers["Content-Type"]).to include("text/html")
+
+      page.driver.header "Accept", "application/xhtml+xml;q=0.4, text/markdown;q=0.8"
+      page.driver.get("/docs/platform")
+      expect(page.response_headers["Content-Type"]).to include("text/markdown")
+
+      page.driver.header "Accept", "text/html;q=0, application/xhtml+xml"
+      page.driver.get("/docs/platform")
+      expect(page.status_code).to eq(406)
+    end
+
+    it "honors quality values instead of header order and does not serve rejected Markdown" do
+      page.driver.header "Accept", "text/markdown;q=0.5, text/html"
+      page.driver.get("/docs/platform")
+      expect(page.response_headers["Content-Type"]).to include("text/html")
+
+      page.driver.header "Accept", "text/html;q=0.5, text/markdown;q=0.8"
+      page.driver.get("/docs/platform")
+      expect(page.response_headers["Content-Type"]).to include("text/markdown")
+
+      page.driver.header "Accept", "text/markdown;q=0, */*;q=0.8"
+      page.driver.get("/docs/platform")
+      expect(page.response_headers["Content-Type"]).to include("text/html")
+
+      page.driver.header "Accept", "text/markdown;q=0"
+      page.driver.get("/docs/platform")
+      expect(page.status_code).to eq(406)
+    end
+
+    it "provides usable Markdown landing pages by extension and content negotiation" do
+      {
+        "/docs" => ["# Buildkite documentation", "https://buildkite.com/docs/pipelines.md"],
+        "/docs/pipelines" => ["# Buildkite Pipelines", "https://buildkite.com/docs/pipelines/getting-started.md#create-your-own-pipeline"]
+      }.each do |path, content|
+        page.driver.header "Accept", "text/markdown"
+        page.driver.get(path)
+        expect(page.status_code).to eq(200)
+        expect(page.response_headers["Content-Type"]).to include("text/markdown")
+        expect(page.html).to include(*content)
+        expect(page.html).not_to include("<html")
+        negotiated_body = page.html
+
+        page.driver.header "Accept", "text/html"
+        page.driver.get("#{path}.md")
+        expect(page.status_code).to eq(200)
+        expect(page.response_headers["Content-Type"]).to include("text/markdown")
+        expect(page.html).to eq(negotiated_body)
+      end
+    end
+
+    it "serves valid YAML examples with the original emoji shortcode" do
+      page.driver.get("/docs/agent/buildkite-hosted/code-access.md")
+      example = page.html.scan(/^```yaml\n(.*?)^```/m).flatten.find { |code| code.include?("ssh_secret:") }
+      expect(YAML.safe_load(example).fetch("steps").first.fetch("label")).to eq(":pipeline: Upload")
+    end
+
+    it "links from Markdown to Markdown documents without changing external destinations" do
+      page.driver.get("/docs/agent/self-hosted/agent-stack-k8s/pod-template.md")
+      expect(page.html).to include("[`podSpec`](https://buildkite.com/docs/agent/self-hosted/agent-stack-k8s/podspec.md)")
+      expect(page.html).to include("(https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/)")
+    end
+
+    it "normalizes bare docs URLs in generated Markdown without swallowing punctuation or fragments" do
+      page.driver.get("/docs/agent/cli/reference/bootstrap.md")
+      expect(page.html).to include("See https://buildkite.com/docs/agent/hooks.md for more details.")
+
+      page.driver.get("/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters.md")
+      expect(page.html).to include(
+        "https://buildkite.com/docs/agent/v3/tracing.md.",
+        "https://buildkite.com/docs/agent/v3-v4-upgrade-guide.md.",
+        "https://buildkite.com/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack.md#using-custom-iam-roles"
+      )
+    end
+
+    it "keeps the generated SDK reference links in both Markdown exports" do
+      links = %w[typescript python ruby].map { |language| "https://buildkite.com/docs/sdk/#{language}/" }
+      ["/docs/pipelines/configure/dynamic-pipelines/sdk.md", "/docs/llms-full.txt"].each do |path|
+        page.driver.get(path)
+        expect(page.status_code).to eq(200)
+        expect(page.html.scan(%r{\]\((https://buildkite\.com/docs/sdk/[^)]+)\)}).flatten.uniq).to include(*links)
+      end
+    end
+
+    it "publishes working topic guides on the coding agents page" do
+      visit "/docs/pipelines/getting-started-with-coding-agents"
+      guide_paths = page.all("main a[href^='/docs/llms-']").map { |link| link[:href] }
+      expect(guide_paths).not_to be_empty
+      guide_paths.each do |path|
+        page.driver.get(path)
+        expect(page.status_code).to eq(200), "expected #{path} to return 200"
+        expect(page.response_headers["Content-Type"]).to include("text/plain")
+        expect(page.html).to include(".md)")
+      end
+    end
   end
 
   describe "all pages" do
@@ -174,6 +284,21 @@ RSpec.feature "reading pages" do
   end
 
   describe "old URLs" do
+    it "preserves Markdown on renamed and canonicalized documentation URLs" do
+      {
+        "/docs/test-engine/getting-started.md" => "/docs/pipelines/getting-started.md#add-a-test-suite",
+        "/docs/pipelines/getting_started.md" => "/docs/pipelines/getting-started.md",
+        "/docs/agent/v3/queues.md" => "/docs/agent/queues.md"
+      }.each do |old_path, new_path|
+        page.driver.get(old_path)
+        expect(page.status_code).to eq(301)
+        expect(page.response_headers["Location"]).to end_with(new_path)
+        visit new_path
+        expect(page.status_code).to eq(200)
+        expect(page.response_headers["Content-Type"]).to include("text/markdown")
+      end
+    end
+
     it "keeps old data flow links with the shared responsibility diagram" do
       visit "/docs/pipelines/security#data-flow"
 

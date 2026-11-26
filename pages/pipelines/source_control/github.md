@@ -286,6 +286,8 @@ Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds f
 - **Branch and tag creation**: trigger builds when a new branch or tag is created.
 - **Issue activity**: trigger builds from GitHub issue activity, such as an issue being opened, edited, labeled, or closed. See [Running builds on issue activity](#running-builds-on-additional-github-events-running-builds-on-issue-activity) for requirements and limitations.
 
+For both issue comments and pull request review comments, set **Command word** to a single word such as `/bk`, not `/bk review`. With `contains` matching, the comment can include other text. The saved command must still be a single word.
+
 > 🚧 Configure the GitHub webhook for issue comments
 > To trigger builds from pull request comments, configure the repository webhook in GitHub to send both **Issue comments** and **Pull requests** events. Buildkite Pipelines uses the `pull_request` event to identify the pull request branch and commit when processing a later `issue_comment` event.
 >
