@@ -40,7 +40,7 @@ GET | `/v2/organizations/{org.slug}/usage` | [Get organization usage](/docs/apis
 
 ### Organization billing usage breakdown API
 
-Use the [Organization billing usage breakdown API](/docs/apis/rest-api/organizations/usages) to retrieve daily measurements by resource.
+Use the [organization billing usage breakdown API](/docs/apis/rest-api/organizations/usages) to retrieve daily measurements by resource.
 
 Method | Endpoint | Description
 ------ | -------- | -----------

@@ -234,7 +234,7 @@ A token's REST API scopes are granular, and you can select some or all of the fo
       {
         name: "Usages",
         key: "read_usages",
-        description: "Retrieve daily measurements using the [Organization billing usage breakdown API](/docs/apis/rest-api/organizations/usages).",
+        description: "Retrieve daily measurements using the [organization billing usage breakdown API](/docs/apis/rest-api/organizations/usages).",
         read: true, write: false, delete: false
       }
     ].each do |scope| %>

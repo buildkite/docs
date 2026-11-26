@@ -1,6 +1,6 @@
 # Organization billing usage breakdown API
 
-Use the Organization billing usage breakdown API to retrieve daily billing measurements by resource for a single Buildkite organization. Call `GET /v2/organizations/{org.slug}/usages/{resource}` with the organization slug and one of the resources listed on this page. For billing summaries and percentiles instead of daily breakdowns, use the [organization usage API](/docs/apis/rest-api/organizations/usage).
+Use the organization billing usage breakdown API to retrieve daily billing measurements by resource for a single Buildkite organization. Call `GET /v2/organizations/{org.slug}/usages/{resource}` with the organization slug and one of the resources listed on this page. For billing summaries and percentiles instead of daily breakdowns, use the [organization usage API](/docs/apis/rest-api/organizations/usage).
 
 As on the organization's [**Usage** page](https://buildkite.com/organizations/~/usage), any organization member can use these endpoints. The [API access token](/docs/apis/managing-api-tokens#token-scopes-billing) must include the `read_usages` scope and grant access to the requested organization. Resource grants don't filter the usage data returned for that organization.
 
