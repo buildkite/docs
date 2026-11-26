@@ -23,10 +23,10 @@ If the client cannot complete OAuth, stop MCP setup and direct the user to the [
 
 If the workflow only needs to inspect Buildkite data and the user hasn't chosen an access mode, offer read-only access. If the requested access is unclear, ask which mode the user wants before configuring the connection.
 
-- **Read-only**: Use `buildkite-read-only` with the [read-only OAuth endpoint](/docs/apis/mcp-server#read-only-remote-mcp-server), `https://mcp.buildkite.com/mcp/readonly`. Read-only access limits this connection, not the agent's [other tools or credentials](/docs/apis/mcp-server/remote/configuring-ai-tools#read-only-access-boundaries).
-- **Read-write**: Use `buildkite-read-write` with `https://mcp.buildkite.com/mcp` only if the user explicitly requests write access.
+- **Read-only**: Use the [read-only OAuth endpoint](/docs/apis/mcp-server#read-only-remote-mcp-server), `https://mcp.buildkite.com/mcp/readonly`. Read-only access limits this connection, not the agent's [other tools or credentials](/docs/apis/mcp-server/remote/configuring-ai-tools#read-only-access-boundaries).
+- **Read-write**: Use `https://mcp.buildkite.com/mcp` only if the user explicitly requests write access.
 
-Configure only the selected mode and leave existing connections unchanged. In the client instructions below, replace `SERVER_NAME` and `SERVER_URL` with the selected connection name and URL.
+Configure only the selected mode and leave existing connections unchanged. In the examples below, replace `SERVER_NAME` with any name the client accepts, such as `buildkite-mcp-readonly` or `buildkite-mcp-readwrite`. Use the same name for setup and login. Replace `SERVER_URL` with the endpoint for the selected mode. The URL determines the access mode, not the name.
 
 ### Amp
 
