@@ -1,6 +1,8 @@
 # Test Scheduler API
 
-The Test Scheduler API dynamically distributes tests across Buildkite Pipelines jobs. As each job becomes available, it requests additional work and reports the results.
+To distribute tests across Buildkite Pipelines jobs, use [`bktec pool run`](https://github.com/buildkite/bktest/blob/v3.7.0/docs/pool-run.md) with the Test Engine Client. Supported runners are RSpec, pytest, Jest, and Playwright.
+
+Use the Test Scheduler REST API directly only if you need to manage your own test orchestration, including how jobs request work and report results.
 
 > 📘 Private preview feature
 > The Test Scheduler API is in private preview and must be enabled for your Buildkite organization. To request access, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com). The API may change during the preview.
