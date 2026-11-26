@@ -25,7 +25,3 @@ To change the threshold or disable the alert, select **Manage spend alert** in t
 When the estimate reaches the threshold, billing contacts receive an email and billing administrators see a banner. Buildkite sends one alert email per billing period. If no billing contact is configured when the threshold is first reached, no email is sent for that billing period, even if you add a contact later.
 
 Invoice estimates are based on usage reported so far and can be delayed. The estimate shown when an alert is sent may differ from the final invoice.
-
-## Retrieve a spend alert with the API
-
-To check a spend alert's eligibility, threshold, and latest estimate without using the web interface, use the [organization spend alert API](/docs/apis/rest-api/organizations/spend-alert).

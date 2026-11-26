@@ -255,40 +255,6 @@ A token's REST API scopes are granular, and you can select some or all of the fo
   </tbody>
 </table>
 
-### Spend alerts
-
-<table>
-  <thead>
-    <tr>
-      <th style="width:25%">Feature and scopes</th>
-      <th style="width:55%">Description</th>
-      <th style="width:7%">Read</th>
-      <th style="width:7%">Write</th>
-      <th style="width:6%">Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% [
-      {
-        name: "Spend Alerts",
-        key: "read_spend_alerts",
-        description: "Retrieve the organization's [spend alert](/docs/platform/spend-alerts) configuration and status.",
-        read: true, write: false, delete: false
-      }
-    ].each do |scope| %>
-      <tr>
-        <td><strong><%= scope[:name] %></strong><br><%= scope[:key].split(", ").map { |k| "<code>#{k}</code>" }.join(", ") %></td>
-        <td><%= render_markdown(text: scope[:description]) %></td>
-        <td><%= scope[:read] ? "✅" : "" %></td>
-        <td><%= scope[:write] ? "✅" : "" %></td>
-        <td><%= scope[:delete] ? "✅" : "" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-The **Spend Alerts** scope only appears when you belong to a Buildkite organization that has the spend alert API enabled.
-
 ### Security
 
 <table>
