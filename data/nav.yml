@@ -1147,7 +1147,6 @@
               path: "apis/rest-api/organizations/usage"
             - name: "Daily usage"
               path: "apis/rest-api/organizations/usages"
-              pill: "preview"
             - name: "Workload identities"
               path: "apis/rest-api/organizations/workload-identities"
               pill: "preview"

@@ -39,6 +39,7 @@ exceptions:
   - Amazon Web Services
   - AMI
   - ANSI
+  - Anthropic
   - Anyfile
   - API(s)
   - Artifactory

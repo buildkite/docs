@@ -1,31 +1,33 @@
 # Organization daily usage API
 
-Use the organization daily usage API to retrieve the raw daily usage Buildkite recorded for each billable resource, broken down by pipeline, suite, registry, cluster, or model where that breakdown applies. Unlike the [organization usage API](/docs/apis/rest-api/organizations/usage), these endpoints return unprocessed daily figures, with no percentiles, unit conversions, or billed-unit calculations. Use them to pull usage data into your own tooling.
+Use `GET /v2/organizations/{org.slug}/usages/{resource}` to retrieve recorded daily usage for one Buildkite organization. Replace `{org.slug}` with the organization slug and `{resource}` with one of the resources listed on this page. Unlike the [organization usage API](/docs/apis/rest-api/organizations/usage), these endpoints return daily measurements, not billing summaries or percentiles.
 
-> 📘 Requires your organization to have this feature enabled
-> These endpoints are only available to organizations that have the daily usage API enabled. If it isn't enabled for your organization, every endpoint in this section returns `404 Not Found`.
+Any organization member can use these endpoints. The [API access token](/docs/apis/managing-api-tokens#token-scopes-billing) must include the `read_usages` scope and grant access to the requested organization. Resource grants don't filter the usage data returned for that organization.
 
-Any member of the Buildkite organization can use these endpoints. The [API access token](/docs/apis/managing-api-tokens) must include the `read_usages` scope and grant access to the requested organization.
-
-Each endpoint takes the same `from`, `to`, `page`, and `per_page` query parameters, and returns a JSON array with one row per day and breakdown, ordered by date then breakdown.
+Each response is a JSON array in ascending date order. Resources with a breakdown can return multiple rows per day, such as one row per suite. The API does not fill in missing days with zeros. If a page has no rows, the API returns `[]`.
 
 ## Date range
 
-Supply `from` and `to` together as inclusive `YYYY-MM-DD` dates, for example, `?from=2026-11-01&to=2026-11-12`. The date range can be at most two years, and `from` must be within the last two years.
+Supply `from` and `to` together as inclusive dates in `YYYY-MM-DD` format, for example, `?from=2026-11-01&to=2026-11-12`. The `from` date must be within the last two years and cannot be later than `to`. The range can span at most two years.
 
-If you omit both `from` and `to`, the date range defaults to the current billing period, which is the same period shown by default on the organization's [**Usage** page](https://buildkite.com/organizations/~/usage).
+If you omit both dates, the API uses the default date range shown on the organization's [**Usage** page](https://buildkite.com/organizations/~/usage). The range depends on the organization's subscription.
 
 ## Pagination
 
-These endpoints return a [paginated list](<%= paginated_resource_docs_url %>) using `page` and `per_page` query parameters. `per_page` defaults to 500 and is capped at 2000.
+These endpoints use [page-based pagination](/docs/apis/rest-api#pagination) with these limits:
 
-When more pages of results exist, the `Link` response header contains `next`, `prev`, and `first` URLs that preserve the date range and `per_page`:
+- `page`: Defaults to `1`. Values below `1` are treated as `1`, and values above `1000000` are capped at `1000000`.
+- `per_page`: Defaults to `500` if omitted or blank. Values above `2000` are capped at `2000`. Values that parse to less than `1` return `400 Bad Request`.
 
-```
+Follow `rel="next"` in the `Link` response header until there is no `next` link. Pages after the first also include `prev` and `first` links, even on the final page. The API does not send a `last` link. The URLs preserve any explicit dates and include `per_page` only when it differs from the default:
+
+```http
 Link: <https://api.buildkite.com/v2/organizations/{org.slug}/usages/managed_tests?from=2026-11-07&page=2&per_page=2&to=2026-11-10>; rel="next"
 ```
 
 ## Pipelines
+
+Get daily usage for active users, jobs, and concurrent agents in Buildkite Pipelines.
 
 ### Get active user usage
 
@@ -61,7 +63,9 @@ curl -H "Authorization: Bearer $TOKEN" \
 ]
 ```
 
-Returns job count and total duration per day and pipeline, for jobs that ran on self-hosted agents.
+Returns job count and total duration in microseconds per day and pipeline, for jobs that ran on self-hosted agents.
+
+The API returns `null` for `pipeline_uuid` if it can no longer resolve the pipeline ID. This also applies to hosted jobs.
 
 ### Get hosted job usage
 
@@ -82,7 +86,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ]
 ```
 
-Returns job count and total duration per day, pipeline, and [instance shape](/docs/agent/buildkite-hosted/linux#sizes), for jobs that ran on Buildkite-hosted agents.
+Returns job count and total duration in microseconds per day, pipeline, and [instance shape](/docs/agent/buildkite-hosted/linux#sizes), for jobs that ran on Buildkite-hosted agents.
 
 ### Get self-hosted concurrent agent usage
 
@@ -116,6 +120,8 @@ Returns the peak number of concurrently running Buildkite-hosted agents per day.
 
 ## Test Engine
 
+Get daily usage by suite for Buildkite Test Engine.
+
 ### Get managed test usage
 
 ```bash
@@ -129,7 +135,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ]
 ```
 
-Returns the number of managed tests per day and suite.
+Returns the latest managed test count per day and suite.
 
 ### Get test execution usage
 
@@ -174,9 +180,11 @@ curl -H "Authorization: Bearer $TOKEN" \
 ]
 ```
 
-Returns the number of OpenTelemetry spans stored per day and suite.
+Returns the number of OpenTelemetry spans stored per day and suite, excluding test-result spans.
 
 ## Artifacts
+
+Get daily storage, upload, and download usage by pipeline.
 
 ### Get artifact storage usage
 
@@ -225,6 +233,8 @@ Returns artifact bytes downloaded per day and pipeline.
 
 ## Package Registries
 
+Get daily storage and transfer usage by registry, including Packagecloud registries.
+
 ### Get package storage usage
 
 ```bash
@@ -253,14 +263,16 @@ curl -H "Authorization: Bearer $TOKEN" \
 ]
 ```
 
-Returns package bytes transferred (downloaded) per day and registry.
+Returns package transfer bytes per day and registry.
 
 ## Cache
+
+Get daily Buildkite Cache usage by cluster.
 
 ### Get cache usage
 
 > 📘 Requires hosted cache usage to be enabled
-> This endpoint also requires your organization to have hosted cache usage enabled. Otherwise, it returns `404 Not Found`.
+> This endpoint returns `404 Not Found` if hosted cache usage isn't enabled for your organization.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -281,6 +293,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 Returns [Buildkite Cache](/docs/pipelines/configure/cache) read bytes and storage, in GB-minutes, per day and cluster.
 
 ## Hosted models
+
+Get daily token and request counts by provider, model, and hosting type.
 
 ### Get Anthropic token usage
 
@@ -336,7 +350,7 @@ Returns token and request counts per day, model, and hosting, for the [OpenAI mo
 
 Status | Meaning
 ------ | -------
-`400 Bad Request` | Missing, invalid, or too large `from`/`to` date range, or an invalid `per_page`.
-`403 Forbidden` | The token lacks the `read_usages` scope, or the user isn't a member of the organization.
-`404 Not Found` | The organization does not exist, the user or token cannot access it, or the daily usage API isn't enabled for the organization.
+`400 Bad Request` | Only one date was supplied, the date range is invalid, or `per_page` parses to less than `1`.
+`403 Forbidden` | The token lacks the `read_usages` scope.
+`404 Not Found` | The organization doesn't exist or isn't accessible to the caller. For `cache`, this status also means hosted cache usage isn't enabled for the organization.
 {: class="responsive-table"}

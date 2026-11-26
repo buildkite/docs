@@ -249,8 +249,6 @@ A token's REST API scopes are granular, and you can select some or all of the fo
   </tbody>
 </table>
 
-The **Billing** scopes only appear when you belong to a Buildkite organization that has the daily usage API enabled.
-
 ### Audit log
 
 <table>
