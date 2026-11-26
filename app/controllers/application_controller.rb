@@ -7,7 +7,19 @@ class ApplicationController < ActionController::Base
   end
 
   def route_not_found
-    render file: Rails.root.join("public","404.html"), layout: false, status: 404
+    if request.format.md?
+      render plain: <<~MARKDOWN, content_type: "text/markdown", status: :not_found
+        # Page not found
+
+        The requested documentation page could not be found.
+
+        - [Documentation index for AI agents](https://buildkite.com/docs/llms.txt)
+        - [Browse Buildkite Docs](https://buildkite.com/docs)
+        - [Search the docs](https://buildkite.com/docs#search)
+      MARKDOWN
+    else
+      render file: Rails.root.join("public", "404.html"), formats: [:html], layout: false, status: :not_found
+    end
   end
 
   private

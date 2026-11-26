@@ -1,16 +1,9 @@
 # frozen_string_literal: true
 
 class LLMFullText
-  attr_reader :nav
-
-  def initialize(nav)
+  def initialize(nav, view)
     @nav = nav
-  end
-
-  class << self
-    def generate
-      new(Rails.application.config.default_nav).generate
-    end
+    @view = view
   end
 
   def generate
@@ -23,32 +16,25 @@ class LLMFullText
       ""
     ]
 
-    nav.data.each do |section|
+    @nav.data.each do |section|
       next unless section["children"]
 
       pages = []
       pages << section if section["path"] && !should_skip_item?(section)
       collect_pages(section["children"], pages)
-
       next if pages.empty?
 
       # Use labels for bundle metadata so each page keeps its authored heading hierarchy.
-      content << "**#{section['name']}**"
-      content << ""
+      content.push("**#{section['name']}**", "")
 
-      pages.each do |page|
-        page_content = read_page(page["path"])
-        next unless page_content
+      pages.each do |item|
+        path = item.fetch("path")
+        page = Page.new(@view, path)
+        next unless page.exists?
 
-        url = "https://buildkite.com/docs/#{page['path']}.md"
-        content << "**#{page['name']}**"
-        content << ""
-        content << "URL: #{url}"
-        content << ""
-        content << page_content
-        content << ""
-        content << "---"
-        content << ""
+        url = "https://buildkite.com/docs/#{path}.md"
+        markdown = Page::MarkdownExport.format(page.markdown_body, "/docs/#{path}")
+        content.push("**#{item['name']}**", "", "URL: #{url}", "", markdown.strip, "", "---", "")
       end
     end
 
@@ -59,8 +45,7 @@ class LLMFullText
 
   def collect_pages(children, pages)
     children.each do |child|
-      next if child["type"] == "divider"
-      next if should_skip_item?(child)
+      next if child["type"] == "divider" || should_skip_item?(child)
 
       if child["path"]
         pages << child
@@ -70,133 +55,8 @@ class LLMFullText
     end
   end
 
-  def read_page(path)
-    basename = path.tr("-", "_")
-    filepath = Rails.root.join("pages", "#{basename}.md")
-
-    return nil unless File.exist?(filepath)
-
-    parsed = ::FrontMatterParser::Parser.parse_file(filepath)
-    content = parsed.content
-
-    # These templates only use content data, without view helpers. Render their
-    # loops and lookups before resolve_erb strips unsupported helper calls.
-    if %w[platform/security/checklist platform/security/tokens].include?(path)
-      content = ERB.new(content, trim_mode: "-").result
-    end
-
-    # Resolve ERB helpers that we can handle without a view context
-    content = resolve_erb(content)
-
-    # Remove HTML comments
-    content = content.gsub(/<!--.*?-->/m, "")
-
-    # Strip Redcarpet inline attribute lists (e.g., {: class="responsive-table"})
-    content = content.gsub(/^\{:.*?\}\s*$/, "")
-
-    # Convert HTML to Markdown-friendly plain text
-    content = strip_html(content)
-
-    # Clean up excessive blank lines left by stripping
-    content = content.gsub(/\n{3,}/, "\n\n")
-
-    Page::MarkdownExport.format(content, "/docs/#{path}").strip
-  end
-
-  def resolve_erb(content)
-    # Inline render/render_markdown partials with actual file content
-    content = content.gsub(/<%= render_markdown partial: '([^']+)' %>/) do
-      read_partial($1)
-    end
-    content = content.gsub(/<%= render '([^']+)' %>/) do
-      read_partial($1)
-    end
-
-    # Resolve known URL helpers to their actual URLs
-    content = content.gsub(/<%= paginated_resource_docs_url %>/, "/docs/apis/rest-api#pagination")
-    content = content.gsub(/<%= url_helpers\.user_access_tokens_url %>/, "https://buildkite.com/user/api-access-tokens")
-    content = content.gsub(/<%= url_helpers\.user_authorizations_url %>/, "https://buildkite.com/user/connected-apps")
-    content = content.gsub(/<%= url_helpers\.signup_path %>/, "https://buildkite.com/signup")
-    content = content.gsub(/<%= url_helpers\.docs_path %>/, "/docs")
-
-    # Replace image helpers with descriptive placeholders
-    content = content.gsub(/<%= image '([^']+)'[^%]*%>/, '[Image: \1]')
-    content = content.gsub(/<%= image_tag [^%]*%>/, '')
-
-    # Strip any remaining ERB tags that we can't resolve
-    content = content.gsub(/<%.*?%>/m, "")
-
-    content
-  end
-
-  def read_partial(partial_path)
-    filepath = Rails.root.join("pages", "#{partial_path.tr('-', '_')}.md")
-
-    # Partials are prefixed with underscore by convention
-    unless File.exist?(filepath)
-      dir = File.dirname(filepath)
-      base = File.basename(filepath)
-      filepath = File.join(dir, "_#{base}")
-    end
-
-    return "" unless File.exist?(filepath)
-
-    parsed = ::FrontMatterParser::Parser.parse_file(filepath)
-    parsed.content.strip
-  end
-
-  def strip_html(content)
-    # Convert links: <a href="url">text</a> → [text](url)
-    content = content.gsub(/<a\s[^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/m) do
-      url, text = $1, $2
-      text = text.gsub(/<[^>]+>/, "") # strip nested tags from link text
-      "[#{text.strip}](#{url})"
-    end
-
-    # Convert inline formatting
-    content = content.gsub(/<strong>(.*?)<\/strong>/m, '**\1**')
-    content = content.gsub(/<b>(.*?)<\/b>/m, '**\1**')
-    content = content.gsub(/<em>(.*?)<\/em>/m, '_\1_')
-    content = content.gsub(/<code>(.*?)<\/code>/m, '`\1`')
-
-    # Convert headings: <h2>text</h2> → ## text
-    content = content.gsub(/<h([1-6])[^>]*>(.*?)<\/h\1>/m) do
-      level, text = $1.to_i, $2
-      text = text.gsub(/<[^>]+>/, "") # strip nested tags
-      "#{"#" * level} #{text.strip}"
-    end
-
-    # Convert details/summary to plain text
-    content = content.gsub(/<summary>(.*?)<\/summary>/m, '**\1**')
-    content = content.gsub(/<\/?details>/m, "")
-
-    # Convert <br> tags to newlines
-    content = content.gsub(/<br\s*\/?>/, "\n")
-
-    # Convert paragraphs to double newlines
-    content = content.gsub(/<\/p>\s*/m, "\n\n")
-    content = content.gsub(/<p[^>]*>/m, "")
-
-    # Convert simple table rows to pipe-separated text
-    content = content.gsub(/<tr[^>]*>\s*/m, "")
-    content = content.gsub(/<\/tr>/m, "\n")
-    content = content.gsub(/<t[hd][^>]*>(.*?)<\/t[hd]>/m, '| \1 ')
-
-    # Strip remaining HTML tags
-    content = content.gsub(/<[^>]+>/m, "")
-
-    # Decode common HTML entities
-    content = content.gsub("&lt;", "<")
-    content = content.gsub("&gt;", ">")
-    content = content.gsub("&amp;", "&")
-    content = content.gsub("&quot;", '"')
-    content = content.gsub("&nbsp;", " ")
-
-    content
-  end
-
   def should_skip_item?(item)
-    item["path"]&.include?("apis/graphql/schemas/") ||
-      item["path"]&.include?("pipelines/announcements/")
+    path = item["path"]
+    path && (!path.match?(%r{\A[\w/-]+\z}) || path.start_with?("apis/graphql/schemas/", "pipelines/announcements/"))
   end
 end

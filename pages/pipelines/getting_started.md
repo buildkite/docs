@@ -97,7 +97,7 @@ Steps can do anything from building and testing your code to deploying it. Start
 To define the steps:
 
 1. Decide the goal of the pipeline.
-1. Look for an [example pipeline](https://buildkite.com/resources/examples/) closest to that goal, or a [pipeline template](https://buildkite.com/pipelines/templates) for your technology stack, as a starting point.
+1. Look for an [example pipeline](https://buildkite.com/resources/examples/) closest to that goal, or a [pipeline template](https://buildkite.com/platform/pipelines/templates/) for your technology stack, as a starting point.
 
     **Note:** If you have a pipeline defined in another CI/CD platform (GitHub Actions, Jenkins, CircleCI, or Bitbucket Pipelines), use the [Pipeline converter](/docs/pipelines/converter) to convert its syntax.
 
@@ -278,7 +278,7 @@ From here:
     **Note:** To invite others, your email address must first be verified. Go to your [personal email settings](https://buildkite.com/user/emails) and select **Resend Verification**.
 
 - Learn to [create more complex pipelines](/docs/pipelines/configure/defining-steps) with dynamic definitions, conditionals, and concurrency.
-- Browse the [pipeline templates](https://buildkite.com/pipelines/templates) for examples across different technology stacks and use cases.
+- Browse the [pipeline templates](https://buildkite.com/platform/pipelines/templates/) for examples across different technology stacks and use cases.
 - Explore the [featured public pipelines](https://buildkite.com/platform/pipelines/public/) to see how projects such as Bazel, Elastic, and Rails use Buildkite Pipelines.
 - Browse the [Test Engine overview](/docs/pipelines/configure/tests) for the full set of test-suite features, including [workflows](/docs/pipelines/configure/tests/workflows) for flaky test detection and [bktec](/docs/pipelines/speed-up-builds-with-bktec) for test splitting.
 - Review the [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments) that collectors auto-detect.

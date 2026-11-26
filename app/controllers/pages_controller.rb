@@ -19,31 +19,15 @@ class PagesController < ApplicationController
 
   def show
     @nav = default_nav
-    @page = Page.new(view_context, params[:path])
+    legacy_destination = request.path_parameters[:moved_to]
+    page_path = [legacy_destination, params[:path]].compact.join("/")
+    @page = Page.new(view_context, page_path)
 
-    # If the page doesn't exist, walk up the URL looking for the nearest ancestor
-    # page that does exist and redirect there (302). If no ancestor page exists,
-    # fall through to a 404 so callers get a clear signal.
-    unless @page.exists?
-      segments = params[:path].to_s.split("/")
-      parent_path = loop do
-        segments.pop
-        break nil if segments.empty?
-        candidate = Page.new(view_context, segments.join("/"))
-        break "/docs/#{segments.join("/")}" if candidate.exists?
-      end
-
-      if parent_path
-        redirect_to parent_path, status: :found
-      else
-        raise ActionController::RoutingError.new("The documentation page `#{@page.basename}` does not exist")
-      end
-      return
-    end
+    return route_not_found unless @page.exists?
 
     # If there's another more correct version of the URL (for example, we changed `_`
     # to `-`), then redirect them to where they should be.
-    unless @page.is_canonical?
+    if legacy_destination || !@page.is_canonical?
       redirect_to "/docs/#{@page.canonical_url}", status: :moved_permanently
       return # ensure we exit the method after redirecting
     end
@@ -55,7 +39,7 @@ class PagesController < ApplicationController
         render @page.template
       end
       format.md do
-        render_markdown(canonical_path, @page.markdown_body_with_table_conversion)
+        render_markdown(canonical_path, @page.markdown_body)
       end
     end
   end

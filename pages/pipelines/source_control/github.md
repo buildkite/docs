@@ -12,7 +12,7 @@ To complete this integration, you need admin privileges for your GitHub reposito
 You can use the [Buildkite app for GitHub](#connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization.
 
 > 📘 Benefits of using the GitHub App
-> Using the GitHub App removes the reliance on individual user connections to report build statuses. See the <a href="https://buildkite.com/changelog/102-github-app-integration">changelog announcement</a>.
+> Using the GitHub App removes the reliance on individual user connections to report build statuses. See the <a href="https://buildkite.com/resources/changelog/102-github-app-integration/">changelog announcement</a>.
 
 If you want to [connect using OAuth](#connect-your-buildkite-account-to-github-using-oauth), you can still do so from your **Personal Settings**.
 

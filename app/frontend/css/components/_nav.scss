@@ -372,8 +372,8 @@
 .Nav--sidebar {
   .Nav__section {
     &--level2 {
+      display: block;
       @media (min-width: $screen-md) {
-        display: block;
         background-color: $base-0;
         border-color: map-get($color-aliases, "border");
       }

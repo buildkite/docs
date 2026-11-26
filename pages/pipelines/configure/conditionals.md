@@ -505,7 +505,7 @@ The following variables are supported by the `if` attribute. Note that you canno
 </table>
 
 > 🚧 Using `build.env()` with custom environment variables
-> To access custom environment variables with the `build.env()` function, ensure that the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML pipeline steps editor</a> has been enabled in the Pipeline Settings menu.
+> To access custom environment variables with the `build.env()` function, ensure that the <a href="https://buildkite.com/resources/changelog/32-defining-pipeline-build-steps-with-yaml/">YAML pipeline steps editor</a> has been enabled in the Pipeline Settings menu.
 
 The following step variables are also available for <a href="#conditional-notifications">conditional notifications</a> only.
 

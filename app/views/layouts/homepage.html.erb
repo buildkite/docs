@@ -5,12 +5,12 @@
   </head>
   <body data-keywords="docs">
     <%= render "site_header" %>
-    <main id="main" role="main">
-      <div class="HomePage__container">
+    <div class="HomePage__container">
+      <main id="main">
         <%= yield %>
-        <%= render "footer", hide_feedback: true %>
-      </div>
-    </main>
+      </main>
+      <%= render "footer", hide_feedback: true %>
+    </div>
 
     <%# Plain mounts its chat widget as a plain child of <body>, which Turbo
         would otherwise destroy on every navigation. plainChat.js moves it

@@ -266,7 +266,7 @@ Congratulations! :tada: You've set up a continuous deployment pipeline to
 Kubernetes. Here are some things to do next:
 
 - Try a [block step](/docs/pipelines/configure/step-types/block-step) before the trigger to enforce manual deploys.
-- Use [GitHub's Deployment API](https://buildkite.com/blog/github-deployments) to trigger deployments from external tooling (for example, ChatOps).
+- Use [GitHub's Deployment API](https://buildkite.com/resources/blog/github-deployments/) to trigger deployments from external tooling (for example, ChatOps).
 - Expose the application to the internet with [Kubernetes Service](https://kubernetes.io/docs/concepts/services-networking/service/).
 - Replace the `envsubst` implementation with something like [kustomize](https://kustomize.io/)
 

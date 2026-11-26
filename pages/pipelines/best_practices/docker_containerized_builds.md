@@ -98,7 +98,7 @@ There are many configuration options available for the Docker plugin. For the co
 
 ## Pipeline templates using Docker
 
-To see more examples of how Docker is used in Buildkite pipelines, browse the [Docker templates](https://buildkite.com/pipelines/templates?platform=docker).
+To see more examples of how Docker is used in Buildkite pipelines, browse the [Docker templates](https://buildkite.com/platform/pipelines/templates/?platform=docker).
 
 
 ## Creating your own Docker infrastructure

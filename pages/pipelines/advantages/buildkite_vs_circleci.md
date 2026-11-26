@@ -63,7 +63,7 @@ Buildkite Pipelines provides a unified dashboard that shows build health, queue 
 
 CircleCI supports path filtering, but sophisticated monorepo strategies require additional scripting and configuration to correctly model cross-directory dependencies and to avoid rebuilding unaffected services.
 
-Buildkite Pipelines handles large [monorepos](/docs/pipelines/best-practices/working-with-monorepos) efficiently by making the pipeline itself programmable. [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) can implement dependency-aware builds and selective rebuilds, with the [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes) for declarative path filtering. For teams that want a turnkey solution, the [Monorepo Diff plugin](https://buildkite.com/resources/plugins/monorepo-diff) watches for changes across directories and triggers the appropriate pipelines automatically. This reduces wasted work and helps keep feedback fast as repository complexity grows.
+Buildkite Pipelines handles large [monorepos](/docs/pipelines/best-practices/working-with-monorepos) efficiently by making the pipeline itself programmable. [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) can implement dependency-aware builds and selective rebuilds, with the [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes) for declarative path filtering. For teams that want a turnkey solution, the [Monorepo Diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/) watches for changes across directories and triggers the appropriate pipelines automatically. This reduces wasted work and helps keep feedback fast as repository complexity grows.
 
 ## Orbs vs. plugins
 
@@ -89,7 +89,7 @@ Both platforms support job routing: CircleCI uses resource classes and self-host
 
 CircleCI secrets are managed through contexts configured in the UI, and each job must explicitly opt into a context. There is no alternative mechanism.
 
-Buildkite Pipelines supports multiple approaches: [agent hooks](/docs/agent/hooks), Kubernetes secrets, S3, a [secrets manager](/docs/pipelines/security/secrets/managing), or the [HashiCorp Vault plugin](https://buildkite.com/resources/plugins/vault-secrets). Teams can choose the model that fits their security posture without being forced into a single UI-driven pattern.
+Buildkite Pipelines supports multiple approaches: [agent hooks](/docs/agent/hooks), Kubernetes secrets, S3, a [secrets manager](/docs/pipelines/security/secrets/managing), or the [HashiCorp Vault plugin](https://buildkite.com/resources/plugins/buildkite-plugins/vault-secrets-buildkite-plugin/). Teams can choose the model that fits their security posture without being forced into a single UI-driven pattern.
 
 ## Migration path
 

@@ -81,7 +81,7 @@ class Page
     end
 
     def paginated_resource_docs_url
-      @url_helpers.docs_path + '/rest-api#pagination'
+      @url_helpers.docs_path + '/apis/rest-api#pagination'
     end
 
     attr_reader :url_helpers
@@ -163,14 +163,6 @@ class Page
     # Remove HTML comments from the markdown output
     # This ensures they don't appear in .md format responses or copy functionality
     filter_html_comments(result)
-  end
-
-  def markdown_body_with_table_conversion
-    # Get the base markdown content
-    base_content = markdown_body
-    
-    # Convert HTML tables to Markdown format for .md endpoint only
-    convert_html_tables_to_markdown(base_content)
   end
 
   def body
@@ -275,55 +267,4 @@ class Page
     # Clean up any resulting blank lines (but preserve intentional spacing)
     result.gsub(/\n\s*\n\s*\n/, "\n\n")
   end
-
-  def convert_html_tables_to_markdown(text)
-    # Convert all HTML tables to Markdown for .md format
-    text.gsub(/<table(?:\s+[^>]*)?>.*?<\/table>/mi) do |table_html|
-      
-      # Use regex-based extraction for table parsing
-      rows = table_html.scan(/<tr[^>]*>(.*?)<\/tr>/mi).flatten
-      next table_html if rows.empty?
-      
-      markdown_rows = []
-      
-      rows.each_with_index do |row_html, index|
-        # Extract cell content using regex (safer than Nokogiri)
-        cells = row_html.scan(/<(?:td|th)[^>]*>(.*?)<\/(?:td|th)>/mi).flatten
-        next if cells.empty?
-        
-        # Convert cells to plain text
-        cell_texts = cells.map do |cell_html|
-          # HTML to text conversion
-          text = cell_html.to_s
-          # Convert links
-          text = text.gsub(/<a\s+href=["']([^"']+)["'][^>]*>([^<]+)<\/a>/i, '[\2](\1)')
-          # Convert code tags  
-          text = text.gsub(/<code[^>]*>([^<]*)<\/code>/i, '`\1`')
-          # Convert em/strong tags
-          text = text.gsub(/<em[^>]*>([^<]*)<\/em>/i, '_\1_')
-          text = text.gsub(/<strong[^>]*>([^<]*)<\/strong>/i, '**\1**')
-          # Remove other HTML tags but preserve line breaks
-          text = text.gsub(/<br\s*\/?>/i, ' ')
-          text = text.gsub(/<[^>]+>/, ' ')
-          # Clean whitespace
-          text.strip.gsub(/\s+/, ' ')
-        end
-        
-        # Create markdown row
-        markdown_rows << "| #{cell_texts.join(' | ')} |"
-        
-        # Add separator after header
-        if index == 0
-          markdown_rows << "| #{cell_texts.map { '---' }.join(' | ')} |"
-        end
-      end
-      
-      if markdown_rows.length > 1
-        "\n\n#{markdown_rows.join("\n")}\n\n"
-      else
-        table_html
-      end
-    end
-  end
-
 end

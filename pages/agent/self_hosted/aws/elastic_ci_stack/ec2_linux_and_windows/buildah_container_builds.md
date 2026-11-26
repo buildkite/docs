@@ -20,7 +20,7 @@ To use Buildah with the Elastic CI Stack for AWS, you will need to run Buildah i
 
 ### Building and pushing to Buildkite Package Registries
 
-The following example shows how to build a container image and push it to [Buildkite Package Registries](https://buildkite.com/docs/packages) using [OIDC authentication](/docs/pipelines/security/oidc):
+The following example shows how to build a container image and push it to [Buildkite Package Registries](/docs/package-registries) using [OIDC authentication](/docs/pipelines/security/oidc):
 
 ```yaml
 env:
