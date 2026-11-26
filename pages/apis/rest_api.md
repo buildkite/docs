@@ -36,6 +36,14 @@ GET | `/v2/organizations` | [List organizations](/docs/apis/rest-api/organizatio
 GET | `/v2/organizations/{org.slug}` | [Get an organization](/docs/apis/rest-api/organizations#get-an-organization)
 GET | `/v2/organizations/{org.slug}/rate_limit` | [Get organization rate limits](/docs/apis/rest-api/organizations/rate-limits#get-rate-limits)
 GET | `/v2/organizations/{org.slug}/usage` | [Get organization usage](/docs/apis/rest-api/organizations/usage#get-organization-usage)
+{: class="responsive-table"}
+
+### Organization billing usage breakdown API
+
+Use the [Organization billing usage breakdown API](/docs/apis/rest-api/organizations/usages) to retrieve daily measurements by resource.
+
+Method | Endpoint | Description
+------ | -------- | -----------
 GET | `/v2/organizations/{org.slug}/usages/active_users` | [Get active user usage](/docs/apis/rest-api/organizations/usages#pipelines-get-active-user-usage)
 GET | `/v2/organizations/{org.slug}/usages/self_hosted_jobs` | [Get self-hosted job usage](/docs/apis/rest-api/organizations/usages#pipelines-get-self-hosted-job-usage)
 GET | `/v2/organizations/{org.slug}/usages/hosted_jobs` | [Get hosted job usage](/docs/apis/rest-api/organizations/usages#pipelines-get-hosted-job-usage)

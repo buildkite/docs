@@ -1145,7 +1145,7 @@
               path: "apis/rest-api/repository-connections"
             - name: "Usage"
               path: "apis/rest-api/organizations/usage"
-            - name: "Daily usage"
+            - name: "Organization billing usage breakdown API"
               path: "apis/rest-api/organizations/usages"
             - name: "Workload identities"
               path: "apis/rest-api/organizations/workload-identities"
