@@ -16,11 +16,13 @@ With the MCP server connected, your agent can:
 
 - Fetch build logs and identify root causes of failures
 - Query pipeline configuration and suggest improvements
-- Trigger new builds and monitor their progress
+- Monitor build progress and, with write access, trigger new builds
 - Access cluster and queue state to debug job routing issues
 - And more
 
-To set up the MCP server, see the [MCP server](/docs/apis/mcp-server) documentation.
+If you only need to inspect Buildkite data, such as build logs or pipeline configuration, you can ask your coding agent to set up a read-only MCP connection using the [Buildkite setup prompt](/docs/agent-setup/prompt.md). For example, ask: “Set up a read-only Buildkite MCP connection using `https://buildkite.com/docs/agent-setup/prompt.md`.”
+
+If your workflow needs to trigger builds or make other changes, see [Configuring AI tools with the remote Buildkite MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) for write-capable setup.
 
 ## Installing Buildkite skills
 
