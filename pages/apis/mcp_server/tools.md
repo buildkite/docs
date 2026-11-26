@@ -713,6 +713,8 @@ This tool also accepts optional inclusive `from` and `to` dates (`YYYY-MM-DD`, p
 
 The `cache` resource returns `404 Not Found` if hosted cache usage isn't enabled for your organization.
 
+If you connected to the remote MCP server using OAuth before this tool was available, reconnect the MCP server and approve the `read_usages` scope. Until you do, `list_organization_usage` doesn't appear, even with the `usage` toolset enabled.
+
 ## Smart caching and storage
 
 To improve performance in accessing log data from the Buildkite platform, the Buildkite MCP server downloads and stores the [logs of jobs](/docs/apis/rest-api/jobs#get-a-jobs-log-output) in [Parquet file format](https://parquet.apache.org/docs/file-format/) to either of the following areas.
