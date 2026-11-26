@@ -127,8 +127,6 @@ With `bktec run`, each parallel job gets a fixed share of the tests. With `bktec
 > 📘 Private preview feature
 > Test Scheduler is in private preview and must be enabled for your Buildkite organization. To request access, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
 
-For most pipelines, use `bktec pool run`. If you need to control how jobs request work and report results, use the [Test Scheduler REST API](/docs/apis/rest-api/test-engine/test-scheduler) directly.
-
 #### Plan the pool and start workers
 
 Run `bktec pool plan` in a separate step to discover tests and create the pool once. Workers don't create pools. Each `bktec pool run` worker needs `BUILDKITE_TEST_ENGINE_POOL_ID` (or `--pool-id`), unless it's running a local split. Use the same test discovery settings in the planner and workers so fallback discovers the same tests.
