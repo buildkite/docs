@@ -21,7 +21,7 @@ Public visibility doesn't determine whether untrusted code can run. Before enabl
 
 Make a pipeline public in the pipeline's **Settings** > **General** page:
 
-<%= image "settings.png", width: 1960/2, height: 630/2, alt: "Public pipeline settings" %>
+<%= image "settings.png", width: 1744/2, height: 550/2, alt: "Pipeline Management card with Make public on the internet, Archive Pipeline, and Delete Pipeline controls" %>
 
 ## Create a public pipeline using the GraphQL API
 
