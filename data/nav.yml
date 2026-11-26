@@ -1145,7 +1145,6 @@
               path: "apis/rest-api/repository-connections"
             - name: "Spend alert"
               path: "apis/rest-api/organizations/spend-alert"
-              pill: "preview"
             - name: "Usage"
               path: "apis/rest-api/organizations/usage"
             - name: "Workload identities"

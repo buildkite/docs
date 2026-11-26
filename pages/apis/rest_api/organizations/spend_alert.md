@@ -4,7 +4,7 @@ Retrieve an organization's [spend alert](/docs/platform/spend-alerts) settings, 
 
 ## Get the organization's spend alert
 
-Requires the `read_spend_alerts` [token scope](/docs/apis/managing-api-tokens#token-scopes) and billing permissions for the organization. If the API isn't available to the organization, the endpoint returns `404 Not Found`.
+Requires the `read_spend_alerts` [token scope](/docs/apis/managing-api-tokens#token-scopes-spend-alerts) and billing permissions for the organization.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
