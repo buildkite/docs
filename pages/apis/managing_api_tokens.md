@@ -255,6 +255,10 @@ A token's REST API scopes are granular, and you can select some or all of the fo
   </tbody>
 </table>
 
+### Spend alerts
+
+Select **READ** under **Spend Alerts** to grant `read_spend_alerts`. This scope lets users with billing permissions [retrieve the organization's spend alert](/docs/apis/rest-api/organizations/spend-alert).
+
 ### Security
 
 <table>
