@@ -13,9 +13,9 @@ class ApplicationController < ActionController::Base
 
         The requested documentation page could not be found.
 
-        - [Buildkite Docs](https://buildkite.com/docs.md)
-        - [Search the docs](https://buildkite.com/docs#search)
         - [Documentation index for AI agents](https://buildkite.com/docs/llms.txt)
+        - [Browse Buildkite Docs](https://buildkite.com/docs)
+        - [Search the docs](https://buildkite.com/docs#search)
       MARKDOWN
     else
       render file: Rails.root.join("public", "404.html"), formats: [:html], layout: false, status: :not_found
