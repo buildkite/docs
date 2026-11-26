@@ -2,7 +2,8 @@
 
 The Test Scheduler API dynamically distributes tests across Buildkite Pipelines jobs. As each job becomes available, it requests additional work and reports the results.
 
-> The Test Scheduler API is currently in development. This documentation is currently being drafted. It is only available to design partners on a limited basis. It is subject to change.
+> 📘 Private preview feature
+> The Test Scheduler API is in private preview and must be enabled for your Buildkite organization. To request access, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com). The API may change during the preview.
 
 <%= image "test-scheduler-overview.png", width: 1406/2, height: 508/2, alt: "Diagram showing a discovery job uploading test entries to a test pool and three jobs leasing and completing test attempts" %>
 
@@ -83,6 +84,8 @@ The OIDC token must:
 The `GET /pools`, `GET /pools/{pool.id}`, and `GET /pools/{pool.id}/metrics` endpoints accept a REST API access token with the `read_test_pool` [scope](/docs/apis/managing-api-tokens#token-scopes). The token must include the organization in its organization access. The Buildkite user associated with the token must have access to both the pool's build through pipeline permissions and the pool's test suite. The token does not need additional `read_builds` or `read_suites` scopes.
 
 To get a pool or its metrics, provide the pool's build UUID as the `build_id` query string parameter. Listing pools requires both `pipeline_id` and `build_id` UUIDs. The build must belong to that pipeline.
+
+REST API access tokens can read expired pools while their history is retained. OIDC requests can only read pools that haven't expired.
 
 Provide the token in the `Authorization` header. For example, to get a pool:
 
@@ -373,7 +376,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>lease.max_attempts</code></th>
-    <td>The maximum number of attempts in each lease. Accepts integers from <code>1</code> through <code>300</code> by default. The first affinity group is leased as a whole even when it exceeds this maximum.<br><em>Default:</em> <code>300</code></td>
+    <td>The target maximum number of attempts in each lease. Accepts integers from <code>1</code> up to the organization's limit, subject to the scheduler's maximum. The first affinity batch can exceed the configured value.<br><em>Default:</em> <code>300</code>, or the allowed maximum if it is lower.</td>
   </tr>
 </tbody>
 </table>
@@ -788,7 +791,7 @@ Optional entry properties:
   </tr>
   <tr>
     <th><code>entries[].affinity_group</code></th>
-    <td>A string of up to 255 characters. Waiting attempts with the same non-empty affinity group are leased together. All entries in an affinity group must be included in the same upload request. A blank or <code>null</code> value means that the entry has no affinity group.</td>
+    <td>A string of up to 255 characters. Test Scheduler groups initial attempts with the same affinity key and attempt index. Attempts created later by the attempt policy don't inherit the group. All entries in an affinity group must be included in the same upload request. A blank or <code>null</code> value means that the entry has no affinity group.</td>
   </tr>
   <tr>
     <th><code>entries[].meta_data</code></th>
@@ -952,17 +955,13 @@ Optional request headers:
 </tbody>
 </table>
 
-The API sorts waiting attempts by:
+Test Scheduler prioritizes ready work by higher `priority`, then lower attempt index, then earlier queue order. This is not a guarantee that attempts run in upload order: work must be ready to lease, and multiple jobs can lease concurrently.
 
-- `priority` in descending order.
-- `created_at` in ascending order.
-- UUID in ascending order.
-
-Attempts without an affinity group are included in the lease on their own, but attempts belonging to an affinity group are expanded to include a single attempt from each entry in the group. Affinity groups with attempts locked by concurrent leases are not included.
+Initial attempts in the same affinity group can be leased together. Attempts created later by the attempt policy are scheduled individually, even if their entries belong to an affinity group.
 
 The API applies the pool's selected lease cost dimension (`custom`, `duration_p90_ms`, or `duration_p50_ms`) and `lease.max_attempts` settings to each lease:
 
-- The first batch is always leased, even if it exceeds the target cost. When the first batch is an affinity group, the entire group is leased even if it exceeds the attempt limit.
+- The first batch can exceed the target cost or configured attempt limit. A separate maximum still applies to the total number of attempts the scheduler can lease at once.
 - Each later batch is added only if the entire batch fits within both limits.
 - Selection stops at the first later batch that does not fit. The API does not skip that batch to consider lower-priority work.
 
@@ -1447,6 +1446,8 @@ Success response: `200 OK`
 Returns the pool state and whether the requesting job participated in a terminal entry failure in that pool. `job.participated_in_terminal_failure` is `true` if the job or a previous job in its retry chain completed a failed or errored attempt for an entry that ultimately failed. If the entry is still pending or eventually passes, the attempt does not count. A `false` value does not mean the pool is finished or that all tests passed.
 
 Use a job OIDC token. The `job.id` in the path must match the token's `job_id` claim, even when the API checks earlier jobs in the retry chain. REST API access tokens are not accepted.
+
+The endpoint returns `404 Not Found` if the pool has expired or is no longer available to the job.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/jobs/{job.id}" \
