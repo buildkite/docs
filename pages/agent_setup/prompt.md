@@ -21,9 +21,12 @@ The skills teach agents how to create and migrate pipelines, run preflight build
 
 If the client cannot complete OAuth, stop MCP setup and direct the user to the [headless setup guide](/docs/apis/mcp-server/remote/configuring-ai-tools#api-token-pass-through-for-headless-agents). Leave API token configuration to the user.
 
-If the user requests read-only access, use the [read-only OAuth endpoint](/docs/apis/mcp-server#read-only-remote-mcp-server) at `https://mcp.buildkite.com/mcp/readonly`. If the workflow only needs to inspect Buildkite data and the user hasn't chosen an access mode, offer this option. The examples below show read-only setup. Read-only access limits this connection, not the agent's [other tools or credentials](/docs/apis/mcp-server/remote/configuring-ai-tools#read-only-access-boundaries).
+If the workflow only needs to inspect Buildkite data and the user hasn't chosen an access mode, offer read-only access. If the requested access is unclear, ask which mode the user wants before configuring the connection.
 
-If the user explicitly requests write access, follow the [remote MCP configuration guide](/docs/apis/mcp-server/remote/configuring-ai-tools) to configure a separate write-capable connection. If the requested access is unclear, ask which mode the user wants before configuring the connection.
+- **Read-only**: Use `buildkite-read-only` with the [read-only OAuth endpoint](/docs/apis/mcp-server#read-only-remote-mcp-server), `https://mcp.buildkite.com/mcp/readonly`. Read-only access limits this connection, not the agent's [other tools or credentials](/docs/apis/mcp-server/remote/configuring-ai-tools#read-only-access-boundaries).
+- **Read-write**: Use `buildkite-read-write` with `https://mcp.buildkite.com/mcp` only if the user explicitly requests write access.
+
+Configure only the selected mode and leave existing connections unchanged. In the client instructions below, replace `SERVER_NAME` and `SERVER_URL` with the selected connection name and URL.
 
 ### Amp
 
@@ -32,21 +35,21 @@ For the local Amp CLI, merge the following configuration into the project's `.am
 ```json
 {
   "amp.mcpServers": {
-    "buildkite-read-only": {
-      "url": "https://mcp.buildkite.com/mcp/readonly"
+    "SERVER_NAME": {
+      "url": "SERVER_URL"
     }
   }
 }
 ```
 
-For Amp on the web or in an orb, add the same name and URL as a personal [remote MCP definition](https://ampcode.com/docs/customize/mcp#remote-mcp-definitions) with OAuth in [Integrations & MCP settings](https://ampcode.com/settings/integrations).
+For Amp on the web or in an orb, add the selected name and URL as a personal [remote MCP definition](https://ampcode.com/docs/customize/mcp#remote-mcp-definitions) with OAuth in [Integrations & MCP settings](https://ampcode.com/settings/integrations).
 
 ### Claude Code
 
 Run this command:
 
 ```bash
-claude mcp add --transport http buildkite-read-only https://mcp.buildkite.com/mcp/readonly
+claude mcp add --transport http SERVER_NAME SERVER_URL
 ```
 
 ### Codex
@@ -54,20 +57,20 @@ claude mcp add --transport http buildkite-read-only https://mcp.buildkite.com/mc
 Run this command:
 
 ```bash
-codex mcp add buildkite-read-only --url https://mcp.buildkite.com/mcp/readonly
+codex mcp add SERVER_NAME --url SERVER_URL
 ```
 
-If Codex doesn't start OAuth automatically, run `codex mcp login buildkite-read-only`.
+If Codex doesn't start OAuth automatically, run `codex mcp login SERVER_NAME`.
 
 ### Cursor
 
-The [Buildkite plugin on the Cursor Marketplace](https://cursor.com/marketplace/buildkite) installs both the MCP server and Buildkite skills, and uses the write-capable MCP endpoint. For read-only access, merge the following configuration into `.cursor/mcp.json` instead:
+The [Buildkite plugin on the Cursor Marketplace](https://cursor.com/marketplace/buildkite) installs both the MCP server and Buildkite skills, and uses the write-capable MCP endpoint. To configure the selected connection without installing the plugin, merge the following configuration into `.cursor/mcp.json`:
 
 ```json
 {
   "mcpServers": {
-    "buildkite-read-only": {
-      "url": "https://mcp.buildkite.com/mcp/readonly"
+    "SERVER_NAME": {
+      "url": "SERVER_URL"
     }
   }
 }
@@ -80,9 +83,9 @@ Merge the following configuration into `.vscode/mcp.json`:
 ```json
 {
   "servers": {
-    "buildkite-read-only": {
+    "SERVER_NAME": {
       "type": "http",
-      "url": "https://mcp.buildkite.com/mcp/readonly"
+      "url": "SERVER_URL"
     }
   }
 }
@@ -90,7 +93,7 @@ Merge the following configuration into `.vscode/mcp.json`:
 
 ### Other agents
 
-For another agent, use its standard remote MCP configuration to register a server named `buildkite-read-only` with the URL `https://mcp.buildkite.com/mcp/readonly`.
+For another agent, use its standard remote MCP configuration with the selected connection name and URL.
 
 ## Authenticate and verify
 
@@ -98,7 +101,7 @@ Restart or reload the agent if required, then verify that any installed Buildkit
 
 If OAuth is needed, start the client's sign-in flow. When the browser authorization page opens, ask the user to select their Buildkite organization and authorize access. If the organization requires SSO, the user must log in with SSO first.
 
-For read-only setup, call `list_pipelines` through the `buildkite-read-only` connection for the organization the user authorized. An empty list is a valid result. If the call fails, report the error instead of switching to another connection or credential.
+For either mode, call `list_pipelines` through the selected connection for the organization the user authorized. An empty list is a valid result. This call verifies the connection, not write permissions. If the call fails, report the error instead of switching to another connection or credential.
 
 Once complete, report which skills and MCP configuration were installed, where they were installed, and whether authorization and verification succeeded.
 
