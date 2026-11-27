@@ -2,7 +2,7 @@
 set -euo pipefail
 
 image="docs-eval:${BUILDKITE_JOB_ID}"
-docker build --target runtime --build-arg RAILS_ENV=production --tag "$image" .
+docker buildx build --load --target runtime --build-arg RAILS_ENV=production --tag "$image" .
 container=$(docker run --detach --publish 127.0.0.1::3000 "$image")
 trap 'docker rm --force "$container" >/dev/null; docker image rm "$image" >/dev/null' EXIT
 
