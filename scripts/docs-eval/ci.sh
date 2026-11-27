@@ -7,7 +7,9 @@ container=$(docker run --detach --publish 127.0.0.1::3000 "$image")
 trap 'docker rm --force "$container" >/dev/null; docker image rm "$image" >/dev/null' EXIT
 
 base_url="http://$(docker port "$container" 3000/tcp)"
-if ! curl --fail --silent --retry 10 --retry-connrefused --retry-delay 2 "$base_url/docs" -o /dev/null; then
+echo "Waiting for rendered docs at $base_url/docs"
+if ! curl --fail --silent --show-error --max-time 10 \
+    --retry 10 --retry-all-errors --retry-delay 2 "$base_url/docs" -o /dev/null; then
     docker logs "$container"
     exit 1
 fi
