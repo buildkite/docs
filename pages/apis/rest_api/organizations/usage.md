@@ -1,6 +1,6 @@
 # Organization usage API
 
-Use the organization usage API to retrieve active-user counts and product usage summaries for a Buildkite organization.
+Use the organization usage API to retrieve active-user counts and product usage summaries for a Buildkite organization. For daily measurements by resource, use the [organization billing usage breakdown API](/docs/apis/rest-api/organizations/usages).
 
 Any organization member can use this endpoint. The [API access token](/docs/apis/managing-api-tokens) must include the `read_organizations` scope and grant access to the requested organization.
 

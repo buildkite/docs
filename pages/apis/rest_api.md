@@ -38,6 +38,31 @@ GET | `/v2/organizations/{org.slug}/rate_limit` | [Get organization rate limits]
 GET | `/v2/organizations/{org.slug}/usage` | [Get organization usage](/docs/apis/rest-api/organizations/usage#get-organization-usage)
 {: class="responsive-table"}
 
+### Organization billing usage breakdown API
+
+Use the [organization billing usage breakdown API](/docs/apis/rest-api/organizations/usages) to retrieve daily measurements by resource.
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/usages/active_users` | [Get active user usage](/docs/apis/rest-api/organizations/usages#pipelines-get-active-user-usage)
+GET | `/v2/organizations/{org.slug}/usages/self_hosted_jobs` | [Get self-hosted job usage](/docs/apis/rest-api/organizations/usages#pipelines-get-self-hosted-job-usage)
+GET | `/v2/organizations/{org.slug}/usages/hosted_jobs` | [Get hosted job usage](/docs/apis/rest-api/organizations/usages#pipelines-get-hosted-job-usage)
+GET | `/v2/organizations/{org.slug}/usages/self_hosted_concurrent_agents` | [Get self-hosted concurrent agent usage](/docs/apis/rest-api/organizations/usages#pipelines-get-self-hosted-concurrent-agent-usage)
+GET | `/v2/organizations/{org.slug}/usages/hosted_concurrent_agents` | [Get hosted concurrent agent usage](/docs/apis/rest-api/organizations/usages#pipelines-get-hosted-concurrent-agent-usage)
+GET | `/v2/organizations/{org.slug}/usages/managed_tests` | [Get managed test usage](/docs/apis/rest-api/organizations/usages#test-engine-get-managed-test-usage)
+GET | `/v2/organizations/{org.slug}/usages/test_executions` | [Get test execution usage](/docs/apis/rest-api/organizations/usages#test-engine-get-test-execution-usage)
+GET | `/v2/organizations/{org.slug}/usages/otel_ingestion` | [Get OpenTelemetry ingestion usage](/docs/apis/rest-api/organizations/usages#test-engine-get-opentelemetry-ingestion-usage)
+GET | `/v2/organizations/{org.slug}/usages/otel_storage` | [Get OpenTelemetry storage usage](/docs/apis/rest-api/organizations/usages#test-engine-get-opentelemetry-storage-usage)
+GET | `/v2/organizations/{org.slug}/usages/artifact_storage` | [Get artifact storage usage](/docs/apis/rest-api/organizations/usages#artifacts-get-artifact-storage-usage)
+GET | `/v2/organizations/{org.slug}/usages/artifact_uploads` | [Get artifact upload usage](/docs/apis/rest-api/organizations/usages#artifacts-get-artifact-upload-usage)
+GET | `/v2/organizations/{org.slug}/usages/artifact_downloads` | [Get artifact download usage](/docs/apis/rest-api/organizations/usages#artifacts-get-artifact-download-usage)
+GET | `/v2/organizations/{org.slug}/usages/package_storage` | [Get package storage usage](/docs/apis/rest-api/organizations/usages#package-registries-get-package-storage-usage)
+GET | `/v2/organizations/{org.slug}/usages/package_transfer` | [Get package transfer usage](/docs/apis/rest-api/organizations/usages#package-registries-get-package-transfer-usage)
+GET | `/v2/organizations/{org.slug}/usages/cache` | [Get cache usage](/docs/apis/rest-api/organizations/usages#cache-get-cache-usage)
+GET | `/v2/organizations/{org.slug}/usages/anthropic_tokens` | [Get Anthropic token usage](/docs/apis/rest-api/organizations/usages#hosted-models-get-anthropic-token-usage)
+GET | `/v2/organizations/{org.slug}/usages/openai_tokens` | [Get OpenAI token usage](/docs/apis/rest-api/organizations/usages#hosted-models-get-openai-token-usage)
+{: class="responsive-table"}
+
 ### Audit events
 
 Method | Endpoint | Description
