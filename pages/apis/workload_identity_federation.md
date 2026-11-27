@@ -125,6 +125,7 @@ Buildkite won't save an expression that:
 - **Teams:** Teams, their members, and their pipeline assignments. Reading a team's pipeline assignments also requires access to those pipelines.
 - **Clusters:** Clusters and their resources, such as queues, agent tokens, maintainers, and agents. Unclustered agents are never included.
 - **Test suites:** [Buildkite Test Engine](/docs/pipelines/configure/tests) test suites and their runs, tests, test plans, and workflows.
+- **Package registries:** [Buildkite Package Registries](/docs/package-registries) registries and their packages and registry tokens.
 
 Each row has three options:
 

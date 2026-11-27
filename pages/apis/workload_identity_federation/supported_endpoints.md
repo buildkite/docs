@@ -12,6 +12,7 @@ Product area | Resource access | Scopes
 [Agents and clusters](#agents-and-clusters) | Clusters | `read_agents`, `write_agents`, `read_clusters`, `write_clusters`
 [Teams](#teams) | Teams | `read_teams`, `write_teams`
 [Test Engine](#test-engine) | Test suites | `read_suites`, `write_suites`, `read_test_plan`, `write_test_plan`, `read_test_pool`
+[Package Registries](#package-registries) | Package registries | `read_registries`, `write_registries`, `delete_registries`, `read_packages`, `write_packages`, `delete_packages`
 [Organization administration](#organization-administration) | Not limited | `read_organizations`, `write_organizations`, `read_organization_settings`, `write_organization_settings`, `read_notification_services`, `write_notification_services`, `read_audit_events`, `read_organization_invitations`, `read_api_request_logs`, `read_organization_repository_connections`, `read_portals`
 {: class="responsive-table"}
 
@@ -39,6 +40,12 @@ With test suite access, a token can work with those suites in Buildkite Test Eng
 
 Reads that start from a build or pipeline, such as a build's tests or test pools, also require access to that pipeline. A token can't create test suites, assign them to teams, or see a suite's API token or webhook endpoints.
 
+## Package Registries
+
+With package registry access, a token can work with those registries in Buildkite Package Registries: read and manage the registries and their registry tokens, and publish, copy, and delete their packages. Package clients, such as npm, pip, or Docker, can also use the token with `packages.buildkite.com`, and the same scopes and access apply. Learn more in the [Registries API](/docs/apis/rest-api/package-registries/registries) reference.
+
+Creating registries requires **All** package registry access. In organizations with teams, a new registry must also be assigned to at least one team that the token can reach. Copying a package to another registry requires access to both registries.
+
 ## Organization administration
 
 Organization administration scopes reach across your whole Buildkite organization, and **Resource Access** doesn't limit them. They let a token manage members and organization settings, manage notification services, and read the audit log, invitations, API request logs, repository connections, and portals. A token with these scopes can read or change data about pipelines, teams, and clusters that it can't otherwise reach, so grant them only when the workload needs that access.
@@ -53,9 +60,10 @@ Some changes that a token makes stay in place after the token expires or the wor
 - Users and teams that it adds as cluster maintainers keep their access.
 - Schedules that it creates keep running builds.
 - Workflows that it adds to a test suite keep sending notifications.
+- Registry tokens that it creates don't expire, so they keep working.
 
-Remove these separately when you no longer need them, and grant `write_clusters`, `write_pipelines`, and `write_suites` only to workloads that you trust.
+Remove these separately when you no longer need them, and grant `write_clusters`, `write_pipelines`, `write_suites`, and `write_registries` only to workloads that you trust.
 
 ## Unsupported APIs and scopes
 
-GraphQL, Buildkite Package Registries, secrets, and workload identity management aren't supported. The `write_build_logs` and `write_artifacts` scopes can be configured, but don't enable log or artifact deletion.
+GraphQL, secrets, and workload identity management aren't supported. The `write_build_logs` and `write_artifacts` scopes can be configured, but don't enable log or artifact deletion.
