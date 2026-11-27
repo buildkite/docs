@@ -109,7 +109,7 @@ The Test Scheduler API uses these four resources:
 
 ### Pool lifecycle
 
-A pool moves through three states:
+Pools created with [Create a pool](#create-a-pool) follow this lifecycle.
 
 - `populating`: Entries can be added to the pool, and jobs can lease attempts. The pool remains in this state until the initial set of entries is marked as complete, even when no attempts are waiting or leased.
 - `consuming`: All initial entries have been added. Jobs can continue to lease, complete, and release attempts.
@@ -808,7 +808,7 @@ For `test_plan_test_case_v1`, the selector object requires a `format` of `file`,
 
 Use the optional `Idempotency-Key` header to prevent duplicate entries when retrying an upload. Set `IDEMPOTENCY_KEY` to a new UUIDv7 for each set of entries. Reuse the same `Idempotency-Key` value and send the same `entries` when retrying that batch. Without this header, retries can create duplicate entries.
 
-The request is atomic. If any entry is invalid, the API creates no entries. New entries can only be created while the pool is accepting entries, and has not transitioned to the `consuming` state.
+The API validates all entries before creating any. If any entry fails validation, the API creates none. New entries can only be created while the pool is accepting entries, and has not transitioned to the `consuming` state.
 
 The API remembers successful requests with an `Idempotency-Key` for five minutes. After the key expires, the API can create duplicates if the pool is still accepting entries.
 
@@ -1022,7 +1022,7 @@ Every successful response includes the pool ID and state. When no attempts are w
 }
 ```
 
-A consumed pool also returns `200 OK` with `"lease": null` and `"pool.state": "consumed"`. Clients can use this state to stop polling. Expired and destroyed pools return `409 Conflict`.
+A consumed pool also returns `200 OK` with `"lease": null` and `"pool.state": "consumed"`. Clients can use this state to stop polling. If the pool is already expired or destroyed when the API looks it up, the request returns `404 Not Found`.
 
 ### Idempotent lease acquisition
 
@@ -1046,7 +1046,7 @@ Do not retry the request with that key. Start a new acquisition with a new key. 
 - The key was used by another job, or with a different `lease_ttl_seconds`.
 - The lease is no longer active and unchanged: its original deadline or current expiry has passed, one of its attempts was completed or released, or the pool is no longer leasing.
 
-Other `409 Conflict` responses, such as for an expired or destroyed pool, have no `code`. There is no separate key store: a key lasts as long as its lease and can only replay until the lease's original deadline.
+If the pool is already expired or destroyed at lookup, the API returns `404 Not Found` instead. There is no separate key store: a key lasts as long as its lease and can only replay until the lease's original deadline.
 
 Without the header, the API cannot recognize a retry. Clients that omit the header must not repeat a request whose outcome is unknown, such as one that timed out or lost its connection, because the server may have leased work the client never received.
 
@@ -1492,8 +1492,8 @@ Status | Description
 `400 Bad Request` | The request contains malformed JSON, is not a JSON object, omits a required query string parameter, or provides a malformed build or pipeline UUID for REST API authentication.
 `401 Unauthorized` | Authentication is missing or invalid.
 `403 Forbidden` | The token lacks the required scope or claim, or a request value does not match a token claim.
-`404 Not Found` | The pool or lease does not exist or is not accessible to the token.
-`409 Conflict` | The requested operation conflicts with the current pool, lease, or attempt state. For example, the pool is expired, an entry upload targets a pool that is no longer populating, or a completion changes an already-recorded result.
+`404 Not Found` | The pool or lease does not exist or is not accessible to the token. For example, creating a lease for an already expired or destroyed pool returns this status.
+`409 Conflict` | The requested operation conflicts with the current pool, lease, or attempt state. For example, an entry upload targets a pool that is no longer populating, or a completion changes an already-recorded result.
 `429 Too Many Requests` | The API throttled the request. See [rate limits](#rate-limits) for retry guidance.
 `422 Unprocessable Entity` | A request property, UUID, limit, or state transition is invalid.
 `503 Service Unavailable` | Test Scheduler storage or request retry tracking is temporarily unavailable. For an entry upload, retry with the same `Idempotency-Key` header and unchanged entries.

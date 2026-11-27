@@ -477,7 +477,7 @@ To use recommended parallelism instead of a fixed job count, add `--max-parallel
 
 Set `--local-retry-count` on `pool run` to retry failed tests on the same worker before reporting the result. Local retries skip muted tests. Set `--pool-retry-count` on `pool plan` to let Test Scheduler retry the entire failed or errored entry, usually a test file. Any worker can pick up that retry.
 
-If planning falls back, `pool plan` passes an empty pool ID and sets `BUILDKITE_TEST_ENGINE_POOL_FALLBACK=true`. Workers then split locally discovered tests across the parallel jobs without contacting Test Scheduler. A worker can also fall back if it can't fetch its pool before leasing. It can't switch to a local split after leasing starts. Local fallback applies neither test selection nor muting.
+If planning falls back, `pool plan` passes an empty pool ID and sets `BUILDKITE_TEST_ENGINE_POOL_FALLBACK=true`. Workers then split locally discovered tests across the parallel jobs without contacting Test Scheduler. Before leasing starts, a worker can also fall back to a local split if Test Scheduler is unavailable. Not all pool errors trigger fallback. It can't switch to a local split after leasing starts. Local fallback applies neither test selection nor muting.
 
 For runner setup and the full set of options, see the [bktec pool run guide](https://github.com/buildkite/bktest/blob/v3.7.0/docs/pool-run.md).
 
