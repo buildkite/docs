@@ -131,12 +131,12 @@ For most pipelines, use `bktec pool run`. Supported runners are RSpec, pytest, J
 
 Choose how each worker runs its leases:
 
-- **Persistent runner**: Pass the runner command after `--` to start one process per job and reuse it for every lease. RSpec and pytest support this mode. The runner's collector uploads results, not bktec.
+- **Persistent runner**: Pass the runner command after `--` to start one process per job and reuse it for every lease. Use `buildkite-rspec` from the [Ruby test collector](/docs/pipelines/configure/tests/test-collection/ruby-collectors#rspec-collector) or `buildkite-pytest` from the [Python test collector](/docs/pipelines/configure/tests/test-collection/python-collectors#pytest-collector). The collector uploads results, not bktec.
 - **Native runner**: Omit the command after `--` to start a new test command for each lease. Jest, Playwright, and pytest support this mode. Configure the test command, result path, and [result uploads](#using-bktec-configure-result-uploads) as you would for `bktec run`.
 
 #### Plan the pool and start workers
 
-Run `bktec pool plan` in a separate step to discover tests and create the pool once. Workers don't create pools. Pass the resulting pool ID to each `bktec pool run` worker using `BUILDKITE_TEST_ENGINE_POOL_ID` (or `--pool-id`). Without a pool ID, the worker fails unless `BUILDKITE_TEST_ENGINE_POOL_FALLBACK=true`. Use the same test discovery settings in the planner and workers so fallback discovers the same tests.
+Run `bktec pool plan` in a separate step to discover tests and create the pool once. Pass the resulting pool ID to each `bktec pool run` worker using `BUILDKITE_TEST_ENGINE_POOL_ID` (or `--pool-id`). Without a pool ID, the worker fails unless `BUILDKITE_TEST_ENGINE_POOL_FALLBACK=true`. Use the same test discovery settings in the planner and workers so fallback discovers the same tests.
 
 You need bktec v3.7.0 or later on the agent's `PATH`. bktec uses [OIDC through the Buildkite agent](/docs/agent/cli/reference/oidc) by default. Configure the suite's [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc) to allow `read_test_pool` and `write_test_pool` for the planning and worker jobs.
 
