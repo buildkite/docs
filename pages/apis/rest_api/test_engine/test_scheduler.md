@@ -735,7 +735,6 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
         "duration_p50_ms": 900
       },
       "priority": 5,
-      "affinity_group": null,
       "state": "pending",
       "result": null,
       "meta_data": {
@@ -794,7 +793,7 @@ Optional entry properties:
   </tr>
   <tr>
     <th><code>entries[].affinity_group</code></th>
-    <td>A string of up to 255 characters. Test Scheduler groups initial attempts with the same affinity key and attempt index. Attempts created later by the attempt policy don't inherit the group. All entries in an affinity group must be included in the same upload request. A blank or <code>null</code> value means that the entry has no affinity group.</td>
+    <td>A string of up to 255 characters. Affinity groups must be enabled separately for your Buildkite organization. Without access, a nonblank value causes the entire upload to fail with HTTP <code>422</code>. Test Scheduler groups initial attempts with the same affinity key and attempt index. Attempts created later by the attempt policy don't inherit the group. All entries in an affinity group must be included in the same upload request. A blank or <code>null</code> value means that the entry has no affinity group.</td>
   </tr>
   <tr>
     <th><code>entries[].meta_data</code></th>
