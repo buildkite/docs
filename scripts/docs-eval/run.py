@@ -138,10 +138,11 @@ def aeo_attempt(case, response_file):
 
 def render_summary(report, baseline):
     docs = report["track"] == "docs"
-    lines = [f"## {'Docs quality' if docs else 'Live-site AEO'}", "", f"Source: `{report['source']}`", ""]
+    lines = [f"## {'Docs quality (v2)' if docs else 'Live-site AEO'}", "", f"Source: `{report['source']}`", ""]
     if not docs and not baseline:
         lines.extend(["No Claude API baseline recorded yet.", ""])
     deltas = []
+    technical_lines = []
     for case_id, result in report["cases"].items():
         previous = baseline.get("cases", {}).get(case_id, {})
         same_definition = result["definition"] == previous.get("definition")
@@ -149,7 +150,11 @@ def render_summary(report, baseline):
         comparable = (score is not None and previous.get("score") is not None
                       and baseline.get("settings") == report["settings"] and same_definition)
         line = f"- **{case_id}**: {'unscored' if score is None else f'{score:.2f}/2'}"
-        if comparable:
+        technical = result.get("technical", False)
+        if technical:
+            status = "not run" if score is None else "passed" if score == len(result["checks"]) else "failed"
+            line = f"- **{case_id}**: {status}"
+        elif comparable:
             delta = score - previous["score"]
             deltas.append(delta)
             line += f" ({delta:+.2f} vs baseline)"
@@ -172,17 +177,20 @@ def render_summary(report, baseline):
             errors = sorted({a["error"] for a in result["attempts"] if "error" in a})
             if errors:
                 line += f"; see report.json for {len(errors)} distinct error(s)"
-        lines.append(line)
+        (technical_lines if technical else lines).append(line)
     if docs:
-        scores = [result["score"] for result in report["cases"].values() if result["score"] is not None]
-        case_count = len(report["cases"])
+        reader_cases = {key: result for key, result in report["cases"].items() if not result.get("technical")}
+        scores = [result["score"] for result in reader_cases.values() if result["score"] is not None]
+        case_count = len(reader_cases)
         if len(scores) == case_count:
             total = f"**Total: {sum(scores)}/{2 * case_count}**"
-            if len(deltas) == case_count and report["cases"].keys() == baseline["cases"].keys():
+            if len(deltas) == case_count and reader_cases.keys() == baseline["cases"].keys():
                 total += f" ({sum(deltas):+d} vs baseline)"
         else:
             total = f"**No total: {len(scores)}/{case_count} cases scored**"
         lines[4:4] = [total, ""]
+        if technical_lines:
+            lines.extend(["", "### Agent access (outside the total)", "", *technical_lines])
     return "\n".join(lines) + "\n"
 
 
@@ -206,7 +214,7 @@ def main():
     baseline = json.loads(baseline_path.read_text()) if baseline_path else {}
     args.out.mkdir(parents=True, exist_ok=True)
     if args.track == "docs":
-        settings = {"format": "rendered Markdown", "scorer": "two content checks v1"}
+        settings = {"format": "rendered Markdown", "scorer": "two content checks v2"}
     else:
         settings = {"model": MODEL, "tool": SEARCH, "repeats": REPEATS, "max_tokens": MAX_TOKENS,
                     "answer_instructions": ANSWER_INSTRUCTIONS, "judge_instructions": JUDGE_INSTRUCTIONS}
@@ -219,6 +227,8 @@ def main():
         case_id = case["id"]
         if args.track == "docs":
             result = docs_case(case, args.base_url.rstrip("/"), args.out, pages)
+            if case.get("technical"):
+                result["technical"] = True
             rubric = case["checks"]
         elif "aeo" in case:
             rubric = case["aeo"]

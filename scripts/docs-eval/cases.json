@@ -6,9 +6,11 @@
     "human_review": "Start on docs home without search. Record clicks, wrong turns, and whether the sidebar preserves orientation.",
     "checks": [
       {
-        "label": "Docs home points to the Pipelines landing page",
+        "label": "Docs home gives first-time readers a setup cue next to a Pipelines or getting-started link",
         "path": "/docs",
-        "patterns": ["\\]\\([^ )]*/docs/pipelines(?:\\.md)?\\)"]
+        "patterns": [
+          "^(?=[^\\n]*(?:get(?:ting)? started|first (?:build|pipeline)|example pipeline|your own (?:repo|pipeline)))[^\\n]*\\]\\([^ )]*/docs/pipelines(?:/getting-started)?(?:\\.md)?(?:#[^ )]+)?\\)"
+        ]
       },
       {
         "label": "Pipelines offers separate links for example and own-repo setup",
@@ -39,9 +41,11 @@
         ]
       },
       {
-        "label": "Setup tutorial shows a command step and how to start a build",
-        "path": "/docs/pipelines/getting-started",
-        "patterns": ["command:", "hosted", "New Build", "Create Build"]
+        "label": "GitHub setup connects repository setup to a concrete first-build tutorial",
+        "path": "/docs/pipelines/source-control/github",
+        "patterns": [
+          "^## Set up a new pipeline for a GitHub repository[^\\n]*\\n(?:(?!^## )[\\s\\S])*?\\]\\([^ )]*/pipelines/(?:getting-started|starting-a-new-build)(?:\\.md)?(?:#[^ )]+)?\\)"
+        ]
       }
     ]
   },
@@ -88,11 +92,11 @@
         ]
       },
       {
-        "label": "Migration guide links to agent installation and gives a worked migration",
+        "label": "Migration guide connects self-hosted installation to a first test job on the chosen queue",
         "path": "/docs/pipelines/migration/from-jenkins",
         "patterns": [
           "\\]\\([^ )]*/agent/self-hosted/install(?:\\.md)?\\)",
-          "^## Translate an example Jenkins pipeline"
+          "^\\s*-\\s+(?:label:[^\\n]*\\n\\s+)?command:[^\\n]*test[^\\n]*\\n(?:(?!^\\s*- |^```)[^\\n]*\\n)*?[ \\t]+agents:[ \\t]*\\n[ \\t]+queue:[ \\t]*\\S"
         ]
       }
     ]
@@ -225,8 +229,53 @@
     ]
   },
   {
+    "id": "audit-own-jenkins-pipelines",
+    "audit": "Editorial review pp. 29–30: Buried procedures; no steps for auditing your own Jenkins setup",
+    "prompt": "Before I move from Jenkins, how do I inventory my own pipelines and decide what to migrate first? I don't want to translate the sample app yet.",
+    "human_review": "Follow the inventory route using an existing Jenkins setup. Check that it identifies jobs, plugins, and dependencies and helps choose a first migration. Update the check if this task moves to a dedicated guide.",
+    "checks": [
+      {
+        "label": "The migration guide points to the reader's own Jenkins inventory in its opening 2,500 characters",
+        "path": "/docs/pipelines/migration/from-jenkins",
+        "patterns": [
+          "\\A[\\s\\S]{0,2500}?\\]\\([^ )]*(?:#audit-your-jenkins-pipelines|/audit-your-jenkins-setup(?:\\.md)?)(?:#[^ )]+)?\\)"
+        ]
+      },
+      {
+        "label": "The Jenkins inventory section gives ordered actions for identifying what to migrate",
+        "path": "/docs/pipelines/migration/from-jenkins",
+        "patterns": [
+          "^## Audit your Jenkins pipelines[^\\n]*\\n(?:(?!^## )[^\\n]*\\n)*?^1\\. [^\\n]+\\n(?:(?!^## )[^\\n]*\\n)*?^(?:1|2)\\. "
+        ]
+      }
+    ]
+  },
+  {
+    "id": "test-engine-with-existing-ci",
+    "audit": "Editorial review pp. 15–16, 20–21: No starting path for adding Test Engine to existing CI",
+    "prompt": "We want flaky-test reporting but aren't moving off our current CI. Can we use Test Engine, and where do I start collecting results?",
+    "human_review": "Follow the links from docs home and check whether the setup works without adding a Buildkite pipeline.",
+    "checks": [
+      {
+        "label": "Docs home identifies Test Engine as a path for teams keeping their current CI",
+        "path": "/docs",
+        "patterns": [
+          "^(?=[^\\n]*(?:existing CI|current CI|without (?:switching|changing) CI|non-Buildkite CI))[^\\n]*\\]\\([^ )]*/docs/pipelines/configure/tests(?:\\.md|/[^ )]+)?(?:#[^ )]+)?\\)"
+        ]
+      },
+      {
+        "label": "The Test Engine overview links the existing-CI explanation to collection instructions",
+        "path": "/docs/pipelines/configure/tests",
+        "patterns": [
+          "(?:existing CI|current CI|without (?:switching|changing) CI|non-Buildkite CI)[^\\n]*(?:\\n\\n[^\\n]*)?\\]\\([^ )]*/docs/pipelines/configure/tests/test-collection(?:\\.md|/[^ )]+)?(?:#[^ )]+)?\\)"
+        ]
+      }
+    ]
+  },
+  {
     "id": "markdown-onboarding",
     "audit": "pp. 3, 9: Agent access; no usable Markdown for docs home and Pipelines",
+    "technical": true,
     "prompt": "Can I retrieve the docs home as Markdown and follow the Pipelines onboarding links without switching to HTML?",
     "checks": [
       {

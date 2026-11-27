@@ -15,5 +15,5 @@ if ! curl --fail --silent --show-error --max-time 10 \
 fi
 
 python3 scripts/docs-eval/run.py docs --base-url "$base_url" --source "${BUILDKITE_COMMIT}" \
-    --baseline scripts/docs-eval/baseline.json --out docs-eval-results/docs
+    --baseline scripts/docs-eval/baseline-v2.json --out docs-eval-results/docs
 buildkite-agent annotate --context docs-quality --style info < docs-eval-results/docs/summary.md
