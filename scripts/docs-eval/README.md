@@ -12,11 +12,11 @@ python3 scripts/docs-eval/run.py docs \
   --baseline scripts/docs-eval/baseline-v2.json --out /tmp/docs-eval
 ```
 
-For uncommitted page changes, give `--source` a label that distinguishes the draft from the commit. To test the published site instead, omit `--base-url` and only pass `--source` if you can verify the deployment. The published baseline came from [Docs (Private) build 20044](https://buildkite.com/buildkite/docs-private/builds/20044): the affected pages exposed its build number in their Datadog RUM version.
+For uncommitted page changes, give `--source` a label that distinguishes the draft from the commit. To test the published site instead, omit `--base-url` and only pass `--source` if you can verify the deployment. The v2 baseline uses [Docs (Private) build 20068](https://buildkite.com/buildkite/docs-private/builds/20068): the affected pages exposed its build number in their Datadog RUM version.
 
 Each reader case in `cases.json` defines a question and two expected checks. A score of 2 means both checks found the expected evidence, 1 means only one did, and 0 means neither did. A missing page or HTML response to a Markdown request counts as missing evidence. Network and server errors leave the case unscored. The Markdown onboarding check appears under **Agent access** and does not count toward the reader total. `report.json` gives the result, page hash, and matched lines. The page files preserve the source behind each score.
 
-The v2 baseline replays the saved Markdown from the original published revision. It expects a setup cue on docs home, a discovery path from GitHub setup to a first build, and an example of targeting a test job to the chosen queue from the Jenkins migration guide. Keep the original `baseline.json` for historical reference. Do not compare its total with v2.
+The v2 baseline expects a setup cue on docs home, a path from GitHub setup to a first build, and a test job example targeting the chosen queue in the Jenkins migration guide. It also checks whether readers can audit their own Jenkins setup and start collecting Test Engine results without switching CI. Keep the original `baseline.json` for historical reference. Do not compare its total with v2.
 
 The checks look at expected content and links in rendered Markdown. They do not model a reader looking for the right page, guarantee link navigation, or prove a snippet works. Recheck any unexpected result against the saved page. If a check needs changing after a rewrite, the runner omits the old score delta for that case. Use the `human_review` notes to test tasks that need a first-time reader or a real pipeline.
 
