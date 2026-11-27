@@ -1,0 +1,20 @@
+agents:
+  queue: hosted
+
+steps:
+  - label: ":book: Docs quality"
+    key: docs-quality
+    timeout_in_minutes: 25
+    command: bash scripts/docs-eval/ci.sh
+    artifact_paths: "docs-eval-results/docs/*"
+
+  - label: ":mag: Live-site AEO"
+    key: live-aeo
+    if: build.branch == "main" && build.env("DOCS_EVAL_AEO_ENABLED") == "true"
+    timeout_in_minutes: 30
+    secrets:
+      ANTHROPIC_API_KEY: DOCS_EVAL_ANTHROPIC_API_KEY
+    commands:
+      - python3 scripts/docs-eval/run.py aeo --out docs-eval-results/aeo
+      - buildkite-agent annotate --context live-aeo --style info < docs-eval-results/aeo/summary.md
+    artifact_paths: "docs-eval-results/aeo/*"

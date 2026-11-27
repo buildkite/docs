@@ -1,0 +1,247 @@
+[
+  {
+    "id": "start-from-home",
+    "audit": "pp. 5–7: No clear start; start each reader at their use case",
+    "prompt": "I just opened the Buildkite docs. Where can I run a sample pipeline, and where do I go to run my own repo instead?",
+    "human_review": "Start on docs home without search. Record clicks, wrong turns, and whether the sidebar preserves orientation.",
+    "checks": [
+      {
+        "label": "Docs home points to the Pipelines landing page",
+        "path": "/docs",
+        "patterns": ["\\]\\([^ )]*/docs/pipelines(?:\\.md)?\\)"]
+      },
+      {
+        "label": "Pipelines offers separate links for example and own-repo setup",
+        "path": "/docs/pipelines",
+        "patterns": [
+          "\\[[^\\]\\n]*example[^\\]\\n]*\\]\\([^ )]*/pipelines/getting-started(?:\\.md)?\\)",
+          "\\]\\([^ )]*/pipelines/getting-started(?:\\.md)?#create-your-own-pipeline\\)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "private-github-first-build",
+    "audit": "pp. 4–5, 11: Pipeline examples; mixed GitHub page; first pipeline setup",
+    "prompt": "I have a private GitHub repo and want to run one test command in Buildkite before setting up my own runners. What should I do to get the first build running?",
+    "aeo": [
+      "Use a hosted queue and connect the private repo with the GitHub App that grants code access (not the limited-access app), restricting the installation to the desired repository if appropriate.",
+      "Create a pipeline for that repo with one command step routed to the hosted queue, then trigger a manual build on the desired branch and find the job logs. Repository YAML is optional for the inline route."
+    ],
+    "human_review": "Confirm a first-time reader can connect the GitHub instructions to the setup tutorial. Validate the example with a real test repository separately.",
+    "checks": [
+      {
+        "label": "GitHub docs explain which app gives hosted agents private checkout access",
+        "path": "/docs/pipelines/source-control/github",
+        "patterns": [
+          "full[- ]access GitHub App.{0,200}checkout credentials",
+          "Limited Access"
+        ]
+      },
+      {
+        "label": "Setup tutorial shows a command step and how to start a build",
+        "path": "/docs/pipelines/getting-started",
+        "patterns": ["command:", "hosted", "New Build", "Create Build"]
+      }
+    ]
+  },
+  {
+    "id": "pipeline-build-job-agent",
+    "audit": "pp. 5–7: Unexplained concepts and missing navigational markers",
+    "prompt": "What is the difference between a pipeline, a build, a job, and an agent? What should I try next to see them in action?",
+    "human_review": "Ask the reader to explain what they configure once and what runs for each commit, then point to where they would start.",
+    "checks": [
+      {
+        "label": "Architecture connects a configured pipeline to each build and its agent-executed jobs",
+        "path": "/docs/pipelines/architecture",
+        "patterns": [
+          "(?:build (?:is|runs) [^\\n]{0,60}(?:run of|instance of|the steps in) (?:a |the )?pipeline|/pipelines/glossary(?:\\.md)?#build)",
+          "control plane",
+          "makes jobs available to agents",
+          "agent accepts a job.{0,100}runs the job"
+        ]
+      },
+      {
+        "label": "Architecture links to first build setup",
+        "path": "/docs/pipelines/architecture",
+        "patterns": ["\\]\\([^ )]*/pipelines/getting-started(?:\\.md)?\\)"]
+      }
+    ]
+  },
+  {
+    "id": "jenkins-private-network",
+    "audit": "pp. 5, 7, 11: Jenkins guide promotion; agent choice and migration",
+    "prompt": "We run Jenkins in an AWS VPC. Our integration tests need a private database, and our build runners must stay on infrastructure we control. Can Buildkite replace Jenkins for this? What would we run ourselves and how should we start?",
+    "aeo": [
+      "Buildkite hosts the control plane and you run self-hosted agents in your VPC. Agents need access to the private database and outbound access to Buildkite. A requirement to self-host the control plane is a deal-breaker.",
+      "Start with one job on a self-hosted AWS agent and queue, reuse the existing test command, and verify the build/test results before switching over."
+    ],
+    "human_review": "Ask a Jenkins user to find a pilot plan without relying on a search-engine landing page.",
+    "checks": [
+      {
+        "label": "Architecture distinguishes a hosted control plane from jobs on a private network",
+        "path": "/docs/pipelines/architecture",
+        "patterns": [
+          "hosted.{0,20}control plane",
+          "access to your private network",
+          "logs and build results"
+        ]
+      },
+      {
+        "label": "Migration guide links to agent installation and gives a worked migration",
+        "path": "/docs/pipelines/migration/from-jenkins",
+        "patterns": [
+          "\\]\\([^ )]*/agent/self-hosted/install(?:\\.md)?\\)",
+          "^## Translate an example Jenkins pipeline"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hosted-or-self-hosted",
+    "audit": "pp. 5, 7, 11: Explain concepts and offer a setup-specific path",
+    "prompt": "Our small team wants Linux CI without managing machines. Which agents should we choose, and when would the recommendation change?",
+    "checks": [
+      {
+        "label": "Architecture contrasts managed machines with infrastructure control or private access",
+        "path": "/docs/pipelines/architecture",
+        "patterns": [
+          "without managing agent infrastructure",
+          "control over machine configuration or access to your private network"
+        ]
+      },
+      {
+        "label": "Architecture links to hosted queue setup and self-hosted installation",
+        "path": "/docs/pipelines/architecture",
+        "patterns": [
+          "/agent/queues/managing(?:\\.md)?#create-a-buildkite-hosted-queue",
+          "/agent/self-hosted/install(?:\\.md)?\\)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "route-to-test-queue",
+    "audit": "pp. 5, 7: Mixed Manage clusters page; task-specific guidance",
+    "prompt": "I have one cluster and a dedicated Linux machine. How do I create a queue for integration tests and make just that step use it?",
+    "checks": [
+      {
+        "label": "Cluster management points to queue creation for the existing cluster",
+        "path": "/docs/pipelines/security/clusters/manage",
+        "patterns": ["/agent/queues/managing(?:\\.md)?\\)"]
+      },
+      {
+        "label": "Queues docs show self-hosted setup and step-level queue targeting",
+        "path": "/docs/agent/queues",
+        "patterns": [
+          "/agent/queues/managing(?:\\.md)?#create-a-self-hosted-queue",
+          "agents:\\s*\\n\\s+queue:"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "static-or-dynamic",
+    "audit": "pp. 5, 7: Explain a concept and make the first step concrete",
+    "prompt": "We have one repo with identical test jobs on every push. Do we need a dynamic pipeline? When would I switch, and what starts it?",
+    "checks": [
+      {
+        "label": "Guide recommends static YAML for fixed jobs and generation for runtime information",
+        "path": "/docs/pipelines/configure/dynamic-pipelines",
+        "patterns": [
+          "same steps every time.{0,30}Static YAML",
+          "calculate steps.{0,100}build time"
+        ]
+      },
+      {
+        "label": "Guide shows a generator sending its output to pipeline upload",
+        "path": "/docs/pipelines/configure/dynamic-pipelines",
+        "patterns": [
+          "^## Your first dynamic pipeline",
+          "\\|\\s*buildkite-agent pipeline upload"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "jenkins-order-and-workspace",
+    "audit": "pp. 4–5, 11: Pipeline snippets and Jenkins migration",
+    "prompt": "My Jenkins build compiles, then tests the compiled files. Can I put two Buildkite steps in order in YAML and rely on the same workspace? What should I do instead?",
+    "human_review": "Run the translated example in a disposable pipeline. Static evidence cannot prove upload validity or workspace behavior.",
+    "checks": [
+      {
+        "label": "Migration explains parallel execution and how to express dependencies",
+        "path": "/docs/pipelines/migration/from-jenkins",
+        "patterns": ["parallel by default", "depends_on"]
+      },
+      {
+        "label": "Migration explains fresh workspaces and shows both artifact upload and download",
+        "path": "/docs/pipelines/migration/from-jenkins",
+        "patterns": ["fresh workspace", "artifact_paths", "artifact download"]
+      }
+    ]
+  },
+  {
+    "id": "self-serve-signup",
+    "audit": "pp. 5–7, 11: No clear start and buried first steps",
+    "prompt": "I want to try Buildkite Pipelines myself, without a sales call. Where do I sign up, and what can I try immediately?",
+    "human_review": "Check that the signup link and first task are visible at desktop and mobile widths. Do not submit the form.",
+    "checks": [
+      {
+        "label": "The self-serve signup link appears before pipeline construction",
+        "path": "/docs/pipelines/getting-started",
+        "patterns": [
+          "\\A[\\s\\S]*?\\]\\(https://buildkite\\.com/signup(?:\\?[^ )]*)?\\)[\\s\\S]*?^## Create a new pipeline"
+        ]
+      },
+      {
+        "label": "Tutorial gives an example pipeline and tells the reader to run it",
+        "path": "/docs/pipelines/getting-started",
+        "patterns": ["example pipeline", "New Build", "Create Build"]
+      }
+    ]
+  },
+  {
+    "id": "enterprise-sales-next-step",
+    "audit": "pp. 5, 7, 11: Keep promotion off task paths and give evaluators a relevant next step",
+    "prompt": "We are evaluating Buildkite for a move from Jenkins. We need to keep runners in our AWS account and talk to someone about enterprise requirements before signing up. Where do I go?",
+    "human_review": "Walk the HTML journey, including site-wide links. A missing inline link does not prove Contact Sales is unavailable.",
+    "checks": [
+      {
+        "label": "Jenkins comparison explains managed orchestration with execution on your infrastructure",
+        "path": "/docs/pipelines/advantages/buildkite-vs-jenkins",
+        "patterns": [
+          "managed SaaS control plane",
+          "agents running on your infrastructure"
+        ]
+      },
+      {
+        "label": "Comparison links directly to a sales conversation from the page content",
+        "path": "/docs/pipelines/advantages/buildkite-vs-jenkins",
+        "patterns": [
+          "(?:\\]\\(|href=\")https://buildkite\\.com/(?:contact(?:-sales)?|sales)(?:[/#?\")])"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "markdown-onboarding",
+    "audit": "pp. 3, 9: Agent access; no usable Markdown for docs home and Pipelines",
+    "prompt": "Can I retrieve the docs home as Markdown and follow the Pipelines onboarding links without switching to HTML?",
+    "checks": [
+      {
+        "label": "Docs home responds in Markdown and points to the Markdown Pipelines page",
+        "path": "/docs",
+        "patterns": ["^# .+", "\\]\\(https?://[^/]+/docs/pipelines\\.md\\)"]
+      },
+      {
+        "label": "The Markdown Pipelines page points to Markdown first pipeline setup",
+        "path": "/docs/pipelines.md",
+        "patterns": [
+          "^# .+",
+          "\\]\\(https?://[^/]+/docs/pipelines/getting-started\\.md\\)"
+        ]
+      }
+    ]
+  }
+]

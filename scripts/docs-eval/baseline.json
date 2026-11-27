@@ -1,0 +1,34 @@
+{
+  "track": "docs",
+  "run_at_utc": "2026-11-27T04:27:59.838194+00:00",
+  "source": "8b25f92affe7d94fbe0b29cfa63e67e86ce950c2",
+  "settings": {
+    "format": "rendered Markdown",
+    "scorer": "two content checks v1"
+  },
+  "cases": {
+    "start-from-home": { "definition": "1df645612ca8c0d7", "score": 2 },
+    "private-github-first-build": {
+      "definition": "797723edd17ff92f",
+      "score": 2
+    },
+    "pipeline-build-job-agent": {
+      "definition": "af431ab6fc136f78",
+      "score": 1
+    },
+    "jenkins-private-network": { "definition": "6021a2d172d2393d", "score": 2 },
+    "hosted-or-self-hosted": { "definition": "21dae66e8bf60ef9", "score": 2 },
+    "route-to-test-queue": { "definition": "91248c71dbb01234", "score": 2 },
+    "static-or-dynamic": { "definition": "14ee11213edf37c1", "score": 2 },
+    "jenkins-order-and-workspace": {
+      "definition": "92acf468027c6311",
+      "score": 1
+    },
+    "self-serve-signup": { "definition": "2df27a8fe115f8d3", "score": 2 },
+    "enterprise-sales-next-step": {
+      "definition": "bc505c7abf180240",
+      "score": 1
+    },
+    "markdown-onboarding": { "definition": "a84d90f1790054fe", "score": 2 }
+  }
+}
