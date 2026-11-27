@@ -46,7 +46,7 @@ Test Scheduler API requests accept an OpenID Connect (OIDC) token issued to a Bu
 
 ### OIDC authentication
 
-First, create a suite or choose an existing suite. Set the  [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc) through the suite's Settings page in the Buildkite interface, or using the [suites REST API](https://buildkite.com/docs/apis/rest-api/test-engine/suites) with the `oidc_policy` field on create or update.
+First, create a suite or choose an existing suite. Set the [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc) through the suite's **Settings** page in the Buildkite interface, or using the [suites REST API](/docs/apis/rest-api/test-engine/suites) with the `oidc_policy` field on create or update.
 
 ```
 - iss: "https://agent.buildkite.com"
@@ -762,7 +762,7 @@ Required [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>entries[].selector</code></th>
-    <td>A non-empty JSON string, array, or object that identifies the work. For <code>custom</code>, the producer and worker define its structure. For <code>test_plan_test_case_v1</code>, use the structured object described below. The default maximum encoded size is <code>1024</code> bytes.</td>
+    <td>A non-empty JSON object that identifies the work. For <code>custom</code>, the producer and worker define its structure. For <code>test_plan_test_case_v1</code>, use the structured object described below. The default maximum encoded size is <code>1024</code> bytes.</td>
   </tr>
 </tbody>
 </table>
@@ -810,7 +810,7 @@ Use the optional `Idempotency-Key` header to prevent duplicate entries when retr
 
 The request is atomic. If any entry is invalid, the API creates no entries. New entries can only be created while the pool is accepting entries, and has not transitioned to the `consuming` state.
 
-The API remembers successful requests with an `Idempotency-Key` for five minutes.  After the key expires, the API can create duplicates if the pool is still accepting entries.
+The API remembers successful requests with an `Idempotency-Key` for five minutes. After the key expires, the API can create duplicates if the pool is still accepting entries.
 
 Required scope: `write_test_pool`
 
@@ -1220,11 +1220,11 @@ Required [request body properties](/docs/api#request-body-properties):
 </tbody>
 </table>
 
-The request is atomic for the attempts listed. If any attempt cannot be completed, no attempts in the request are completed. Duplicate lease or attempt IDs are rejected. Attempts omitted from the request remain leased. After completion, the scheduler evaluates each affected entry asynchronously and may create additional waiting attempts according to the pool's attempt policy.
+The API can process a completion request in batches. If a later batch fails, attempts completed by earlier batches stay completed. Duplicate lease or attempt IDs are rejected. Attempts omitted from the request remain leased. After completion, the scheduler evaluates each affected entry asynchronously and may create additional waiting attempts according to the pool's attempt policy.
 
 The response contains the pool state before attempt-policy evaluation. Policy evaluation is triggered by completing an attempt. Completing the final attempt for the last unfinished entry can therefore return a pool state of `consuming`.
 
-Repeating a completion with the same result succeeds and returns `"completion_status": "already_completed"` without changing `completed_at`, even after the pool transitions to `consumed`. Repeating it with a different result returns `409 Conflict`. After the pool expires, completion requests return `404 Not Found`, including retries.
+After a transient error, retry the same lease IDs, attempt IDs, and results from the same job. For attempts already completed with the same result, a successful retry returns `"completion_status": "already_completed"` without changing `completed_at`, even after the pool transitions to `consumed`. Repeating a completion with a different result returns `409 Conflict`. After the pool expires, completion requests return `404 Not Found`, including retries.
 
 Required scope: `write_test_pool`
 
@@ -1297,7 +1297,9 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 The response groups released attempt IDs by lease. When `attempt_ids` is omitted, the API skips attempts that are already completed. Explicitly requesting a completed attempt returns `409 Conflict`.
 
-The request is atomic. If any requested lease or attempt is invalid, the API releases no attempts.
+Stop executing the attempts before requesting their release. The API can process a release request in batches. If a later batch fails, attempts released by earlier batches can already be available to other workers.
+
+If a batched release fails with a transient error, retry the same request from the same job without changing the order of leases or attempts. For two minutes after each batch succeeds, the API can replay that batch's result and continue with the remaining batches. A release isn't generally idempotent. For example, retrying after the replay window can return `404 Not Found` if the lease no longer holds the attempts.
 
 Required scope: `write_test_pool`
 
