@@ -1,6 +1,6 @@
 # Test Scheduler API
 
-To distribute tests across Buildkite Pipelines jobs, use [`bktec pool run`](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client#using-bktec-run-tests-with-test-scheduler) with the Test Engine Client. Supported runners are RSpec, pytest, Jest, and Playwright.
+To distribute tests across Buildkite Pipelines jobs, use [`bktec pool run`](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client#run-tests-with-test-scheduler) with the Test Engine Client. Supported runners are RSpec, pytest, Jest, and Playwright.
 
 Use the Test Scheduler REST API directly only if you need to manage your own test orchestration, including how jobs request work and report results.
 
