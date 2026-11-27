@@ -140,7 +140,7 @@ Run `bktec pool plan` in a separate step to discover tests and create the pool o
 
 You need bktec v3.7.0 or later on the agent's `PATH`. bktec uses [OIDC through the Buildkite agent](/docs/agent/cli/reference/oidc) by default. Configure the suite's [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc) to allow `read_test_pool` and `write_test_pool` for the planning and worker jobs.
 
-The planning job also needs `read_test_plan` if `pool plan` filters test files during discovery, as it does in the RSpec example below.
+Grant `read_test_plan` to the planning job as well.
 
 For this example, install the [persistent RSpec runner and configure its test collector](https://github.com/buildkite/bktest/blob/v3.7.0/docs/rspec.md#run-tests-in-one-rspec-process-with-bktec-pool-run).
 
