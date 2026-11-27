@@ -686,7 +686,7 @@ Success response: `200 OK`
 
 Uploads a batch of entries to a pool. Each entry describes work that the producer and worker understand. The API creates initial attempts according to the entry's selected policy. When `initial_attempts` is `null`, it creates the lower of `min_attempts` and `parallel_attempts`.
 
-Affinity groups require separate enablement for your Buildkite organization. To request access, contact [Buildkite Support](mailto:support@buildkite.com). Without access, omit `affinity_group` to upload ungrouped entries. A nonblank `affinity_group` returns `422 Unprocessable Entity` and the API creates no entries from that request.
+Affinity groups require separate enablement for your Buildkite organization. To request access, contact [Buildkite Support](mailto:support@buildkite.com). Without access, omit `affinity_group` to upload entries without a group. A nonblank `affinity_group` returns `422 Unprocessable Entity` and the API creates no entries from that request.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/entries" \
