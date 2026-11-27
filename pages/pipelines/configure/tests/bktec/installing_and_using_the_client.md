@@ -425,6 +425,62 @@ The `bktec plan` command generates the following additional environment variable
   </tbody>
 </table>
 
+## Run tests with Test Scheduler
+
+With `bktec run`, each parallel job gets a fixed share of the tests. With `bktec pool run`, all jobs in the step draw work from a shared Test Scheduler pool. Each job takes a batch of tests, called a _lease_, and requests more work as it finishes. This lets faster jobs pick up more tests instead of waiting for slower jobs to finish their share.
+
+> 📘 Private preview feature
+> Test Scheduler is in private preview and must be enabled for your Buildkite organization. To request access, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
+
+For most pipelines, use `bktec pool run`. Supported runners are RSpec, pytest, Jest, and Playwright. If you use another runner or need to manage your own test orchestration, use the [Test Scheduler REST API](/docs/apis/rest-api/test-engine/test-scheduler) directly.
+
+Choose how each worker runs its leases:
+
+- **Persistent runner**: Pass the runner command after `--` to start one process per job and reuse it for every lease. Use `buildkite-rspec` from the [Ruby test collector](/docs/pipelines/configure/tests/test-collection/ruby-collectors#rspec-collector) or `buildkite-pytest` from the [Python test collector](/docs/pipelines/configure/tests/test-collection/python-collectors#pytest-collector). The collector uploads results, not bktec.
+- **Native runner**: Omit the command after `--` to start a new test command for each lease. Jest, Playwright, and pytest support this mode. Configure the test command, result path, and [result uploads](#using-bktec-configure-result-uploads) as you would for `bktec run`.
+
+### Plan the pool and start workers
+
+Run `bktec pool plan` in a separate step to discover tests and create the pool once. Pass the resulting pool ID to each `bktec pool run` worker using `BUILDKITE_TEST_ENGINE_POOL_ID` (or `--pool-id`). Without a pool ID, the worker fails unless `BUILDKITE_TEST_ENGINE_POOL_FALLBACK=true`. Use the same test discovery settings in the planner and workers so fallback discovers the same tests.
+
+You need bktec v3.7.0 or later on the agent's `PATH`. bktec uses [OIDC through the Buildkite agent](/docs/agent/cli/reference/oidc) by default. Configure the suite's [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc) to allow `read_test_pool` and `write_test_pool` for the planning and worker jobs. The planning job also needs `read_test_plan`.
+
+For this example, install the [persistent RSpec runner and configure its test collector](https://github.com/buildkite/bktest/blob/v3.7.0/docs/rspec.md#run-tests-in-one-rspec-process-with-bktec-pool-run).
+
+```yaml
+steps:
+  - label: "Plan the RSpec pool"
+    command: >
+      bktec pool plan --suite-slug my-suite --test-runner rspec
+      --pipeline-upload .buildkite/pool-workers.yml
+```
+{: codeblock-file="pipeline.yml"}
+
+The planning command uploads the worker step using [environment variable substitution](/docs/agent/cli/reference/pipeline#environment-variable-substitution). Pass both variables to workers so they can lease from the pool or run locally when planning falls back:
+
+```yaml
+steps:
+  - label: "RSpec with Test Scheduler"
+    command: bktec pool run --suite-slug my-suite --test-runner rspec -- bundle exec buildkite-rspec
+    parallelism: 10
+    env:
+      BUILDKITE_TEST_ENGINE_POOL_ID: "${BUILDKITE_TEST_ENGINE_POOL_ID}"
+      BUILDKITE_TEST_ENGINE_POOL_FALLBACK: "${BUILDKITE_TEST_ENGINE_POOL_FALLBACK}"
+```
+{: codeblock-file=".buildkite/pool-workers.yml"}
+
+### Let Test Scheduler recommend the number of jobs
+
+To use recommended parallelism instead of a fixed job count, add `--max-parallelism 10 --target-time 2m` to `bktec pool plan` and set `parallelism: ${BUILDKITE_TEST_ENGINE_PARALLELISM}` in the worker template. `--max-parallelism` caps the recommendation. `--target-time` is optional and sets a target duration. An empty plan recommends zero jobs.
+
+### Handle retries and fallback
+
+Set `--local-retry-count` on `pool run` to retry failed tests on the same worker before reporting the result. Local retries skip muted tests. Set `--pool-retry-count` on `pool plan` to let Test Scheduler retry the entire failed or errored entry, usually a test file. Any worker can pick up that retry.
+
+If planning falls back, `pool plan` passes an empty pool ID and sets `BUILDKITE_TEST_ENGINE_POOL_FALLBACK=true`. Workers then split locally discovered tests across the parallel jobs without contacting Test Scheduler. Before leasing starts, a worker can also fall back to a local split if Test Scheduler is unavailable. Not all pool errors trigger fallback. It can't switch to a local split after leasing starts. Local fallback applies neither test selection nor muting.
+
+For runner setup and the full set of options, see the [bktec pool run guide](https://github.com/buildkite/bktest/blob/v3.7.0/docs/pool-run.md).
+
 ## Manual test selection
 
 To run only a list of tests that you choose, instead of the full suite, use manual test selection. bktec passes the list to Test Engine, which splits only the selected tests across your parallel jobs. Learn more in [Manual test selection](/docs/pipelines/configure/tests/bktec/manual-test-selection).
