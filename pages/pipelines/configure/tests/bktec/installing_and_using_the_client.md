@@ -138,9 +138,7 @@ Choose how each worker runs its leases:
 
 Run `bktec pool plan` in a separate step to discover tests and create the pool once. Pass the resulting pool ID to each `bktec pool run` worker using `BUILDKITE_TEST_ENGINE_POOL_ID` (or `--pool-id`). Without a pool ID, the worker fails unless `BUILDKITE_TEST_ENGINE_POOL_FALLBACK=true`. Use the same test discovery settings in the planner and workers so fallback discovers the same tests.
 
-You need bktec v3.7.0 or later on the agent's `PATH`. bktec uses [OIDC through the Buildkite agent](/docs/agent/cli/reference/oidc) by default. Configure the suite's [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc) to allow `read_test_pool` and `write_test_pool` for the planning and worker jobs.
-
-Grant `read_test_plan` to the planning job as well.
+You need bktec v3.7.0 or later on the agent's `PATH`. bktec uses [OIDC through the Buildkite agent](/docs/agent/cli/reference/oidc) by default. Configure the suite's [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc) to allow `read_test_pool` and `write_test_pool` for the planning and worker jobs. The planning job also needs `read_test_plan`.
 
 For this example, install the [persistent RSpec runner and configure its test collector](https://github.com/buildkite/bktest/blob/v3.7.0/docs/rspec.md#run-tests-in-one-rspec-process-with-bktec-pool-run).
 
