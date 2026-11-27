@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+python3 -B -m unittest discover -s scripts/docs-eval
+
 image="docs-eval:${BUILDKITE_JOB_ID}"
 docker buildx build --load --target runtime --build-arg RAILS_ENV=production --tag "$image" .
 container=$(docker run --detach --publish 127.0.0.1::3000 "$image")
@@ -14,6 +16,10 @@ if ! curl --fail --silent --show-error --max-time 10 \
     exit 1
 fi
 
+status=0
 python3 scripts/docs-eval/run.py docs --base-url "$base_url" --source "${BUILDKITE_COMMIT}" \
-    --baseline scripts/docs-eval/baseline-v2.json --out docs-eval-results/docs
-buildkite-agent annotate --context docs-quality --style info < docs-eval-results/docs/summary.md
+    --baseline scripts/docs-eval/baseline-v2.json --out docs-eval-results/docs || status=$?
+if [[ -f docs-eval-results/docs/summary.md ]]; then
+    buildkite-agent annotate --context docs-quality --style info < docs-eval-results/docs/summary.md
+fi
+exit "$status"

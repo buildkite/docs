@@ -2,13 +2,14 @@
 import argparse
 from datetime import datetime, timezone
 import hashlib
+from http.client import IncompleteRead
 import json
 import os
 from pathlib import Path
 import re
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
-from urllib.request import Request, urlopen
+from urllib.request import HTTPRedirectHandler, Request, build_opener, urlopen
 
 
 CASES = json.loads(Path(__file__).with_name("cases.json").read_text())
@@ -33,10 +34,18 @@ def save_json(path, value):
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
 
 
-def fetch_page(url, file):
+class NoRedirect(HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+def fetch_page(url, file, *, direct=False):
     evidence = {"url": url}
+    request_markdown = not direct or not url.endswith(".md")
+    headers = {"Accept": "text/markdown"} if request_markdown else {}
+    open_url = build_opener(NoRedirect()).open if direct else urlopen
     try:
-        with urlopen(Request(url, headers={"Accept": "text/markdown"}), timeout=30) as response:
+        with open_url(Request(url, headers=headers), timeout=30) as response:
             body = response.read()
             file.write_bytes(body)
             evidence.update(
@@ -46,32 +55,54 @@ def fetch_page(url, file):
             return evidence, body.decode("utf-8", errors="replace")
     except HTTPError as exc:
         evidence.update(status=exc.code, final_url=exc.url, error=f"HTTP {exc.code}")
-    except (URLError, TimeoutError) as exc:
+        if 300 <= exc.code < 400 and exc.headers.get("Location"):
+            evidence["location"] = exc.headers["Location"]
+    except (URLError, ConnectionError, TimeoutError, IncompleteRead) as exc:
         evidence.update(error=str(exc))
     return evidence, ""
 
 
 def docs_case(case, base, output, pages):
+    technical = case.get("technical", False)
     checks = []
+    access_failed = False
     for check in case["checks"]:
         path = check["path"]
-        if path not in pages:
-            file = output / (path.removeprefix("/").replace("/", "__") + ".txt")
-            pages[path] = fetch_page(base + path, file)
-        evidence, body = pages[path]
-        markdown = body if evidence.get("content_type") == "text/markdown" else ""
+        key = (path, technical)
+        if key not in pages:
+            suffix = ".agent-access.txt" if technical else ".txt"
+            file = output / (path.removeprefix("/").replace("/", "__") + suffix)
+            pages[key] = fetch_page(base + path, file, direct=technical)
+        evidence, body = pages[key]
+        is_markdown = evidence.get("content_type") == "text/markdown"
+        markdown = body if is_markdown else ""
         matches = [re.search(pattern, markdown, re.IGNORECASE | re.MULTILINE) for pattern in check["patterns"]]
-        unavailable = "error" in evidence and evidence.get("status") not in (404, 406, 410)
+        status = evidence.get("status")
+        unavailable = "error" in evidence and (status is None if technical else status not in (404, 406, 410))
+        access_ok = status == 200 and is_markdown
+        if technical and not unavailable and not access_ok:
+            access_failed = True
         checks.append({
             "label": check["label"], "page": evidence,
-            "passed": None if unavailable else all(matches),
+            "passed": None if unavailable else (not technical or access_ok) and all(matches),
             "evidence": [
                 {"pattern": pattern, "line": markdown.count("\n", 0, match.start()) + 1 if match else None}
                 for pattern, match in zip(check["patterns"], matches)
             ],
         })
-    score = None if any(check["passed"] is None for check in checks) else sum(check["passed"] for check in checks)
-    return {"score": score, "checks": checks}
+    outcomes = [check["passed"] for check in checks]
+    result = {"score": None if None in outcomes else sum(outcomes), "checks": checks}
+    if technical:
+        if access_failed:
+            case_status = "failed"
+        elif False in outcomes:
+            case_status = "content mismatch (informational)"
+        elif None in outcomes:
+            case_status = "not run"
+        else:
+            case_status = "passed"
+        result.update(technical=True, status=case_status)
+    return result
 
 
 def messages(instructions, prompt, **options):
@@ -152,8 +183,7 @@ def render_summary(report, baseline):
         line = f"- **{case_id}**: {'unscored' if score is None else f'{score:.2f}/2'}"
         technical = result.get("technical", False)
         if technical:
-            status = "not run" if score is None else "passed" if score == len(result["checks"]) else "failed"
-            line = f"- **{case_id}**: {status}"
+            line = f"- **{case_id}**: {result['status']}"
         elif comparable:
             delta = score - previous["score"]
             deltas.append(delta)
@@ -161,7 +191,8 @@ def render_summary(report, baseline):
         if docs:
             for check in result["checks"]:
                 if not check["passed"]:
-                    line += f"; {'not checked' if check['passed'] is None else 'not found'}: {check['label']}"
+                    reason = check["page"].get("error") if technical and check["passed"] is False else None
+                    line += f"; {reason or ('not checked' if check['passed'] is None else 'not found')}: {check['label']}"
         else:
             done = [attempt for attempt in result["attempts"] if attempt["status"] != "not_run"]
             graded = [attempt for attempt in done if attempt["status"] == "scored"]
@@ -227,8 +258,6 @@ def main():
         case_id = case["id"]
         if args.track == "docs":
             result = docs_case(case, args.base_url.rstrip("/"), args.out, pages)
-            if case.get("technical"):
-                result["technical"] = True
             rubric = case["checks"]
         elif "aeo" in case:
             rubric = case["aeo"]
@@ -244,7 +273,8 @@ def main():
     summary = render_summary(report, baseline)
     (args.out / "summary.md").write_text(summary)
     print(summary, end="")
+    return int(any(result.get("technical") and result["status"] == "failed" for result in report["cases"].values()))
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
