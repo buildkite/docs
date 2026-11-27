@@ -10,7 +10,7 @@ Use Test Engine to:
 
 - Detect and quarantine flaky tests so they stop blocking builds.
 - Split tests across parallel jobs to reduce build duration.
-- [Run tests with Test Scheduler](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client#using-bktec-run-tests-with-test-scheduler) (private preview) so parallel jobs can pick up more work as they finish.
+- [Run tests with Test Scheduler](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client#run-tests-with-test-scheduler) (private preview) so parallel jobs can pick up more work as they finish.
 - Monitor test performance, reliability, and ownership over time.
 - Surface the slowest and least reliable tests in each suite.
 
