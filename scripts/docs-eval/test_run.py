@@ -69,6 +69,7 @@ class MarkdownAccessTest(unittest.TestCase):
             with self.subTest(status=status):
                 result, checks = self.run_eval(**options)
                 self.assertEqual(result.returncode, 1)
+                self.assertIn("**Agent access: 1/2 endpoints passed**", result.stdout)
                 self.assertIn("**markdown-onboarding**: failed", result.stdout)
                 self.assertIs(checks[failure_index]["passed"], False)
                 self.assertEqual(checks[failure_index]["page"]["status"], status)
@@ -76,6 +77,7 @@ class MarkdownAccessTest(unittest.TestCase):
     def test_reports_changed_setup_link_without_failing_the_eval(self):
         result, checks = self.run_eval(setup_guide="new-setup-guide")
         self.assertEqual(result.returncode, 0)
+        self.assertIn("**Agent access: 2/2 endpoints passed**", result.stdout)
         self.assertIn("**markdown-onboarding**: content mismatch (informational)", result.stdout)
         self.assertEqual([check["passed"] for check in checks], [True, False])
 
@@ -90,5 +92,6 @@ class MarkdownAccessTest(unittest.TestCase):
     def test_truncated_markdown_response_is_not_checked(self):
         result, checks = self.run_eval(truncate_pipelines=True)
         self.assertEqual(result.returncode, 0)
+        self.assertIn("**Agent access: 1/2 endpoints passed** (1 not checked)", result.stdout)
         self.assertIn("**markdown-onboarding**: not run", result.stdout)
         self.assertEqual([check["passed"] for check in checks], [True, None])

@@ -65,7 +65,6 @@ def fetch_page(url, file, *, direct=False):
 def docs_case(case, base, output, pages):
     technical = case.get("technical", False)
     checks = []
-    access_failed = False
     for check in case["checks"]:
         path = check["path"]
         key = (path, technical)
@@ -80,8 +79,6 @@ def docs_case(case, base, output, pages):
         status = evidence.get("status")
         unavailable = "error" in evidence and (status is None if technical else status not in (404, 406, 410))
         access_ok = status == 200 and is_markdown
-        if technical and not unavailable and not access_ok:
-            access_failed = True
         checks.append({
             "label": check["label"], "page": evidence,
             "passed": None if unavailable else (not technical or access_ok) and all(matches),
@@ -90,10 +87,12 @@ def docs_case(case, base, output, pages):
                 for pattern, match in zip(check["patterns"], matches)
             ],
         })
+        if technical:
+            checks[-1]["access_passed"] = None if unavailable else access_ok
     outcomes = [check["passed"] for check in checks]
     result = {"score": None if None in outcomes else sum(outcomes), "checks": checks}
     if technical:
-        if access_failed:
+        if any(check["access_passed"] is False for check in checks):
             case_status = "failed"
         elif False in outcomes:
             case_status = "content mismatch (informational)"
@@ -173,6 +172,7 @@ def render_summary(report, baseline):
     if not docs and not baseline:
         lines.extend(["No Claude API baseline recorded yet.", ""])
     deltas = []
+    access_outcomes = []
     technical_lines = []
     for case_id, result in report["cases"].items():
         previous = baseline.get("cases", {}).get(case_id, {})
@@ -183,6 +183,7 @@ def render_summary(report, baseline):
         line = f"- **{case_id}**: {'unscored' if score is None else f'{score:.2f}/2'}"
         technical = result.get("technical", False)
         if technical:
+            access_outcomes.extend(check["access_passed"] for check in result["checks"])
             line = f"- **{case_id}**: {result['status']}"
         elif comparable:
             delta = score - previous["score"]
@@ -214,14 +215,18 @@ def render_summary(report, baseline):
         scores = [result["score"] for result in reader_cases.values() if result["score"] is not None]
         case_count = len(reader_cases)
         if len(scores) == case_count:
-            total = f"**Total: {sum(scores)}/{2 * case_count}**"
+            total = f"**Reader journeys: {sum(scores)}/{2 * case_count}**"
             if len(deltas) == case_count and reader_cases.keys() == baseline["cases"].keys():
                 total += f" ({sum(deltas):+d} vs baseline)"
         else:
-            total = f"**No total: {len(scores)}/{case_count} cases scored**"
+            total = f"**Reader journeys: no total** ({len(scores)}/{case_count} cases scored)"
         lines[4:4] = [total, ""]
         if technical_lines:
-            lines.extend(["", "### Agent access (outside the total)", "", *technical_lines])
+            access = f"**Agent access: {access_outcomes.count(True)}/{len(access_outcomes)} endpoints passed**"
+            if None in access_outcomes:
+                access += f" ({access_outcomes.count(None)} not checked)"
+            lines[6:6] = [access, ""]
+            lines.extend(["", "### Agent access details", "", *technical_lines])
     return "\n".join(lines) + "\n"
 
 
